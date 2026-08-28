@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EG Studio | Enterprise-Grade Video Automation & Repurposing Pipeline</title>
+    <script src="https://tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        @import url('https://googleapis.com');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glow-button {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
+            transform: translateY(-1px);
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 9999px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #6366f1;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            border: 2px solid #a5b4fc;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        .view-pane {
+            display: none;
+        }
+        .view-pane.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-indigo-500/30">
+
+    <!-- Global Navigation Header Layer -->
+    <nav class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <button onclick="switchView('home')" class="flex items-center gap-2 font-bold text-xl tracking-tight text-white hover:opacity-90 transition-opacity">
+                <i class="fa-solid fa-wand-magic-sparkles text-indigo-400"></i>
+                <span>EG Studio</span>
+            </button>
+            <div class="flex items-center gap-4 sm:gap-6">
+                <button onclick="switchView('home')" class="text-sm text-slate-400 hover:text-slate-200 transition-colors hidden md:inline-block">Product</button>
+                <button onclick="switchView('pricing')" class="text-sm text-slate-400 hover:text-slate-200 transition-colors">Pricing</button>
+                <button onclick="switchView('calculator-page')" class="text-sm text-slate-400 hover:text-slate-200 transition-colors hidden sm:inline-block">Margin Tool</button>
+                <button onclick="switchView('workflow')" class="text-sm text-slate-400 hover:text-slate-200 transition-colors">How it Works</button>
+                <button onclick="switchView('onboarding')" class="glow-button bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-4 py-2 rounded-xl transition-all shadow-lg shadow-indigo-600/10">
+                    Free Test Clip
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE 1: HOME PAGE VIEW PANE -->
+    <main id="view-home" class="view-pane active">
+        <!-- Hero Framework -->
+        <section class="relative pt-20 pb-20 px-6 overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.07),transparent_45%)]"></div>
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-xs text-indigo-300 mb-6 font-medium tracking-wide uppercase">
+                    <i class="fa-solid fa-shield-halved"></i> Premium 100% White-Label Automation
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15]">
+                    Scale Your Agency Retainers Without Increasing Headcount
+                </h1>
+                <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Convert your clients' raw files into 15 high-retention, hook-optimized vertical assets for <span class="text-slate-200 font-semibold">$1,500 flat</span>. Add it as a premium upsell and keep 100% of the margin.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button onclick="switchView('onboarding')" class="w-full sm:w-auto glow-button bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-base px-8 py-3.5 rounded-xl shadow-xl shadow-indigo-600/20 inline-flex items-center justify-center gap-2 group">
+                        <span>Deploy a Free Test Clip</span>
+                        <i class="fa-solid fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></i>
+                    </button>
+                    <button onclick="switchView('calculator-page')" class="w-full sm:w-auto border border-slate-800 text-slate-300 hover:bg-slate-900/50 hover:text-white px-8 py-3.5 rounded-xl font-medium transition-all">
+                        Simulate Revenue Margin
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Validation Sandbox Grid -->
+        <section class="py-12 px-6 max-w-6xl mx-auto border-t border-slate-900/60">
+            <p class="text-center text-xs font-semibold uppercase tracking-widest text-slate-500 mb-8">Trusted Backend Layer For Fast-Growing Agencies</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-slate-400 text-lg font-bold opacity-60">
+                <div class="p-4 border border-slate-900 bg-slate-950/40 rounded-xl"><i class="fa-solid fa-layer-group mr-2"></i>Lower Street</div>
+                <div class="p-4 border border-slate-900 bg-slate-950/40 rounded-xl"><i class="fa-solid fa-cubes mr-2"></i>SweetFish</div>
+                <div class="p-4 border border-slate-900 bg-slate-950/40 rounded-xl"><i class="fa-solid fa-circle-nodes mr-2"></i>Fame B2B</div>
+                <div class="p-4 border border-slate-900 bg-slate-950/40 rounded-xl"><i class="fa-solid fa-network-wired mr-2"></i>ContentAllies</div>
+            </div>
+        </section>
+
+        <!-- Product Value Prop Grid -->
+        <section class="py-20 px-6 bg-slate-900/10 border-y border-slate-900/80">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight text-white mb-4">Engineered to Solve Execution Bottlenecks</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base">Why scale your local editor payroll when you can white-label a high-output programmatic production asset pipeline?</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-slate-950 border border-slate-900 p-8 rounded-2xl">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6">
+                            <i class="fa-solid fa-clock text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Guaranteed 48H Turnaround</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">No tracking missed deadlines or variable scheduling delays. Drop files on Monday; download reviewed assets by Wednesday.</p>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-900 p-8 rounded-2xl">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6">
+                            <i class="fa-solid fa-chart-pie text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Keep 100% Client Upcharge</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Add short-form asset delivery tiers to your accounts for $3,000/mo. Pay us $1,500 and pocket the other $1,500 clean.</p>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-900 p-8 rounded-2xl">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6">
+                            <i class="fa-solid fa-eye-slash text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">100% NDAs & White-Label</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">We remain entirely anonymous. Your clients will never see an EG Studio logo. Everything is custom tailored under your corporate flag.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PAGE 2: PRICING VIEW PANE -->
+    <main id="view-pricing" class="view-pane">
+        <section class="py-20 px-6 max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-extrabold tracking-tight text-white mb-4">Simple, Scalable Flat-Rate Pricing</h2>
+                <p class="text-slate-400 max-w-md mx-auto text-sm sm:text-base">No counting variable video runtime minutes. No complex tracking setup. Clear upfront pricing parameters.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto items-stretch">
+                <!-- Plan Tier 1 -->
+Starter Matrix
+
+$600
+/ month
+
+
+5 Hook-Optimized Clips / Mo
+Native Kinetic Captions Layout
+Sound Design & Sound Effects
+72-Hour Turnaround Window
+
+
+Get Started
+Most Popular Plan
+
+The Scale Pack
+
+$1,500
+/ month
+
+
+15 Hook-Optimized Clips / Mo
+Advanced B-Roll & Visual Overlays
+Dedicated Slack Pipeline Channel
+48-Hour Priority Turnaround
+Strict White-Label NDA Setup
+
+
+Deploy This Layer
+
+
+
+Alex Hormozi Style (Bold Kinetic Icons)
+visualizevalue Style (Clean Minimal Typography)
+GaryVee Style (Heavy Corporate Text Layouts)
+
+
+
+Deploy Pipeline Engine Request
+
+
+Pipeline Transmission Success
+Your raw source file asset is loaded. An automation lead supervisor will reach out via email shortly to coordinate your 48-hour delivery file.
+
+
+
+© 2026 EG Studio. All rights reserved. Configured for programmatic agency scalability operations.
+
+Terms of Service
+•
+Privacy Framework NDA
+
+// Multi-page SPA Routing Layer Engine
+function switchView(viewId) {
+const panes = document.querySelectorAll('.view-pane');
+panes.forEach(pane => pane.classList.remove('active'));
+const activePane = document.getElementById('view-' + viewId);
+if(activePane) {
+activePane.classList.add('active');
+}
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+// Live Real-Time Mathematical Calculators Engine
+const pageClientsSlider = document.getElementById('page-clients-slider');
+const pagePriceSlider = document.getElementById('page-price-slider');
+const pageClientCountDisp = document.getElementById('page-client-count');
+const pagePriceDisp = document.getElementById('page-price-display');
+const pageRevenueDisp = document.getElementById('page-revenue-display');
+const pageCostDisp = document.getElementById('page-cost-display');
+const pageProfitDisp = document.getElementById('page-profit-display');
+const backendCostMultiplier = 1500;
+function runPageCalculations() {
+const clients = parseInt(pageClientsSlider.value);
+const price = parseInt(pagePriceSlider.value);
+pageClientCountDisp.textContent = clients;
+pagePriceDisp.textContent = price.toLocaleString();
+const inflowRevenue = clients * price;
+const outflowCost = clients * backendCostMultiplier;
+const netMarginMargin = inflowRevenue - outflowCost;
+pageRevenueDisp.textContent = inflowRevenue.toLocaleString();
+pageCostDisp.textContent = outflowCost.toLocaleString();
+pageProfitDisp.textContent = netMarginMargin.toLocaleString();
+}
+pageClientsSlider.addEventListener('input', runPageCalculations);
+pagePriceSlider.addEventListener('input', runPageCalculations);
+// Modern AJAX Pipeline Form Interceptor Logic
+function submitFormWithAjax(event) {
+event.preventDefault();
+const form = document.getElementById('onboardingForm');
+const submitBtn = document.getElementById('submitBtn');
+// Set UI to loading state
+submitBtn.disabled = true;
+submitBtn.innerHTML = <i class="fa-solid fa-spinner animate-spin"></i> <span>Transmitting Asset Link...</span>;
+const formData = new FormData(form);
+fetch('web3forms.com', {
+method: 'POST',
+body: formData
+})
+.then(async (response) => {
+let json = await response.json();
+if (response.status == 200) {
+form.classList.add('hidden');
+document.getElementById('formSuccessMessage').classList.remove('hidden');
+} else {
+alert(json.message || "Something went wrong. Please try again.");
+resetSubmitButton();
+}
+})
+.catch(error => {
+alert("Network error. Please verify your internet connection.");
+resetSubmitButton();
+});
+}
+function resetSubmitButton() {
+const submitBtn = document.getElementById('submitBtn');
+submitBtn.disabled = false;
+submitBtn.innerHTML = <span>Deploy Pipeline Engine Request</span>;
+}
+runPageCalculations();
