@@ -1,38 +1,951 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EG Studio | White-Label Video Fulfillment for B2B Agencies</title>
-  <meta name="description" content="Wholesale short-form video infrastructure. 15 strategic vertical videos delivered in 30 days. $1,500 flat.">
+  <meta name="description" content="Wholesale short-form video infrastructure for B2B marketing agencies. 15 strategic vertical videos delivered in 30 days. $1,500 flat.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="styleshe[span_417](start_span)[span_417](end_span)[span_419](start_span)[span_419](end_span)et" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-black: #080808;
+      --bg-surface: #111111;
+      --bg-card: #161616;
+      --bg-card-hover: #1c1c1c;
+      --border-color: #262626;
+      --border-focus: #3f3f46;
+      --text-white: #ffffff;
+      --text-gray: #a1a1aa;
+      --text-dark-gray: #71717a;
+      --accent-green: #22c55e;
+      --accent-green-bg: rgba(34, 197, 94, 0.12);
+      --accent-green-border: rgba(34, 197, 94, 0.3);
+      --font-main: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-white);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .section-container {
+      padding: 5.5rem 0;
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .bg-surface { background-color: var(--bg-surface); }
+    .text-center { text-align: center; }
+    .text-green { color: var(--accent-green); }
+    .text-muted { color: var(--text-gray); }
+
+    h1, h2, h3, h4 {
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text-white);
+    }
+
+    .eyebrow-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-gray);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      color: var(--text-gray);
+      max-width: 680px;
+      margin: 0 auto 3rem;
+      font-weight: 400;
+    }
+
+    /* Action Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.75rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--text-white);
+      color: var(--bg-black);
+      border-color: var(--text-white);
+    }
+    .btn-primary:hover {
+      background-color: #e4e4e7;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.18);
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.04);
+      color: var(--text-white);
+      border-color: var(--border-color);
+    }
+    .btn-secondary:hover {
+      border-color: var(--text-white);
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .btn-outline-green {
+      background: var(--accent-green-bg);
+      color: var(--accent-green);
+      border-color: var(--accent-green-border);
+    }
+    .btn-outline-green:hover {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: var(--accent-green);
+    }
+
+    .btn-block {
+      width: 100%;
+      padding: 1.1rem;
+      font-size: 1.05rem;
+    }
+
+    /* 1. Global Navigation */
+    .nav-container {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: rgba(8, 8, 8, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.9rem 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-logo {
+      font-weight: 900;
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+      color: var(--text-white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .brand-logo span { color: var(--text-dark-gray); font-weight: 700; }
+
+    .nav-menu {
+      display: none;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-menu a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: color 0.15s;
+    }
+    .nav-menu a:hover { color: var(--text-white); }
+
+    .btn-primary-nav {
+      padding: 0.55rem 1.25rem;
+      font-size: 0.825rem;
+      background: var(--text-white);
+      color: var(--bg-black);
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .mobile-menu-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-white);
+      transition: 0.2s;
+    }
+
+    .mobile-drawer {
+      display: none;
+      flex-direction: column;
+      gap: 1.25rem;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.5rem 1.25rem;
+    }
+    .mobile-drawer.active { display: flex; }
+    .mobile-drawer a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    @media (min-width: 860px) {
+      .nav-menu { display: flex; }
+      .mobile-menu-btn { display: none; }
+      .mobile-drawer { display: none !important; }
+    }
+
+    /* 2. Hero Section */
+    .hero-section {
+      padding: 6.5rem 0 5rem;
+      text-align: center;
+      position: relative;
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 5.2vw, 3.85rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      font-weight: 900;
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-gray);
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      font-weight: 400;
+      line-height: 1.65;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+    .hero-proof-bar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      font-size: 0.825rem;
+      color: var(--text-gray);
+      font-weight: 600;
+    }
+    .hero-proof-bar .dot {
+      color: var(--accent-green);
+      font-weight: bold;
+    }
+
+    /* 3. Agency Economic Arbitrage */
+    .arbitrage-table-container {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-card);
+      margin-bottom: 3rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .arbitrage-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      min-width: 720px;
+      font-size: 0.875rem;
+    }
+    .arbitrage-table th, .arbitrage-table td {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .arbitrage-table th {
+      background: rgba(0, 0, 0, 0.4);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dark-gray);
+    }
+    .arbitrage-table tr:last-child td { border-bottom: none; }
+    .arbitrage-table tr.highlight-row {
+      background: rgba(34, 197, 94, 0.04);
+    }
+    .arbitrage-table tr.highlight-row td {
+      border-top: 1px solid var(--accent-green-border);
+      border-bottom: 1px solid var(--accent-green-border);
+    }
+    .badge-eg {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--accent-green);
+      background: var(--accent-green-bg);
+      border: 1px solid var(--accent-green-border);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      margin-left: 0.4rem;
+    }
+
+    /* Dynamic Margin Calculator */
+    .calc-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2.5rem;
+      max-width: 840px;
+      margin: 0 auto;
+    }
+    .calc-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .calc-header h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .calc-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+    }
+    .calc-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .calc-input-group label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-gray);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-prefix {
+      position: absolute;
+      left: 1rem;
+      color: var(--text-dark-gray);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .input-field {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.25rem;
+      background: var(--bg-black);
+      border: 1px solid var(--border-color);
+      color: var(--text-white);
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-family: inherit;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .input-field:focus { border-color: var(--text-white); }
+    .input-field-num { padding-left: 1rem; }
+    .calc-presets {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .preset-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-gray);
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .preset-btn:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-white); }
+
+    .calc-display-box {
+      background: var(--bg-black);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .calc-metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .calc-metric-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .calc-metric-label {
+      font-size: 0.825rem;
+      color: var(--text-gray);
+      font-weight: 500;
+    }
+    .calc-metric-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .calc-metric-value.highlight {
+      font-size: 1.85rem;
+      color: var(--accent-green);
+      font-weight: 900;
+    }
+
+    /* 4. Interactive Proof Sandbox */
+    .sandbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .archetype-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .archetype-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-focus);
+    }
+    .archetype-video-viewport {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .sample-video-elem {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #000;
+      display: block;
+    }
+    .video-overlay-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      color: #fff;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .video-custom-play-btn {
+      position: absolute;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+      transition: transform 0.15s ease, opacity 0.2s ease;
+      z-index: 6;
+      pointer-events: none;
+    }
+    .video-custom-play-btn.playing {
+      opacity: 0;
+    }
+    .archetype-info {
+      padding: 1.25rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+    }
+    .archetype-info h4 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+    .archetype-info p {
+      font-size: 0.825rem;
+      color: var(--text-gray);
+      line-height: 1.5;
+    }
+    .archetype-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 1rem 0;
+    }
+    .spec-pill {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-dark-gray);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      padding: 0.15rem 0.45rem;
+      border-radius: 3px;
+    }
+    .sample-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .drive-banner-box {
+      margin-top: 3rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    /* 5. SLA Matrix */
+    .sla-matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .sla-milestone-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.75rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .milestone-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--accent-green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .milestone-days {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .milestone-deliverable {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 0.5rem;
+    }
+    .milestone-desc {
+      font-size: 0.825rem;
+      color: var(--text-gray);
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+    .milestone-sla-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-white);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.65rem;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    /* Calibration Guarantee Callout */
+    .calibration-box {
+      margin-top: 2.5rem;
+      background: rgba(34, 197, 94, 0.05);
+      border: 1px solid var(--accent-green-border);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .calibration-icon {
+      font-size: 2rem;
+      color: var(--accent-green);
+      flex-shrink: 0;
+    }
+
+    /* 6. Infrastructure & Async Questionnaire */
+    .infra-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .infra-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2rem;
+    }
+    .infra-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      color: var(--text-white);
+    }
+    .infra-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.65rem;
+    }
+    .infra-card p {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    .async-onboarding-container {
+      margin-top: 3.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+    .async-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+      text-align: left;
+    }
+    .step-item {
+      background: var(--bg-black);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .step-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--accent-green);
+      margin-bottom: 0.5rem;
+    }
+
+    /* 7. Pricing */
+    .pricing-wrap {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .pricing-card-main {
+      background: var(--bg-card);
+      border: 2px solid var(--text-white);
+      border-radius: 12px;
+      padding: 3rem 2.5rem;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    }
+    .pricing-badge-top {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text-white);
+      color: var(--bg-black);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+    .pricing-amount-hero {
+      font-size: clamp(3rem, 6vw, 4.25rem);
+      font-weight: 900;
+      line-height: 1;
+      margin: 1.5rem 0 0.5rem;
+      letter-spacing: -0.04em;
+    }
+    .pricing-amount-hero span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-gray);
+      letter-spacing: normal;
+    }
+    .pricing-unit-cost {
+      font-size: 0.85rem;
+      color: var(--accent-green);
+      font-weight: 700;
+      margin-bottom: 1.75rem;
+    }
+    .pricing-checklist {
+      list-style: none;
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      text-align: left;
+    }
+    .pricing-checklist li {
+      font-size: 0.9rem;
+      color: #d4d4d8;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      line-height: 1.45;
+    }
+    .check-icon {
+      color: var(--accent-green);
+      flex-shrink: 0;
+      font-weight: 900;
+    }
+    .scarcity-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-gray);
+      margin-top: 1.25rem;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+
+    /* 8. FAQ */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+    .faq-item.active { border-color: var(--border-focus); }
+    .faq-question {
+      width: 100%;
+      padding: 1.35rem 1.5rem;
+      background: transparent;
+      border: none;
+      color: var(--text-white);
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: left;
+      font-family: inherit;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      gap: 1rem;
+    }
+    .faq-chevron {
+      transition: transform 0.2s ease;
+      font-size: 1.1rem;
+      color: var(--text-gray);
+    }
+    .faq-item.active .faq-chevron {
+      transform: rotate(180deg);
+      color: var(--text-white);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.5rem;
+      font-size: 0.885rem;
+      color: var(--text-gray);
+      line-height: 1.65;
+    }
+    .faq-item.active .faq-answer { display: block; }
+
+    /* 9. Terminal CTA */
+    .terminal-cta-section {
+      padding: 6.5rem 0;
+      background: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #080808 85%);
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+    .terminal-title {
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+    .terminal-sub {
+      font-size: 1.1rem;
+      color: var(--text-gray);
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+    }
+    .terminal-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .contact-ops-link {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.15s;
+    }
+    .contact-ops-link:hover { color: var(--text-white); }
+    .contact-ops-link span { color: var(--text-white); text-decoration: underline; }
+
+    /* Footer */
+    footer {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.75rem;
+      color: var(--text-dark-gray);
+      background: var(--bg-black);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .section-container { padding: 4.5rem 0; }
+      .calc-container { padding: 1.5rem; }
+      .pricing-card-main { padding: 2.5rem 1.5rem; }
+      .calibration-box { flex-direction: column; text-align: center; }
+    }
+  </style>
 </head>
-<body class="bg-black text-white antialiased">
+<body>
+
+  <!-- 1. GLOBAL NAVIGATION BAR -->
   <header class="nav-container">
-    <div class="nav-inner">
+    <div class="container nav-inner">
       <a href="#" class="brand-logo">EG<span>STUDIO</span></a>
       <nav class="nav-menu">
         <a href="#economics">Economics</a>
-        <a href="#samples">Samples</a>
-        <a href="#process">Sprint Model</a>
+        <a href="#samples">Sample Proof</a>
+        <a href="#sprint-model">Sprint Model</a>
+        <a href="#intake">Async Intake</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a href="#pricing" class="btn btn-primary-nav">Reserve Sprint</a>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary-nav">Reserve Sprint</a>
+        <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <a href="#economics" class="mobile-nav-link">Economics</a>
+      <a href="#samples" class="mobile-nav-link">Sample Proof</a>
+      <a href="#sprint-model" class="mobile-nav-link">Sprint Model</a>
+      <a href="#intake" class="mobile-nav-link">Async Intake</a>
+      <a href="#pricing" class="mobile-nav-link">Pricing</a>
+      <a href="#faq" class="mobile-nav-link">FAQ</a>
+      <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">Reserve Sprint ($1,500)</a>
     </div>
   </header>
 
   <main>
+    <!-- 2. ABOVE-THE-FOLD HERO SECTION -->
     <section class="hero-section">
-      <div class="container text-center">
-        <div class="badge">WHITE-LABEL AGENCY INFRASTRUCTURE</div>
+      <div class="container">
+        <div class="eyebrow-tag">WHITE-LABEL CONTENT INFRASTRUCTURE FOR B2B MARKETING AGENCIES</div>
         <h1 class="hero-title">15 Strategic Vertical Videos.<br>Delivered in 30 Days. $1,500 Flat.</h1>
-        <p class="hero-subtitle">Wholesale short-form video fulfillment engineered for 5–20 person B2B agencies. Expand your service margins with zero in-house hiring drag.</p>
+        <p class="hero-subtitle">Wholesale short-form fulfillment engineered for 5–20 person agencies. Expand your service offerings, eliminate in-house editing overhead, and capture recurring social retainer margins with zero operational drag.</p>
         <div class="hero-actions">
-          <a href="#pricing" class="btn btn-primary">Claim Your Agency Sprint</a>
+          <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Claim Your Agency Sprint - $1,500</a>
           <a href="#samples" class="btn btn-secondary">Inspect Sample Work</a>
         </div>
         <div class="hero-proof-bar">
@@ -45,91 +958,639 @@
       </div>
     </section>
 
+    <!-- 3. AGENCY ECONOMIC ARBITRAGE & MARGIN ENGINE -->
     <section id="economics" class="section-container bg-surface">
       <div class="container">
         <div class="section-header text-center">
+          <div class="eyebrow-tag">FINANCIAL ARBITRAGE</div>
           <h2 class="section-title">The Agency Margin Engine</h2>
-          <p class="section-subtitle">Calculate your gross profit expansion per client using EG Studio wholesale fulfillment.</p>
+          <p class="section-subtitle">Compare true agency delivery costs and calculate your retained gross profit per client retainer.</p>
         </div>
-        <div class="calc-box">
-          <div class="calc-input-group">
-            <label for="retainerInput">Monthly Client Retainer ($USD)</label>
-            <input type="number" id="retainerInput" value="3500" min="1500" step="250" class="input-field">
+
+        <!-- Comparative Table -->
+        <div class="arbitrage-table-container">
+          <table class="arbitrage-table">
+            <thead>
+              <tr>
+                <th>Fulfillment Model</th>
+                <th>Direct Monthly Cost</th>
+                <th>Management Overhead</th>
+                <th>Capacity & Turnaround Risk</th>
+                <th>Retained Agency Gross Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>In-House Junior Editor</strong></td>
+                <td>$4,500–$6,000/mo <span class="text-muted">(Loaded salary, benefits, software)</span></td>
+                <td><strong>High</strong> (Daily management, training, sick leave, PTO)</td>
+                <td><strong>Low</strong> (Capacity capped at 1 person; bottleneck risk)</td>
+                <td><span class="text-muted">15%–30%</span> (Eaten by payroll overhead)</td>
+              </tr>
+              <tr>
+                <td><strong>Upwork / Freelancers</strong></td>
+                <td>$2,000–$3,500/mo <span class="text-muted">($50–$100/hr variable)</span></td>
+                <td><strong>Severe</strong> (Unpredictable quality, ghosting, drifting styles)</td>
+                <td><strong>Unreliable</strong> (No guaranteed turnaround SLAs)</td>
+                <td><span class="text-muted">30%–45%</span> (Eaten by management hours)</td>
+              </tr>
+              <tr class="highlight-row">
+                <td><strong>EG Studio 30-Day Sprint</strong> <span class="badge-eg">SYSTEM</span></td>
+                <td><strong>$1,500 flat</strong> <span class="text-green">($100 per finished video)</span></td>
+                <td><strong>Zero</strong> (Strict async brief, guaranteed delivery calendar)</td>
+                <td><strong>Predictable</strong> (15 assets delivered across 3 structured milestones)</td>
+                <td><strong class="text-green">57%–70%</strong> (Retain $2,000–$3,500 per client)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Dynamic Margin Simulator -->
+        <div class="calc-container">
+          <div class="calc-header">
+            <h3>Dynamic Agency Margin Calculator</h3>
+            <p class="text-muted" style="font-size: 0.85rem;">Illustrate your monthly gross profit retention when reselling EG Studio wholesale fulfillment.</p>
           </div>
-          <div class="calc-results-grid">
-            <div class="result-card">
-              <span class="result-label">Wholesale Cost</span>
-              <span class="result-val text-muted">$1,500</span>
+          <div class="calc-grid">
+            <div class="calc-inputs">
+              <div class="calc-input-group">
+                <label for="retainerInput">Your Client Monthly Retainer ($)</label>
+                <div class="input-wrapper">
+                  <span class="input-prefix">$</span>
+                  <input type="number" id="retainerInput" value="3500" min="1500" step="250" class="input-field">
+                </div>
+                <div class="calc-presets">
+                  <button type="button" class="preset-btn" onclick="setRetainer(2500)">$2,500</button>
+                  <button type="button" class="preset-btn" onclick="setRetainer(3500)">$3,500</button>
+                  <button type="button" class="preset-btn" onclick="setRetainer(5000)">$5,000</button>
+                </div>
+              </div>
+
+              <div class="calc-input-group">
+                <label for="clientCountInput">Number of Active Video Retainers</label>
+                <input type="number" id="clientCountInput" value="3" min="1" max="20" class="input-field input-field-num">
+              </div>
             </div>
-            <div class="result-card">
-              <span class="result-label">Retained Profit / Mo</span>
-              <span id="monthlyProfit" class="result-val text-green">$2,000</span>
-            </div>
-            <div class="result-card">
-              <span class="result-label">Gross Margin</span>
-              <span id="grossMargin" class="result-val text-green">57.1%</span>
+
+            <div class="calc-display-box">
+              <div class="calc-metric-row">
+                <span class="calc-metric-label">Wholesale Fulfillment Cost</span>
+                <span id="displayWholesale" class="calc-metric-value text-muted">$4,500</span>
+              </div>
+              <div class="calc-metric-row">
+                <span class="calc-metric-label">Agency Gross Billing</span>
+                <span id="displayBilling" class="calc-metric-value">$10,500</span>
+              </div>
+              <div class="calc-metric-row">
+                <span class="calc-metric-label">Retained Gross Margin %</span>
+                <span id="displayMarginPercent" class="calc-metric-value text-green">57.1%</span>
+              </div>
+              <div class="calc-metric-row">
+                <span class="calc-metric-label">Retained Agency Gross Profit / Mo</span>
+                <span id="displayProfit" class="calc-metric-value highlight">$6,000</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- 4. INTERACTIVE PROOF SANDBOX: RAW-TO-FINISHED WORKFLOWS -->
     <section id="samples" class="section-container">
       <div class="container">
         <div class="section-header text-center">
-          <h2 class="section-title">Sample Execution Standards</h2>
-          <p class="section-subtitle">Institutional, high-retention video formats built for B2B authority.</p>
+          <div class="eyebrow-tag">EXECUTION EXCELLENCE</div>
+          <h2 class="section-title">High-Definition B2B Vertical Samples</h2>
+          <p class="section-subtitle">Four calibrated archetypes demonstrating raw-to-finished production standards. Click any asset to play directly with sound and controls.</p>
         </div>
-        <div class="samples-grid">
-          <div class="sample-card">
-            <div class="video-container">
-              <video preload="none" poster="poster-1.jpg" controls class="sample-video">
-                <source src="sample-thought-leadership.mp4" type="video/mp4">
+
+        <div class="sandbox-grid">
+          <!-- Archetype 1 -->
+          <div class="archetype-card">
+            <div class="archetype-video-viewport" id="viewport1" onclick="togglePlay('video1', 'playBtn1')">
+              <span class="video-overlay-badge">01. Executive Thought Leadership</span>
+              <video id="video1" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                Your browser does not support video playback.
               </video>
+              <div class="video-custom-play-btn" id="playBtn1">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
             </div>
-            <div class="sample-info">
-              <h3>Executive Thought Leadership</h3>
-              <p>Dynamic kinetic typography, voice isolation, and contextual narrative pacing.</p>
+            <div class="archetype-info">
+              <div>
+                <h4>Executive Thought Leadership</h4>
+                <p>Kinetic typography, dynamic punch-ins, audio enhancement, and retention-focused narrative pacing.</p>
+              </div>
+              <div class="archetype-specs">
+                <span class="spec-pill">Voice Isolation</span>
+                <span class="spec-pill">Dynamic Zoom</span>
+                <span class="spec-pill">Burned-in SRT</span>
+              </div>
+              <div class="sample-actions">
+                <a href="https://drive.google.com/drive/folders/1pmDW0snyxO2odGWCQLVdY9BNk13Lqm5g" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.55rem;">
+                  Download Raw-to-Finished Package ↗
+                </a>
+              </div>
             </div>
           </div>
-          <div class="sample-card">
-            <div class="video-container">
-              <video preload="none" poster="poster-2.jpg" controls class="sample-video">
-                <source src="sample-saas-explainer.mp4" type="video/mp4">
+
+          <!-- Archetype 2 -->
+          <div class="archetype-card">
+            <div class="archetype-video-viewport" id="viewport2" onclick="togglePlay('video2', 'playBtn2')">
+              <span class="video-overlay-badge">02. B2B SaaS Feature Cutdown</span>
+              <video id="video2" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+                Your browser does not support video playback.
               </video>
+              <div class="video-custom-play-btn" id="playBtn2">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
             </div>
-            <div class="sample-info">
-              <h3>B2B SaaS Feature Cutdown</h3>
-              <p>UI zooms, motion callouts, and clean branded typography overlays.</p>
+            <div class="archetype-info">
+              <div>
+                <h4>B2B SaaS Feature Cutdown</h4>
+                <p>UI framing, motion callouts, cursor highlight tracks, and clean branded typography overlays.</p>
+              </div>
+              <div class="archetype-specs">
+                <span class="spec-pill">UI Framing</span>
+                <span class="spec-pill">Motion Graphics</span>
+                <span class="spec-pill">Sound FX Stems</span>
+              </div>
+              <div class="sample-actions">
+                <a href="https://drive.google.com/drive/folders/1pmDW0snyxO2odGWCQLVdY9BNk13Lqm5g" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.55rem;">
+                  Download Raw-to-Finished Package ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Archetype 3 -->
+          <div class="archetype-card">
+            <div class="archetype-video-viewport" id="viewport3" onclick="togglePlay('video3', 'playBtn3')">
+              <span class="video-overlay-badge">03. Case Study & Proof Hook</span>
+              <video id="video3" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
+                Your browser does not support video playback.
+              </video>
+              <div class="video-custom-play-btn" id="playBtn3">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <div class="archetype-info">
+              <div>
+                <h4>Case Study & Proof Hook</h4>
+                <p>Highlighting client ROI metrics, quote badges, and clean B-roll overlays to build pipeline trust.</p>
+              </div>
+              <div class="archetype-specs">
+                <span class="spec-pill">Metric Badges</span>
+                <span class="spec-pill">B-Roll Cutaway</span>
+                <span class="spec-pill">Trust Badges</span>
+              </div>
+              <div class="sample-actions">
+                <a href="https://drive.google.com/drive/folders/1pmDW0snyxO2odGWCQLVdY9BNk13Lqm5g" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.55rem;">
+                  Download Raw-to-Finished Package ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Archetype 4 -->
+          <div class="archetype-card">
+            <div class="archetype-video-viewport" id="viewport4" onclick="togglePlay('video4', 'playBtn4')">
+              <span class="video-overlay-badge">04. Webinar / Podcast Repurpose</span>
+              <video id="video4" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=600&q=80">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4" type="video/mp4">
+                Your browser does not support video playback.
+              </video>
+              <div class="video-custom-play-btn" id="playBtn4">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <div class="archetype-info">
+              <div>
+                <h4>Webinar & Podcast Repurpose</h4>
+                <p>Hook extraction from long-form conversations, multi-speaker framing, and high-contrast captions.</p>
+              </div>
+              <div class="archetype-specs">
+                <span class="spec-pill">Hook Extraction</span>
+                <span class="spec-pill">Multi-Speaker</span>
+                <span class="spec-pill">Dynamic Crop</span>
+              </div>
+              <div class="sample-actions">
+                <a href="https://drive.google.com/drive/folders/1pmDW0snyxO2odGWCQLVdY9BNk13Lqm5g" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.55rem;">
+                  Download Raw-to-Finished Package ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Drive Shared Asset Package -->
+        <div class="drive-banner-box">
+          <div>
+            <h4 style="font-size: 1rem; margin-bottom: 0.25rem;">Audit the Master Production Asset Packages</h4>
+            <p style="font-size: 0.825rem; color: var(--text-gray);">Inspect our shared Google Drive folder containing full-resolution master exports, source files, and .SRT sidecars.</p>
+          </div>
+          <a href="https://drive.google.com/drive/folders/1pmDW0snyxO2odGWCQLVdY9BNk13Lqm5g" target="_blank" rel="noopener noreferrer" class="btn btn-outline-green">
+            <span>Open Google Drive Samples Folder</span> ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. THE 30-DAY MILESTONE SLA MATRIX & CALIBRATION GUARANTEE -->
+    <section id="sprint-model" class="section-container bg-surface">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="eyebrow-tag">RIGID OPERATIONAL SLA</div>
+          <h2 class="section-title">Explicit 30-Day Milestone SLA</h2>
+          <p class="section-subtitle">Structured batch deliveries on Days 10, 20, and 30 to give your account managers guaranteed fulfillment predictability.</p>
+        </div>
+
+        <div class="sla-matrix-grid">
+          <!-- Milestone 1 -->
+          <div class="sla-milestone-card">
+            <div class="milestone-num">Milestone 01</div>
+            <div class="milestone-days">Days 1–10</div>
+            <div class="milestone-deliverable">Batch 1 Delivery (Videos 1–5)</div>
+            <p class="milestone-desc">Async intake, brand kit calibration, pilot video approval, plus the first 5 finalized vertical video assets delivered for client review.</p>
+            <div class="milestone-sla-badge">
+              <span>SLA: 5 Finished Assets + Pilot</span>
+            </div>
+          </div>
+
+          <!-- Milestone 2 -->
+          <div class="sla-milestone-card">
+            <div class="milestone-num">Milestone 02</div>
+            <div class="milestone-days">Days 11–20</div>
+            <div class="milestone-deliverable">Batch 2 Delivery (Videos 6–10)</div>
+            <p class="milestone-desc">Delivery of the second batch of 5 assets, running simultaneously with 48h turnaround on any requested Batch 1 revisions.</p>
+            <div class="milestone-sla-badge">
+              <span>SLA: 5 Finished Assets + Revisions</span>
+            </div>
+          </div>
+
+          <!-- Milestone 3 -->
+          <div class="sla-milestone-card">
+            <div class="milestone-num">Milestone 03</div>
+            <div class="milestone-days">Days 21–30</div>
+            <div class="milestone-deliverable">Batch 3 Delivery (Videos 11–15)</div>
+            <p class="milestone-desc">Final 5 assets delivered, closing all outstanding revision notes and archiving complete master files (MP4s + .SRT files) to your Drive.</p>
+            <div class="milestone-sla-badge">
+              <span>SLA: Final 5 Assets + Master Archive</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 100% Calibration Guarantee -->
+        <div class="calibration-box">
+          <div class="calibration-icon">🛡️</div>
+          <div>
+            <h3 style="font-size: 1.15rem; margin-bottom: 0.35rem;">100% Production Calibration Guarantee</h3>
+            <p style="font-size: 0.85rem; color: #d4d4d8; line-height: 1.5;">
+              During Days 1–3, we produce a single pilot asset to lock down typography styling, motion graphics, audio mastering, and color profiles. We do not advance into batch production until your agency provides written sign-off on the calibrated pilot.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ASYNC ONBOARDING & ZERO-FRICTION PIPELINE -->
+    <section id="intake" class="section-container">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="eyebrow-tag">ZERO SALES CALL FRICTION</div>
+          <h2 class="section-title">Frictionless Asynchronous Intake</h2>
+          <p class="section-subtitle">No 60-minute qualification calls or calendar tennis. Reserve your slot and submit briefs asynchronously in 10 minutes.</p>
+        </div>
+
+        <div class="infra-grid">
+          <div class="infra-card">
+            <div class="infra-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <h3>100% Ghost White-Label Portals</h3>
+            <p>Every review link, Frame.io project, and delivery folder is completely unbranded. You present deliverables directly under your agency's banner.</p>
+          </div>
+
+          <div class="infra-card">
+            <div class="infra-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3>Asynchronous Onboarding Brief</h3>
+            <p>Immediately after Stripe checkout, complete our structured Tally/Google Forms questionnaire with your client's raw links, brand fonts, and notes.</p>
+          </div>
+
+          <div class="infra-card">
+            <div class="infra-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3>Full Commercial Licensing</h3>
+            <p>All background audio tracks, SFX, graphics, and kinetic typography packs carry lifetime commercial indemnification for your agency and your client.</p>
+          </div>
+        </div>
+
+        <div class="async-onboarding-container">
+          <h3>The 3-Step Instant Fulfillment Kickoff</h3>
+          <div class="async-steps-grid">
+            <div class="step-item">
+              <div class="step-num">STEP 01</div>
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.35rem;">Stripe Checkout</h4>
+              <p style="font-size: 0.8rem; color: var(--text-gray);">Lock in your fixed $1,500 sprint slot via direct whole-dollar Stripe checkout.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">STEP 02</div>
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.35rem;">Async Questionnaire</h4>
+              <p style="font-size: 0.8rem; color: var(--text-gray);">Submit client footage links (Drive/Dropbox/Zoom) and branding kit guidelines.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">STEP 03</div>
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.35rem;">Milestone Delivery</h4>
+              <p style="font-size: 0.8rem; color: var(--text-gray);">Receive Batch 1 (Day 10), Batch 2 (Day 20), and Batch 3 (Day 30) automatically.</p>
+            </div>
+          </div>
+          <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.9rem 2.25rem;">
+            Initiate Sprint Now ($1,500)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. TRANSPARENT WHOLESALE PRICING CONTAINER -->
+    <section id="pricing" class="section-container bg-surface">
+      <div class="container text-center">
+        <div class="section-header">
+          <div class="eyebrow-tag">WHOLESALE PRICING</div>
+          <h2 class="section-title">Fixed $1,500 Wholesale Sprint</h2>
+          <p class="section-subtitle">No long-term retainer lock-ins. Buy fulfillment sprints on-demand as you close agency clients.</p>
+        </div>
+
+        <div class="pricing-wrap">
+          <div class="pricing-card-main">
+            <div class="pricing-badge-top">FIXED-SCOPE AGENCY SPRINT</div>
+            <h3 style="font-size: 1.5rem; margin-top: 0.5rem;">The 15-Video Fulfillment Engine</h3>
+            
+            <div class="pricing-amount-hero">
+              $1,500 <span>/ sprint</span>
+            </div>
+            <div class="pricing-unit-cost">Unit Cost: $100 per finished, platform-ready vertical video</div>
+
+            <p style="font-size: 0.875rem; color: var(--text-gray);">Guaranteed 30-day turnaround delivered across Days 10, 20, and 30.</p>
+
+            <ul class="pricing-checklist">
+              <li><span class="check-icon">✓</span> <span><strong>15 Strategic Vertical Videos</strong> (Up to 60s each, 9:16 format)</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>Up to 90 minutes</strong> of raw footage ingestion & hook extraction</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>2 Revision Rounds per asset</strong> with guaranteed 48h turnaround</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>100% White-Label Review Portals</strong> for seamless client handoff</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>Burned-in Subtitles + Standalone .SRT Files</strong> for every asset</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>Full Commercial Licensing</strong> for all audio, SFX, and motion assets</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>100% Calibration Guarantee:</strong> Pilot asset approved before batch scaling</span></li>
+            </ul>
+
+            <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+              Secure Your Sprint Slot ($1,500)
+            </a>
+            
+            <div class="scarcity-notice">
+              <span class="status-dot"></span>
+              <span>Intake strictly capped at 8 agency partners per month to preserve SLAs</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="pricing" class="section-container bg-surface">
-      <div class="container max-w-card">
-        <div class="pricing-card">
-          <div class="badge-pricing">FIXED SCOPE SPRINT</div>
-          <h2 class="pricing-title">The 15-Video Fulfillment Sprint</h2>
-          <div class="pricing-amount">$1,500 <span>/ Sprint</span></div>
-          <p class="pricing-desc">Turnkey wholesale video fulfillment. Delivered across three 10-day production batches.</p>
-          <ul class="pricing-checklist">
-            <li>15 Strategic Vertical Videos (Up to 60s each)</li>
-            <li>Up to 90 mins of raw video ingestion</li>
-            <li>2 Revision Rounds per asset with 48h turnaround</li>
-            <li>Complete white-label Frame.io proofing</li>
-            <li>Burned-in captions + standalone .SRT files</li>
-            <li>Full commercial licensing for audio & visuals</li>
-            <li>100% Quality Assurance & Calibration Guarantee</li>
-          </ul>
-          <a href="https://buy.stripe.com/example_checkout_id" class="btn btn-primary btn-block">Secure Your Sprint Slot</a>
-          <p class="microcopy text-center">No recurring contract. Book sprints on-demand.</p>
+    <!-- 8. INSTITUTIONAL FAQ & RISK-REVERSAL MODULE -->
+    <section id="faq" class="section-container">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="eyebrow-tag">AGENCY FAQ</div>
+          <h2 class="section-title">Institutional FAQ & Handoff Safeguards</h2>
+          <p class="section-subtitle">Everything your operations team needs to know about white-label fulfillment, revision mechanics, and client protection.</p>
+        </div>
+
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How does the white-label handoff work for client presentations?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              All deliverables are hosted inside unbranded Frame.io review links or organized Google Drive folders with clean naming taxonomies (e.g., <code>[ClientName]_Batch01_Video01.mp4</code>). We never contact your clients directly or attach EG Studio metadata to any video file.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What raw footage can we submit, and is there an ingestion limit?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              Each $1,500 sprint covers up to 90 minutes of total raw source footage (Zoom recordings, podcast episodes, raw iPhone videos, keynote presentations, or product demo screencasts). If your client has larger archives, we provide hourly ingestion add-ons.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How do revision rounds and the 48-hour SLA function?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              Each asset includes 2 structured revision cycles. Once your agency or client leaves timestamped notes inside the review portal, our editing team turns around updated versions within 48 business hours.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Can we resell these videos at any retainer price we choose?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              Yes. You have 100% pricing autonomy. Most of our agency partners sell this 15-video sprint as a monthly social organic retainer priced between $3,500 and $5,000/month, retaining $2,000–$3,500 in clean gross profit without hiring internal staff.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What is your style calibration and satisfaction guarantee?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              During Days 1–3, we edit a single pilot video to lock in font choices, brand color palettes, pacing, and caption formatting. We only move into batch production once you give written sign-off on the pilot asset.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Are we locked into an ongoing monthly contract?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              No. You can purchase sprints on-demand as you close new agency clients or subscribe month-to-month to guarantee dedicated queue priority for recurring retainer accounts.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. TERMINAL CALL-TO-ACTION BAR -->
+    <section class="terminal-cta-section">
+      <div class="container">
+        <h2 class="terminal-title">Scale Your Agency's Video Delivery Capacity Today.</h2>
+        <p class="terminal-sub">Zero payroll commitment. Fixed $1,500 sprint pricing. Guaranteed 30-day turnaround.</p>
+        <div class="terminal-actions">
+          <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 1.1rem 2.5rem; font-size: 1.05rem;">
+            Reserve Your Agency Sprint Slot ($1,500)
+          </a>
+          <a href="mailto:ops@egstudio.tech" class="contact-ops-link">
+            Have bespoke requirements? <span>Email operators: ops@egstudio.tech</span>
+          </a>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>EG STUDIO</strong> &copy; <span id="currentYear"></span>. White-Label Video Infrastructure for Agencies.
+      </div>
+      <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+        <a href="#economics" style="color: inherit; text-decoration: none;">Economics</a>
+        <a href="#samples" style="color: inherit; text-decoration: none;">Samples</a>
+        <a href="https://drive.google.com/drive/folders/1pmDW0snyxO2odGWCQLVdY9BNk13Lqm5g" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Drive Asset Folder</a>
+        <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Stripe Checkout</a>
+        <a href="mailto:ops@egstudio.tech" style="color: inherit; text-decoration: none;">ops@egstudio.tech</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Current year in footer
+      const yearEl = document.getElementById('currentYear');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      // 2. Mobile drawer navigation
+      const mobileToggle = document.getElementById('mobileMenuToggle');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      if (mobileToggle && mobileDrawer) {
+        mobileToggle.addEventListener('click', () => {
+          mobileDrawer.classList.toggle('active');
+        });
+
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileDrawer.classList.remove('active');
+          });
+        });
+      }
+
+      // 3. Dynamic Margin Engine Simulator
+      const retainerInput = document.getElementById('retainerInput');
+      const clientCountInput = document.getElementById('clientCountInput');
+      const displayWholesale = document.getElementById('displayWholesale');
+      const displayBilling = document.getElementById('displayBilling');
+      const displayMarginPercent = document.getElementById('displayMarginPercent');
+      const displayProfit = document.getElementById('displayProfit');
+      const sprintCostPerClient = 1500;
+
+      function updateCalculator() {
+        const retainer = parseFloat(retainerInput.value) || 0;
+        const clients = parseInt(clientCountInput.value) || 1;
+
+        const totalBilling = retainer * clients;
+        const totalWholesale = sprintCostPerClient * clients;
+        const totalProfit = Math.max(0, totalBilling - totalWholesale);
+        const marginPercent = totalBilling > 0 ? ((totalProfit / totalBilling) * 100).toFixed(1) : 0;
+
+        displayWholesale.textContent = `$${totalWholesale.toLocaleString()}`;
+        displayBilling.textContent = `$${totalBilling.toLocaleString()}`;
+        displayProfit.textContent = `$${totalProfit.toLocaleString()}`;
+        displayMarginPercent.textContent = `${marginPercent}%`;
+      }
+
+      if (retainerInput && clientCountInput) {
+        retainerInput.addEventListener('input', updateCalculator);
+        clientCountInput.addEventListener('input', updateCalculator);
+        updateCalculator();
+      }
+
+      window.setRetainer = function(amount) {
+        if (retainerInput) {
+          retainerInput.value = amount;
+          updateCalculator();
+        }
+      };
+
+      // 4. FAQ Accordion
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const btn = item.querySelector('.faq-question');
+        btn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('active');
+          faqItems.forEach(i => i.classList.remove('active'));
+          if (!isOpen) {
+            item.classList.add('active');
+          }
+        });
+      });
+
+      // 5. Video Playback Engine (Cross-Browser Reliable Handler)
+      const allVideos = document.querySelectorAll('.sample-video-elem');
+      
+      allVideos.forEach(vid => {
+        const btn = vid.parentElement.querySelector('.video-custom-play-btn');
+        
+        vid.addEventListener('play', () => {
+          if (btn) btn.classList.add('playing');
+        });
+        
+        vid.addEventListener('pause', () => {
+          if (btn) btn.classList.remove('playing');
+        });
+
+        vid.addEventListener('ended', () => {
+          if (btn) btn.classList.remove('playing');
+        });
+      });
+
+      window.togglePlay = function(videoId, btnId) {
+        const video = document.getElementById(videoId);
+        const btn = document.getElementById(btnId);
+        if (!video) return;
+
+        // Pause all other active videos
+        allVideos.forEach(v => {
+          if (v !== video && !v.paused) {
+            v.pause();
+          }
+        });
+
+        if (video.paused) {
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              if (btn) btn.classList.add('playing');
+            }).catch(error => {
+              console.warn("Video playback requires user gesture or muted audio:", error);
+              video.muted = true;
+              video.play().then(() => {
+                if (btn) btn.classList.add('playing');
+              });
+            });
+          }
+        } else {
+          video.pause();
+          if (btn) btn.classList.remove('playing');
+        }
+      };
+    });
+  </script>
 </body>
 </html>
