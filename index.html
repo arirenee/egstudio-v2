@@ -522,10 +522,12 @@
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
       transition: transform 0.15s ease, opacity 0.2s ease;
       z-index: 6;
-      pointer-events: none;
+      cursor: pointer;
+      pointer-events: auto;
     }
     .video-custom-play-btn.playing {
       opacity: 0;
+      pointer-events: none;
     }
     .archetype-info {
       padding: 1.25rem;
@@ -1092,10 +1094,10 @@
         <div class="sandbox-grid">
           <!-- Podcast Edit -->
           <div class="archetype-card">
-            <div class="archetype-video-viewport" id="viewport1" onclick="togglePlay('video1', 'playBtn1')">
+            <div class="archetype-video-viewport" id="viewport1">
               <span class="video-overlay-badge">Podcast Edit</span>
-              <video id="video1" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="https://egstudio.tech/assets/samples/sample-podcast.jpg?v=4">
-                <source src="https://egstudio.tech/assets/samples/sample-podcast.mp4?v=4" type="video/mp4">
+              <video id="video1" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="assets/samples/sample-podcast.jpg?v=4">
+                <source src="assets/samples/sample-podcast.mp4?v=4" type="video/mp4">
                 Your browser does not support video playback.
               </video>
               <div class="video-custom-play-btn" id="playBtn1">
@@ -1117,10 +1119,10 @@
 
           <!-- SaaS Founder Edit -->
           <div class="archetype-card">
-            <div class="archetype-video-viewport" id="viewport2" onclick="togglePlay('video2', 'playBtn2')">
+            <div class="archetype-video-viewport" id="viewport2">
               <span class="video-overlay-badge">SaaS Founder Edit</span>
-              <video id="video2" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="https://egstudio.tech/assets/samples/sample-saas-founder.jpg?v=4">
-                <source src="https://egstudio.tech/assets/samples/sample-saas-founder.mp4?v=4" type="video/mp4">
+              <video id="video2" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="assets/samples/sample-saas-founder.jpg?v=4">
+                <source src="assets/samples/sample-saas-founder.mp4?v=4" type="video/mp4">
                 Your browser does not support video playback.
               </video>
               <div class="video-custom-play-btn" id="playBtn2">
@@ -1142,10 +1144,10 @@
 
           <!-- LinkedIn Thought Leadership Edit -->
           <div class="archetype-card">
-            <div class="archetype-video-viewport" id="viewport3" onclick="togglePlay('video3', 'playBtn3')">
+            <div class="archetype-video-viewport" id="viewport3">
               <span class="video-overlay-badge">LinkedIn Thought Leadership</span>
-              <video id="video3" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="https://egstudio.tech/assets/samples/sample-executive.jpg?v=4">
-                <source src="https://egstudio.tech/assets/samples/sample-executive.mp4?v=4" type="video/mp4">
+              <video id="video3" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="assets/samples/sample-executive.jpg?v=4">
+                <source src="assets/samples/sample-executive.mp4?v=4" type="video/mp4">
                 Your browser does not support video playback.
               </video>
               <div class="video-custom-play-btn" id="playBtn3">
@@ -1534,54 +1536,47 @@
       });
 
       // 5. Video Playback Engine (Cross-Browser Reliable Handler)
-      const allVideos = document.querySelectorAll('.sample-video-elem');
-      
+      const allVideos = Array.from(document.querySelectorAll('.sample-video-elem'));
+
       allVideos.forEach(vid => {
-        const btn = vid.parentElement.querySelector('.video-custom-play-btn');
-        
+        const viewport = vid.closest('.archetype-video-viewport');
+        const btn = viewport ? viewport.querySelector('.video-custom-play-btn') : null;
+
+        // Overlay state is driven only by real media events, never guessed.
         vid.addEventListener('play', () => {
           if (btn) btn.classList.add('playing');
+          // Only one sample plays at a time.
+          allVideos.forEach(v => { if (v !== vid && !v.paused) v.pause(); });
         });
-        
-        vid.addEventListener('pause', () => {
+        vid.addEventListener('pause', () => { if (btn) btn.classList.remove('playing'); });
+        vid.addEventListener('ended', () => { if (btn) btn.classList.remove('playing'); });
+        vid.addEventListener('error', () => {
           if (btn) btn.classList.remove('playing');
+          console.warn('Sample video failed to load:', vid.currentSrc || vid.src);
         });
 
-        vid.addEventListener('ended', () => {
-          if (btn) btn.classList.remove('playing');
+        if (!btn) return;
+
+        // Only the custom overlay button starts playback. Native <video controls>
+        // keep full ownership of clicks on the player itself, so the two never
+        // fight each other (the old wrapper onclick cancelled the native play).
+        btn.addEventListener('click', (event) => {
+          event.stopPropagation();
+
+          if (vid.paused) {
+            const p = vid.play();
+            if (p && typeof p.catch === 'function') {
+              p.catch(() => {
+                // Fallback for policies that block audible autoplay-style starts.
+                vid.muted = true;
+                vid.play().catch(err => console.warn('Playback blocked:', err));
+              });
+            }
+          } else {
+            vid.pause();
+          }
         });
       });
-
-      window.togglePlay = function(videoId, btnId) {
-        const video = document.getElementById(videoId);
-        const btn = document.getElementById(btnId);
-        if (!video) return;
-
-        // Pause all other active videos
-        allVideos.forEach(v => {
-          if (v !== video && !v.paused) {
-            v.pause();
-          }
-        });
-
-        if (video.paused) {
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              if (btn) btn.classList.add('playing');
-            }).catch(error => {
-              console.warn("Video playback requires user gesture or muted audio:", error);
-              video.muted = true;
-              video.play().then(() => {
-                if (btn) btn.classList.add('playing');
-              });
-            });
-          }
-        } else {
-          video.pause();
-          if (btn) btn.classList.remove('playing');
-        }
-      };
     });
   </script>
 </body>
