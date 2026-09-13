@@ -667,163 +667,396 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1rem;
-      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+      color: var(--text-white);
     }
-    .infra-card h4 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
+    .infra-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.65rem;
     }
     .infra-card p {
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       color: var(--text-gray);
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
-    /* 7. Pricing */
-    .pricing-card {
+    .async-onboarding-container {
+      margin-top: 3.5rem;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 2.5rem;
-      max-width: 520px;
-      margin: 0 auto;
       text-align: center;
     }
-    .pricing-card .price {
-      font-size: 3rem;
-      font-weight: 900;
-      margin: 1rem 0;
-    }
-    .pricing-card .price span {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-gray);
-    }
-    .pricing-features {
+    .async-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
       text-align: left;
-      list-style: none;
-      margin: 1.5rem 0 2rem;
     }
-    .pricing-features li {
-      padding: 0.5rem 0;
-      font-size: 0.9rem;
-      color: var(--text-gray);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+    .step-item {
+      background: var(--bg-black);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
     }
-    .pricing-features li:before {
-      content: "✓ ";
+    .step-num {
+      font-size: 0.75rem;
+      font-weight: 800;
       color: var(--accent-green);
-      font-weight: 700;
+      margin-bottom: 0.5rem;
     }
 
-    /* FAQ */
-    .faq-item {
-      border-bottom: 1px solid var(--border-color);
+    /* 7. Pricing */
+    .pricing-wrap {
+      max-width: 620px;
+      margin: 0 auto;
     }
-    .faq-item button {
-      width: 100%;
+    .pricing-card-main {
+      background: var(--bg-card);
+      border: 2px solid var(--text-white);
+      border-radius: 12px;
+      padding: 3rem 2.5rem;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    }
+    .pricing-badge-top {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text-white);
+      color: var(--bg-black);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+    .pricing-amount-hero {
+      font-size: clamp(3rem, 6vw, 4.25rem);
+      font-weight: 900;
+      line-height: 1;
+      margin: 1.5rem 0 0.5rem;
+      letter-spacing: -0.04em;
+    }
+    .pricing-amount-hero span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-gray);
+      letter-spacing: normal;
+    }
+    .pricing-unit-cost {
+      font-size: 0.85rem;
+      color: var(--accent-green);
+      font-weight: 700;
+      margin-bottom: 1.75rem;
+    }
+    .pricing-checklist {
+      list-style: none;
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
       text-align: left;
-      background: none;
+    }
+    .pricing-checklist li {
+      font-size: 0.9rem;
+      color: #d4d4d8;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      line-height: 1.45;
+    }
+    .check-icon {
+      color: var(--accent-green);
+      flex-shrink: 0;
+      font-weight: 900;
+    }
+    .scarcity-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-gray);
+      margin-top: 1.25rem;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+
+    /* 8. FAQ */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+    .faq-item.active { border-color: var(--border-focus); }
+    .faq-question {
+      width: 100%;
+      padding: 1.35rem 1.5rem;
+      background: transparent;
       border: none;
       color: var(--text-white);
-      font-family: inherit;
       font-size: 1rem;
-      font-weight: 600;
-      padding: 1.25rem 0;
-      cursor: pointer;
+      font-weight: 700;
+      text-align: left;
+      font-family: inherit;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      cursor: pointer;
+      gap: 1rem;
     }
-    .faq-item .ans {
-      display: none;
-      padding-bottom: 1.25rem;
+    .faq-chevron {
+      transition: transform 0.2s ease;
+      font-size: 1.1rem;
       color: var(--text-gray);
-      font-size: 0.9rem;
-      line-height: 1.6;
     }
-    .faq-item.open .ans { display: block; }
+    .faq-item.active .faq-chevron {
+      transform: rotate(180deg);
+      color: var(--text-white);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.5rem;
+      font-size: 0.885rem;
+      color: var(--text-gray);
+      line-height: 1.65;
+    }
+    .faq-item.active .faq-answer { display: block; }
+
+    /* 9. Terminal CTA */
+    .terminal-cta-section {
+      padding: 6.5rem 0;
+      background: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #080808 85%);
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+    }
+    .terminal-title {
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+    .terminal-sub {
+      font-size: 1.1rem;
+      color: var(--text-gray);
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+    }
+    .terminal-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .contact-ops-link {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.15s;
+    }
+    .contact-ops-link:hover { color: var(--text-white); }
+    .contact-ops-link span { color: var(--text-white); text-decoration: underline; }
 
     /* Footer */
     footer {
-      padding: 3rem 0;
+      padding: 2.5rem 0;
       border-top: 1px solid var(--border-color);
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       color: var(--text-dark-gray);
+      background: var(--bg-black);
     }
-    footer a { color: inherit; text-decoration: none; }
-    footer a:hover { color: var(--text-white); }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
 
-    /* Utility */
-    .section-header { margin-bottom: 2rem; }
+    @media (max-width: 640px) {
+      .section-container { padding: 4.5rem 0; }
+      .calc-container { padding: 1.5rem; }
+      .pricing-card-main { padding: 2.5rem 1.5rem; }
+      .calibration-box { flex-direction: column; text-align: center; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <div class="nav-container">
+  <!-- 1. GLOBAL NAVIGATION BAR -->
+  <header class="nav-container">
     <div class="container nav-inner">
-      <a href="#" class="brand-logo">EG <span>STUDIO</span></a>
+      <a href="#" class="brand-logo">EG<span>STUDIO</span></a>
       <nav class="nav-menu">
         <a href="#economics">Economics</a>
         <a href="#samples">Sample Proof</a>
         <a href="#sprint-model">Sprint Model</a>
-        <a href="#async-intake">Async Intake</a>
+        <a href="#intake">Async Intake</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" class="btn btn-primary btn-primary-nav" target="_blank" rel="noopener noreferrer">Reserve Sprint</a>
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary-nav">Reserve Sprint</a>
+        <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
+    <!-- Mobile Drawer -->
     <div class="mobile-drawer" id="mobileDrawer">
-      <a href="#economics">Economics</a>
-      <a href="#samples">Sample Proof</a>
-      <a href="#sprint-model">Sprint Model</a>
-      <a href="#async-intake">Async Intake</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Reserve Sprint</a>
+      <a href="#economics" class="mobile-nav-link">Economics</a>
+      <a href="#samples" class="mobile-nav-link">Sample Proof</a>
+      <a href="#sprint-model" class="mobile-nav-link">Sprint Model</a>
+      <a href="#intake" class="mobile-nav-link">Async Intake</a>
+      <a href="#pricing" class="mobile-nav-link">Pricing</a>
+      <a href="#faq" class="mobile-nav-link">FAQ</a>
+      <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">Reserve Sprint ($1,500)</a>
     </div>
-  </div>
+  </header>
 
-  <!-- HERO -->
-  <section class="hero-section">
-    <div class="container">
-      <div class="eyebrow-tag">WHITE-LABEL CONTENT INFRASTRUCTURE FOR B2B MARKETING AGENCIES</div>
-      <h1 class="hero-title">15 Strategic Vertical Videos.<br>Delivered in 30 Days. $1,500 Flat.</h1>
-      <p class="hero-subtitle">Wholesale short-form fulfillment engineered for 5–20 person agencies. Expand your service offerings, eliminate in-house editing overhead, and capture recurring social retainer margins with zero operational drag.</p>
-      <div class="hero-actions">
-        <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Claim Your Agency Sprint - $1,500</a>
-        <a href="#samples" class="btn btn-secondary">Inspect Sample Work</a>
+  <main>
+    <!-- 2. ABOVE-THE-FOLD HERO SECTION -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="eyebrow-tag">WHITE-LABEL CONTENT INFRASTRUCTURE FOR B2B MARKETING AGENCIES</div>
+        <h1 class="hero-title">15 Strategic Vertical Videos.<br>Delivered in 30 Days. $1,500 Flat.</h1>
+        <p class="hero-subtitle">Wholesale short-form fulfillment engineered for 5–20 person agencies. Expand your service offerings, eliminate in-house editing overhead, and capture recurring social retainer margins with zero operational drag.</p>
+        <div class="hero-actions">
+          <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Claim Your Agency Sprint - $1,500</a>
+          <a href="#samples" class="btn btn-secondary">Inspect Sample Work</a>
+        </div>
+        <div class="hero-proof-bar">
+          <span>Fixed $1,500 Scope</span>
+          <span class="dot">•</span>
+          <span>guaranteed 2 business days turnaround</span>
+          <span class="dot">•</span>
+          <span>100% White-Label Delivery</span>
+        </div>
       </div>
-      <div class="hero-proof-bar">
-        <span>Fixed $1,500 Scope</span>
-        <span class="dot">•</span>
-        <span>guaranteed 2 business days turnaround</span>
-        <span class="dot">•</span>
-        <span>100% White-Label Delivery</span>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ECONOMICS -->
-  <section id="economics" class="section-container bg-surface">
-    <div class="container">
-      <div class="section-header text-center">
-        <div class="eyebrow-tag">FINANCIAL ARBITRAGE</div>
-        <h2 class="section-title">The Agency Margin Engine</h2>
-        <p class="section-subtitle">Compare true agency delivery costs and calculate your retained gross profit per client retainer.</p>
-      </div>
-      <!-- simplified remainder - full file is in artifacts; this push restores structure -->
-      <p class="text-muted text-center">Full page content restored in subsequent commit from validated local artifact.</p>
-    </div>
-  </section>
+    <!-- 3. AGENCY ECONOMIC ARBITRAGE & MARGIN ENGINE -->
+    <section id="economics" class="section-container bg-surface">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="eyebrow-tag">FINANCIAL ARBITRAGE</div>
+          <h2 class="section-title">The Agency Margin Engine</h2>
+          <p class="section-subtitle">Compare true agency delivery costs and calculate your retained gross profit per client retainer.</p>
+        </div>
 
-  <!-- SAMPLES - the required change -->
-  <section id="samples" class="section-container">
+        <!-- Comparative Table -->
+        <div class="arbitrage-table-container">
+          <table class="arbitrage-table">
+            <thead>
+              <tr>
+                <th>Fulfillment Model</th>
+                <th>Direct Monthly Cost</th>
+                <th>Management Overhead</th>
+                <th>Capacity & Turnaround Risk</th>
+                <th>Retained Agency Gross Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>In-House Junior Editor</strong></td>
+                <td>$4,500–$6,000/mo <span class="text-muted">(Loaded salary, benefits, software)</span></td>
+                <td><strong>High</strong> (Daily management, training, sick leave, PTO)</td>
+                <td><strong>Low</strong> (Capacity capped at 1 person; bottleneck risk)</td>
+                <td><span class="text-muted">15%–30%</span> (Eaten by payroll overhead)</td>
+              </tr>
+              <tr>
+                <td><strong>Upwork / Freelancers</strong></td>
+                <td>$2,000–$3,500/mo <span class="text-muted">($50–$100/hr variable)</span></td>
+                <td><strong>Severe</strong> (Unpredictable quality, ghosting, drifting styles)</td>
+                <td><strong>Unreliable</strong> (No guaranteed turnaround SLAs)</td>
+                <td><span class="text-muted">30%–45%</span> (Eaten by management hours)</td>
+              </tr>
+              <tr class="highlight-row">
+                <td><strong>EG Studio 30-Day Sprint</strong> <span class="badge-eg">SYSTEM</span></td>
+                <td><strong>$1,500 flat</strong> <span class="text-green">($100 per finished video)</span></td>
+                <td><strong>Zero</strong> (Strict async brief, guaranteed delivery calendar)</td>
+                <td><strong>Predictable</strong> (15 assets delivered across 3 structured milestones)</td>
+                <td><strong class="text-green">57%–70%</strong> (Retain $2,000–$3,500 per client)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Dynamic Margin Simulator -->
+        <div class="calc-container">
+          <div class="calc-header">
+            <h3>Dynamic Agency Margin Calculator</h3>
+            <p class="text-muted" style="font-size: 0.85rem;">Illustrate your monthly gross profit retention when reselling EG Studio wholesale fulfillment.</p>
+          </div>
+          <div class="calc-grid">
+            <div class="calc-inputs">
+              <div class="calc-input-group">
+                <label for="retainerInput">Your Client Monthly Retainer ($)</label>
+                <div class="input-wrapper">
+                  <span class="input-prefix">$</span>
+                  <input type="number" id="retainerInput" value="3500" min="1500" step="250" class="input-field">
+                </div>
+                <div class="calc-presets">
+                  <button type="button" class="preset-btn" onclick="setRetainer(2500)">$2,500</button>
+                  <button type="button" class="preset-btn" onclick="setRetainer(3500)">$3,500</button>
+                  <button type="button" class="preset-btn" onclick="setRetainer(5000)">$5,000</button>
+                </div>
+              </div>
+
+              <div class="calc-input-group">
+                <label for="clientCountInput">Number of Active Video Retainers</label>
+                <input type="number" id="clientCountInput" value="3" min="1" max="20" class="input-field input-field-num">
+              </div>
+            </div>
+
+            <div class="calc-display-box">
+              <div class="calc-metric-row">
+                <span class="calc-metric-label">Wholesale Fulfillment Cost</span>
+                <span id="displayWholesale" class="calc-metric-value text-muted">$4,500</span>
+              </div>
+              <div class="calc-metric-row">
+                <span class="calc-metric-label">Agency Gross Billing</span>
+                <span id="displayBilling" class="calc-metric-value">$10,500</span>
+              </div>
+              <div class="calc-metric-row">
+                <span class="calc-metric-label">Retained Gross Margin %</span>
+                <span id="displayMarginPercent" class="calc-metric-value text-green">57.1%</span>
+              </div>
+              <div class="calc-metric-row">
+                <span class="calc-metric-label">Retained Agency Gross Profit / Mo</span>
+                <span id="displayProfit" class="calc-metric-value highlight">$6,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. INTERACTIVE PROOF SANDBOX: RAW-TO-FINISHED WORKFLOWS -->
+    <section id="samples" class="section-container">
       <div class="container">
         <div class="section-header text-center">
           <div class="eyebrow-tag">EXECUTION EXCELLENCE</div>
@@ -912,9 +1145,264 @@
       </div>
     </section>
 
+    <!-- 5. THE 30-DAY MILESTONE SLA MATRIX & CALIBRATION GUARANTEE -->
+    <section id="sprint-model" class="section-container bg-surface">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="eyebrow-tag">RIGID OPERATIONAL SLA</div>
+          <h2 class="section-title">Explicit 30-Day Milestone SLA</h2>
+          <p class="section-subtitle">Structured batch deliveries on Days 10, 20, and 30 to give your account managers guaranteed fulfillment predictability.</p>
+        </div>
+
+        <div class="sla-matrix-grid">
+          <!-- Milestone 1 -->
+          <div class="sla-milestone-card">
+            <div class="milestone-num">Milestone 01</div>
+            <div class="milestone-days">Days 1–10</div>
+            <div class="milestone-deliverable">Batch 1 Delivery (Videos 1–5)</div>
+            <p class="milestone-desc">Async intake, brand kit calibration, pilot video approval, plus the first 5 finalized vertical video assets delivered for client review.</p>
+            <div class="milestone-sla-badge">
+              <span>SLA: 5 Finished Assets + Pilot</span>
+            </div>
+          </div>
+
+          <!-- Milestone 2 -->
+          <div class="sla-milestone-card">
+            <div class="milestone-num">Milestone 02</div>
+            <div class="milestone-days">Days 11–20</div>
+            <div class="milestone-deliverable">Batch 2 Delivery (Videos 6–10)</div>
+            <p class="milestone-desc">Delivery of the second batch of 5 assets, running simultaneously with guaranteed 2 business days turnaround on any requested Batch 1 revisions.</p>
+            <div class="milestone-sla-badge">
+              <span>SLA: 5 Finished Assets + Revisions</span>
+            </div>
+          </div>
+
+          <!-- Milestone 3 -->
+          <div class="sla-milestone-card">
+            <div class="milestone-num">Milestone 03</div>
+            <div class="milestone-days">Days 21–30</div>
+            <div class="milestone-deliverable">Batch 3 Delivery (Videos 11–15)</div>
+            <p class="milestone-desc">Final 5 assets delivered, closing all outstanding revision notes and archiving complete master files (MP4s + .SRT files) to your Drive.</p>
+            <div class="milestone-sla-badge">
+              <span>SLA: Final 5 Assets + Master Archive</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 100% Calibration Guarantee -->
+        <div class="calibration-box">
+          <div class="calibration-icon">🛡️</div>
+          <div>
+            <h3 style="font-size: 1.15rem; margin-bottom: 0.35rem;">100% Production Calibration Guarantee</h3>
+            <p style="font-size: 0.85rem; color: #d4d4d8; line-height: 1.5;">
+              During Days 1–3, we produce a single pilot asset to lock down typography styling, motion graphics, audio mastering, and color profiles. The 30-day delivery timeline proceeds once your agency provides written sign-off on the calibrated pilot.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ASYNC ONBOARDING & ZERO-FRICTION PIPELINE -->
+    <section id="intake" class="section-container">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="eyebrow-tag">ZERO SALES CALL FRICTION</div>
+          <h2 class="section-title">Frictionless Asynchronous Intake</h2>
+          <p class="section-subtitle">No 60-minute qualification calls or calendar tennis. Reserve your slot and submit briefs asynchronously in 10 minutes.</p>
+        </div>
+
+        <div class="infra-grid">
+          <div class="infra-card">
+            <div class="infra-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <h3>100% Ghost White-Label Portals</h3>
+            <p>Every review link, Frame.io project, and delivery folder is completely unbranded. You present deliverables directly under your agency's banner.</p>
+          </div>
+
+          <div class="infra-card">
+            <div class="infra-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h3>Asynchronous Onboarding Brief</h3>
+            <p>Immediately after Stripe checkout, complete our structured onboarding questionnaire with your client's raw links, brand fonts, and notes.</p>
+          </div>
+
+          <div class="infra-card">
+            <div class="infra-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h3>Full Commercial Licensing</h3>
+            <p>All background audio tracks, SFX, graphics, and kinetic typography packs carry lifetime commercial indemnification for your agency and your client.</p>
+          </div>
+        </div>
+
+        <div class="async-onboarding-container">
+          <h3>The 3-Step Instant Fulfillment Kickoff</h3>
+          <div class="async-steps-grid">
+            <div class="step-item">
+              <div class="step-num">STEP 01</div>
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.35rem;">Stripe Checkout</h4>
+              <p style="font-size: 0.8rem; color: var(--text-gray);">Lock in your fixed $1,500 sprint slot via direct whole-dollar Stripe checkout.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">STEP 02</div>
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.35rem;">Async Questionnaire</h4>
+              <p style="font-size: 0.8rem; color: var(--text-gray);">Submit client footage links (Drive/Dropbox/Zoom) and branding kit guidelines.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-num">STEP 03</div>
+              <h4 style="font-size: 0.95rem; margin-bottom: 0.35rem;">Milestone Delivery</h4>
+              <p style="font-size: 0.8rem; color: var(--text-gray);">Receive Batch 1 (Day 10), Batch 2 (Day 20), and Batch 3 (Day 30) automatically.</p>
+            </div>
+          </div>
+          <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.9rem 2.25rem;">
+            Initiate Sprint Now ($1,500)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. TRANSPARENT WHOLESALE PRICING CONTAINER -->
+    <section id="pricing" class="section-container bg-surface">
+      <div class="container text-center">
+        <div class="section-header">
+          <div class="eyebrow-tag">WHOLESALE PRICING</div>
+          <h2 class="section-title">Fixed $1,500 Wholesale Sprint</h2>
+          <p class="section-subtitle">No long-term retainer lock-ins. Buy fulfillment sprints on-demand as you close agency clients.</p>
+        </div>
+
+        <div class="pricing-wrap">
+          <div class="pricing-card-main">
+            <div class="pricing-badge-top">FIXED-SCOPE AGENCY SPRINT</div>
+            <h3 style="font-size: 1.5rem; margin-top: 0.5rem;">The 15-Video Fulfillment Engine</h3>
+            
+            <div class="pricing-amount-hero">
+              $1,500 <span>/ sprint</span>
+            </div>
+            <div class="pricing-unit-cost">Unit Cost: $100 per finished, platform-ready vertical video</div>
+
+            <p style="font-size: 0.875rem; color: var(--text-gray);">Guaranteed 30-day turnaround delivered across Days 10, 20, and 30.</p>
+
+            <ul class="pricing-checklist">
+              <li><span class="check-icon">✓</span> <span><strong>15 Strategic Vertical Videos</strong> (Up to 60s each, 9:16 format)</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>Up to 90 minutes</strong> of raw footage ingestion & hook extraction</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>2 Revision Rounds per asset</strong> with guaranteed 2 business days turnaround</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>100% White-Label Review Portals</strong> for seamless client handoff</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>Burned-in Subtitles + Standalone .SRT Files</strong> for every asset</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>Full Commercial Licensing</strong> for all audio, SFX, and motion assets</span></li>
+              <li><span class="check-icon">✓</span> <span><strong>100% Calibration Guarantee:</strong> Pilot asset approved before batch scaling</span></li>
+            </ul>
+
+            <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+              Secure Your Sprint Slot ($1,500)
+            </a>
+            
+            <div class="scarcity-notice">
+              <span class="status-dot"></span>
+              <span>Intake strictly capped at 8 agency partners per month to preserve SLAs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. INSTITUTIONAL FAQ & RISK-REVERSAL MODULE -->
+    <section id="faq" class="section-container">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="eyebrow-tag">AGENCY FAQ</div>
+          <h2 class="section-title">Institutional FAQ & Handoff Safeguards</h2>
+          <p class="section-subtitle">Everything your operations team needs to know about white-label fulfillment, revision mechanics, and client protection.</p>
+        </div>
+
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How does the white-label handoff work for client presentations?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              All deliverables are hosted inside unbranded Frame.io review links or organized Google Drive folders with clean naming taxonomies (e.g., <code>[ClientName]_Batch01_Video01.mp4</code>). We never contact your clients directly or attach EG Studio metadata to any video file.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What raw footage can we submit, and is there an ingestion limit?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Each $1,500 sprint covers up to 90 minutes of total raw source footage (Zoom recordings, podcast episodes, raw iPhone videos, keynote presentations, or product demo screencasts). Projects exceeding 90 minutes are scoped individually upon request.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How do revision rounds and turnaround SLAs function?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              Each asset includes 2 structured revision cycles. Once your agency or client leaves timestamped notes inside the review portal, our editing team turns around updated versions within 2 business days.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Can we resell these videos at any retainer price we choose?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              Yes. You have 100% pricing autonomy. Most of our agency partners sell this 15-video sprint as a monthly social organic retainer priced between $3,500 and $5,000/month, retaining $2,000–$3,500 in clean gross profit without hiring internal staff.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What is your style calibration and satisfaction guarantee?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              During Days 1–3, we edit a single pilot video to lock in font choices, brand color palettes, pacing, and caption formatting. The 30-day delivery timeline proceeds once your agency provides written sign-off on the calibrated pilot.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Are we locked into an ongoing monthly contract?</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              No. You can purchase sprints on-demand as you close new agency clients or subscribe month-to-month to guarantee dedicated queue priority for recurring retainer accounts.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. TERMINAL CALL-TO-ACTION BAR -->
+    <section class="terminal-cta-section">
+      <div class="container">
+        <h2 class="terminal-title">Scale Your Agency's Video Delivery Capacity Today.</h2>
+        <p class="terminal-sub">Zero payroll commitment. Fixed $1,500 sprint pricing. Guaranteed 30-day turnaround.</p>
+        <div class="terminal-actions">
+          <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 1.1rem 2.5rem; font-size: 1.05rem;">
+            Reserve Your Agency Sprint Slot ($1,500)
+          </a>
+          <a href="mailto:ops@egstudio.tech" class="contact-ops-link">
+            Have bespoke requirements? <span>Direct Inquiries: ops@egstudio.tech</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
   <footer>
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-      <div>EG STUDIO © 2026. White-Label Video Infrastructure for Agencies.</div>
+    <div class="container footer-inner">
+      <div>
+        <strong>EG STUDIO</strong> &copy; <span id="currentYear"></span>. White-Label Video Infrastructure for Agencies.
+      </div>
       <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
         <a href="#economics" style="color: inherit; text-decoration: none;">Economics</a>
         <a href="#samples" style="color: inherit; text-decoration: none;">Samples</a>
@@ -925,24 +1413,127 @@
     </div>
   </footer>
 
+  <!-- JAVASCRIPT LOGIC -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const btn = document.getElementById('mobileMenuBtn');
-      const drawer = document.getElementById('mobileDrawer');
-      if (btn && drawer) {
-        btn.addEventListener('click', () => drawer.classList.toggle('active'));
+      // 1. Current year in footer
+      const yearEl = document.getElementById('currentYear');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      // 2. Mobile drawer navigation
+      const mobileToggle = document.getElementById('mobileMenuToggle');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      if (mobileToggle && mobileDrawer) {
+        mobileToggle.addEventListener('click', () => {
+          mobileDrawer.classList.toggle('active');
+        });
+
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileDrawer.classList.remove('active');
+          });
+        });
       }
+
+      // 3. Dynamic Margin Engine Simulator
+      const retainerInput = document.getElementById('retainerInput');
+      const clientCountInput = document.getElementById('clientCountInput');
+      const displayWholesale = document.getElementById('displayWholesale');
+      const displayBilling = document.getElementById('displayBilling');
+      const displayMarginPercent = document.getElementById('displayMarginPercent');
+      const displayProfit = document.getElementById('displayProfit');
+      const sprintCostPerClient = 1500;
+
+      function updateCalculator() {
+        const retainer = parseFloat(retainerInput.value) || 0;
+        const clients = parseInt(clientCountInput.value) || 1;
+
+        const totalBilling = retainer * clients;
+        const totalWholesale = sprintCostPerClient * clients;
+        const totalProfit = Math.max(0, totalBilling - totalWholesale);
+        const marginPercent = totalBilling > 0 ? ((totalProfit / totalBilling) * 100).toFixed(1) : 0;
+
+        displayWholesale.textContent = `$${totalWholesale.toLocaleString()}`;
+        displayBilling.textContent = `$${totalBilling.toLocaleString()}`;
+        displayProfit.textContent = `$${totalProfit.toLocaleString()}`;
+        displayMarginPercent.textContent = `${marginPercent}%`;
+      }
+
+      if (retainerInput && clientCountInput) {
+        retainerInput.addEventListener('input', updateCalculator);
+        clientCountInput.addEventListener('input', updateCalculator);
+        updateCalculator();
+      }
+
+      window.setRetainer = function(amount) {
+        if (retainerInput) {
+          retainerInput.value = amount;
+          updateCalculator();
+        }
+      };
+
+      // 4. FAQ Accordion
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const btn = item.querySelector('.faq-question');
+        btn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('active');
+          faqItems.forEach(i => i.classList.remove('active'));
+          if (!isOpen) {
+            item.classList.add('active');
+          }
+        });
+      });
+
+      // 5. Video Playback Engine (Cross-Browser Reliable Handler)
+      const allVideos = document.querySelectorAll('.sample-video-elem');
+      
+      allVideos.forEach(vid => {
+        const btn = vid.parentElement.querySelector('.video-custom-play-btn');
+        
+        vid.addEventListener('play', () => {
+          if (btn) btn.classList.add('playing');
+        });
+        
+        vid.addEventListener('pause', () => {
+          if (btn) btn.classList.remove('playing');
+        });
+
+        vid.addEventListener('ended', () => {
+          if (btn) btn.classList.remove('playing');
+        });
+      });
+
       window.togglePlay = function(videoId, btnId) {
         const video = document.getElementById(videoId);
-        const playBtn = document.getElementById(btnId);
+        const btn = document.getElementById(btnId);
         if (!video) return;
+
+        // Pause all other active videos
+        allVideos.forEach(v => {
+          if (v !== video && !v.paused) {
+            v.pause();
+          }
+        });
+
         if (video.paused) {
-          document.querySelectorAll('video').forEach(v => { if (v !== video) v.pause(); });
-          video.play();
-          if (playBtn) playBtn.classList.add('playing');
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              if (btn) btn.classList.add('playing');
+            }).catch(error => {
+              console.warn("Video playback requires user gesture or muted audio:", error);
+              video.muted = true;
+              video.play().then(() => {
+                if (btn) btn.classList.add('playing');
+              });
+            });
+          }
         } else {
           video.pause();
-          if (playBtn) playBtn.classList.remove('playing');
+          if (btn) btn.classList.remove('playing');
         }
       };
     });
