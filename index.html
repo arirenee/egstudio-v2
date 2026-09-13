@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EG Studio | White-Label Video Fulfillment for B2B Agencies</title>
-  <meta name="description" content="Wholesale short-form video infrastructure for B2B marketing agencies. 15 strategic vertical videos delivered in 30 days. $1,500 flat.">
+  <meta name="description" content="Wholesale short-form video infrastructure for B2B marketing agencies. Choose Sprint (15 videos for $1,500) or Five (5 videos for $500).">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -710,8 +710,10 @@
 
     /* 7. Pricing */
     .pricing-wrap {
-      max-width: 620px;
+      max-width: 980px;
       margin: 0 auto;
+      display: grid;
+      gap: 1.5rem;
     }
     .pricing-card-main {
       background: var(--bg-card);
@@ -735,6 +737,9 @@
       padding: 0.35rem 1rem;
       border-radius: 9999px;
       white-space: nowrap;
+    }
+    .pricing-card-main.offer-secondary {
+      border-color: var(--border-color);
     }
     .pricing-amount-hero {
       font-size: clamp(3rem, 6vw, 4.25rem);
@@ -900,6 +905,11 @@
       .pricing-card-main { padding: 2.5rem 1.5rem; }
       .calibration-box { flex-direction: column; text-align: center; }
     }
+    @media (min-width: 900px) {
+      .pricing-wrap {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
   </style>
 </head>
 <body>
@@ -917,7 +927,7 @@
         <a href="#faq">FAQ</a>
       </nav>
       <div style="display: flex; align-items: center; gap: 0.75rem;">
-        <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary-nav">Reserve Sprint</a>
+        <a href="#pricing" class="btn btn-primary-nav">View Offers</a>
         <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle Navigation">
           <span></span>
           <span></span>
@@ -933,7 +943,7 @@
       <a href="#intake" class="mobile-nav-link">Async Intake</a>
       <a href="#pricing" class="mobile-nav-link">Pricing</a>
       <a href="#faq" class="mobile-nav-link">FAQ</a>
-      <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">Reserve Sprint ($1,500)</a>
+      <a href="#pricing" class="btn btn-primary btn-block">View Offers: Sprint $1,500 + Five $500</a>
     </div>
   </header>
 
@@ -942,16 +952,16 @@
     <section class="hero-section">
       <div class="container">
         <div class="eyebrow-tag">WHITE-LABEL CONTENT INFRASTRUCTURE FOR B2B MARKETING AGENCIES</div>
-        <h1 class="hero-title">15 Strategic Vertical Videos.<br>Delivered in 30 Days. $1,500 Flat.</h1>
+        <h1 class="hero-title">Two ways to buy. Same edit.<br>Sprint ($1,500) or Five ($500).</h1>
         <p class="hero-subtitle">Wholesale short-form fulfillment engineered for 5–20 person agencies. Expand your service offerings, eliminate in-house editing overhead, and capture recurring social retainer margins with zero operational drag.</p>
         <div class="hero-actions">
-          <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Claim Your Agency Sprint - $1,500</a>
-          <a href="#samples" class="btn btn-secondary">Inspect Sample Work</a>
+          <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Start the $1,500 Sprint</a>
+          <a href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Buy Five — $500</a>
         </div>
         <div class="hero-proof-bar">
-          <span>Fixed $1,500 Scope</span>
+          <span>Sprint: 15 videos ($1,500)</span>
           <span class="dot">•</span>
-          <span>guaranteed 2 business days turnaround</span>
+          <span>Five: 5 videos ($500)</span>
           <span class="dot">•</span>
           <span>100% White-Label Delivery</span>
         </div>
@@ -1243,7 +1253,7 @@
             <div class="step-item">
               <div class="step-num">STEP 01</div>
               <h4 style="font-size: 0.95rem; margin-bottom: 0.35rem;">Stripe Checkout</h4>
-              <p style="font-size: 0.8rem; color: var(--text-gray);">Lock in your fixed $1,500 sprint slot via direct whole-dollar Stripe checkout.</p>
+              <p style="font-size: 0.8rem; color: var(--text-gray);">Choose Sprint ($1,500) or Five ($500) and lock your slot via direct Stripe checkout.</p>
             </div>
             <div class="step-item">
               <div class="step-num">STEP 02</div>
@@ -1256,9 +1266,14 @@
               <p style="font-size: 0.8rem; color: var(--text-gray);">Receive Batch 1 (Day 10), Batch 2 (Day 20), and Batch 3 (Day 30) automatically.</p>
             </div>
           </div>
-          <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.9rem 2.25rem;">
-            Initiate Sprint Now ($1,500)
-          </a>
+          <div class="terminal-actions">
+            <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.9rem 2.25rem;">
+              Start the $1,500 Sprint
+            </a>
+            <a href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.9rem 2.25rem;">
+              Buy Five — $500
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -1267,42 +1282,56 @@
     <section id="pricing" class="section-container bg-surface">
       <div class="container text-center">
         <div class="section-header">
-          <div class="eyebrow-tag">WHOLESALE PRICING</div>
-          <h2 class="section-title">Fixed $1,500 Wholesale Sprint</h2>
-          <p class="section-subtitle">No long-term retainer lock-ins. Buy fulfillment sprints on-demand as you close agency clients.</p>
+          <h2 class="section-title">Offers</h2>
+          <p class="section-subtitle">Two ways to buy. Same edit.</p>
         </div>
 
         <div class="pricing-wrap">
           <div class="pricing-card-main">
-            <div class="pricing-badge-top">FIXED-SCOPE AGENCY SPRINT</div>
-            <h3 style="font-size: 1.5rem; margin-top: 0.5rem;">The 15-Video Fulfillment Engine</h3>
+            <div class="pricing-badge-top">15 VIDEOS</div>
+            <h3 style="font-size: 1.5rem; margin-top: 0.5rem;">Sprint</h3>
             
             <div class="pricing-amount-hero">
-              $1,500 <span>/ sprint</span>
+              $1,500 <span>one time</span>
             </div>
-            <div class="pricing-unit-cost">Unit Cost: $100 per finished, platform-ready vertical video</div>
-
-            <p style="font-size: 0.875rem; color: var(--text-gray);">Guaranteed 30-day turnaround delivered across Days 10, 20, and 30.</p>
+            <div class="pricing-unit-cost">15 finished 9:16 videos in 30 days. Three delivery days. One style lock.</div>
 
             <ul class="pricing-checklist">
-              <li><span class="check-icon">✓</span> <span><strong>15 Strategic Vertical Videos</strong> (Up to 60s each, 9:16 format)</span></li>
-              <li><span class="check-icon">✓</span> <span><strong>Up to 90 minutes</strong> of raw footage ingestion & hook extraction</span></li>
-              <li><span class="check-icon">✓</span> <span><strong>2 Revision Rounds per asset</strong> with guaranteed 2 business days turnaround</span></li>
-              <li><span class="check-icon">✓</span> <span><strong>100% White-Label Review Portals</strong> for seamless client handoff</span></li>
-              <li><span class="check-icon">✓</span> <span><strong>Burned-in Subtitles + Standalone .SRT Files</strong> for every asset</span></li>
-              <li><span class="check-icon">✓</span> <span><strong>Full Commercial Licensing</strong> for all audio, SFX, and motion assets</span></li>
-              <li><span class="check-icon">✓</span> <span><strong>100% Calibration Guarantee:</strong> Pilot asset approved before batch scaling</span></li>
+              <li><span class="check-icon">✓</span> <span>Style sample in the first 3 days</span></li>
+              <li><span class="check-icon">✓</span> <span>Up to 90 minutes of source footage</span></li>
+              <li><span class="check-icon">✓</span> <span>Two revision rounds per video</span></li>
+              <li><span class="check-icon">✓</span> <span>Unbranded Frame.io or Drive folder</span></li>
             </ul>
 
             <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
-              Secure Your Sprint Slot ($1,500)
+              Start the $1,500 Sprint
             </a>
-            
-            <div class="scarcity-notice">
-              <span class="status-dot"></span>
-              <span>Intake strictly capped at 8 agency partners per month to preserve SLAs</span>
-            </div>
           </div>
+
+          <div class="pricing-card-main offer-secondary">
+            <div class="pricing-badge-top">5 VIDEOS</div>
+            <h3 style="font-size: 1.5rem; margin-top: 0.5rem;">Five</h3>
+            
+            <div class="pricing-amount-hero">
+              $500 <span>one time</span>
+            </div>
+            <div class="pricing-unit-cost">Five finished 9:16 videos. Same edit standard as the Sprint. Buy on its own.</div>
+
+            <ul class="pricing-checklist">
+              <li><span class="check-icon">✓</span> <span>$100 per video</span></li>
+              <li><span class="check-icon">✓</span> <span>One delivery batch</span></li>
+              <li><span class="check-icon">✓</span> <span>Two revision rounds per video</span></li>
+              <li><span class="check-icon">✓</span> <span>No separate sample round — first video sets the look</span></li>
+            </ul>
+
+            <a href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-block">
+              Buy Five — $500
+            </a>
+          </div>
+        </div>
+        <div class="scarcity-notice">
+          <span class="status-dot"></span>
+          <span>Intake strictly capped at 8 agency partners per month to preserve SLAs</span>
         </div>
       </div>
     </section>
@@ -1333,7 +1362,7 @@
               <span class="faq-chevron">▼</span>
             </button>
             <div class="faq-answer">
-              <p>Each $1,500 sprint covers up to 90 minutes of total raw source footage (Zoom recordings, podcast episodes, raw iPhone videos, keynote presentations, or product demo screencasts). Projects exceeding 90 minutes are scoped individually upon request.</p>
+              <p>Sprint includes up to 90 minutes of source footage. Five includes up to 30 minutes of source footage. For either offer, source can be Zoom recordings, podcast episodes, raw iPhone videos, keynote presentations, or product demo screencasts.</p>
             </div>
           </div>
 
@@ -1343,7 +1372,7 @@
               <span class="faq-chevron">▼</span>
             </button>
             <div class="faq-answer">
-              Each asset includes 2 structured revision cycles. Once your agency or client leaves timestamped notes inside the review portal, our editing team turns around updated versions within 2 business days.
+              Each video includes two structured revision rounds. Sprint delivers in three batches across 30 days. Five delivers in one batch after the first video is approved and the look is locked.
             </div>
           </div>
 
@@ -1363,7 +1392,7 @@
               <span class="faq-chevron">▼</span>
             </button>
             <div class="faq-answer">
-              During Days 1–3, we edit a single pilot video to lock in font choices, brand color palettes, pacing, and caption formatting. The 30-day delivery timeline proceeds once your agency provides written sign-off on the calibrated pilot.
+              Sprint includes a style sample in Days 1–3 before full-batch production. Five has no separate sample round — the first video sets the look, then the remaining videos are delivered in one batch after approval.
             </div>
           </div>
 
@@ -1384,10 +1413,13 @@
     <section class="terminal-cta-section">
       <div class="container">
         <h2 class="terminal-title">Scale Your Agency's Video Delivery Capacity Today.</h2>
-        <p class="terminal-sub">Zero payroll commitment. Fixed $1,500 sprint pricing. Guaranteed 30-day turnaround.</p>
+        <p class="terminal-sub">Zero payroll commitment. Choose Sprint ($1,500) or Five ($500). Same edit standard.</p>
         <div class="terminal-actions">
           <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 1.1rem 2.5rem; font-size: 1.05rem;">
-            Reserve Your Agency Sprint Slot ($1,500)
+            Start the $1,500 Sprint
+          </a>
+          <a href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 1.1rem 2.5rem; font-size: 1.05rem;">
+            Buy Five — $500
           </a>
           <a href="mailto:ops@egstudio.tech" class="contact-ops-link">
             Have bespoke requirements? <span>Direct Inquiries: ops@egstudio.tech</span>
