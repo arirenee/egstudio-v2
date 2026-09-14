@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EG Studio | White-Label Video Fulfillment for B2B Agencies</title>
-  <meta name="description" content="Wholesale short-form video infrastructure for B2B marketing agencies. Choose Sprint (15 videos for $1,500) or Five (5 videos for $500).">
+  <meta name="description" content="White-label 9:16 fulfillment for 5–20 person B2B agencies. 15 videos in 30 days. $1,500. Stripe. No call.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -927,6 +927,63 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
+    .hero-micro {
+      color: var(--text-dark-gray);
+      font-size: 0.88rem;
+      margin: -1.5rem auto 1.75rem;
+      max-width: 440px;
+      line-height: 1.45;
+    }
+    .who-split {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      text-align: left;
+      max-width: 720px;
+      margin: 0 auto 1.75rem;
+    }
+    @media (min-width: 720px) {
+      .who-split { grid-template-columns: 1fr 1fr; }
+    }
+    .who-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.1rem 1.2rem;
+    }
+    .who-card h2 {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+    .who-card p {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      line-height: 1.45;
+      font-weight: 400;
+    }
+    .how-three {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: left;
+      display: grid;
+      gap: 0.75rem;
+    }
+    .how-three h2 {
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dark-gray);
+      font-weight: 700;
+    }
+    .how-three ol {
+      margin: 0;
+      padding-left: 1.15rem;
+      color: var(--text-gray);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .how-three li { margin-bottom: 0.35rem; }
+    .how-three strong { color: var(--text-white); }
   </style>
 </head>
 <body>
@@ -944,7 +1001,7 @@
         <a href="#faq">FAQ</a>
       </nav>
       <div style="display: flex; align-items: center; gap: 0.75rem;">
-        <a href="#pricing" class="btn btn-primary-nav">View Offers</a>
+        <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary-nav">Start the $1,500 Sprint</a>
         <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle Navigation">
           <span></span>
           <span></span>
@@ -960,7 +1017,7 @@
       <a href="#intake" class="mobile-nav-link">Async Intake</a>
       <a href="#pricing" class="mobile-nav-link">Pricing</a>
       <a href="#faq" class="mobile-nav-link">FAQ</a>
-      <a href="#pricing" class="btn btn-primary btn-block">View Offers: Sprint $1,500 + Five $500</a>
+      <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">Start the $1,500 Sprint</a>
     </div>
   </header>
 
@@ -968,19 +1025,41 @@
     <!-- 2. ABOVE-THE-FOLD HERO SECTION -->
     <section class="hero-section">
       <div class="container">
-        <div class="eyebrow-tag">WHITE-LABEL CONTENT INFRASTRUCTURE FOR B2B MARKETING AGENCIES</div>
-        <h1 class="hero-title">Two ways to buy. Same edit.<br>Sprint ($1,500) or Five ($500).</h1>
-        <p class="hero-subtitle">Wholesale short-form fulfillment engineered for 5–20 person agencies. Expand your service offerings, eliminate in-house editing overhead, and capture recurring social retainer margins with zero operational drag.</p>
+        <div class="eyebrow-tag">WHITE-LABEL 9:16 FOR AGENCY PARTNERS</div>
+        <h1 class="hero-title">White-label 9:16 fulfillment for agencies that already sell content.</h1>
+        <p class="hero-subtitle">15 finished videos in 30 days. $1,500. You keep the client. We stay off the files.</p>
+        <div class="hero-proof-bar">
+          <span>$100 / video</span>
+          <span class="dot">•</span>
+          <span>15 in 30 days · ≤60s</span>
+          <span class="dot">•</span>
+          <span>Four archetypes only</span>
+          <span class="dot">•</span>
+          <span>Cap of 8 / month</span>
+          <span class="dot">•</span>
+          <span>No call · We never email your client</span>
+        </div>
         <div class="hero-actions">
           <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Start the $1,500 Sprint</a>
-          <a href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Buy Five — $500</a>
         </div>
-        <div class="hero-proof-bar">
-          <span>Sprint: 15 videos ($1,500)</span>
-          <span class="dot">•</span>
-          <span>Five: 5 videos ($500)</span>
-          <span class="dot">•</span>
-          <span>100% White-Label Delivery</span>
+        <p class="hero-micro">Pay on Stripe. Send the brief after. No call. Confirmation comes from ops@egstudio.tech.</p>
+        <div class="who-split">
+          <div class="who-card">
+            <h2>Who it's for.</h2>
+            <p>5–20 person B2B agencies that already sell content to clients.</p>
+          </div>
+          <div class="who-card">
+            <h2>Who it's not.</h2>
+            <p>Founders buying for their own brand. Freelancers. Coaches. Agencies ~50+. If that is you, do not pay — this factory will not start production for you.</p>
+          </div>
+        </div>
+        <div class="how-three">
+          <h2>How it works</h2>
+          <ol>
+            <li><strong>Pay.</strong> Email + agency name on Stripe. Card, not a sales call.</li>
+            <li><strong>Brief.</strong> After payment: footage links, fonts, colors, delivery folder name, and which of the four video types you need.</li>
+            <li><strong>Lock, then deliver.</strong> Style sample in the first 3 days. Then films on day 10, 20, and 30. Two revision rounds per video. Each turn is 2 business days after timestamped notes.</li>
+          </ol>
         </div>
       </div>
     </section>
@@ -1270,7 +1349,7 @@
             <div class="step-item">
               <div class="step-num">STEP 01</div>
               <h4 style="font-size: 0.95rem; margin-bottom: 0.35rem;">Stripe Checkout</h4>
-              <p style="font-size: 0.8rem; color: var(--text-gray);">Choose Sprint ($1,500) or Five ($500) and lock your slot via direct Stripe checkout.</p>
+              <p style="font-size: 0.8rem; color: var(--text-gray);">Pay $1,500 on Stripe and lock the Sprint slot. Five stays on Offers.</p>
             </div>
             <div class="step-item">
               <div class="step-num">STEP 02</div>
@@ -1287,9 +1366,6 @@
             <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 0.9rem 2.25rem;">
               Start the $1,500 Sprint
             </a>
-            <a href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 0.9rem 2.25rem;">
-              Buy Five — $500
-            </a>
           </div>
         </div>
       </div>
@@ -1300,7 +1376,7 @@
       <div class="container text-center">
         <div class="section-header">
           <h2 class="section-title">Offers</h2>
-          <p class="section-subtitle">Two ways to buy. Same edit.</p>
+          <p class="section-subtitle">Primary path: Sprint. Five is a smaller secondary buy.</p>
         </div>
 
         <div class="pricing-wrap">
@@ -1332,7 +1408,7 @@
             <div class="pricing-amount-hero">
               $500 <span>one time</span>
             </div>
-            <div class="pricing-unit-cost">Five finished 9:16 videos. Same edit standard as the Sprint. Buy on its own.</div>
+            <div class="pricing-unit-cost">Five finished 9:16 videos. Same edit standard. Secondary path.</div>
 
             <ul class="pricing-checklist">
               <li><span class="check-icon">✓</span> <span>$100 per video</span></li>
@@ -1429,14 +1505,11 @@
     <!-- 9. TERMINAL CALL-TO-ACTION BAR -->
     <section class="terminal-cta-section">
       <div class="container">
-        <h2 class="terminal-title">Scale Your Agency's Video Delivery Capacity Today.</h2>
-        <p class="terminal-sub">Zero payroll commitment. Choose Sprint ($1,500) or Five ($500). Same edit standard.</p>
+        <h2 class="terminal-title">Start the $1,500 Sprint.</h2>
+        <p class="terminal-sub">Pay on Stripe. Send the brief after. No call. Five stays a secondary buy on Offers.</p>
         <div class="terminal-actions">
           <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 1.1rem 2.5rem; font-size: 1.05rem;">
             Start the $1,500 Sprint
-          </a>
-          <a href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 1.1rem 2.5rem; font-size: 1.05rem;">
-            Buy Five — $500
           </a>
         </div>
       </div>
