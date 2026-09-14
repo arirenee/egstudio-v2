@@ -984,6 +984,63 @@
     }
     .how-three li { margin-bottom: 0.35rem; }
     .how-three strong { color: var(--text-white); }
+
+    .nav-cta { display: none; }
+    @media (min-width: 860px) {
+      .nav-cta { display: inline-flex; }
+    }
+    .hero-facts {
+      list-style: none;
+      max-width: 420px;
+      margin: 0 auto 1.5rem;
+      padding: 0;
+      color: var(--text-gray);
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+    .hero-facts li { margin: 0; }
+    .econ-cards { display: none; }
+    @media (max-width: 860px) {
+      .nav-container { padding: 0.55rem 0; }
+      .hero-section { padding: 1.75rem 0 2.25rem; }
+      .hero-title { font-size: 2rem; margin-bottom: 0.9rem; }
+      .hero-subtitle { margin: 0 auto 1.35rem; font-size: 0.98rem; }
+      .hero-actions { margin-bottom: 1.15rem; }
+      .hero-micro { margin: 0 auto 1.35rem; }
+      .section-container { padding: 2.75rem 0; }
+      .section-subtitle { margin-bottom: 1.75rem; }
+      .terminal-cta-section { padding: 3.25rem 0; }
+      .arbitrage-table-container { display: none; }
+      .econ-cards {
+        display: grid;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+      }
+      .econ-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1rem 1.1rem;
+        text-align: left;
+      }
+      .econ-card.eg {
+        border-color: var(--accent-green-border);
+        background: rgba(34, 197, 94, 0.04);
+      }
+      .econ-card h3 {
+        font-size: 0.95rem;
+        margin-bottom: 0.35rem;
+      }
+      .econ-card p {
+        font-size: 0.8rem;
+        color: var(--text-gray);
+        line-height: 1.45;
+        font-weight: 400;
+      }
+      .econ-card strong { color: var(--text-white); }
+      .econ-card .eg-price { color: var(--accent-green); }
+    }
   </style>
 </head>
 <body>
@@ -1001,7 +1058,7 @@
         <a href="#faq">FAQ</a>
       </nav>
       <div style="display: flex; align-items: center; gap: 0.75rem;">
-        <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" class="btn btn-primary-nav">Start the $1,500 Sprint</a>
+        <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" class="btn btn-primary-nav nav-cta">Start the $1,500 Sprint</a>
         <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle Navigation">
           <span></span>
           <span></span>
@@ -1028,20 +1085,14 @@
         <div class="eyebrow-tag">WHITE-LABEL 9:16 FOR AGENCY PARTNERS</div>
         <h1 class="hero-title">White-label 9:16 fulfillment for agencies that already sell content.</h1>
         <p class="hero-subtitle">15 finished videos in 30 days. $1,500. You keep the client. We stay off the files.</p>
-        <div class="hero-proof-bar">
-          <span>$100 / video</span>
-          <span class="dot">•</span>
-          <span>15 in 30 days · ≤60s</span>
-          <span class="dot">•</span>
-          <span>Four archetypes only</span>
-          <span class="dot">•</span>
-          <span>Cap of 8 / month</span>
-          <span class="dot">•</span>
-          <span>No call · We never email your client</span>
-        </div>
         <div class="hero-actions">
           <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06" class="btn btn-primary">Start the $1,500 Sprint</a>
         </div>
+        <ul class="hero-facts">
+          <li>$100 / video · 15 in 30 days · ≤60s</li>
+          <li>Four archetypes · cap of 8 / month</li>
+          <li>No call · we never email your client</li>
+        </ul>
         <p class="hero-micro">Pay on Stripe. Send the brief after. No call. Confirmation comes from ops@egstudio.tech.</p>
         <div class="who-split">
           <div class="who-card">
@@ -1109,6 +1160,20 @@
               </tr>
             </tbody>
           </table>
+
+        <div class="econ-cards" aria-label="Fulfillment cost comparison">
+          <div class="econ-card">
+            <h3>In-house junior editor</h3>
+            <p><strong>$4,500–$6,000/mo</strong> loaded. Daily management. Capacity of one.</p>
+          </div>
+          <div class="econ-card">
+            <h3>Upwork / freelancers</h3>
+            <p><strong>$2,000–$3,500/mo</strong> variable. Quality drift. No SLA.</p>
+          </div>
+          <div class="econ-card eg">
+            <h3>EG Studio Sprint</h3>
+            <p><strong class="eg-price">$1,500 flat</strong> · $100 per finished video. Async brief. 15 assets in 30 days.</p>
+          </div>
         </div>
 
         <!-- Dynamic Margin Simulator -->
