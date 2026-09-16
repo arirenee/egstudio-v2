@@ -1,1 +1,267 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EG Studio | Sell the video retainer. Stop hiring an editor.</title>
+  <meta name="description" content="White-label 9:16 fulfillment for 5–20 person B2B agencies. 15 finished videos in 30 days. $1,500. Stripe. No call. We never email your client.">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
+  <meta name="theme-color" content="#080808">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: #111;
+      --card: #161616;
+      --border: #262626;
+      --white: #fff;
+      --gray: #a1a1aa;
+      --muted: #71717a;
+      --green: #22c55e;
+      --font: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--white); font-family: var(--font); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .wrap { width: 92%; max-width: 720px; margin: 0 auto; }
+    header { position: sticky; top: 0; z-index: 20; background: rgba(8,8,8,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: .85rem 0; }
+    .brand { font-weight: 900; letter-spacing: 2px; text-decoration: none; font-size: 1.05rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: .85rem 1.4rem; font-weight: 700; font-size: .9rem; text-decoration: none; border-radius: 6px; border: 1px solid transparent; }
+    .btn-primary { background: var(--white); color: var(--bg); }
+    .btn-secondary { background: rgba(255,255,255,.04); color: var(--white); border-color: var(--border); }
+    .btn-block { width: 100%; padding: 1.05rem; }
+    .hero { padding: 2rem 0 2.25rem; text-align: center; }
+    .eyebrow { display: inline-flex; font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gray); border: 1px solid var(--border); background: rgba(255,255,255,.05); padding: .32rem .8rem; border-radius: 999px; margin-bottom: 1.15rem; }
+    h1 { font-size: 2rem; line-height: 1.12; font-weight: 900; letter-spacing: -.03em; margin-bottom: .9rem; }
+    .sub { color: var(--gray); font-size: 1rem; margin: 0 auto 1.35rem; max-width: 36rem; }
+    .facts { list-style: none; color: var(--gray); font-size: .82rem; font-weight: 600; margin: 1.1rem auto 1rem; }
+    .micro { color: var(--muted); font-size: .84rem; margin-bottom: 1.35rem; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.1rem 1.15rem; text-align: left; margin-bottom: 1rem; }
+    .card h2, .block h2 { font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: .45rem; }
+    .card p, .block p, li { color: var(--gray); font-size: .88rem; font-weight: 400; }
+    .card strong, .block strong { color: var(--white); }
+    .split { display: grid; gap: 1rem; margin-bottom: 1rem; }
+    .block { text-align: left; margin: 0 auto 1.5rem; }
+    .block ol { padding-left: 1.15rem; color: var(--gray); font-size: .88rem; }
+    .block li { margin-bottom: .35rem; }
+    section { padding: 2.6rem 0; border-top: 1px solid var(--border); }
+    .center { text-align: center; }
+    h3.sec { font-size: 1.65rem; line-height: 1.15; margin: .6rem 0 .7rem; }
+    .muted { color: var(--gray); }
+    .samples { display: grid; gap: 1.25rem; }
+    video { width: 100%; aspect-ratio: 9/16; object-fit: cover; background: #000; border-radius: 8px 8px 0 0; display: block; }
+    .sample { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .sample .info { padding: 1rem 1.1rem 1.15rem; }
+    .sample h4 { margin-bottom: .3rem; font-size: 1rem; }
+    .disc { color: var(--muted); font-size: .82rem; margin-top: 1.25rem; }
+    .price { font-size: 2.1rem; font-weight: 900; margin: .35rem 0 .4rem; }
+    .price span { font-size: 1rem; font-weight: 600; color: var(--gray); }
+    .checks { list-style: none; text-align: left; margin: 1rem 0 1.2rem; }
+    .checks li { margin-bottom: .35rem; color: var(--gray); }
+    .cap { color: var(--gray); font-size: .82rem; margin-top: 1rem; }
+    details { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: .9rem 1rem; margin-bottom: .6rem; text-align: left; }
+    summary { font-weight: 700; cursor: pointer; }
+    details p { margin-top: .55rem; color: var(--gray); font-size: .88rem; }
+    footer { border-top: 1px solid var(--border); padding: 1.4rem 0 2rem; color: var(--muted); font-size: .78rem; }
+    .flinks { display: flex; flex-wrap: wrap; gap: .7rem 1rem; margin-top: .8rem; }
+    .flinks a { color: var(--gray); text-decoration: none; }
+    .green { color: var(--green); }
+    @media (min-width: 720px) {
+      h1 { font-size: 2.8rem; }
+      .split { grid-template-columns: 1fr 1fr; }
+      .samples { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="/">EG STUDIO</a>
+      <a class="btn btn-primary" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Start the $1,500 Sprint</a>
+    </div>
+  </header>
+  <main>
+    <section class="hero" style="border-top:0;padding-top:1.75rem;">
+      <div class="wrap">
+        <div class="eyebrow">For 5–20 person B2B agencies that already sell content</div>
+        <h1>Sell the video retainer.<br>Stop hiring an editor.</h1>
+        <p class="sub">We fulfill 15 finished 9:16 videos in 30 days for $1,500. White-label. You keep the client. We never email them.</p>
+        <a class="btn btn-primary" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Start the $1,500 Sprint</a>
+        <ul class="facts">
+          <li>$100 / video · 15 in 30 days · ≤60s</li>
+          <li>White-label folder · cap of 8 / month</li>
+          <li>Pay on Stripe. Then send the brief. No call.</li>
+        </ul>
+        <p class="micro">Confirmation comes from ops@egstudio.tech. We stay off your client’s inbox.</p>
+        <div class="card">
+          <h2>What you get</h2>
+          <p><strong>15 finished verticals</strong> your account team can present as agency work.</p>
+          <p style="margin-top:.55rem;">Style sample in days 1–3. Batches on day 10, 20, and 30. Two revision rounds per video. Up to 90 minutes of source. Unbranded Frame.io or Drive. Commercial license included.</p>
+        </div>
+        <div class="split">
+          <div class="card">
+            <h2>Who it’s for</h2>
+            <p>Your clients already want Reels, Shorts, or LinkedIn video. A junior editor is $4.5k–$6k loaded and still one person. Freelancers ghost and the look drifts. This is the bench behind your retainer.</p>
+          </div>
+          <div class="card">
+            <h2>Who it’s not</h2>
+            <p>Founders buying for their own brand. Coaches. Solo freelancers. Shops of ~50+. If you do not already sell content to clients, do not buy this.</p>
+          </div>
+        </div>
+        <div class="block">
+          <h2>How it works</h2>
+          <ol>
+            <li><strong>Pay $1,500 on Stripe.</strong> Agency name and email. No call.</li>
+            <li><strong>Send the brief.</strong> Footage links, fonts, colors, folder name, edit style.</li>
+            <li><strong>Lock, then deliver.</strong> We lock the look in days 1–3. After you sign off, films land on day 10, 20, and 30.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <section id="economics">
+      <div class="wrap center">
+        <div class="eyebrow">Why this instead of hiring</div>
+        <h3 class="sec">What you keep</h3>
+        <p class="muted" style="margin-bottom:1.25rem;">Same 15 videos. You resell the retainer. We are the fulfillment cost.</p>
+        <div class="card">
+          <p><strong>In-house junior editor</strong> — $4,500–$6,000/mo loaded. Daily management. Capacity of one.</p>
+          <p style="margin-top:.55rem;"><strong>Upwork / freelancers</strong> — $2,000–$3,500/mo variable. Quality drift. No SLA.</p>
+          <p style="margin-top:.55rem;"><strong class="green">EG Studio Sprint — $1,500 flat</strong> · $100 per finished video. Async brief. 15 assets in 30 days.</p>
+        </div>
+      </div>
+    </section>
+    <section id="samples">
+      <div class="wrap center">
+        <div class="eyebrow">Proof</div>
+        <h3 class="sec">The work</h3>
+        <p class="muted" style="margin-bottom:1.25rem;">Pace and caption style on three public recuts. Tap a video to play.</p>
+        <div class="samples">
+          <article class="sample">
+            <video controls playsinline preload="metadata" poster="assets/samples/sample-podcast.jpg?v=4">
+              <source src="assets/samples/sample-podcast.mp4?v=4" type="video/mp4">
+            </video>
+            <div class="info">
+              <h4>Podcast Edit</h4>
+              <p>Hooks from long-form conversation, clean guest cuts, high-contrast captions.</p>
+            </div>
+          </article>
+          <article class="sample">
+            <video controls playsinline preload="metadata" poster="assets/samples/sample-saas-founder.jpg?v=4">
+              <source src="assets/samples/sample-saas-founder.mp4?v=4" type="video/mp4">
+            </video>
+            <div class="info">
+              <h4>SaaS Founder Edit</h4>
+              <p>Talking-head cut with punch-ins, retention pacing, and clean captions.</p>
+            </div>
+          </article>
+          <article class="sample">
+            <video controls playsinline preload="metadata" poster="assets/samples/sample-executive.jpg?v=4">
+              <source src="assets/samples/sample-executive.mp4?v=4" type="video/mp4">
+            </video>
+            <div class="info">
+              <h4>LinkedIn Thought Leadership</h4>
+              <p>Kinetic type, punch-ins, and retention-focused narrative pacing.</p>
+            </div>
+          </article>
+        </div>
+        <p class="disc">Public footage, recut. Not client work. Not an endorsement. Trust the SLA: sample in 3 days, two revision rounds, we stay off your client’s inbox, cap of 8 so delivery does not slip.</p>
+      </div>
+    </section>
+    <section id="sprint-model">
+      <div class="wrap">
+        <div class="center">
+          <div class="eyebrow">After you pay</div>
+          <h3 class="sec">What happens next</h3>
+        </div>
+        <div class="card"><strong>Days 1–3.</strong> <span class="muted">Style sample. Fonts, motion, captions, color. Clock starts after you sign off.</span></div>
+        <div class="card"><strong>Days 10 / 20 / 30.</strong> <span class="muted">Batches of 5 finished videos. Two revision rounds per video. Two business days after timestamped notes.</span></div>
+        <div class="card"><strong>White-label folder.</strong> <span class="muted">Frame.io or Drive. No EG mark on the files. We never email your client.</span></div>
+      </div>
+    </section>
+    <section id="pricing">
+      <div class="wrap center">
+        <h3 class="sec">Sprint</h3>
+        <p class="muted" style="margin-bottom:1.2rem;">Sprint is the main path. Five is a smaller test of the same edit standard.</p>
+        <div class="card center">
+          <div class="eyebrow" style="margin-bottom:.4rem;">15 videos</div>
+          <div class="price">$1,500 <span>one time</span></div>
+          <p>15 finished 9:16 videos in 30 days. Three delivery days. One style lock.</p>
+          <ul class="checks">
+            <li>✓ Style sample in the first 3 days</li>
+            <li>✓ Up to 90 minutes of source footage</li>
+            <li>✓ Two revision rounds per video</li>
+            <li>✓ Unbranded Frame.io or Drive folder</li>
+          </ul>
+          <a class="btn btn-primary btn-block" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Start the $1,500 Sprint</a>
+        </div>
+        <p class="muted" style="margin:1.1rem 0 .7rem;">Need a 5-video test? $500. Same edit standard.</p>
+        <div class="card center">
+          <div class="price" style="font-size:1.6rem;">$500 <span>one time</span></div>
+          <p>Five finished 9:16 videos. First video sets the look. One batch.</p>
+          <a class="btn btn-secondary btn-block" style="margin-top:1rem;" href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07">Buy Five — $500</a>
+        </div>
+        <p class="cap">Cap of 8 agencies per month so delivery stays on schedule.</p>
+      </div>
+    </section>
+    <section id="faq">
+      <div class="wrap">
+        <div class="center">
+          <div class="eyebrow">Agency FAQ</div>
+          <h3 class="sec">FAQ</h3>
+        </div>
+        <details>
+          <summary>How does white-label delivery work?</summary>
+          <p>Files go in an unbranded Frame.io or Drive folder with your client name. We never email your clients or put EG Studio on the files.</p>
+        </details>
+        <details>
+          <summary>What footage can we send, and how much?</summary>
+          <p>Sprint: up to 90 minutes. Five: up to 30 minutes. Podcasts, phone video, screen recordings, or keynote captures.</p>
+        </details>
+        <details>
+          <summary>How do revisions and turnaround work?</summary>
+          <p>Two revision rounds per video. Sprint delivers in three batches across 30 days. Five delivers in one batch after the first video sets the look.</p>
+        </details>
+        <details>
+          <summary>Can we set our own retainer price?</summary>
+          <p>Yes. You set the price. Many agencies resell this sprint as a monthly video retainer between $3,500 and $5,000.</p>
+        </details>
+        <details>
+          <summary>How does the style lock work?</summary>
+          <p>Sprint: days 1–3 we deliver a style sample. After you sign off, batches go out. Five: the first video sets the look.</p>
+        </details>
+        <details>
+          <summary>Are we locked into a monthly contract?</summary>
+          <p>No. Buy sprints when you close clients.</p>
+        </details>
+      </div>
+    </section>
+    <section class="center" style="padding-bottom:3rem;">
+      <div class="wrap">
+        <h3 class="sec">Start the $1,500 Sprint.</h3>
+        <p class="muted" style="margin-bottom:1.1rem;">Pay on Stripe first. Then send the brief. No call. Confirmation comes from ops@egstudio.tech.</p>
+        <a class="btn btn-primary" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Start the $1,500 Sprint</a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">
+      <strong style="color:#fff;">EG STUDIO</strong> © <span id="y"></span>. White-label short-form video fulfillment for agencies.
+      <nav class="flinks" aria-label="Footer">
+        <a href="#economics">Economics</a>
+        <a href="#samples">Samples</a>
+        <a href="#sprint-model">Sprint Model</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refund.html">Refund Policy</a>
+        <a href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Stripe Checkout</a>
+      </nav>
+    </div>
+  </footer>
+  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>
