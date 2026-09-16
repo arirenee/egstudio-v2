@@ -1,9 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth" style="scroll-padding-top:72px;">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EG Studio | White-Label Video Fulfillment for B2B Agencies</title>
+  <meta name="description" content="White-label 9:16 fulfillment for 5–20 person B2B agencies. 15 videos in 30 days. $1,500. Stripe. No call.">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
+  <meta name="theme-color" content="#080808">
 </head>
-<body>RESTORE_IN_PROGRESS</body>
+<body style="margin:0;background:#080808;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding:2rem;">
+  <p>Loading EG Studio…</p>
+  <script>
+    fetch('https://cdn.jsdelivr.net/gh/arirenee/egstudio-v2@c565af038d5fc5843fcef0b1fcf425a1ee452ef1/index.html')
+      .then(function(r){ return r.text(); })
+      .then(function(html){
+        document.open();
+        document.write(html);
+        document.close();
+      })
+      .catch(function(){
+        document.body.textContent = 'Refresh. If this stays, the homepage file still needs to be pasted back on GitHub.';
+      });
+  </script>
+</body>
 </html>
