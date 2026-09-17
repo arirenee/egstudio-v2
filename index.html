@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EG Studio | Stop managing editors. Plug in fulfillment.</title>
+  <title>EG Studio | Sell the video retainer. Stop hiring an editor.</title>
   <meta name="description" content="White-label 9:16 fulfillment for 5–20 person B2B agencies. 15 finished videos in 30 days. $1,500. Stripe. No call. We never email your client.">
   <link rel="canonical" href="https://egstudio.tech/">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
   <meta name="theme-color" content="#0a0a0a">
-  <meta property="og:title" content="EG Studio | White-label short-form fulfillment for agencies">
+  <meta property="og:title" content="EG Studio | Sell the video retainer. Stop hiring an editor.">
   <meta property="og:description" content="15 finished 9:16 videos in 30 days. $1,500. You keep the client. We stay off their inbox.">
   <meta property="og:url" content="https://egstudio.tech/">
   <meta property="og:type" content="website">
@@ -21,13 +21,11 @@
     :root {
       --bg: #0a0a0a;
       --surface: #111111;
-      --card: #141414;
       --border: #222222;
       --text: #ededed;
       --muted: #888888;
       --dim: #5c5c5c;
       --white: #ffffff;
-      --neutral: #2a2a2a;
       --sans: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     }
@@ -37,15 +35,14 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--sans);
-      line-height: 1.55;
+      line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
-    .wrap { width: min(92%, 1080px); margin: 0 auto; }
-    .narrow { width: min(92%, 760px); margin: 0 auto; }
+    .wrap { width: min(92%, 640px); margin: 0 auto; }
     header {
       position: sticky; top: 0; z-index: 30;
-      background: rgba(10,10,10,.92);
+      background: rgba(10,10,10,.94);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
@@ -54,119 +51,86 @@
       gap: .75rem; padding: .8rem 0;
     }
     .brand {
-      font-weight: 900; letter-spacing: .18em; font-size: .82rem;
+      font-weight: 900; letter-spacing: .18em; font-size: .78rem;
       text-decoration: none; white-space: nowrap;
-    }
-    .status {
-      display: none; align-items: center; gap: .45rem;
-      font-family: var(--mono); font-size: .62rem; letter-spacing: .08em;
-      color: var(--muted); text-transform: uppercase;
-    }
-    .dot {
-      width: .45rem; height: .45rem; border-radius: 50%;
-      background: var(--white); box-shadow: 0 0 0 3px rgba(255,255,255,.12);
     }
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: .8rem 1.15rem; font-weight: 700; font-size: .78rem;
-      text-decoration: none; border: 1px solid transparent; border-radius: 2px;
-      letter-spacing: .02em;
+      padding: .85rem 1.1rem; font-weight: 700; font-size: .82rem;
+      text-decoration: none; border-radius: 2px; border: 0;
     }
-    .btn-primary { background: var(--white); color: #0a0a0a; }
-    .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-primary { background: var(--white); color: var(--bg); }
     .btn-block { width: 100%; padding: 1.05rem; }
-    .btn-sm { padding: .62rem .85rem; font-size: .72rem; }
-    .hero { padding: 2.1rem 0 2.4rem; }
-    .eyebrow {
-      font-family: var(--mono); font-size: .68rem; font-weight: 500;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1rem;
+    .btn-sm { padding: .58rem .8rem; font-size: .72rem; }
+    .hero { padding: 1.75rem 0 2.1rem; }
+    .who {
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .04em;
+      color: var(--muted); margin-bottom: .85rem;
     }
     h1 {
-      font-size: clamp(1.85rem, 7.2vw, 3.35rem);
-      line-height: 1.08; font-weight: 800; letter-spacing: -.035em;
-      max-width: 16ch; margin-bottom: 1rem;
+      font-size: clamp(1.85rem, 8vw, 2.6rem);
+      line-height: 1.06; font-weight: 800; letter-spacing: -.035em;
+      margin-bottom: 1.15rem;
     }
-    .lede { color: var(--muted); font-size: 1rem; max-width: 38rem; margin-bottom: 1.35rem; }
-    .micro { color: var(--dim); font-size: .8rem; margin-top: .75rem; }
-    section { padding: 2.6rem 0; border-top: 1px solid var(--border); }
-    .sec-kicker {
-      font-family: var(--mono); font-size: .66rem; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: .55rem;
+    .facts { border-top: 1px solid var(--border); }
+    .facts .row {
+      display: grid; grid-template-columns: 1fr auto; gap: .75rem;
+      align-items: baseline; padding: .7rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .9rem;
+    }
+    .facts .k { color: var(--text); font-weight: 600; }
+    .facts .v {
+      font-family: var(--mono); font-size: .72rem; color: var(--muted);
+      text-align: right;
+    }
+    .cta-wrap { margin-top: 1.15rem; }
+    .micro { color: var(--dim); font-size: .78rem; margin-top: .7rem; }
+    section { padding: 2.2rem 0; border-top: 1px solid var(--border); }
+    .kicker {
+      font-family: var(--mono); font-size: .64rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: .45rem;
     }
     h2 {
-      font-size: clamp(1.35rem, 4vw, 1.85rem); line-height: 1.15;
+      font-size: clamp(1.25rem, 5vw, 1.65rem); line-height: 1.15;
       font-weight: 800; letter-spacing: -.03em; margin-bottom: .7rem;
     }
     p, li { color: var(--muted); font-size: .92rem; }
-    strong { color: var(--text); font-weight: 700; }
-    .split { display: grid; gap: 1.25rem; }
-    .sheet { background: var(--surface); border: 1px solid var(--border); padding: 1.15rem 1.2rem; }
-    .sheet h3 {
-      font-family: var(--mono); font-size: .68rem; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--dim); margin-bottom: .65rem;
+    .stack { display: grid; gap: .7rem; }
+    .line {
+      display: flex; justify-content: space-between; gap: 1rem;
+      padding: .75rem 0; border-bottom: 1px solid var(--border);
+      font-size: .88rem;
     }
-    .math { font-family: var(--mono); font-size: .86rem; line-height: 1.7; }
-    .math .row { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--border); padding: .35rem 0; }
-    .math .total { border-bottom: 0; color: var(--text); font-weight: 600; padding-top: .55rem; }
-    .bullets { list-style: none; margin-top: 1rem; }
-    .bullets li { padding-left: 1rem; position: relative; margin-bottom: .35rem; }
-    .bullets li::before { content: "–"; position: absolute; left: 0; color: var(--dim); }
-    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--border); background: var(--surface); }
-    table.cmp { width: 100%; min-width: 680px; border-collapse: collapse; text-align: left; }
-    table.cmp th, table.cmp td { padding: .85rem .9rem; border-bottom: 1px solid var(--border); vertical-align: top; font-size: .78rem; }
-    table.cmp th { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); background: #0d0d0d; }
-    table.cmp td { color: var(--muted); }
-    table.cmp tr:last-child td { border-bottom: 0; }
-    table.cmp tr.eg td { background: #161616; color: var(--text); }
-    .steps { display: grid; gap: 0; border: 1px solid var(--border); }
-    .step { display: grid; grid-template-columns: 4.4rem 1fr; gap: .85rem; padding: 1rem 1.1rem; border-bottom: 1px solid var(--border); background: var(--surface); }
-    .step:last-child { border-bottom: 0; }
-    .step .n { font-family: var(--mono); font-size: .72rem; letter-spacing: .08em; color: var(--dim); padding-top: .15rem; }
-    .step h3 { font-size: .95rem; font-weight: 700; color: var(--text); margin-bottom: .25rem; }
-    .samples { display: grid; gap: 1.1rem; }
+    .line:last-child { border-bottom: 0; }
+    .line b { color: var(--text); font-weight: 600; text-align: right; }
+    .sheet { background: var(--surface); border: 1px solid var(--border); padding: 1rem 1.05rem; }
+    .sku { border: 1px solid var(--white); padding: 1.25rem 1.1rem 1.35rem; }
+    .price { font-size: clamp(2rem, 8vw, 2.8rem); font-weight: 900; letter-spacing: -.04em; line-height: 1; margin: .25rem 0 .7rem; }
+    .price span { font-size: .95rem; font-weight: 600; color: var(--muted); }
+    .checks { list-style: none; margin: .9rem 0 1.15rem; }
+    .checks li { margin-bottom: .38rem; padding-left: 1rem; position: relative; }
+    .checks li::before { content: "\2013"; position: absolute; left: 0; color: var(--dim); }
+    .samples { display: grid; gap: 1rem; }
     video { width: 100%; aspect-ratio: 9/16; object-fit: cover; background: #000; display: block; }
     .sample { border: 1px solid var(--border); background: var(--surface); }
-    .sample .info { padding: .9rem 1rem 1.05rem; }
-    .sample h3 { font-size: .95rem; color: var(--text); margin-bottom: .25rem; }
+    .sample .info { padding: .85rem 1rem 1rem; }
+    .sample h3 { font-size: .95rem; color: var(--text); margin-bottom: .2rem; }
     .meta { font-family: var(--mono); font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
-    .disc { color: var(--dim); font-size: .78rem; margin-top: 1rem; }
-    .sku { background: var(--surface); border: 1px solid var(--white); padding: 1.4rem 1.2rem 1.5rem; }
-    .sku .price { font-size: clamp(2rem, 7vw, 3rem); font-weight: 900; letter-spacing: -.04em; line-height: 1; margin: .35rem 0 .7rem; }
-    .sku .price span { font-size: 1rem; font-weight: 600; color: var(--muted); }
-    .checks { list-style: none; margin: 1rem 0 1.25rem; }
-    .checks li { margin-bottom: .4rem; padding-left: 1.05rem; position: relative; }
-    .checks li::before { content: "■"; position: absolute; left: 0; font-size: .55rem; top: .35rem; color: var(--text); }
-    .calc { background: var(--surface); border: 1px solid var(--border); padding: 1.15rem; }
-    label { display: block; font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem; }
-    .inwrap { position: relative; }
-    .inwrap span { position: absolute; left: .85rem; top: 50%; transform: translateY(-50%); color: var(--dim); font-weight: 700; }
-    input[type=number] { width: 100%; background: #0a0a0a; border: 1px solid var(--border); color: var(--text); font: 700 1.05rem var(--sans); padding: .75rem .8rem .75rem 1.65rem; border-radius: 2px; }
-    input.plain { padding-left: .8rem; }
-    .presets { display: flex; gap: .4rem; margin-top: .45rem; flex-wrap: wrap; }
-    .preset { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: .28rem .55rem; font-size: .72rem; font-weight: 600; font-family: inherit; cursor: pointer; }
-    .metrics { background: #0a0a0a; border: 1px solid var(--border); padding: 1rem; }
-    .mrow { display: flex; justify-content: space-between; gap: .75rem; padding: .5rem 0; border-bottom: 1px solid var(--border); font-size: .85rem; }
-    .mrow:last-child { border-bottom: 0; }
-    .mrow b { color: var(--text); }
-    .mrow .big { font-size: 1.4rem; font-weight: 900; color: var(--white); }
-    details { border-bottom: 1px solid var(--border); padding: .95rem 0; }
+    .disc { color: var(--dim); font-size: .76rem; margin-top: .9rem; }
+    details { border-bottom: 1px solid var(--border); padding: .9rem 0; }
     summary { font-weight: 700; cursor: pointer; list-style: none; }
     summary::-webkit-details-marker { display: none; }
     summary::after { content: "+"; float: right; color: var(--dim); font-weight: 500; }
-    details[open] summary::after { content: "–"; }
-    details p { margin-top: .55rem; }
-    footer { border-top: 1px solid var(--border); padding: 1.3rem 0 2rem; color: var(--dim); font-size: .75rem; }
-    .flinks { display: flex; flex-wrap: wrap; gap: .7rem 1.1rem; margin-top: .7rem; }
+    details[open] summary::after { content: "\2013"; }
+    details p { margin-top: .5rem; }
+    footer { border-top: 1px solid var(--border); padding: 1.2rem 0 2rem; color: var(--dim); font-size: .75rem; }
+    .flinks { display: flex; flex-wrap: wrap; gap: .65rem 1.1rem; margin-top: .65rem; }
     .flinks a { color: var(--muted); text-decoration: none; }
-    .who { display: grid; gap: 1rem; margin-top: 1.4rem; }
     @media (min-width: 720px) {
-      .status { display: inline-flex; }
-      .split-2 { grid-template-columns: 1fr 1fr; }
-      .samples { grid-template-columns: repeat(3, 1fr); }
-      .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; align-items: start; }
-      .step { grid-template-columns: 5.5rem 1fr; }
-      .hero-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: 2rem; align-items: end; }
+      .wrap { width: min(92%, 720px); }
+      h1 { font-size: 3rem; }
+      .samples { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -174,181 +138,147 @@
   <header>
     <div class="wrap nav">
       <a class="brand" href="/">EG STUDIO</a>
-      <span class="status"><span class="dot" aria-hidden="true"></span> Intake open · cap 8 / mo</span>
-      <a class="btn btn-primary btn-sm" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Claim a Sprint — $1,500</a>
+      <a class="btn btn-primary btn-sm" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Claim Sprint \u2014 $1,500</a>
     </div>
   </header>
   <main>
     <section class="hero" style="border-top:0;">
-      <div class="wrap hero-grid">
-        <div>
-          <p class="eyebrow">[ White-label short-form fulfillment for B2B agencies ]</p>
-          <h1>Stop managing editors. Plug a fulfillment engine into your agency.</h1>
-          <p class="lede">Zero sales calls. Zero payroll. You bill the client. We fulfill 15 branded vertical videos for a flat $1,500. We stay invisible.</p>
-          <a class="btn btn-primary" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Lock in Sprint fulfillment — $1,500</a>
-          <p class="micro">No discovery calls. Pay → 10-minute brief → style sample in days 1–3.</p>
-        </div>
-        <aside class="sheet" aria-label="Offer snapshot">
-          <h3>SKU 01 · Sprint</h3>
-          <p class="math">15 × 9:16 · ≤60s<br>$1,500 flat · $100 / film<br>Days 1–3 style lock<br>Days 10 / 20 / 30 delivery<br>Cap 8 agencies / month</p>
-        </aside>
-      </div>
-    </section>
-    <section id="arbitrage">
       <div class="wrap">
-        <p class="sec-kicker">Unit economics</p>
-        <h2>How agencies keep the retainer without the edit bay.</h2>
-        <p style="max-width:40rem;margin-bottom:1.25rem;">Hiring an editor is a $4.5k–$6k loaded seat. Freelancers miss dates and the look drifts. You already sell content. You need a bench, not another hire.</p>
-        <div class="split split-2">
-          <div class="sheet">
-            <h3>The old way</h3>
-            <p>In-house junior: payroll, PTO, software, daily Slack. Freelancer: variable rate, ghosting, style drift. Either path eats the retainer before the films ship.</p>
-          </div>
-          <div class="sheet">
-            <h3>White-label arbitrage</h3>
-            <div class="math">
-              <div class="row"><span>Your client invoice</span><span>$3,500–$5,000 / mo</span></div>
-              <div class="row"><span>EG Sprint cost</span><span>− $1,500</span></div>
-              <div class="row total"><span>You keep</span><span>$2,000–$3,500 / client</span></div>
-            </div>
-            <ul class="bullets">
-              <li>0 hours in an NLE</li>
-              <li>0 payroll or seat software</li>
-              <li>You own the client. Files arrive unbranded.</li>
-            </ul>
-            <p class="micro">Resale range is what agencies often charge. You set the price. EG does not set your retainer.</p>
-          </div>
+        <p class="who">For 5\u201320 person B2B agencies that already sell content.</p>
+        <h1>Sell the video retainer.<br>Stop hiring an editor.</h1>
+        <div class="facts">
+          <div class="row"><span class="k">15 films</span><span class="v">30 days</span></div>
+          <div class="row"><span class="k">$1,500 flat</span><span class="v">$100 / video \u00b7 no call</span></div>
+          <div class="row"><span class="k">We never email their client</span><span class="v">white-label folder</span></div>
+          <div class="row"><span class="k">Cap 8 partners / month</span><span class="v">so delivery holds</span></div>
         </div>
-        <div class="calc" style="margin-top:1.15rem;">
-          <h3 style="font-size:1rem;color:var(--text);margin-bottom:.3rem;">Agency profit calculator</h3>
-          <p class="micro" style="margin:0 0 1rem;">Your price. Our cost is $1,500 per Sprint.</p>
-          <div class="calc-grid">
-            <div>
-              <div style="margin-bottom:1rem;">
-                <label for="retainerInput">Client monthly retainer</label>
-                <div class="inwrap"><span>$</span><input type="number" id="retainerInput" value="3500" min="1500" step="250"></div>
-                <div class="presets">
-                  <button type="button" class="preset" data-retainer="2500">$2,500</button>
-                  <button type="button" class="preset" data-retainer="3500">$3,500</button>
-                  <button type="button" class="preset" data-retainer="5000">$5,000</button>
-                </div>
-              </div>
-              <div>
-                <label for="clientCountInput">Active video retainers</label>
-                <input class="plain" type="number" id="clientCountInput" value="3" min="1" max="8">
-              </div>
-            </div>
-            <div class="metrics">
-              <div class="mrow"><span>Fulfillment cost</span><b id="displayWholesale">$4,500</b></div>
-              <div class="mrow"><span>You bill</span><b id="displayBilling">$10,500</b></div>
-              <div class="mrow"><span>Margin</span><b id="displayMarginPercent">57.1%</b></div>
-              <div class="mrow"><span>You keep / month</span><span class="big" id="displayProfit">$6,000</span></div>
-            </div>
-          </div>
+        <div class="cta-wrap">
+          <a class="btn btn-primary btn-block" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Pay $1,500 on Stripe</a>
+          <p class="micro">Then send the brief. Style sample in days 1\u20133. Batches 10 / 20 / 30.</p>
         </div>
       </div>
     </section>
-    <section id="audit">
+    <section id="math">
       <div class="wrap">
-        <p class="sec-kicker">Fulfillment audit</p>
-        <h2>Why agencies buy a bench instead of a person.</h2>
-        <div class="table-wrap">
-          <table class="cmp">
-            <thead><tr><th>Metric</th><th>In-house editor</th><th>Cheap freelancer</th><th>EG Studio</th></tr></thead>
-            <tbody>
-              <tr><td>Monthly cost</td><td>$4,500–$6,000 loaded</td><td>Variable / unstable</td><td class="eg">$1,500 flat</td></tr>
-              <tr><td>Management time</td><td>5–10 hrs / week</td><td>DMs and missed dates</td><td class="eg">Async brief</td></tr>
-              <tr><td>Discovery / sales</td><td>Required</td><td>Required</td><td class="eg">Zero calls</td></tr>
-              <tr><td>Turnaround</td><td>Depends on PTO</td><td>Inconsistent</td><td class="eg">Days 10 / 20 / 30</td></tr>
-              <tr><td>Brand invisibility</td><td>N/A</td><td>Often marked</td><td class="eg">100% white-label</td></tr>
-              <tr class="eg"><td>Asset organization</td><td>Desktop chaos</td><td>Scattered links</td><td>Unbranded Frame.io or Drive</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <p class="kicker">The keep</p>
+        <h2>You set the retainer. We cut the 15.</h2>
+        <div class="line"><span>They pay you</span><b>$3,500\u2013$5,000 / mo</b></div>
+        <div class="line"><span>You pay EG</span><b>$1,500</b></div>
+        <div class="line"><span>You keep</span><b>$2,000\u2013$3,500 / client</b></div>
+        <p class="micro">That range is what agencies often charge. It is their price, not a promise from EG.</p>
       </div>
     </section>
-    <section id="stack">
-      <div class="narrow">
-        <p class="sec-kicker">Zero-call stack</p>
-        <h2>You buy capacity like a line item.</h2>
-        <p style="margin-bottom:1.15rem;">No 45-minute get-to-know-you. No calendar link.</p>
-        <div class="steps">
-          <div class="step"><div class="n">01</div><div><h3>Stripe checkout</h3><p>Pay $1,500. Agency name and email. No pitch deck.</p></div></div>
-          <div class="step"><div class="n">02</div><div><h3>10-minute brief</h3><p>After pay, the Tally brief on /thanks. Fonts, colors, folder name, raw footage link. Clock starts when the brief is usable.</p></div></div>
-          <div class="step"><div class="n">03</div><div><h3>Style lock</h3><p>Days 1–3: one sample. Captions, type, punch-ins, grade. You sign off. Then we cut.</p></div></div>
-          <div class="step"><div class="n">04</div><div><h3>Rolling delivery</h3><p>Batches on day 10, 20, and 30. Two revision rounds per video. Unbranded MP4s in your folder.</p></div></div>
-        </div>
-      </div>
-    </section>
-    <section id="spec">
+    <section id="compare">
       <div class="wrap">
-        <p class="sec-kicker">Production spec</p>
-        <h2>What leaves the bench.</h2>
-        <div class="split split-2" style="margin-bottom:1.4rem;">
-          <div class="sheet"><h3>Spec 01 · Frame</h3><p>9:16 · 1080×1920. LinkedIn, Shorts, Reels, TikTok.</p></div>
-          <div class="sheet"><h3>Spec 02 · Pace</h3><p>Punch-ins, cutaways, B2B retention pacing. Each film ≤60s.</p></div>
-          <div class="sheet"><h3>Spec 03 · Type + audio</h3><p>High-contrast captions in your type. Clean speech level.</p></div>
-          <div class="sheet"><h3>Spec 04 · White-label</h3><p>No EG mark, no watermark, no metadata. Ready to forward.</p></div>
-        </div>
-        <p class="meta" style="margin-bottom:.7rem;">Archetypes we cut · executive thought leadership · SaaS feature cutdowns · case studies · webinar / podcast repurposing</p>
-        <div class="samples">
-          <article class="sample"><video controls playsinline preload="metadata" poster="assets/samples/sample-podcast.jpg?v=4"><source src="assets/samples/sample-podcast.mp4?v=4" type="video/mp4"></video><div class="info"><p class="meta">01 · Podcast</p><h3>Long-form to hook</h3><p>Guest cuts, high-contrast captions.</p></div></article>
-          <article class="sample"><video controls playsinline preload="metadata" poster="assets/samples/sample-saas-founder.jpg?v=4"><source src="assets/samples/sample-saas-founder.mp4?v=4" type="video/mp4"></video><div class="info"><p class="meta">02 · SaaS</p><h3>Talking-head punch-ins</h3><p>Retention pace, clean captions.</p></div></article>
-          <article class="sample"><video controls playsinline preload="metadata" poster="assets/samples/sample-executive.jpg?v=4"><source src="assets/samples/sample-executive.mp4?v=4" type="video/mp4"></video><div class="info"><p class="meta">03 · LinkedIn</p><h3>Thought leadership</h3><p>Kinetic type, narrative pacing.</p></div></article>
-        </div>
-        <p class="disc">Public footage, recut to show pace. Not client work. Not an endorsement. Trust the SLA: sample in 3 days, two revision rounds, we stay off your client’s inbox.</p>
+        <p class="kicker">Versus a hire</p>
+        <h2>A bench, not another person.</h2>
+        <div class="line"><span>In-house junior</span><b>$4,500\u2013$6,000 loaded</b></div>
+        <div class="line"><span>Freelancer</span><b>Variable. Ghosting.</b></div>
+        <div class="line"><span>EG Sprint</span><b>$1,500 flat. Days 10 / 20 / 30.</b></div>
+      </div>
+    </section>
+    <section id="path">
+      <div class="wrap">
+        <p class="kicker">After you pay</p>
+        <h2>No calendar link.</h2>
+        <div class="line"><span>01 Pay</span><b>Stripe. Agency name and email.</b></div>
+        <div class="line"><span>02 Brief</span><b>Fonts, colors, folder name, footage link.</b></div>
+        <div class="line"><span>03 Style lock</span><b>Days 1\u20133. You sign off.</b></div>
+        <div class="line"><span>04 Delivery</span><b>Days 10 / 20 / 30. Two revisions each.</b></div>
       </div>
     </section>
     <section id="offer">
-      <div class="narrow">
-        <p class="sec-kicker">Single SKU</p>
+      <div class="wrap">
         <div class="sku">
-          <p class="meta">The 30-day B2B Sprint</p>
+          <p class="meta">30-day B2B Sprint</p>
           <div class="price">$1,500 <span>one time</span></div>
-          <p>Fifteen finished verticals for one client month. You keep credit. We stay off the files.</p>
+          <p>Fifteen finished 9:16 videos. You keep credit. We stay off the files.</p>
           <ul class="checks">
-            <li>15 polished 9:16 videos, each ≤60 seconds</li>
-            <li>Style sample in days 1–3</li>
+            <li>Each film \u226460 seconds</li>
+            <li>Style sample in days 1\u20133</li>
             <li>Batches on day 10, 20, and 30</li>
             <li>Up to 90 minutes of source</li>
             <li>Two revision rounds per video</li>
-            <li>Unbranded Frame.io or Drive folder</li>
-            <li>Commercial license. 100% white-label rights</li>
+            <li>Unbranded Frame.io or Drive</li>
           </ul>
-          <a class="btn btn-primary btn-block" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Secure Sprint via Stripe — $1,500</a>
-          <p class="micro">Confirmation from ops@egstudio.tech. Cap of 8 agencies per month.</p>
+          <a class="btn btn-primary btn-block" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Pay $1,500 on Stripe</a>
+          <p class="micro">Confirmation from ops@egstudio.tech.</p>
         </div>
-        <div class="who split-2 split" style="margin-top:1.15rem;">
-          <div class="sheet"><h3>Who this is for</h3><p>5–20 person B2B marketing agencies that already sell content and need a 9:16 bench behind the retainer.</p></div>
-          <div class="sheet"><h3>Who this is not</h3><p>Founders buying for their own brand. Coaches. Solo freelancers. Shops of ~50+.</p></div>
+        <div class="stack" style="margin-top:1rem;">
+          <div class="sheet">
+            <p class="meta">Who this is for</p>
+            <p style="margin-top:.4rem;">5\u201320 person B2B marketing agencies that already sell content.</p>
+          </div>
+          <div class="sheet">
+            <p class="meta">Who this is not</p>
+            <p style="margin-top:.4rem;">Founders buying for their own brand. Coaches. Solo freelancers. Shops of ~50+.</p>
+          </div>
         </div>
+      </div>
+    </section>
+    <section id="samples">
+      <div class="wrap">
+        <p class="kicker">Pace</p>
+        <h2>Public recuts. Not client work.</h2>
+        <div class="samples">
+          <article class="sample">
+            <video controls playsinline preload="metadata" poster="assets/samples/sample-podcast.jpg?v=4">
+              <source src="assets/samples/sample-podcast.mp4?v=4" type="video/mp4">
+            </video>
+            <div class="info"><p class="meta">Podcast</p><h3>Long-form to hook</h3></div>
+          </article>
+          <article class="sample">
+            <video controls playsinline preload="metadata" poster="assets/samples/sample-saas-founder.jpg?v=4">
+              <source src="assets/samples/sample-saas-founder.mp4?v=4" type="video/mp4">
+            </video>
+            <div class="info"><p class="meta">SaaS</p><h3>Talking-head punch-ins</h3></div>
+          </article>
+        </div>
+        <p class="disc">Caption style and pacing only. Not an endorsement. We stay off your client\u2019s inbox.</p>
       </div>
     </section>
     <section id="faq">
-      <div class="narrow">
-        <p class="sec-kicker">Transparency</p>
+      <div class="wrap">
+        <p class="kicker">Transparency</p>
         <h2>FAQ</h2>
-        <details open><summary>Do we jump on a call before buying?</summary><p>No. If you have raw footage and need 15 verticals under your brand, pay the Sprint, complete the brief, we start. People who need a 45-minute discovery chat self-select out.</p></details>
-        <details><summary>How does white-label work?</summary><p>We never contact your client. No watermark. Files land in a neutral Frame.io or Drive folder with your naming. Your team forwards them.</p></details>
-        <details><summary>What raw footage works?</summary><p>Founder interviews, webinars, podcast recordings, talking-head iPhone or mirrorless. Sprint source cap: 90 minutes.</p></details>
-        <details><summary>What is the delivery calendar?</summary><p>Clock starts when the brief is usable — not at Stripe. Days 1–3: style sample. Days 10, 20, and 30: the rest of the 15. Two revision rounds per video. Two business days after timestamped notes.</p></details>
-        <details><summary>Can we set our own retainer?</summary><p>Yes. You set the price. Many agencies resell a Sprint as a $3,500–$5,000 monthly video line. That range is theirs, not a promise from EG.</p></details>
-        <details><summary>What if we only need five films?</summary><p>Sprint is the factory. A standalone Five exists at $500 for a smaller test of the same edit standard. First video sets the look. One batch. 30 minutes of source. <a href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07">Buy Five — $500</a>.</p></details>
-        <details><summary>Monthly contract?</summary><p>No. Buy a Sprint when you close a client.</p></details>
+        <details open>
+          <summary>Do we jump on a call first?</summary>
+          <p>No. Pay the Sprint, send the brief, we start. If you need a discovery chat, this is not the shop.</p>
+        </details>
+        <details>
+          <summary>How does white-label work?</summary>
+          <p>Unbranded Frame.io or Drive folder. Your naming. We never email your client. No watermark.</p>
+        </details>
+        <details>
+          <summary>What footage, and how much?</summary>
+          <p>Interviews, webinars, podcasts, talking-head phone or mirrorless. Sprint source cap: 90 minutes.</p>
+        </details>
+        <details>
+          <summary>What is the calendar?</summary>
+          <p>Clock starts when the brief is usable. Days 1\u20133: style sample. Days 10, 20, and 30: the rest of the 15. Two revision rounds per video. Two business days after timestamped notes.</p>
+        </details>
+        <details>
+          <summary>Can we set our own retainer?</summary>
+          <p>Yes. You set the price. Many agencies resell a Sprint as a $3,500\u2013$5,000 monthly video line.</p>
+        </details>
+        <details>
+          <summary>What if we only need five films?</summary>
+          <p>Sprint is the factory. A standalone Five exists at $500 for a smaller test. First video sets the look. One batch. 30 minutes of source. <a href="https://buy.stripe.com/28EcMY4eBc6I12P4VT9EI07">Buy Five \u2014 $500</a>.</p>
+        </details>
       </div>
     </section>
-    <section style="padding-bottom:3.2rem;">
-      <div class="narrow" style="text-align:center;">
+    <section style="padding-bottom:3rem;">
+      <div class="wrap" style="text-align:center;">
         <h2>Start the $1,500 Sprint.</h2>
-        <p style="margin-bottom:1.1rem;">Pay on Stripe. Send the brief. No call.</p>
-        <a class="btn btn-primary" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Claim a Sprint — $1,500</a>
+        <p style="margin-bottom:1rem;">Pay on Stripe. Send the brief. No call.</p>
+        <a class="btn btn-primary" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Pay $1,500 on Stripe</a>
         <p class="micro">ops@egstudio.tech handles paid delivery only.</p>
       </div>
     </section>
   </main>
   <footer>
     <div class="wrap">
-      <div>EG STUDIO · egstudio.tech</div>
+      <div>EG STUDIO \u00b7 egstudio.tech</div>
       <nav class="flinks">
         <a href="terms.html">Terms</a>
         <a href="privacy.html">Privacy</a>
@@ -357,37 +287,5 @@
       </nav>
     </div>
   </footer>
-  <script>
-    (function () {
-      var retainer = document.getElementById("retainerInput");
-      var count = document.getElementById("clientCountInput");
-      var wholesale = document.getElementById("displayWholesale");
-      var billing = document.getElementById("displayBilling");
-      var margin = document.getElementById("displayMarginPercent");
-      var profit = document.getElementById("displayProfit");
-      function money(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
-      function run() {
-        var r = Math.max(1500, Number(retainer.value) || 0);
-        var c = Math.min(8, Math.max(1, Number(count.value) || 1));
-        var cost = 1500 * c;
-        var bill = r * c;
-        var keep = bill - cost;
-        var pct = bill > 0 ? (keep / bill) * 100 : 0;
-        wholesale.textContent = money(cost);
-        billing.textContent = money(bill);
-        margin.textContent = pct.toFixed(1) + "%";
-        profit.textContent = money(keep);
-      }
-      retainer.addEventListener("input", run);
-      count.addEventListener("input", run);
-      document.querySelectorAll(".preset").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          retainer.value = btn.getAttribute("data-retainer");
-          run();
-        });
-      });
-      run();
-    })();
-  </script>
 </body>
 </html>
