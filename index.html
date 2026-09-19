@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EG Studio | Short-form editing for agency client work</title>
-  <meta name="description" content="Short-form editing for agencies. Start with three captioned videos for $300, or fifteen in thirty days for $1,500. Pay on Stripe. Then send the brief.">
+  <meta name="description" content="Short-form editing for agencies. Fifteen captioned 9:16 videos in thirty days for $1,500. Or three for $300. Pay on Stripe. Then send the brief.">
   <link rel="canonical" href="https://egstudio.tech/">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
   <meta name="theme-color" content="#0a0a0a">
   <meta property="og:title" content="EG Studio | Short-form editing for agency client work">
-  <meta property="og:description" content="Three videos for $300 or fifteen in thirty days for $1,500. Your brand and client relationship. Pay on Stripe. Then send the brief.">
+  <meta property="og:description" content="Fifteen videos in thirty days for $1,500. $100 a video. Unbranded Drive. Pay on Stripe. Then send the brief.">
   <meta property="og:url" content="https://egstudio.tech/">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,8 +26,8 @@
       --muted: #aaaaaa;
       --dim: #999999;
       --white: #ffffff;
-      --sans: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: Montserrat, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;
+      --mono: \"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, monospace;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -112,7 +112,7 @@
     .price span { font-size: .95rem; font-weight: 600; color: var(--muted); }
     .checks { list-style: none; margin: .9rem 0 1.15rem; }
     .checks li { margin-bottom: .38rem; padding-left: 1rem; position: relative; }
-    .checks li::before { content: "-"; position: absolute; left: 0; color: var(--dim); }
+    .checks li::before { content: \"-\"; position: absolute; left: 0; color: var(--dim); }
     .samples { display: grid; gap: 1rem; }
     video { width: 100%; aspect-ratio: 9/16; object-fit: cover; background: #000; display: block; }
     .sample { border: 1px solid var(--border); background: var(--surface); }
@@ -123,8 +123,8 @@
     details { border-bottom: 1px solid var(--border); padding: .9rem 0; }
     summary { font-weight: 700; cursor: pointer; list-style: none; }
     summary::-webkit-details-marker { display: none; }
-    summary::after { content: "+"; float: right; color: var(--dim); font-weight: 500; }
-    details[open] summary::after { content: "-"; }
+    summary::after { content: \"+\"; float: right; color: var(--dim); font-weight: 500; }
+    details[open] summary::after { content: \"-\"; }
     details p { margin-top: .5rem; }
     footer { border-top: 1px solid var(--border); padding: 1.2rem 0 2rem; color: var(--dim); font-size: .75rem; }
     .flinks { display: flex; flex-wrap: wrap; gap: .65rem 1.1rem; margin-top: .65rem; }
@@ -140,7 +140,7 @@
   <header>
     <div class="wrap nav">
       <a class="brand" href="/">EG<span>STUDIO</span></a>
-      <a class="btn btn-primary btn-sm" href="https://buy.stripe.com/7sY6oA5iF8UweTF3RP9EI0a">Pay $300 on Stripe</a>
+      <a class="btn btn-primary btn-sm" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Pay $1,500 on Stripe</a>
     </div>
   </header>
   <main>
@@ -149,14 +149,14 @@
         <p class="who">For agencies with client interviews and podcasts to deliver.</p>
         <h1>Short-form editing.<br>Your clients. Your brand.</h1>
         <div class="facts">
-          <div class="row"><span class="k">Start with 3 videos</span><span class="v">$300 one time</span></div>
-          <div class="row"><span class="k">15-video Sprint</span><span class="v">$1,500 / 30 days</span></div>
+          <div class="row"><span class="k">15 videos in 30 days</span><span class="v">$1,500 · $100/video</span></div>
+          <div class="row"><span class="k">Unbranded Google Drive</span><span class="v">folder name is yours</span></div>
           <div class="row"><span class="k">No contact with your client</span><span class="v">white-label folder</span></div>
           <div class="row"><span class="k">Pay then brief</span><span class="v">No call</span></div>
         </div>
         <div class="cta-wrap">
-          <a class="btn btn-primary btn-block" href="https://buy.stripe.com/7sY6oA5iF8UweTF3RP9EI0a">Pay $300 on Stripe</a>
-          <p class="micro">Pay on Stripe first. Then send the brief. No call. Confirmation comes from ops@egstudio.tech.</p>
+          <a class="btn btn-primary btn-block" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Pay $1,500 on Stripe</a>
+          <p class="micro">Pay first. Then send the brief. Confirmation from ops@egstudio.tech.<br><a href="https://buy.stripe.com/7sY6oA5iF8UweTF3RP9EI0a">Or start with 3 videos for $300</a></p>
         </div>
       </div>
     </section>
@@ -165,26 +165,8 @@
         <p class="kicker">How it works</p><h2>Pay. Then send the brief.</h2>
         <div class="line"><span>01 Pay</span><b>Stripe. Agency name and email.</b></div>
         <div class="line"><span>02 Brief</span><b>Footage link, fonts, colors, folder name.</b></div>
-        <div class="line"><span>03 Style lock</span><b>First video in 3 business days. You sign off.</b></div>
-        <div class="line"><span>04 Delivery</span><b>Remaining two after style approval.</b></div>
-      </div>
-    </section>
-    <section id="test">
-      <div class="wrap sku">
-        <p class="meta">Three-video paid test</p>
-        <div class="price">$300 <span>one time</span></div>
-        <p>Try one small assignment before committing to fifteen videos.</p>
-        <ul class="checks">
-          <li>Three captioned 9:16 videos, each up to 60 seconds</li>
-          <li>One English-language recording up to 20 minutes</li>
-          <li>Moment selection, editing and two revision rounds per video</li>
-          <li>One brand and caption style; unbranded MP4 delivery</li>
-          <li>First-video target: three business days after complete brief, footage and payment</li>
-          <li>Remaining drafts: two business days after style approval</li>
-        </ul>
-        <p>Clock starts when the brief is usable. Filming, posting, full-episode editing, complex animation and native project files are outside this test.</p>
-        <div class="cta-wrap"><a class="btn btn-primary btn-block" href="https://buy.stripe.com/7sY6oA5iF8UweTF3RP9EI0a">Pay $300 on Stripe</a></div>
-        <p class="micro">For the same project, the first three videos and $300 can count toward fifteen for $1,500 total. The remaining twelve cost $1,200, with a separate thirty-day schedule agreed before payment. No subscription. <a href="terms.html">Terms</a> · <a href="refund.html">Refunds</a></p>
+        <div class="line"><span>03 Style sample</span><b>Days 1–3. You sign off the look.</b></div>
+        <div class="line"><span>04 Delivery</span><b>Batches on day 10, 20, and 30.</b></div>
       </div>
     </section>
     <section id="offer">
@@ -214,6 +196,24 @@
             <p style="margin-top:.4rem;">A recording you have permission to use, one style reference, brand assets and the delivery deadline.</p>
           </div>
         </div>
+      </div>
+    </section>
+    <section id="test">
+      <div class="wrap sku">
+        <p class="meta">Three-video paid test</p>
+        <div class="price">$300 <span>one time</span></div>
+        <p>Try one small assignment before committing to fifteen videos.</p>
+        <ul class="checks">
+          <li>Three captioned 9:16 videos, each up to 60 seconds</li>
+          <li>One English-language recording up to 20 minutes</li>
+          <li>Moment selection, editing and two revision rounds per video</li>
+          <li>One brand and caption style; unbranded MP4 delivery</li>
+          <li>First-video target: three business days after complete brief, footage and payment</li>
+          <li>Remaining drafts: two business days after style approval</li>
+        </ul>
+        <p>Clock starts when the brief is usable. Filming, posting, full-episode editing, complex animation and native project files are outside this test.</p>
+        <div class="cta-wrap"><a class="btn btn-primary btn-block" href="https://buy.stripe.com/7sY6oA5iF8UweTF3RP9EI0a">Pay $300 on Stripe</a></div>
+        <p class="micro">For the same project, the first three videos and $300 can count toward fifteen for $1,500 total. The remaining twelve cost $1,200, with a separate thirty-day schedule agreed before payment. No subscription. <a href="terms.html">Terms</a> · <a href="refund.html">Refunds</a></p>
       </div>
     </section>
     <section id="samples">
@@ -270,9 +270,9 @@
     <section style="padding-bottom:3rem;">
       <div class="wrap" style="text-align:center;">
         <h2>Have a recording that needs clips?</h2>
-        <p style="margin-bottom:1rem;">Start with three videos for $300. Pay on Stripe. Send the brief.</p>
-        <a class="btn btn-primary" href="https://buy.stripe.com/7sY6oA5iF8UweTF3RP9EI0a">Pay $300 on Stripe</a>
-        <p class="micro">Confirmation from ops@egstudio.tech.</p>
+        <p style="margin-bottom:1rem;">Fifteen videos in thirty days. $1,500. Pay on Stripe. Send the brief.</p>
+        <a class="btn btn-primary" href="https://buy.stripe.com/aFabIU9yVc6I9zl5ZX9EI06">Pay $1,500 on Stripe</a>
+        <p class="micro">Confirmation from ops@egstudio.tech. <a href="https://buy.stripe.com/7sY6oA5iF8UweTF3RP9EI0a">Or 3 videos for $300</a></p>
       </div>
     </section>
   </main>
