@@ -1,0 +1,2 @@
+window.EG_INTAKE_ENDPOINT = "https://yrqpwpfpoplruqcaerdt.supabase.co/functions/v1/intake";
+window.EG_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlycXB3cGZwb3BscnVxY2FlcmR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwMzE5MDMsImV4cCI6MjEwNTYwNzkwM30.vd2tqdckfuh0MmqtenG7Et7ildJGO0gcLLbCWUvJmOg";

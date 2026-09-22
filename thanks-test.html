@@ -2,130 +2,243 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Send the brief · EG Studio</title>
-<meta name="description" content="Payment received. Send the brief to start the clock. Confirmation from ops@egstudio.tech.">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
-<meta name="theme-color" content="#080808">
-<meta name="robots" content="noindex">
-<link rel="canonical" href="https://egstudio.tech/thanks-test.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0a0a0a">
+<title>Project brief · EG Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://tally.so/widgets/embed.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="intake-config.js"></script>
+
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],o="capture".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52',{api_host:'https://us.i.posthog.com',defaults:'2026-05-30',person_profiles:'identified_only'});
+</script>
+
 <style>
-  :root {
-    --bg: #080808;
-    --card: #161616;
-    --border: #262626;
-    --text: #ffffff;
-    --muted: #a1a1aa;
-    --muted-2: #71717a;
-    --accent: #22c55e;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font: 16px/1.6 Montserrat, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { width: 92%; max-width: 720px; margin: auto; }
-  .nav, footer { padding: 18px 0; border-bottom: 1px solid var(--border); }
-  .nav div, footer div { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-  .logo { font-weight: 900; letter-spacing: 2px; text-decoration: none; color: var(--text); }
-  .logo span { color: var(--muted-2); }
-  main { padding: 48px 0 64px; }
-  h1 {
-    font-size: clamp(1.5rem, 5vw, 2rem);
-    line-height: 1.2;
-    text-align: center;
-    margin: 0 0 0.75rem;
-  }
-  .lead {
-    color: var(--muted);
-    text-align: center;
-    max-width: 440px;
-    margin: 0 auto 1.25rem;
-    font-size: 0.95rem;
-    line-height: 1.45;
-  }
-  .next-list {
-    list-style: none;
-    max-width: 440px;
-    margin: 0 auto 1.35rem;
-    padding: 0;
-    display: grid;
-    gap: 0.5rem;
-    color: var(--muted);
-    font-size: 0.88rem;
-    line-height: 1.4;
-  }
-  .next-list li { padding-left: 1.1rem; position: relative; }
-  .next-list li::before { content: "–"; position: absolute; left: 0; color: var(--muted-2); }
-  .tally-wrap {
-    max-width: 640px;
-    margin: 0 auto 1.15rem;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 0.35rem 0.55rem 0.65rem;
-    overflow: hidden;
-  }
-  .tally-wrap iframe { display: block; width: 100%; border: 0; min-height: 420px; background: transparent; }
-  .fallback { text-align: center; font-size: 0.8rem; color: var(--muted-2); }
-  .fallback a { color: var(--muted); }
-  footer { border-top: 1px solid var(--border); border-bottom: 0; color: var(--muted-2); font-size: 12px; }
-  .links { display: flex; gap: 20px; flex-wrap: wrap; }
-  .links a { color: inherit; text-decoration: none; }
+:root{--bg:#0a0a0a;--surface:#111;--border:#272727;--text:#f2f2f2;--muted:#aaa;--dim:#797979;--white:#fff;--danger:#ffb4b4;--success:#b9f6ca;--sans:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{width:min(92%,700px);margin:auto}
+header{border-bottom:1px solid var(--border);padding:.9rem 0}
+.logo{font-weight:900;letter-spacing:2px;font-size:.78rem;text-decoration:none}.logo span{color:#71717a}
+main{padding:2.3rem 0 3.5rem}
+.kicker{font:600 .62rem/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.55rem}
+h1{font-size:clamp(2.2rem,9vw,3.5rem);line-height:1.02;letter-spacing:-.045em;margin-bottom:.85rem}
+.lead{color:var(--muted);font-size:.96rem;max-width:620px}
+.status{margin:1.3rem 0 1.5rem;border:1px solid var(--border);background:var(--surface)}
+.status-row{display:grid;grid-template-columns:100px 1fr;gap:.75rem;padding:.8rem .9rem;border-bottom:1px solid var(--border);align-items:start}
+.status-row:last-child{border-bottom:0}.status-row b{font:600 .62rem/1.4 var(--mono);text-transform:uppercase;letter-spacing:.06em}.status-row span{color:var(--muted);font-size:.84rem}
+#payment-state[data-state="ok"]{color:var(--success)}#payment-state[data-state="error"]{color:var(--danger)}
+form{margin-top:1.25rem}
+.field{margin-bottom:1rem}label{display:block;font-weight:700;font-size:.85rem;margin-bottom:.4rem}
+.helper{font-size:.76rem;color:var(--dim);margin-top:.35rem}
+input[type="text"],input[type="url"],textarea{width:100%;border:1px solid #353535;background:#0e0e0e;color:var(--text);font:500 16px/1.4 var(--sans);border-radius:2px;padding:.85rem .9rem;outline:none}
+input:focus,textarea:focus{border-color:#fff}textarea{min-height:105px;resize:vertical}
+.check{display:grid;grid-template-columns:22px 1fr;gap:.65rem;align-items:start;padding:.9rem;border:1px solid var(--border);background:var(--surface)}
+.check input{width:18px;height:18px;margin-top:.1rem}.check label{margin:0;font-weight:500;color:var(--muted)}.check strong{color:var(--text)}
+.honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+button{width:100%;border:1px solid #fff;background:#fff;color:#080808;font:800 .85rem/1 var(--sans);padding:1.05rem;border-radius:2px;cursor:pointer;margin-top:1rem}
+button:disabled{opacity:.38;cursor:not-allowed}
+.form-note{font-size:.76rem;color:var(--dim);margin-top:.7rem}
+.message{display:none;margin-top:1rem;padding:.9rem;border:1px solid var(--border);font-size:.84rem}.message.show{display:block}.message.error{color:var(--danger)}.message.success{color:var(--success)}
+.done{display:none;border:1px solid var(--border);background:var(--surface);padding:1.2rem;margin-top:1.25rem}.done.show{display:block}.done h2{font-size:1.35rem;margin-bottom:.4rem}.done p{color:var(--muted)}
+footer{border-top:1px solid var(--border);padding:1.2rem 0 2rem;color:var(--dim);font-size:.73rem}
+@media(min-width:720px){main{padding-top:3.2rem}}
 </style>
 </head>
 <body>
-<header class="nav">
-  <div class="wrap">
-    <a class="logo" href="index.html">EG<span>STUDIO</span></a>
+<header><div class="wrap"><a class="logo" href="index.html">EG<span>STUDIO</span></a></div></header>
+<main><div class="wrap">
+<p class="kicker">Payment complete · 3-video test</p>
+<h1>Send what we need to start.</h1>
+<p class="lead">Your footage stays in your existing storage. Share accessible links here; EG Studio does not need you to upload media into this form.</p>
+
+<div class="status">
+  <div class="status-row"><b>Payment</b><span id="payment-state">Verifying Stripe payment…</span></div>
+  <div class="status-row"><b>Order</b><span id="verified-order">3-video test · $300</span></div>
+  <div class="status-row"><b>Source</b><span>One source recording up to 20 minutes</span></div>
+  <div class="status-row"><b>Timing</b><span>3–5 business days after the brief and source files are usable</span></div>
+  <div class="status-row"><b>Contact</b><span>ops@egstudio.tech</span></div>
+</div>
+
+<form id="intake-form" novalidate>
+  <div class="field">
+    <label for="project_name">Project / folder name</label>
+    <input id="project_name" name="project_name" type="text" maxlength="120" autocomplete="organization-title" placeholder="Acme Podcast Clips" required>
+    <p class="helper">Use a name you will recognize in delivery folders and email.</p>
   </div>
-</header>
-<main>
-  <div class="wrap">
-    <h1>Payment received. Send the brief.</h1>
-    <p class="lead">Three-video test is paid. The clock starts when you submit a usable brief below — not when you paid. Delivery and questions come from ops@egstudio.tech. Your client never sees EG Studio.</p>
-    <ul class="next-list">
-      <li>First video: 3 business days after a usable brief and footage.</li>
-      <li>Remaining two: 2 business days after you approve the look.</li>
-      <li>Source cap: one English-language recording, 20 minutes.</li>
-      <li>Two revision rounds per video · 2 business days after timestamped notes.</li>
-      <li>Delivery: unbranded Google Drive folder. Folder name is yours.</li>
-      <li>Who emails you: ops@egstudio.tech only.</li>
-    </ul>
-    <div class="tally-wrap">
-      <iframe data-tally-src="https://tally.so/embed/rjZd1v?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&sku=test" loading="lazy" width="100%" height="200" frameborder="0" marginheight="0" marginwidth="0" title="EG Studio brief"></iframe>
-    </div>
-    <p class="fallback"><a href="https://tally.so/r/rjZd1v?sku=test" rel="noopener noreferrer">Open the brief in a new tab</a> · <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a></p>
+
+  <div class="field">
+    <label for="source_url">Source footage link</label>
+    <input id="source_url" name="source_url" type="url" inputmode="url" placeholder="https://drive.google.com/…" required>
+    <p class="helper">Google Drive, Dropbox, OneDrive, Frame-free direct download, or another accessible HTTPS link. Give ops@egstudio.tech access if the folder is restricted.</p>
   </div>
-</main>
-<footer>
-  <div class="wrap">
-    <div>© <span id="year">2026</span> EG Studio</div>
-    <nav class="links">
-      <a href="terms.html">Terms</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="refund.html">Refunds</a>
-    </nav>
+
+  <div class="field">
+    <label for="brand_assets_url">Brand assets link <span style="color:var(--dim);font-weight:500">(optional)</span></label>
+    <input id="brand_assets_url" name="brand_assets_url" type="url" inputmode="url" placeholder="https://drive.google.com/…">
+    <p class="helper">Logo, fonts, brand colors, or an existing brand folder. Leave blank for a clean default treatment.</p>
   </div>
-</footer>
+
+  <div class="field">
+    <label for="style_reference_url">Style reference link</label>
+    <input id="style_reference_url" name="style_reference_url" type="url" inputmode="url" placeholder="https://…" required>
+    <p class="helper">One example showing the pacing, caption style, or overall feel you want.</p>
+  </div>
+
+  <div class="field">
+    <label for="avoid_notes">Anything we should avoid? <span style="color:var(--dim);font-weight:500">(optional)</span></label>
+    <textarea id="avoid_notes" name="avoid_notes" maxlength="1200" placeholder="Example: no emojis in captions; avoid jump cuts during the product demo."></textarea>
+  </div>
+
+  <div class="honeypot" aria-hidden="true">
+    <label for="website">Website</label>
+    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+  </div>
+
+  <div class="check">
+    <input id="rights_confirmed" name="rights_confirmed" type="checkbox" required>
+    <label for="rights_confirmed"><strong>Rights confirmation.</strong> I have permission to provide this footage and these assets to EG Studio for editing.</label>
+  </div>
+
+  <button id="submit-btn" type="submit" disabled>Send project brief</button>
+  <p class="form-note">Your order email and purchased offer are taken from the verified Stripe payment. You do not need to enter them again.</p>
+  <div id="form-message" class="message" role="alert"></div>
+</form>
+
+<div id="done" class="done">
+  <h2>Brief received.</h2>
+  <p>We will check the source link and direction first. If anything is missing, ops@egstudio.tech will email you. The delivery clock starts when the brief and source files are usable.</p>
+</div>
+</div></main>
+<footer><div class="wrap">EG STUDIO · Los Angeles, CA · <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a></div></footer>
+
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-  function loadTally() {
-    if (typeof Tally !== "undefined" && typeof Tally.loadEmbeds === "function") {
-      Tally.loadEmbeds();
+(function(){
+  const expectedSku = "test";
+  const endpoint = window.EG_INTAKE_ENDPOINT;
+  const anonKey = window.EG_SUPABASE_ANON_KEY;
+  const params = new URLSearchParams(location.search);
+  const sessionId = params.get("session_id") || "";
+  const state = document.getElementById("payment-state");
+  const order = document.getElementById("verified-order");
+  const form = document.getElementById("intake-form");
+  const submit = document.getElementById("submit-btn");
+  const msg = document.getElementById("form-message");
+  const done = document.getElementById("done");
+  let verified = false;
+
+  function showMessage(text, type){
+    msg.textContent = text;
+    msg.className = "message show " + (type || "");
+  }
+
+  function validHttps(value, optional){
+    if (!value && optional) return true;
+    try {
+      const u = new URL(value);
+      return u.protocol === "https:";
+    } catch {
+      return false;
     }
   }
-  if (document.readyState === "complete") loadTally();
-  else window.addEventListener("load", loadTally);
+
+  async function verify(){
+    if (!endpoint || endpoint.includes("__INTAKE_FUNCTION_URL__")) {
+      state.textContent = "Backend not deployed yet.";
+      state.dataset.state = "error";
+      showMessage("This preview intake is not connected to the backend yet.", "error");
+      return;
+    }
+    if (!sessionId.startsWith("cs_")) {
+      state.textContent = "Payment session missing.";
+      state.dataset.state = "error";
+      showMessage("Open this page from the Stripe payment confirmation so the order can be verified.", "error");
+      return;
+    }
+    try {
+      const r = await fetch(endpoint + "?session_id=" + encodeURIComponent(sessionId), {
+        method:"GET",
+        headers:{
+          "Authorization":"Bearer " + anonKey,
+          "apikey":anonKey
+        }
+      });
+      const data = await r.json();
+      if (!r.ok || !data.paid) throw new Error(data.error || "Payment could not be verified.");
+      if (data.sku !== expectedSku) throw new Error("This payment belongs to a different EG Studio offer.");
+      verified = true;
+      state.textContent = "Verified · paid";
+      state.dataset.state = "ok";
+      order.textContent = data.order_label + " · " + data.amount_display;
+      submit.disabled = false;
+      if (window.posthog) posthog.capture("intake_payment_verified", {sku:data.sku, experiment:"native_intake_v1"});
+    } catch(err) {
+      state.textContent = "Could not verify payment.";
+      state.dataset.state = "error";
+      showMessage(err.message || "Could not verify payment.", "error");
+    }
+  }
+
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+    msg.className = "message";
+    if (!verified) return showMessage("Payment must be verified before the brief can be submitted.", "error");
+
+    const projectName = document.getElementById("project_name").value.trim();
+    const sourceUrl = document.getElementById("source_url").value.trim();
+    const brandUrl = document.getElementById("brand_assets_url").value.trim();
+    const styleUrl = document.getElementById("style_reference_url").value.trim();
+    const avoidNotes = document.getElementById("avoid_notes").value.trim();
+    const rights = document.getElementById("rights_confirmed").checked;
+    const website = document.getElementById("website").value.trim();
+
+    if (!projectName) return showMessage("Add a project / folder name.", "error");
+    if (!validHttps(sourceUrl, false)) return showMessage("Add a valid HTTPS source footage link.", "error");
+    if (!validHttps(brandUrl, true)) return showMessage("Brand assets must be a valid HTTPS link or left blank.", "error");
+    if (!validHttps(styleUrl, false)) return showMessage("Add a valid HTTPS style reference link.", "error");
+    if (!rights) return showMessage("Confirm you have permission to provide the footage and assets.", "error");
+
+    submit.disabled = true;
+    submit.textContent = "Sending brief…";
+
+    try {
+      const r = await fetch(endpoint, {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer " + anonKey,
+          "apikey":anonKey
+        },
+        body:JSON.stringify({
+          session_id:sessionId,
+          expected_sku:expectedSku,
+          project_name:projectName,
+          source_url:sourceUrl,
+          brand_assets_url:brandUrl || null,
+          style_reference_url:styleUrl,
+          avoid_notes:avoidNotes || null,
+          rights_confirmed:rights,
+          website:website
+        })
+      });
+      const data = await r.json();
+      if (!r.ok) throw new Error(data.error || "The brief could not be submitted.");
+      form.style.display = "none";
+      done.classList.add("show");
+      if (window.posthog) posthog.capture("intake_submitted", {sku:expectedSku, experiment:"native_intake_v1"});
+    } catch(err) {
+      submit.disabled = false;
+      submit.textContent = "Send project brief";
+      showMessage(err.message || "The brief could not be submitted.", "error");
+    }
+  });
+
+  verify();
+})();
 </script>
 </body>
 </html>
