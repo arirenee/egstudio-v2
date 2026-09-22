@@ -3,297 +3,311 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EG Studio | Short-form editing for agency client work</title>
-  <meta name="description" content="Short-form editing for agencies. Fifteen captioned 9:16 videos in thirty days for $1,500. Or three for $300. Pay on Stripe. Then send the brief.">
-  <link rel="canonical" href="https://egstudio.tech/">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
+  <title>EG Studio Preview | Short-form editing for agency client work</title>
+  <meta name="description" content="White-label short-form editing for agencies. Start with three captioned 9:16 videos for $300, or move to fifteen in thirty days for $1,500.">
+  <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#0a0a0a">
-  <meta property="og:title" content="EG Studio | Short-form editing for agency client work">
-  <meta property="og:description" content="Fifteen videos in thirty days for $1,500. $100 a video. Unbranded Drive. Pay on Stripe. Then send the brief.">
-  <meta property="og:url" content="https://egstudio.tech/">
-  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --border: #222222;
-      --text: #ededed;
-      --muted: #aaaaaa;
-      --dim: #999999;
-      --white: #ffffff;
-      --sans: Montserrat, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;
-      --mono: \"IBM Plex Mono\", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --bg:#0a0a0a; --surface:#111; --surface2:#151515; --border:#252525;
+      --text:#f2f2f2; --muted:#aaa; --dim:#858585; --white:#fff;
+      --sans:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; }
-    .wrap { width: min(92%, 640px); margin: 0 auto; }
-    header {
-      position: sticky; top: 0; z-index: 30;
-      background: rgba(10,10,10,.94);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: .75rem; padding: .8rem 0;
-    }
-    .brand {
-      font-weight: 900; letter-spacing: 2px; font-size: .78rem;
-      text-decoration: none; white-space: nowrap; color: var(--text);
-    }
-    .brand span { color: #71717a; }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: .85rem 1.1rem; font-weight: 700; font-size: .82rem;
-      text-decoration: none; border-radius: 2px; border: 0;
-    }
-    a:focus-visible, summary:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
-    .btn-primary { background: var(--white); color: var(--bg); }
-    .btn-block { width: 100%; padding: 1.05rem; }
-    .btn-sm { padding: .58rem .8rem; font-size: .72rem; }
-    .hero { padding: 1.75rem 0 2.1rem; }
-    .who {
-      font-family: var(--mono); font-size: .68rem; letter-spacing: .04em;
-      color: var(--muted); margin-bottom: .85rem;
-    }
-    h1 {
-      font-size: clamp(1.85rem, 8vw, 2.6rem);
-      line-height: 1.06; font-weight: 800; letter-spacing: -.035em;
-      margin-bottom: 1.15rem;
-    }
-    .facts { border-top: 1px solid var(--border); }
-    .facts .row {
-      display: grid; grid-template-columns: 1fr auto; gap: .75rem;
-      align-items: baseline; padding: .7rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: .9rem;
-    }
-    .facts .k { color: var(--text); font-weight: 600; }
-    .facts .v {
-      font-family: var(--mono); font-size: .72rem; color: var(--muted);
-      text-align: right;
-    }
-    .cta-wrap { margin-top: 1.15rem; }
-    .micro { color: var(--dim); font-size: .78rem; margin-top: .7rem; }
-    section { padding: 2.2rem 0; border-top: 1px solid var(--border); }
-    .kicker {
-      font-family: var(--mono); font-size: .64rem; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: .45rem;
-    }
-    h2 {
-      font-size: clamp(1.25rem, 5vw, 1.65rem); line-height: 1.15;
-      font-weight: 800; letter-spacing: -.03em; margin-bottom: .7rem;
-    }
-    p, li { color: var(--muted); font-size: .92rem; }
-    .stack { display: grid; gap: .7rem; }
-    .line {
-      display: flex; justify-content: space-between; gap: 1rem;
-      padding: .75rem 0; border-bottom: 1px solid var(--border);
-      font-size: .88rem;
-    }
-    .line:last-child { border-bottom: 0; }
-    .line b { color: var(--text); font-weight: 600; text-align: right; }
-    .sheet { background: var(--surface); border: 1px solid var(--border); padding: 1rem 1.05rem; }
-    .sku { border: 1px solid var(--white); padding: 1.25rem 1.1rem 1.35rem; }
-    .price { font-size: clamp(2rem, 8vw, 2.8rem); font-weight: 900; letter-spacing: -.04em; line-height: 1; margin: .25rem 0 .7rem; }
-    .price span { font-size: .95rem; font-weight: 600; color: var(--muted); }
-    .checks { list-style: none; margin: .9rem 0 1.15rem; }
-    .checks li { margin-bottom: .38rem; padding-left: 1rem; position: relative; }
-    .checks li::before { content: \"-\"; position: absolute; left: 0; color: var(--dim); }
-    .samples { display: grid; gap: 1rem; }
-    video { width: 100%; aspect-ratio: 9/16; object-fit: cover; background: #000; display: block; }
-    .sample { border: 1px solid var(--border); background: var(--surface); }
-    .sample .info { padding: .85rem 1rem 1rem; }
-    .sample h3 { font-size: .95rem; color: var(--text); margin-bottom: .2rem; }
-    .meta { font-family: var(--mono); font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
-    .disc { color: var(--dim); font-size: .76rem; margin-top: .9rem; }
-    details { border-bottom: 1px solid var(--border); padding: .9rem 0; }
-    summary { font-weight: 700; cursor: pointer; list-style: none; }
-    summary::-webkit-details-marker { display: none; }
-    summary::after { content: \"+\"; float: right; color: var(--dim); font-weight: 500; }
-    details[open] summary::after { content: \"-\"; }
-    details p { margin-top: .5rem; }
-    footer { border-top: 1px solid var(--border); padding: 1.2rem 0 2rem; color: var(--dim); font-size: .75rem; }
-    .flinks { display: flex; flex-wrap: wrap; gap: .65rem 1.1rem; margin-top: .65rem; }
-    .flinks a { color: var(--muted); text-decoration: none; }
-    @media (min-width: 720px) {
-      .wrap { width: min(92%, 720px); }
-      h1 { font-size: 3rem; }
-      .samples { grid-template-columns: 1fr 1fr; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    .wrap{width:min(92%,760px);margin:0 auto}
+    header{position:sticky;top:0;z-index:30;background:rgba(10,10,10,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.8rem 0}
+    .brand{font-weight:900;letter-spacing:2px;font-size:.78rem;text-decoration:none;white-space:nowrap}
+    .brand span{color:#71717a}
+    .nav-actions{display:flex;align-items:center;gap:.8rem}
+    .nav-link{font-size:.7rem;color:var(--muted);text-decoration:none;display:none}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.9rem 1.08rem;font-weight:800;font-size:.8rem;text-decoration:none;border-radius:2px;border:1px solid var(--white)}
+    .btn-primary{background:var(--white);color:var(--bg)}
+    .btn-secondary{background:transparent;color:var(--text);border-color:var(--border)}
+    .btn-block{width:100%;padding:1.05rem}
+    .btn-sm{padding:.58rem .72rem;font-size:.69rem}
+    .hero{padding:2.2rem 0 1.6rem;border-top:0}
+    .eyebrow,.kicker,.meta{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+    .eyebrow{font-size:.66rem;margin-bottom:.8rem}
+    h1{font-size:clamp(2.2rem,10vw,4.35rem);line-height:.98;font-weight:850;letter-spacing:-.05em;margin-bottom:1rem}
+    .lead{font-size:1rem;color:var(--muted);max-width:620px}
+    .hero-actions{display:grid;gap:.65rem;margin-top:1.2rem}
+    .micro{color:var(--dim);font-size:.76rem;margin-top:.65rem}
+    .micro strong{color:var(--text)}
+    section{padding:2.3rem 0;border-top:1px solid var(--border)}
+    .kicker{font-size:.62rem;margin-bottom:.45rem}
+    h2{font-size:clamp(1.45rem,5.5vw,2.25rem);line-height:1.08;font-weight:850;letter-spacing:-.035em;margin-bottom:.72rem}
+    h3{font-size:1rem}
+    p,li{color:var(--muted);font-size:.9rem}
+    .trust-strip{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);margin-top:1.2rem}
+    .trust-item{padding:.85rem;border-bottom:1px solid var(--border)}
+    .trust-item:nth-child(odd){border-right:1px solid var(--border)}
+    .trust-item:nth-last-child(-n+2){border-bottom:0}
+    .trust-item b{display:block;color:var(--text);font-size:.78rem;margin-bottom:.2rem}
+    .trust-item span{display:block;font-family:var(--mono);font-size:.61rem;color:var(--dim)}
+    .samples{display:grid;gap:1rem;margin-top:1rem}
+    .sample{border:1px solid var(--border);background:var(--surface)}
+    .sample video{width:100%;aspect-ratio:9/16;object-fit:cover;background:#000;display:block}
+    .info{padding:.85rem .9rem 1rem}
+    .meta{font-size:.58rem;margin-bottom:.18rem}
+    .sample h3{font-size:.95rem}
+    .disc{font-size:.74rem;color:var(--dim);margin-top:.9rem}
+    .proof-cta{margin-top:1.15rem;padding-top:1.15rem;border-top:1px solid var(--border)}
+    .proof-cta .hero-actions{margin-top:.7rem}
+    .sku-grid{display:grid;gap:1rem;margin-top:1rem}
+    .sku{border:1px solid var(--border);padding:1.15rem;background:var(--surface)}
+    .sku.primary{border-color:var(--white)}
+    .tag{display:inline-block;font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--border);padding:.25rem .4rem;margin-bottom:.7rem;color:var(--muted)}
+    .primary .tag{border-color:#555;color:var(--text)}
+    .price{font-size:2.4rem;font-weight:900;letter-spacing:-.045em;line-height:1;margin:.25rem 0 .7rem}
+    .price span{font-size:.85rem;font-weight:600;color:var(--muted)}
+    .checks{list-style:none;margin:.85rem 0 1rem}
+    .checks li{margin-bottom:.42rem;padding-left:1rem;position:relative}
+    .checks li::before{content:"–";position:absolute;left:0;color:var(--dim)}
+    .risk{background:var(--surface2);border:1px solid var(--border);padding:1rem;margin-top:1rem}
+    .risk b{color:var(--text)}
+    .line{display:flex;justify-content:space-between;gap:1rem;padding:.78rem 0;border-bottom:1px solid var(--border);font-size:.86rem}
+    .line:last-child{border-bottom:0}
+    .line b{color:var(--text);font-weight:650;text-align:right}
+    .truth-grid{display:grid;gap:.7rem;margin-top:1rem}
+    .sheet{background:var(--surface);border:1px solid var(--border);padding:1rem}
+    .sheet strong{display:block;color:var(--text);font-size:.86rem;margin-bottom:.35rem}
+    details{border-bottom:1px solid var(--border);padding:.9rem 0}
+    summary{font-weight:750;cursor:pointer;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:"+";float:right;color:var(--dim)}
+    details[open] summary::after{content:"–"}
+    details p{margin-top:.5rem}
+    .final{text-align:center;padding-bottom:3rem}
+    .final .hero-actions{max-width:430px;margin:1rem auto 0}
+    footer{border-top:1px solid var(--border);padding:1.2rem 0 2rem;color:var(--dim);font-size:.74rem}
+    .flinks{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:.65rem}
+    .flinks a{text-decoration:none;color:var(--muted)}
+    @media(min-width:720px){
+      .nav-link{display:inline}
+      .hero{padding:3.5rem 0 2rem}
+      .hero-actions.two{grid-template-columns:1fr 1fr;align-items:stretch}
+      .samples{grid-template-columns:repeat(3,1fr)}
+      .sku-grid{grid-template-columns:1.15fr .85fr}
+      .truth-grid{grid-template-columns:repeat(3,1fr)}
     }
   </style>
+  
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="vu fu pu gu bu init Hu zu qu ju Gu Xl Bu Qu Du eh ih nh sh rh oh capture getExtension Uu cu hh calculateEventProperties uh register register_once register_for_session unregister unregister_for_session gh Nu dh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync mh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset yh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty fh Xu createPersonProfile setInternalOrTestUser ph wu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ju debug Yl Os getPageViewId captureTraceFeedback captureTraceMetric Ru".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
+  api_host:'https://us.i.posthog.com',
+  defaults:'2026-05-30',
+  person_profiles:'identified_only'
+});
+</script>
+
   <script>
-    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="vu fu pu gu bu init Hu zu qu ju Gu Xl Bu Qu Du eh ih nh sh rh oh capture getExtension Uu cu hh calculateEventProperties uh register register_once register_for_session unregister unregister_for_session gh Nu dh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync mh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset yh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty fh Xu createPersonProfile setInternalOrTestUser ph wu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ju debug Yl Os getPageViewId captureTraceFeedback captureTraceMetric Ru".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
-        api_host: 'https://us.i.posthog.com',
-        defaults: '2026-05-30',
-        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
-    })
+  window.addEventListener('load', function(){
+    if (window.posthog) posthog.capture('experiment_variant_view',{experiment:'trust_conversion_v2',variant:'sales_system_v3'});
+    document.querySelectorAll('[data-sku]').forEach(function(el){
+      el.addEventListener('click',function(){
+        if (window.posthog) posthog.capture('checkout_cta_clicked',{
+          experiment:'trust_conversion_v2',
+          variant:'sales_system_v3',
+          sku:el.dataset.sku,
+          placement:el.dataset.placement || 'unknown'
+        });
+      });
+    });
+  });
   </script>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="/">EG<span>STUDIO</span></a>
-      <a class="btn btn-primary btn-sm" href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c">Pay $1,500 on Stripe</a>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">EG<span>STUDIO</span></a>
+    <div class="nav-actions">
+      <a class="nav-link" href="#offers">Scope &amp; pricing</a>
+      <a class="btn btn-primary btn-sm" href="#work">See the work ↓</a>
     </div>
-  </header>
-  <main>
-    <section class="hero" style="border-top:0;">
-      <div class="wrap">
-        <p class="who">For agencies with client interviews and podcasts to deliver.</p>
-        <h1>Short-form editing.<br>Your clients. Your brand.</h1>
-        <div class="facts">
-          <div class="row"><span class="k">15 videos in 30 days</span><span class="v">$1,500 · $100/video</span></div>
-          <div class="row"><span class="k">Unbranded Google Drive</span><span class="v">folder name is yours</span></div>
-          <div class="row"><span class="k">No contact with your client</span><span class="v">white-label folder</span></div>
-          <div class="row"><span class="k">Pay then brief</span><span class="v">No call</span></div>
-        </div>
-        <div class="cta-wrap">
-          <a class="btn btn-primary btn-block" href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c">Pay $1,500 on Stripe</a>
-          <p class="micro">Pay first. Then send the brief. Confirmation from ops@egstudio.tech.<br><a href="https://buy.stripe.com/3cI9AM26tgmYeTFgEB9EI0b">Or start with 3 videos for $300</a></p>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+<div class="wrap">
+<p class="eyebrow">White-label short-form editing for agencies</p>
+<h1>Turn client recordings into ready-to-post short-form.</h1>
+<p class="lead">Send an interview, podcast or talking-head recording. Get finished 9:16 clips back under your agency's name—without adding another editor to payroll or another vendor to your client's inbox.</p>
+<div class="hero-actions"><a class="btn btn-primary btn-block" href="#work">Watch the editing samples ↓</a></div>
+<p class="micro">Start with 3 videos for $300. Scale to 15 for $1,500 when the fit is right.</p>
+<div style="margin-top:1.25rem;border-top:1px solid var(--border)">
+<div class="line"><span>$300 test</span><b>3 clips · 20 min source · 3–5 business days</b></div>
+<div class="line"><span>$1,500 Sprint</span><b>15 clips · 90 min source · 30 days</b></div>
+<div class="line"><span>White-label</span><b>Unbranded Drive · no client contact</b></div>
+</div>
+</div>
+</section>
+
+  <section id="work">
+    <div class="wrap">
+      <p class="kicker">Editing samples</p>
+      <h2>See the pacing, captions and cut style before you buy.</h2>
+      <p>These public recuts show how EG Studio handles hooks, punch-ins, captions and short-form pacing. They are editing demonstrations, not client endorsements.</p>
+
+      <div class="samples">
+        <article class="sample">
+          <video controls playsinline preload="metadata" poster="https://egstudio.tech/assets/samples/sample-podcast.jpg?v=4">
+            <source src="https://egstudio.tech/assets/samples/sample-podcast.mp4?v=4" type="video/mp4">
+          </video>
+          <div class="info"><p class="meta">Podcast</p><h3>Long-form to hook</h3></div>
+        </article>
+        <article class="sample">
+          <video controls playsinline preload="metadata" poster="https://egstudio.tech/assets/samples/sample-saas-founder.jpg?v=4">
+            <source src="https://egstudio.tech/assets/samples/sample-saas-founder.mp4?v=4" type="video/mp4">
+          </video>
+          <div class="info"><p class="meta">Founder</p><h3>Talking-head punch-ins</h3></div>
+        </article>
+        <article class="sample">
+          <video controls playsinline preload="metadata" poster="https://egstudio.tech/assets/samples/sample-executive.jpg">
+            <source src="https://egstudio.tech/assets/samples/sample-executive.mp4" type="video/mp4">
+          </video>
+          <div class="info"><p class="meta">Executive</p><h3>Clean authority edit</h3></div>
+        </article>
+      </div>
+
+      <p class="disc">Public recuts for editing demonstration only. No endorsement implied.</p>
+
+      <div class="proof-cta">
+        <p class="kicker">First order</p>
+        <h2>Start small. Keep the option to scale.</h2>
+        <div class="hero-actions two">
+          <a class="btn btn-primary btn-block" data-sku="test" data-placement="after_samples_primary" href="https://buy.stripe.com/3cI9AM26tgmYeTFgEB9EI0b">Start with 3 videos · $300</a>
+          <a class="btn btn-secondary btn-block" data-sku="sprint" data-placement="after_samples_secondary" href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c">15-video Sprint · $1,500</a>
         </div>
       </div>
-    </section>
-    <section id="path">
-      <div class="wrap">
-        <p class="kicker">How it works</p><h2>Pay. Then send the brief.</h2>
-        <div class="line"><span>01 Pay</span><b>Stripe. Agency name and email.</b></div>
-        <div class="line"><span>02 Brief</span><b>Footage link, fonts, colors, folder name.</b></div>
-        <div class="line"><span>03 Style sample</span><b>Days 1–3. You sign off the look.</b></div>
-        <div class="line"><span>04 Delivery</span><b>Batches on day 10, 20, and 30.</b></div>
-      </div>
-    </section>
-    <section id="offer">
-      <div class="wrap">
+    </div>
+  </section>
+
+  <section id="offers">
+    <div class="wrap">
+      <p class="kicker">Scope &amp; pricing</p>
+      <h2>Two fixed offers. No proposal call required.</h2>
+
+      <div class="sku-grid">
+        <div class="sku primary">
+          <span class="tag">Recommended for first order</span>
+          <p class="meta">Three-video paid test</p>
+          <div class="price">$300 <span>one time</span></div>
+          <p>Use one real client recording to test the workflow and finished edit quality.</p>
+          <ul class="checks">
+            <li>3 captioned 9:16 videos, each under 60 seconds</li>
+            <li>1 English-language recording up to 20 minutes</li>
+            <li>Moment selection, editing and one minor revision round across the batch</li>
+            <li>One brand and caption style; unbranded MP4 delivery</li>
+            <li>Delivery in 3–5 business days after usable footage, assets and brief</li>
+            <li>$300 may credit toward the full Sprint if upgrade starts within 7 days of final delivery</li>
+          </ul>
+          <a class="btn btn-primary btn-block" data-sku="test" data-placement="offer_test" href="https://buy.stripe.com/3cI9AM26tgmYeTFgEB9EI0b">Start with 3 videos · $300</a>
+          <p class="micro">The $300 fee becomes non-refundable once raw files are accepted and production begins. <a href="terms.html">Terms</a> · <a href="refund.html">Refunds</a></p>
+        </div>
+
         <div class="sku">
+          <span class="tag">For ready-to-go volume</span>
           <p class="meta">30-day B2B Sprint</p>
           <div class="price">$1,500 <span>one time</span></div>
-          <p>Fifteen finished 9:16 videos. You keep credit. We stay off the files.</p>
+          <p>A defined 30-day production run for agencies with more client footage ready to move.</p>
           <ul class="checks">
-            <li>Each film <=60 seconds</li>
-            <li>Style sample in days 1-3</li>
-            <li>Batches on day 10, 20, and 30</li>
-            <li>Up to 90 minutes of source</li>
+            <li>15 videos in three batches of 5</li>
+            <li>Up to 90 minutes of source footage</li>
             <li>Two revision rounds per video</li>
-            <li>Unbranded Google Drive folder</li>
+            <li>Style sample in the first 3 days</li>
+            <li>Batches on days 10, 20 and 30</li>
+            <li>Unbranded Google Drive delivery</li>
           </ul>
-          <a class="btn btn-primary btn-block" href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c">Pay $1,500 on Stripe</a>
-          <p class="micro">Confirmation from ops@egstudio.tech.</p>
-        </div>
-        <div class="stack" style="margin-top:1rem;">
-          <div class="sheet">
-            <p class="meta">Who this is for</p>
-            <p style="margin-top:.4rem;">Agencies already producing client podcasts, interviews or thought-leadership videos.</p>
-          </div>
-          <div class="sheet">
-            <p class="meta">What to send</p>
-            <p style="margin-top:.4rem;">A recording you have permission to use, one style reference, brand assets and the delivery deadline.</p>
+          <a class="btn btn-secondary btn-block" data-sku="sprint" data-placement="offer_sprint" href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c">Start the 15-video Sprint · $1,500</a>
+          <div class="risk">
+            <p><b>Approve the style before full production.</b> If the initial style sample does not align with the brief and revisions cannot resolve it, you may cancel before batch production begins for a 100% refund under the current published terms.</p>
           </div>
         </div>
       </div>
-    </section>
-    <section id="test">
-      <div class="wrap sku">
-        <p class="meta">Three-video paid test</p>
-        <div class="price">$300 <span>one time</span></div>
-        <p>Try one small assignment before committing to fifteen videos.</p>
-        <ul class="checks">
-          <li>Three captioned 9:16 videos, each up to 60 seconds</li>
-          <li>One English-language recording up to 20 minutes</li>
-          <li>Moment selection, editing and two revision rounds per video</li>
-          <li>One brand and caption style; unbranded MP4 delivery</li>
-          <li>First-video target: three business days after complete brief, footage and payment</li>
-          <li>Remaining drafts: two business days after style approval</li>
-        </ul>
-        <p>Clock starts when the brief is usable. Filming, posting, full-episode editing, complex animation and native project files are outside this test.</p>
-        <div class="cta-wrap"><a class="btn btn-primary btn-block" href="https://buy.stripe.com/3cI9AM26tgmYeTFgEB9EI0b">Pay $300 on Stripe</a></div>
-        <p class="micro">For the same project, the first three videos and $300 can count toward fifteen for $1,500 total. The remaining twelve cost $1,200, with a separate thirty-day schedule agreed before payment. No subscription. <a href="terms.html">Terms</a> · <a href="refund.html">Refunds</a></p>
-      </div>
-    </section>
-    <section id="samples">
-      <div class="wrap">
-        <p class="kicker">Pace</p>
-        <h2>Public recuts. Not client work.</h2>
-        <div class="samples">
-          <article class="sample">
-            <video controls playsinline preload="metadata" poster="assets/samples/sample-podcast.jpg?v=4">
-              <source src="assets/samples/sample-podcast.mp4?v=4" type="video/mp4">
-            </video>
-            <div class="info"><p class="meta">Podcast</p><h3>Long-form to hook</h3></div>
-          </article>
-          <article class="sample">
-            <video controls playsinline preload="metadata" poster="assets/samples/sample-saas-founder.jpg?v=4">
-              <source src="assets/samples/sample-saas-founder.mp4?v=4" type="video/mp4">
-            </video>
-            <div class="info"><p class="meta">SaaS</p><h3>Talking-head punch-ins</h3></div>
-          </article>
-        </div>
-        <p class="disc">Caption style and pacing only. Not an endorsement. We stay off your client's inbox.</p>
-      </div>
-    </section>
-    <section id="faq">
-      <div class="wrap">
-        <p class="kicker">Transparency</p>
-        <h2>FAQ</h2>
-        <details open>
-          <summary>Do we jump on a call first?</summary>
-          <p>No. Pay the $300 test, send the brief, we start. If you need a discovery chat, this is not the shop.</p>
-        </details>
-        <details>
-          <summary>How does white-label work?</summary>
-          <p>Unbranded Google Drive folder. Your naming. We never email your client. No watermark.</p>
-        </details>
-        <details>
-          <summary>What footage, and how much?</summary>
-          <p>Interviews, webinars, podcasts and talking-head recordings. Three-video test: one English-language recording up to 20 minutes, one brand and caption style. Sprint source cap: 90 minutes.</p>
-        </details>
-        <details>
-          <summary>What is the calendar?</summary>
-          <p>Clock starts when the brief is usable. Test: first video within three business days of complete footage and brief; remaining drafts within two business days of style approval. Sprint: style sample in days 1–3; batches on days 10, 20 and 30. Feedback delays move dependent dates. Two revision rounds per video; revisions within two business days of timestamped notes.</p>
-        </details>
-        <details>
-          <summary>Can we set our own retainer?</summary>
-          <p>Yes. Your client pricing is your decision. EG Studio charges for editing; no resale revenue or profit is promised.</p>
-        </details>
-        <details>
-          <summary>Are we locked into a monthly contract?</summary>
-          <p>No. Each order is a standalone project. The three-video test is $300; the full fifteen-video Sprint is $1,500.</p>
-        </details>
-      </div>
-    </section>
-    <section style="padding-bottom:3rem;">
-      <div class="wrap" style="text-align:center;">
-        <h2>Have a recording that needs clips?</h2>
-        <p style="margin-bottom:1rem;">Fifteen videos in thirty days. $1,500. Pay on Stripe. Send the brief.</p>
-        <a class="btn btn-primary" href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c">Pay $1,500 on Stripe</a>
-        <p class="micro">Confirmation from ops@egstudio.tech. <a href="https://buy.stripe.com/3cI9AM26tgmYeTFgEB9EI0b">Or 3 videos for $300</a></p>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <div class="wrap">
-      <div>EG STUDIO | Los Angeles, CA | egstudio.tech</div>
-      <nav class="flinks">
-        <a href="terms.html">Terms</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="refund.html">Refunds</a>
-        <a href="mailto:edward@egstudio.tech">edward@egstudio.tech</a>
-      </nav>
     </div>
-  </footer>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="kicker">After payment</p>
+      <h2>One brief. One source link. Then we edit.</h2>
+      <div class="line"><span>01 Pay</span><b>Stripe checkout collects payment only</b></div>
+      <div class="line"><span>02 Brief</span><b>Share a source link, brand assets and one style reference</b></div>
+      <div class="line"><span>03 Edit</span><b>Test: one batch · Sprint: approve a style sample first</b></div>
+      <div class="line"><span>04 Delivery</span><b>Unbranded Google Drive delivery from ops@egstudio.tech</b></div>
+    </div>
+  </section>
+
+  <section id="trust"><div class="wrap">
+<p class="kicker">Built for agency fulfillment</p>
+<h2>Your client relationship stays yours.</h2>
+<div class="stack">
+<div class="sheet"><p><strong style="color:var(--text)">White-label by default.</strong><br>No watermark, no EG Studio branding on deliverables, and no public portfolio use without written permission.</p></div>
+<div class="sheet"><p><strong style="color:var(--text)">No subscription.</strong><br>Each order stands alone. Buy the test, buy a Sprint, or stop after delivery.</p></div>
+<div class="sheet"><p><strong style="color:var(--text)">No client contact.</strong><br>You remain the client-facing agency. EG Studio communicates with the buyer through ops@egstudio.tech.</p></div>
+<div class="sheet"><p><strong style="color:var(--text)">Scope is published before payment.</strong><br>Pricing, footage limits, revisions, turnaround and refund rules are visible before checkout.</p></div>
+</div></div></section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="kicker">Transparency</p>
+      <h2>FAQ</h2>
+      <details open>
+        <summary>Who is this built for?</summary>
+        <p>Agencies already producing client podcasts, interviews, webinars or thought-leadership recordings and needing short-form editing capacity behind the scenes.</p>
+      </details>
+      <details>
+        <summary>What do I need to send?</summary>
+        <p>A shareable source-footage link, any brand assets you want used, and one reference that shows the pacing or caption style you want.</p>
+      </details>
+      <details>
+        <summary>What is not included?</summary>
+        <p>Filming, posting, full-episode editing, complex custom animation and native project files are outside these fixed offers unless separately agreed.</p>
+      </details>
+      <details>
+        <summary>What are the revision limits?</summary>
+        <p>The three-video test includes one minor text-and-pacing revision round across the batch. The full Sprint includes up to two revision rounds per video.</p>
+      </details>
+      <details>
+        <summary>What happens immediately after I pay?</summary>
+        <p>Stripe redirects you to the project brief. Submit the source link and brand direction there; ops@egstudio.tech handles the project from that point forward.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <p class="kicker">Ready to test the fit?</p>
+      <h2>Have one recording that needs clips?</h2>
+      <p>Start with three. Move to fifteen only if the edit fits.</p>
+      <div class="hero-actions two">
+        <a class="btn btn-primary btn-block" data-sku="test" data-placement="final_primary" href="https://buy.stripe.com/3cI9AM26tgmYeTFgEB9EI0b">Start with 3 videos · $300</a>
+        <a class="btn btn-secondary btn-block" data-sku="sprint" data-placement="final_secondary" href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c">15-video Sprint · $1,500</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>EG STUDIO | Los Angeles, CA | <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a></div>
+    <nav class="flinks">
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="refund.html">Refunds</a>
+      <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a>
+    </nav>
+  </div>
+</footer>
 </body>
 </html>
