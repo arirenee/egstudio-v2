@@ -37,6 +37,7 @@ pintrk('page');
 <!-- end Pinterest Tag -->
 </head>
 <body>
+<script>window.addEventListener('load',function(){if(window.pintrk)pintrk('track','pagevisit');});</script>
 <header><div class="wrap nav"><a class="brand" href="/">EG<span>STUDIO</span></a><a class="nav-link" href="/">Back to main site</a></div></header>
 <main>
   <section class="hero"><div class="wrap">
@@ -96,6 +97,7 @@ pintrk('page');
       const result=await response.json().catch(()=>({}));
       if(!response.ok||!result.ok)throw new Error(result.error||'Submission failed.');
       if(window.posthog)posthog.capture('readiness_review_submitted',{content_type:data.content_type});
+      if(window.pintrk)pintrk('track','lead',{lead_type:'short_form_readiness_review'});
       form.reset();
       statusBox.textContent='Received. If the submission qualifies, EG Studio will send the review within two business days.';
       statusBox.className='status success';
