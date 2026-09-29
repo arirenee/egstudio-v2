@@ -1132,16 +1132,16 @@ posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
       <p class="image2-eyebrow">White-label short-form editing for agencies</p>
       <h1 class="image2-title">Your clients.<br>Your brand.<br>Our edit.</h1>
       <div class="image2-hero-rest">
-        <p class="hero-subtitle">We fulfill 15 finished 9:16 videos in 30 days for $1,500. You sell the retainer. We stay off their inbox.</p>
+        <p class="hero-subtitle" id="heroOfferSubtitle">We fulfill 15 finished 9:16 videos in 30 days for $1,500. You sell the retainer. We stay off their inbox.</p>
         <div class="hero-actions">
-          <a href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c" class="btn btn-primary">Start the $1,500 Sprint</a>
+          <a href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c" class="btn btn-primary" id="heroOfferCta" data-sku="sprint" data-placement="hero_ab">Start the $1,500 Sprint</a>
         </div>
-        <ul class="hero-facts">
+        <ul class="hero-facts" id="heroOfferFacts">
           <li>$100 / video · 15 in 30 days · ≤60s</li>
           <li>White-label 9:16 · unbranded delivery</li>
           <li>No call · we never email your client</li>
         </ul>
-        <p class="hero-micro">Pay on Stripe first. Then send the brief. No call. Confirmation comes from ops@egstudio.tech.</p>
+        <p class="hero-micro" id="heroOfferMicro">Pay on Stripe first. Then send the brief. No call. Confirmation comes from ops@egstudio.tech.</p>
         <div class="who-split">
           <div class="who-card">
             <h2>Who it's for.</h2>
@@ -1652,5 +1652,63 @@ posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
       });
     });
   </script>
-<script>window.addEventListener('load',function(){document.querySelectorAll('[data-sku]').forEach(function(el){el.addEventListener('click',function(){if(window.posthog)posthog.capture('checkout_cta_clicked',{sku:el.dataset.sku,placement:el.dataset.placement||'unknown',page_version:'image1_updated'});});});});</script></body>
+<script>window.addEventListener('load',function(){document.querySelectorAll('[data-sku]:not(#heroOfferCta)').forEach(function(el){el.addEventListener('click',function(){if(window.posthog)posthog.capture('checkout_cta_clicked',{sku:el.dataset.sku,placement:el.dataset.placement||'unknown',page_version:'image1_updated'});});});});</script><script id="hero-entry-offer-ab">
+(function(){
+  var EXPERIMENT = 'hero_entry_offer_v1';
+  var STORAGE_KEY = 'eg_' + EXPERIMENT;
+  var variant = null;
+
+  try {
+    variant = localStorage.getItem(STORAGE_KEY);
+    if (variant !== 'A' && variant !== 'B') {
+      variant = Math.random() < 0.5 ? 'A' : 'B';
+      localStorage.setItem(STORAGE_KEY, variant);
+    }
+  } catch (e) {
+    variant = Math.random() < 0.5 ? 'A' : 'B';
+  }
+
+  var subtitle = document.getElementById('heroOfferSubtitle');
+  var cta = document.getElementById('heroOfferCta');
+  var facts = document.getElementById('heroOfferFacts');
+  var micro = document.getElementById('heroOfferMicro');
+
+  if (!subtitle || !cta || !facts || !micro) return;
+
+  if (variant === 'B') {
+    subtitle.textContent = 'Start with one client recording. We turn it into 3 captioned 9:16 videos for $300, white-label behind your agency.';
+    cta.href = 'https://buy.stripe.com/3cI9AM26tgmYeTFgEB9EI0b';
+    cta.textContent = 'Start with 3 videos · $300';
+    cta.dataset.sku = 'test';
+    facts.innerHTML = '<li>3 videos · one recording up to 20 min</li><li>White-label 9:16 · unbranded delivery</li><li>3–5 business days · no discovery call</li>';
+    micro.textContent = 'Pay on Stripe first. Then send the brief. Your client stays yours.';
+  }
+
+  document.documentElement.dataset.heroOfferVariant = variant;
+
+  function capture(name, props){
+    if (window.posthog && typeof window.posthog.capture === 'function') {
+      window.posthog.capture(name, props);
+    }
+  }
+
+  window.addEventListener('load', function(){
+    capture('experiment_variant_view', {
+      experiment: EXPERIMENT,
+      variant: variant,
+      placement: 'hero'
+    });
+  });
+
+  cta.addEventListener('click', function(){
+    capture('hero_offer_checkout_clicked', {
+      experiment: EXPERIMENT,
+      variant: variant,
+      sku: cta.dataset.sku || (variant === 'B' ? 'test' : 'sprint'),
+      placement: 'hero'
+    });
+  });
+})();
+</script>
+</body>
 </html>
