@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Pinterest Tag Diagnostic | EG Studio</title>
+<style>
+:root{color-scheme:dark}body{margin:0;background:#0a0a0a;color:#fff;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{width:min(92%,680px);margin:0 auto;padding:32px 0}.brand{font-weight:900;letter-spacing:2px;margin-bottom:30px}.brand span{color:#71717a}h1{font-size:30px;line-height:1.05;margin:0 0 10px}.muted{color:#aaa}.card{border:1px solid #2a2a2a;background:#121212;margin-top:22px}.row{display:flex;justify-content:space-between;gap:20px;padding:14px 16px;border-bottom:1px solid #2a2a2a}.row:last-child{border-bottom:0}.label{color:#aaa}.status{font-weight:800;text-align:right}.ok{color:#8df0ad}.bad{color:#ff9f9f}.pending{color:#ddd}button{width:100%;margin-top:18px;background:#fff;color:#090909;border:0;border-radius:4px;padding:15px;font-weight:800;font-size:16px}.note{font-size:13px;color:#888;margin-top:18px}
+</style>
+<!-- Pinterest Tag -->
+<script>
+!function(e){if(!window.pintrk){window.pintrk=function(){window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var n=window.pintrk;n.queue=[],n.version="3.0";var t=document.createElement("script");t.async=!0;t.src=e;t.id="pinterest-core";t.onload=function(){window.__pinCoreLoaded=true};t.onerror=function(){window.__pinCoreFailed=true};var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
+pintrk('load','2614116778572');
+pintrk('page');
+pintrk('track','pagevisit');
+</script>
+<!-- end Pinterest Tag -->
+</head>
+<body>
+<div class="wrap">
+<div class="brand">EG<span>STUDIO</span></div>
+<h1>Pinterest tag diagnostic</h1>
+<p class="muted">This page checks this iPhone only. It does not change your Pinterest settings.</p>
+<div class="card">
+<div class="row"><span class="label">Tag ID</span><span class="status ok">2614116778572</span></div>
+<div class="row"><span class="label">pintrk function</span><span id="fn" class="status pending">checking…</span></div>
+<div class="row"><span class="label">Pinterest core.js</span><span id="core" class="status pending">checking…</span></div>
+<div class="row"><span class="label">ct.pinterest.com</span><span id="endpoint" class="status pending">checking…</span></div>
+</div>
+<button id="fire">Fire PageVisit again</button>
+<p class="note">If core.js or ct.pinterest.com shows BLOCKED, an iOS privacy/content-blocking setting is interfering. If both show OK but Pinterest Test Events stays blank, the issue is the Pinterest test-session UI rather than the EG Studio implementation.</p>
+</div>
+<img id="pixel" alt="" width="1" height="1" style="position:absolute;left:-9999px" src="https://ct.pinterest.com/v3/?tid=2614116778572&event=pagevisit&noscript=1&cb=iosdiagnostic">
+<script>
+(function(){
+ const fn=document.getElementById('fn'), core=document.getElementById('core'), endpoint=document.getElementById('endpoint');
+ function set(el,ok,text){el.textContent=text;el.className='status '+(ok?'ok':'bad')}
+ set(fn,typeof window.pintrk==='function',typeof window.pintrk==='function'?'OK':'BLOCKED');
+ const img=document.getElementById('pixel');
+ img.onload=function(){set(endpoint,true,'OK')};
+ img.onerror=function(){set(endpoint,false,'BLOCKED')};
+ function checkCore(){
+   if(window.__pinCoreLoaded){set(core,true,'OK');return}
+   if(window.__pinCoreFailed){set(core,false,'BLOCKED');return}
+   const seen=performance.getEntriesByType('resource').some(function(x){return x.name.indexOf('s.pinimg.com/ct/core.js')>-1});
+   if(seen){set(core,true,'OK');return}
+   setTimeout(checkCore,500);
+ }
+ setTimeout(function(){
+   if(!window.__pinCoreLoaded&&!window.__pinCoreFailed){
+     const seen=performance.getEntriesByType('resource').some(function(x){return x.name.indexOf('s.pinimg.com/ct/core.js')>-1});
+     set(core,seen,seen?'OK':'BLOCKED');
+   }
+ },5000);
+ checkCore();
+ document.getElementById('fire').addEventListener('click',function(){
+   if(window.pintrk) pintrk('track','pagevisit');
+   this.textContent='PageVisit fired';
+ });
+})();
+</script>
+</body>
+</html>
