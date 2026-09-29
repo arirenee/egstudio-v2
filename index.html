@@ -120,19 +120,80 @@ posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
 </script>
 
   <script>
-  window.addEventListener('load', function(){
-    if (window.posthog) posthog.capture('experiment_variant_view',{experiment:'trust_conversion_v2',variant:'approved_preview_production'});
-    document.querySelectorAll('[data-sku]').forEach(function(el){
-      el.addEventListener('click',function(){
-        if (window.posthog) posthog.capture('checkout_cta_clicked',{
-          experiment:'trust_conversion_v2',
-          variant:'approved_preview_production',
-          sku:el.dataset.sku,
-          placement:el.dataset.placement || 'unknown'
+  (function(){
+    var experiment = 'samples_order_v1';
+    var storageKey = 'eg_samples_order_v1';
+
+    function getVariant(){
+      var params = new URLSearchParams(window.location.search);
+      var override = params.get('samples_variant');
+      if (override === 'A' || override === 'B') {
+        localStorage.setItem(storageKey, override);
+        return override;
+      }
+      var saved = localStorage.getItem(storageKey);
+      if (saved === 'A' || saved === 'B') return saved;
+      var variant = Math.random() < 0.5 ? 'A' : 'B';
+      localStorage.setItem(storageKey, variant);
+      return variant;
+    }
+
+    function capture(name, props){
+      if (!window.posthog) return;
+      posthog.capture(name, Object.assign({
+        experiment: experiment,
+        samples_ab_variant: window.egSamplesVariant
+      }, props || {}));
+    }
+
+    window.egSamplesVariant = getVariant();
+
+    window.addEventListener('DOMContentLoaded', function(){
+      var grid = document.querySelector('.samples');
+      if (grid && window.egSamplesVariant === 'B') {
+        var process = grid.querySelector('[data-sample="process"]');
+        if (process) grid.insertBefore(process, grid.firstElementChild);
+      }
+
+      capture('sample_order_experiment_exposed', {
+        variant: window.egSamplesVariant,
+        order: window.egSamplesVariant === 'B' ? 'process-founder-panel' : 'panel-founder-process'
+      });
+
+      document.querySelectorAll('.sample video').forEach(function(video){
+        var article = video.closest('[data-sample]');
+        var sample = article ? article.dataset.sample : 'unknown';
+        var fired = false;
+        video.addEventListener('play', function(){
+          if (fired) return;
+          fired = true;
+          capture('sample_video_played', {sample: sample});
         });
       });
     });
-  });
+
+    window.addEventListener('load', function(){
+      if (window.posthog) posthog.capture('experiment_variant_view',{
+        experiment:'trust_conversion_v2',
+        variant:'approved_preview_production',
+        samples_ab_experiment: experiment,
+        samples_ab_variant: window.egSamplesVariant
+      });
+
+      document.querySelectorAll('[data-sku]').forEach(function(el){
+        el.addEventListener('click',function(){
+          if (window.posthog) posthog.capture('checkout_cta_clicked',{
+            experiment:'trust_conversion_v2',
+            variant:'approved_preview_production',
+            samples_ab_experiment: experiment,
+            samples_ab_variant: window.egSamplesVariant,
+            sku:el.dataset.sku,
+            placement:el.dataset.placement || 'unknown'
+          });
+        });
+      });
+    });
+  })();
   </script>
 </head>
 <body>
@@ -169,19 +230,19 @@ posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
       <p>These public recuts show how EG Studio handles hooks, punch-ins, captions and short-form pacing. They are editing demonstrations, not client endorsements.</p>
 
       <div class="samples">
-        <article class="sample">
+        <article class="sample" data-sample="panel">
           <video controls playsinline preload="metadata" poster="/assets/samples/sample-panel.jpg">
             <source src="/assets/samples/sample-panel.mp4" type="video/mp4">
           </video>
           <div class="info"><p class="meta">Panel</p><h3>Conversation to clean hook</h3></div>
         </article>
-        <article class="sample">
+        <article class="sample" data-sample="founder">
           <video controls playsinline preload="metadata" poster="/assets/samples/sample-founder.jpg">
             <source src="/assets/samples/sample-founder.mp4" type="video/mp4">
           </video>
           <div class="info"><p class="meta">Founder</p><h3>Talking-head punch-ins</h3></div>
         </article>
-        <article class="sample">
+        <article class="sample" data-sample="process">
           <video controls playsinline preload="metadata" poster="/assets/samples/sample-process.jpg">
             <source src="/assets/samples/sample-process.mp4" type="video/mp4">
           </video>
