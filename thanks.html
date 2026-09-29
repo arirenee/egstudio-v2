@@ -184,6 +184,13 @@ pintrk('page');
       order.textContent = data.order_label + " · " + data.amount_display;
       submit.disabled = false;
       if (window.posthog) posthog.capture("intake_payment_verified", {sku:data.sku, experiment:"native_intake_v1"});
+      if (window.pintrk) pintrk('track','checkout',{
+        event_id:sessionId,
+        order_id:sessionId,
+        value:1500,
+        order_quantity:1,
+        currency:'USD'
+      });
     } catch(err) {
       state.textContent = "Could not verify payment.";
       state.dataset.state = "error";
