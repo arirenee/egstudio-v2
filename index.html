@@ -1719,5 +1719,15 @@ pintrk('page');
   });
 })();
 </script>
+<script id="pinterest-revenue-events">
+window.addEventListener('load',function(){
+  if(window.pintrk) pintrk('track','pagevisit');
+  document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(el){
+    el.addEventListener('click',function(){
+      if(window.pintrk) pintrk('track','initiatecheckout');
+    });
+  });
+});
+</script>
 </body>
 </html>
