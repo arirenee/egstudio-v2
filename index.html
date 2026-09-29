@@ -1043,6 +1043,65 @@
     .site-footer-current .site-footer-links{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:.65rem}
     .site-footer-current a{color:var(--text-gray);text-decoration:none}
     @media(max-width:767px){.site-header-shell{width:96%;min-height:72px;padding:.6rem .45rem;gap:.45rem}.site-header-brand{font-size:.88rem;letter-spacing:.15em}.site-header-actions{gap:.5rem}.site-header-scope{font-size:.65rem}.site-header-work{min-height:44px;padding:.62rem .72rem;font-size:.66rem;border-radius:4px}.video-custom-play-btn{right:10px;bottom:10px;width:42px;height:42px}}
+  
+    /* Image 2 — coded header + top hero */
+    .image2-header{
+      position:sticky;top:0;z-index:1000;background:rgba(10,10,10,.94);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border-bottom:1px solid #252525;
+    }
+    .image2-wrap{width:min(92%,760px);margin:0 auto}
+    .image2-nav{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.8rem 0}
+    .image2-brand{font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:900;letter-spacing:2px;font-size:.78rem;text-decoration:none;white-space:nowrap;color:#f2f2f2}
+    .image2-brand span{color:#71717a}
+    .image2-nav-actions{display:flex;align-items:center;gap:.8rem}
+    .image2-nav-link{font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.7rem;color:#aaa;text-decoration:none;display:inline}
+    .image2-work-btn{display:inline-flex;align-items:center;justify-content:center;padding:.58rem .72rem;font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:800;font-size:.69rem;text-decoration:none;border-radius:2px;border:1px solid #fff;background:#fff;color:#0a0a0a;white-space:nowrap}
+    .image2-hero{padding:2.2rem 0 1.6rem;border-top:0;background:#080808}
+    .image2-eyebrow{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.1em;color:#aaa;font-size:.66rem;margin:0 0 .8rem}
+    .image2-title{font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(2.2rem,10vw,4.35rem);line-height:.98;font-weight:850;letter-spacing:-.05em;margin:0 0 1rem;color:#f2f2f2}
+    .image2-hero-rest{margin-top:0}
+    .image2-hero-rest>.hero-subtitle{margin-top:0}
+    @media(max-width:719px){
+      .image2-wrap{width:min(94%,760px)}
+      .image2-nav{gap:.35rem}
+      .image2-nav-actions{gap:.45rem}
+      .image2-nav-link{font-size:.58rem}
+      .image2-work-btn{font-size:.58rem;padding:.5rem .58rem}
+    }
+    @media(min-width:720px){
+      .image2-hero{padding:3.5rem 0 2rem}
+    }
+
+    /* Image 3 — exact sample-section composition */
+    .image3-work{padding:2.3rem 0;border-top:1px solid #252525;background:#0a0a0a}
+    .image3-wrap{width:min(92%,1080px);margin:0 auto}
+    .image3-kicker,.image3-meta{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.1em;color:#aaa}
+    .image3-kicker{font-size:.62rem;margin:0 0 .45rem}
+    .image3-work h2{font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(1.45rem,5.5vw,2.25rem);line-height:1.08;font-weight:850;letter-spacing:-.035em;margin:0 0 .72rem;color:#f2f2f2}
+    .image3-intro{color:#aaa;font-size:.9rem;line-height:1.5;margin:0}
+    .image3-samples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:1rem}
+    .image3-sample{border:1px solid #252525;background:#111;min-width:0;overflow:hidden}
+    .image3-sample video{width:100%;aspect-ratio:9/16;object-fit:contain;object-position:center center;background:#000;display:block;max-width:100%}
+    .image3-info{padding:.85rem .9rem 1rem}
+    .image3-meta{font-size:.58rem;margin:0 0 .18rem}
+    .image3-sample h3{font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:.95rem;line-height:1.2;color:#f2f2f2;margin:0}
+    .image3-disc{font-size:.74rem;color:#858585;margin:.9rem 0 0}
+    .image3-proof-cta{margin-top:1.15rem;padding-top:1.15rem;border-top:1px solid #252525}
+    .image3-actions{display:grid;gap:.65rem;margin-top:.7rem;grid-template-columns:1fr 1fr;align-items:stretch}
+    .image3-btn{display:inline-flex;align-items:center;justify-content:center;padding:1.05rem;font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:800;font-size:.8rem;text-decoration:none;border-radius:2px;border:1px solid #fff}
+    .image3-btn-primary{background:#fff;color:#0a0a0a}
+    .image3-btn-secondary{background:transparent;color:#f2f2f2;border-color:#252525}
+    .anchor-alias{position:absolute;transform:translateY(-72px)}
+    @media(max-width:719px){
+      .image3-samples{grid-template-columns:repeat(3,minmax(0,1fr));gap:.42rem}
+      .image3-info{padding:.55rem .42rem .65rem}
+      .image3-meta{font-size:.46rem;letter-spacing:.06em}
+      .image3-sample h3{font-size:.62rem;line-height:1.2}
+      .image3-actions{gap:.42rem}
+      .image3-btn{font-size:.6rem;padding:.72rem .4rem}
+    }
+
   </style>
 <script>
 !function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="vu fu pu gu bu init Hu zu qu ju Gu Xl Bu Qu Du eh ih nh sh rh oh capture getExtension Uu cu hh calculateEventProperties uh register register_once register_for_session unregister unregister_for_session gh Nu dh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync mh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset yh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty fh Xu createPersonProfile setInternalOrTestUser ph wu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ju debug Yl Os getPageViewId captureTraceFeedback captureTraceMetric Ru".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -1056,14 +1115,23 @@ posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
 <body id="top">
 
   <!-- 1. GLOBAL NAVIGATION BAR -->
-  <header class="site-header-image2"><div class="site-header-shell"><a class="site-header-brand" href="#top" aria-label="EG Studio home">EG<span>STUDIO</span></a><div class="site-header-actions"><a class="site-header-scope" href="#pricing">Scope &amp; pricing</a><a class="site-header-work" href="#samples">See the work ↓</a></div></div></header>
+  <header class="image2-header">
+    <div class="image2-wrap image2-nav">
+      <a class="image2-brand" href="#top">EG<span>STUDIO</span></a>
+      <div class="image2-nav-actions">
+        <a class="image2-nav-link" href="#pricing">Scope &amp; pricing</a>
+        <a class="image2-work-btn" href="#work">See the work ↓</a>
+      </div>
+    </div>
+  </header>
 
   <main>
     <!-- 2. ABOVE-THE-FOLD HERO SECTION -->
-    <section class="hero-section">
-      <div class="container">
-        <div class="eyebrow-tag">For 5–20 person B2B agencies</div>
-        <h1 class="hero-title">White-label short-form video.<br>You keep the client.</h1>
+    <section class="image2-hero">
+    <div class="image2-wrap">
+      <p class="image2-eyebrow">White-label short-form editing for agencies</p>
+      <h1 class="image2-title">Your clients.<br>Your brand.<br>Our edit.</h1>
+      <div class="image2-hero-rest">
         <p class="hero-subtitle">We fulfill 15 finished 9:16 videos in 30 days for $1,500. You sell the retainer. We stay off their inbox.</p>
         <div class="hero-actions">
           <a href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c" class="btn btn-primary">Start the $1,500 Sprint</a>
@@ -1093,7 +1161,8 @@ posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
           </ol>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
     <!-- 3. AGENCY ECONOMIC ARBITRAGE & MARGIN ENGINE -->
     <section id="economics" class="section-container bg-surface">
@@ -1208,11 +1277,46 @@ posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
     </section>
 
     <!-- 4. INTERACTIVE PROOF SANDBOX: RAW-TO-FINISHED WORKFLOWS -->
-    <section id="samples" class="section-container"><div class="container"><div class="section-header text-center"><div class="eyebrow-tag">Proof</div><h2 class="section-title">The work</h2><p class="section-subtitle">Three current editing samples showing pace, captions, punch-ins, and moment selection. Click any video to play.</p></div><div class="sandbox-grid">
-<div class="archetype-card"><div class="archetype-video-viewport" id="viewport1"><span class="video-overlay-badge">Panel</span><video id="video1" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="/assets/samples/sample-panel.jpg?v=7"><source src="/assets/samples/sample-panel.mp4?v=7" type="video/mp4">Your browser does not support video playback.</video><div class="video-custom-play-btn" id="playBtn1" aria-label="Play panel sample"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div><div class="archetype-info"><div><h4>Panel</h4><p>Conversation to clean hook.</p></div><div class="archetype-specs"><span class="spec-pill">Hook Extraction</span><span class="spec-pill">Guest Cuts</span><span class="spec-pill">Burned-in Captions</span></div></div></div>
-<div class="archetype-card"><div class="archetype-video-viewport" id="viewport2"><span class="video-overlay-badge">Founder</span><video id="video2" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="/assets/samples/sample-saas-founder.jpg?v=7"><source src="/assets/samples/sample-saas-founder.mp4?v=7" type="video/mp4">Your browser does not support video playback.</video><div class="video-custom-play-btn" id="playBtn2" aria-label="Play founder sample"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div><div class="archetype-info"><div><h4>Founder</h4><p>Talking-head punch-ins.</p></div><div class="archetype-specs"><span class="spec-pill">Punch-ins</span><span class="spec-pill">Retention Pacing</span><span class="spec-pill">Burned-in Captions</span></div></div></div>
-<div class="archetype-card"><div class="archetype-video-viewport" id="viewport3"><span class="video-overlay-badge">Before / After</span><video id="video3" class="sample-video-elem" playsinline webkit-playsinline loop controls preload="metadata" poster="/assets/samples/sample-process.jpg?v=7"><source src="/assets/samples/sample-process.mp4?v=7" type="video/mp4">Your browser does not support video playback.</video><div class="video-custom-play-btn" id="playBtn3" aria-label="Play before and after sample"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div><div class="archetype-info"><div><h4>Before / After</h4><p>Raw source to finished short.</p></div><div class="archetype-specs"><span class="spec-pill">Raw-to-Final</span><span class="spec-pill">Caption Treatment</span><span class="spec-pill">Pacing</span></div></div></div>
-</div><p class="section-subtitle" style="margin-top:2rem;margin-bottom:0;max-width:720px">Public recuts for editing demonstration only. No endorsement implied.</p></div></section>
+    <section id="work" class="image3-work">
+    <span id="samples" class="anchor-alias" aria-hidden="true"></span>
+    <div class="image3-wrap">
+      <p class="image3-kicker">Editing samples</p>
+      <h2>See the pacing, captions and cut style before you buy.</h2>
+      <p class="image3-intro">This is the bar: hook, punch-in, captions, unbranded file. Your client never sees the studio.</p>
+
+      <div class="image3-samples">
+        <article class="image3-sample">
+          <video controls playsinline preload="metadata" poster="/assets/samples/sample-panel.jpg?v=8">
+            <source src="/assets/samples/sample-panel.mp4?v=8" type="video/mp4">
+          </video>
+          <div class="image3-info"><p class="image3-meta">Panel</p><h3>Live stage to short-form</h3></div>
+        </article>
+        <article class="image3-sample">
+          <video controls playsinline preload="metadata" poster="/assets/samples/sample-saas-founder.jpg?v=8">
+            <source src="/assets/samples/sample-saas-founder.mp4?v=8" type="video/mp4">
+          </video>
+          <div class="image3-info"><p class="image3-meta">Talking-head</p><h3>Punch-ins and captions</h3></div>
+        </article>
+        <article class="image3-sample">
+          <video controls playsinline preload="metadata" poster="/assets/samples/sample-process.jpg?v=8">
+            <source src="/assets/samples/sample-process.mp4?v=8" type="video/mp4">
+          </video>
+          <div class="image3-info"><p class="image3-meta">Before / After</p><h3>Same recording. Edited.</h3></div>
+        </article>
+      </div>
+
+      <p class="image3-disc">Public recuts for editing demonstration only. No endorsement implied.</p>
+
+      <div class="image3-proof-cta">
+        <p class="image3-kicker">First order</p>
+        <h2>Start small. Keep the option to scale.</h2>
+        <div class="image3-actions">
+          <a class="image3-btn image3-btn-primary" data-sku="test" data-placement="after_samples_primary" href="https://buy.stripe.com/3cI9AM26tgmYeTFgEB9EI0b">Start with 3 videos · $300</a>
+          <a class="image3-btn image3-btn-secondary" data-sku="sprint" data-placement="after_samples_secondary" href="https://buy.stripe.com/eVqeV69yV8UwdPB5ZX9EI0c">15-video Sprint · $1,500</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
     <!-- 5. THE 30-DAY MILESTONE SLA MATRIX & CALIBRATION GUARANTEE -->
     <section id="sprint-model" class="section-container bg-surface">
