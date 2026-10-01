@@ -62,7 +62,7 @@ pintrk('page');
 <main><div class="wrap">
 <p class="kicker">Payment complete · 3-video test</p>
 <h1>Send what we need to start.</h1>
-<p class="lead">Your footage stays in your existing storage. Share accessible links here; EG Studio does not need you to upload media into this form.</p>
+<p class="lead"><strong>Check your email for the upload link.</strong> Upload your footage there. The few questions below help us edit it the way you want.</p>
 
 <div class="status">
   <div class="status-row"><b>Payment</b><span id="payment-state">Verifying Stripe payment…</span></div>
@@ -77,12 +77,6 @@ pintrk('page');
     <label for="project_name">Project / folder name</label>
     <input id="project_name" name="project_name" type="text" maxlength="120" autocomplete="organization-title" placeholder="Acme Podcast Clips" required>
     <p class="helper">Use a name you will recognize in delivery folders and email.</p>
-  </div>
-
-  <div class="field">
-    <label for="source_url">Source footage link</label>
-    <input id="source_url" name="source_url" type="url" inputmode="url" placeholder="https://drive.google.com/…" required>
-    <p class="helper">Google Drive, Dropbox, OneDrive, Frame-free direct download, or another accessible HTTPS link. Give ops@egstudio.tech access if the folder is restricted.</p>
   </div>
 
   <div class="field">
@@ -119,7 +113,7 @@ pintrk('page');
 
 <div id="done" class="done">
   <h2>Brief received.</h2>
-  <p>We will check the source link and direction first. If anything is missing, ops@egstudio.tech will email you. The delivery clock starts when the brief and source files are usable.</p>
+  <p>Thanks. Check your email for the upload link and upload your footage there. We will check your files and this brief first. If anything is missing, ops@egstudio.tech will email you. The delivery clock starts when the brief and source files are usable.</p>
 </div>
 </div></main>
 <footer><div class="wrap">EG STUDIO · Los Angeles, CA · <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a></div></footer>
@@ -204,7 +198,6 @@ pintrk('page');
     if (!verified) return showMessage("Payment must be verified before the brief can be submitted.", "error");
 
     const projectName = document.getElementById("project_name").value.trim();
-    const sourceUrl = document.getElementById("source_url").value.trim();
     const brandUrl = document.getElementById("brand_assets_url").value.trim();
     const styleUrl = document.getElementById("style_reference_url").value.trim();
     const avoidNotes = document.getElementById("avoid_notes").value.trim();
@@ -212,7 +205,6 @@ pintrk('page');
     const website = document.getElementById("website").value.trim();
 
     if (!projectName) return showMessage("Add a project / folder name.", "error");
-    if (!validHttps(sourceUrl, false)) return showMessage("Add a valid HTTPS source footage link.", "error");
     if (!validHttps(brandUrl, true)) return showMessage("Brand assets must be a valid HTTPS link or left blank.", "error");
     if (!validHttps(styleUrl, false)) return showMessage("Add a valid HTTPS style reference link.", "error");
     if (!rights) return showMessage("Confirm you have permission to provide the footage and assets.", "error");
@@ -232,7 +224,6 @@ pintrk('page');
           session_id:sessionId,
           expected_sku:expectedSku,
           project_name:projectName,
-          source_url:sourceUrl,
           brand_assets_url:brandUrl || null,
           style_reference_url:styleUrl,
           avoid_notes:avoidNotes || null,
