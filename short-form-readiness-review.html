@@ -51,31 +51,16 @@ pintrk('page');
     <div class="sheet"><p class="num">02</p><strong>A direct assessment</strong><p>Why each moment may work and the main constraint to watch.</p></div>
     <div class="sheet"><p class="num">03</p><strong>One recommendation</strong><p>Proceed, revise the source, or do not repurpose the recording.</p></div>
   </div></div></section>
-  <section id="submit"><div class="wrap"><p class="kicker">Submit one recording</p><h2>Agency submissions only.</h2><p>Use a company email and a viewable HTTPS recording link. Do not submit confidential material unless you have permission to share it for private evaluation.</p>
+  <section id="submit"><div class="wrap"><p class="kicker">Submit one recording</p><h2>Send the link.</h2><p>Use a work email, your agency site, and a viewable recording link. That's it.</p>
     <form id="review-form" novalidate>
       <div class="hp" aria-hidden="true"><label for="website">Leave blank</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
       <input id="started_at" name="started_at" type="hidden">
-      <div class="two">
-        <div class="field"><label for="agency_name">Agency name</label><input id="agency_name" name="agency_name" maxlength="120" required autocomplete="organization"></div>
-        <div class="field"><label for="agency_website">Agency website</label><input id="agency_website" name="agency_website" type="url" maxlength="2000" placeholder="https://" required autocomplete="url"></div>
-      </div>
-      <div class="two">
-        <div class="field"><label for="contact_name">Your name</label><input id="contact_name" name="contact_name" maxlength="120" required autocomplete="name"></div>
-        <div class="field"><label for="work_email">Work email <span class="hint">Public email domains are not accepted.</span></label><input id="work_email" name="work_email" type="email" maxlength="254" required autocomplete="email"></div>
-      </div>
-      <div class="two">
-        <div class="field"><label for="company_type">Company type</label><select id="company_type" name="company_type" required><option value="">Choose one</option><option value="b2b_agency">B2B agency</option><option value="production_company">Production company</option><option value="in_house">In-house marketing team</option><option value="other">Other</option></select></div>
-        <div class="field"><label for="monthly_recordings">Client recording volume <span class="hint">Typical month.</span></label><select id="monthly_recordings" name="monthly_recordings" required><option value="">Choose one</option><option value="one_off">One-off / occasional</option><option value="1_2">1–2 recordings / month</option><option value="3_5">3–5 recordings / month</option><option value="6_10">6–10 recordings / month</option><option value="11_plus">11+ recordings / month</option></select></div>
-      </div>
-      <div class="field"><label for="short_form_need">Short-form need</label><select id="short_form_need" name="short_form_need" required><option value="">Choose one</option><option value="yes_now">We need vertical clips from existing recordings now</option><option value="exploring">We are exploring short-form</option><option value="no">No current short-form need</option></select></div>
+      <div class="field"><label for="work_email">Work email <span class="hint">Public email domains are not accepted.</span></label><input id="work_email" name="work_email" type="email" maxlength="254" required autocomplete="email"></div>
+      <div class="field"><label for="agency_website">Agency website</label><input id="agency_website" name="agency_website" type="url" maxlength="2000" placeholder="https://" required autocomplete="url"></div>
       <div class="field"><label for="recording_url">Recording link <span class="hint">Google Drive, Dropbox, YouTube, or another viewable HTTPS link.</span></label><input id="recording_url" name="recording_url" type="url" maxlength="2000" placeholder="https://" required></div>
-      <div class="two">
-        <div class="field"><label for="content_type">Content type</label><select id="content_type" name="content_type" required><option value="">Choose one</option><option value="podcast">Podcast</option><option value="interview">Interview</option><option value="webinar">Webinar</option><option value="panel">Panel</option><option value="founder">Founder recording</option><option value="other">Other B2B recording</option></select></div>
-        <div class="field"><label for="intended_platform">Intended platform</label><input id="intended_platform" name="intended_platform" maxlength="120" placeholder="LinkedIn, Reels, Shorts…" required></div>
-      </div>
-      <div class="field"><label for="client_audience">Client audience</label><textarea id="client_audience" name="client_audience" maxlength="500" placeholder="Who should understand or act on this content?" required></textarea></div>
-      <div class="check"><input id="rights_confirmed" name="rights_confirmed" type="checkbox" required><label for="rights_confirmed">I confirm that I am permitted to share this recording with EG Studio for private evaluation.</label></div>
-      <button class="btn" id="submit-button" type="submit">Request the readiness review</button>
+      <div class="field"><label for="notes">Anything we should know? <span class="hint">Optional.</span></label><textarea id="notes" name="notes" maxlength="1000" placeholder="Context, client constraints, or what you want us to look for."></textarea></div>
+      <button class="btn" id="submit-button" type="submit">Review this recording</button>
+      <p class="micro">By submitting, you confirm you have permission to share this recording with EG Studio for private evaluation.</p>
       <div id="form-status" class="status" role="status" aria-live="polite"></div>
     </form>
   </div></section>
@@ -95,13 +80,12 @@ pintrk('page');
     if(!form.reportValidity())return;
     button.disabled=true;button.textContent='Submitting…';
     const data=Object.fromEntries(new FormData(form).entries());
-    data.rights_confirmed=document.getElementById('rights_confirmed').checked;
     data.started_at=Number(data.started_at);
     try{
       const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','apikey':publishableKey,'Authorization':'Bearer '+publishableKey},body:JSON.stringify(data)});
       const result=await response.json().catch(()=>({}));
       if(!response.ok||!result.ok)throw new Error(result.error||'Submission failed.');
-      if(window.posthog)posthog.capture('readiness_review_submitted',{content_type:data.content_type});
+      if(window.posthog)posthog.capture('readiness_review_submitted',{source:'readiness_review'});
       if(window.pintrk)pintrk('track','lead',{lead_type:'short_form_readiness_review'});
       form.reset();
       statusBox.textContent='Received. Check your email for confirmation. If the submission qualifies, EG Studio will send the review within two business days.';
@@ -110,7 +94,7 @@ pintrk('page');
     }catch(error){
       statusBox.textContent=error.message||'Submission failed. Try again.';
       statusBox.className='status error';
-      button.disabled=false;button.textContent='Request the readiness review';
+      button.disabled=false;button.textContent='Review this recording';
     }
   });
 </script>
