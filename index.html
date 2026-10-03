@@ -1734,5 +1734,30 @@ window.addEventListener('load',function(){
   });
 });
 </script>
+<script id="eg-checkout-attribution">
+(function(){
+  try {
+    var q = new URLSearchParams(window.location.search);
+    var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+    var found = {}, any = false;
+    keys.forEach(function(k){
+      var v = (q.get(k) || '').trim().slice(0, 200);
+      if (v) { found[k] = v; any = true; }
+    });
+    if (!any) return;
+    function clean(s){ return (s || '').replace(/[^A-Za-z0-9_-]+/g, '_').replace(/^_+|_+$/g, ''); }
+    var ref = [found.utm_source, found.utm_campaign, found.utm_content].map(clean).filter(Boolean).join('_');
+    ref = ref.slice(0, 200);
+    document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){
+      try {
+        var u = new URL(a.getAttribute('href'), window.location.href);
+        keys.forEach(function(k){ if (found[k] && !u.searchParams.has(k)) u.searchParams.set(k, found[k]); });
+        if (ref && !u.searchParams.has('client_reference_id')) u.searchParams.set('client_reference_id', ref);
+        a.setAttribute('href', u.toString());
+      } catch (e) {}
+    });
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
