@@ -60,15 +60,15 @@ pintrk('page');
 <body>
 <header><div class="wrap"><a class="logo" href="index.html">EG<span>STUDIO</span></a></div></header>
 <main><div class="wrap">
-<p class="kicker">Payment complete · 3-Clip Starter</p>
+<p class="kicker" id="offer-kicker">Payment complete · Episode-to-Shorts</p>
 <h1>Send what we need to start.</h1>
 <p class="lead"><strong>Check your email for the upload link.</strong> Upload your footage there. The few questions below help us edit it the way you want.</p>
 
 <div class="status">
   <div class="status-row"><b>Payment</b><span id="payment-state">Verifying Stripe payment…</span></div>
-  <div class="status-row"><b>Order</b><span id="verified-order">3-Clip Starter · $300</span></div>
-  <div class="status-row"><b>Source</b><span>One source recording up to 20 minutes</span></div>
-  <div class="status-row"><b>Timing</b><span>3–5 business days after the brief and source files are usable</span></div>
+  <div class="status-row"><b>Order</b><span id="verified-order">Episode-to-Shorts · $199</span></div>
+  <div class="status-row"><b>Source</b><span id="source-summary">One English-language recording up to 60 minutes</span></div>
+  <div class="status-row"><b>Timing</b><span id="timing-summary">3–5 business days after the brief and source files are usable</span></div>
   <div class="status-row"><b>Contact</b><span>ops@egstudio.tech</span></div>
 </div>
 
@@ -120,13 +120,16 @@ pintrk('page');
 
 <script>
 (function(){
-  const expectedSku = "test";
+  let expectedSku = "";
   const endpoint = window.EG_INTAKE_ENDPOINT;
   const anonKey = window.EG_SUPABASE_ANON_KEY;
   const params = new URLSearchParams(location.search);
   const sessionId = params.get("session_id") || "";
   const state = document.getElementById("payment-state");
   const order = document.getElementById("verified-order");
+  const kicker = document.getElementById("offer-kicker");
+  const sourceSummary = document.getElementById("source-summary");
+  const timingSummary = document.getElementById("timing-summary");
   const form = document.getElementById("intake-form");
   const submit = document.getElementById("submit-btn");
   const msg = document.getElementById("form-message");
@@ -171,17 +174,26 @@ pintrk('page');
       });
       const data = await r.json();
       if (!r.ok || !data.paid) throw new Error(data.error || "Payment could not be verified.");
-      if (data.sku !== expectedSku) throw new Error("This payment belongs to a different EG Studio offer.");
+      if (!["episode", "test"].includes(data.sku)) throw new Error("This payment belongs to a different EG Studio offer.");
+      expectedSku = data.sku;
       verified = true;
       state.textContent = "Verified · paid";
       state.dataset.state = "ok";
       order.textContent = data.order_label + " · " + data.amount_display;
+      kicker.textContent = "Payment complete · " + data.order_label;
+      if (data.sku === "episode") {
+        sourceSummary.textContent = "One English-language recording up to 60 minutes";
+        timingSummary.textContent = "3–5 business days after the brief and source files are usable";
+      } else {
+        sourceSummary.textContent = "One English-language recording up to 20 minutes";
+        timingSummary.textContent = "3–5 business days after the brief and source files are usable";
+      }
       submit.disabled = false;
       if (window.posthog) posthog.capture("intake_payment_verified", {sku:data.sku, experiment:"native_intake_v1"});
       if (window.pintrk) pintrk('track','checkout',{
         event_id:sessionId,
         order_id:sessionId,
-        value:300,
+        value:data.amount_value || (data.sku === "episode" ? 199 : 300),
         order_quantity:1,
         currency:'USD'
       });
