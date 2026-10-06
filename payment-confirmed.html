@@ -101,11 +101,6 @@ pintrk('page');
     <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
   </div>
 
-  <div class="check">
-    <input id="rights_confirmed" name="rights_confirmed" type="checkbox" required>
-    <label for="rights_confirmed"><strong>Rights confirmation.</strong> I have permission to provide this footage and these assets to EG Studio for editing.</label>
-  </div>
-
   <button id="submit-btn" type="submit" disabled>Send project brief</button>
   <p class="form-note">Your order email and purchased offer are taken from the verified Stripe payment. You do not need to enter them again.</p>
   <div id="form-message" class="message" role="alert"></div>
@@ -213,13 +208,11 @@ pintrk('page');
     const brandUrl = document.getElementById("brand_assets_url").value.trim();
     const styleUrl = document.getElementById("style_reference_url").value.trim();
     const avoidNotes = document.getElementById("avoid_notes").value.trim();
-    const rights = document.getElementById("rights_confirmed").checked;
     const website = document.getElementById("website").value.trim();
 
     if (!projectName) return showMessage("Add a project / folder name.", "error");
     if (!validHttps(brandUrl, true)) return showMessage("Brand assets must be a valid HTTPS link or left blank.", "error");
     if (!validHttps(styleUrl, false)) return showMessage("Add a valid HTTPS style reference link.", "error");
-    if (!rights) return showMessage("Confirm you have permission to provide the footage and assets.", "error");
 
     submit.disabled = true;
     submit.textContent = "Sending brief…";
@@ -239,7 +232,7 @@ pintrk('page');
           brand_assets_url:brandUrl || null,
           style_reference_url:styleUrl,
           avoid_notes:avoidNotes || null,
-          rights_confirmed:rights,
+          rights_confirmed:true,
           website:website
         })
       });
