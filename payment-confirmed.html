@@ -62,19 +62,19 @@ pintrk('page');
 <main><div class="wrap">
 <p class="kicker" id="offer-kicker">Payment complete · Agency Episode Pack</p>
 <h1>Send what we need to start.</h1>
-<p class="lead"><strong>Use a private production folder your agency owns.</strong> Add the source recording and share the folder with ops@egstudio.tech as Editor. Do not add the end client. Review and final files will be delivered only there. Complete the brief below; no timestamps required.</p>
+<p class="lead"><strong>Use a private production folder your agency owns.</strong> Add the source recording and share the folder with ops@egstudio.tech as Editor. Do not add the end client. We deliver review and final files privately to your agency there. After approval, download the files and upload new copies into your client-facing folder. Never forward the production-folder link. Complete the brief below; no timestamps required.</p>
 
 <div class="status">
   <div class="status-row"><b>Payment</b><span id="payment-state">Verifying Stripe payment…</span></div>
   <div class="status-row"><b>Order</b><span id="verified-order">Agency Episode Pack · $199</span></div>
   <div class="status-row"><b>Source</b><span id="source-summary">One English-language recording up to 60 minutes</span></div>
-  <div class="status-row"><b>Timing</b><span id="timing-summary">1–3 business days after written intake acceptance, folder access and any required NDA agreement</span></div>
+  <div class="status-row"><b>Timing</b><span id="timing-summary">1–3 days after written intake acceptance, folder access and any required NDA agreement</span></div>
   <div class="status-row"><b>Contact</b><span>ops@egstudio.tech</span></div>
 </div>
 
 <form id="intake-form" novalidate>
-  <div class="field" id="agency-folder-field"><label for="agency_folder_url">Agency-owned production folder</label><input id="agency_folder_url" name="agency_folder_url" type="url" inputmode="url" placeholder="https://drive.google.com/drive/folders/…"><p class="helper">A private folder your agency owns, with source footage and Editor access for ops@egstudio.tech. Keep end-client access separate. Drive can show collaborator identities in permissions/activity; copy final files to a separate client-facing folder for your handoff.</p></div>
-  <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox"><label for="agency_confirmed">My agency owns this production folder and keeps end-client access separate. We have permission to submit and republish the footage. I understand EG Studio communicates only with our agency.</label></div>
+  <div class="field" id="agency-folder-field"><label for="agency_folder_url">Agency-owned production folder</label><input id="agency_folder_url" name="agency_folder_url" type="url" inputmode="url" placeholder="https://drive.google.com/drive/folders/…"><p class="helper">A private folder your agency owns, with source footage and Editor access for ops@egstudio.tech. Keep the end client out. After approval, download the finished files and upload new copies into your separate client-facing folder. Never forward this production-folder link.</p></div>
+  <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox"><label for="agency_confirmed">My agency owns this production folder and keeps the end client out. We have permission to submit and republish the footage. I understand EG Studio communicates only with our agency, and we will download the approved files and upload new copies before client delivery instead of forwarding this folder link.</label></div>
   <p class="helper">We watch the full recording and select five moments ourselves. No AI first pass. Five hooks/titles and concise post captions included. Need NDA review? Send it before editing; if agreement is required before payment, email us first. The 1–3 business day window starts after written intake acceptance and any required NDA agreement.</p>
   <div class="field">
     <label for="project_name">Project / folder name</label>
@@ -111,7 +111,7 @@ pintrk('page');
 
 <div id="done" class="done">
   <h2>Brief received.</h2>
-  <p>Thanks. We will check folder access, agency ownership, usable footage, the brief and any required NDA before confirming acceptance and a due date. Zero contact with the end client. Review and final files go only into your agency-owned production folder. Your agency sends all client-facing requests and delivery links.</p>
+  <p>Thanks. We will check folder access, agency ownership, usable footage, the brief and any required NDA before confirming acceptance and a due date. Zero contact with the end client. Review and final files go only into your agency-owned production folder. Download the approved files and upload new copies into your client-facing folder. Never forward the production-folder link.</p>
 </div>
 </div></main>
 <footer><div class="wrap">EG STUDIO · Los Angeles, CA · <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a></div></footer>
@@ -181,7 +181,7 @@ pintrk('page');
       kicker.textContent = "Payment complete · " + data.order_label;
       if (data.sku === "episode") {
         sourceSummary.textContent = "One English-language recording up to 60 minutes";
-        timingSummary.textContent = "1–3 business days after written intake acceptance, folder access and any required NDA agreement";
+        timingSummary.textContent = "1–3 days after written intake acceptance, folder access and any required NDA agreement";
       } else {
         sourceSummary.textContent = "One English-language recording up to 20 minutes";
         timingSummary.textContent = "3–5 business days after the brief and source files are usable";
