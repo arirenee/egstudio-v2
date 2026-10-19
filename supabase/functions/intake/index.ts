@@ -8,7 +8,7 @@ const ALLOWED_ORIGINS = new Set([
 ]);
 
 const OFFER_MAP = {
-  episode_to_shorts: { sku: "episode", amount: 19900, label: "Episode-to-Shorts" },
+  episode_to_shorts: { sku: "episode", amount: 19900, label: "Agency Episode Pack" },
   starter: { sku: "test", amount: 30000, label: "3-Clip Starter" },
   paid_test: { sku: "test", amount: 30000, label: "3-Clip Starter" },
   sprint: { sku: "sprint", amount: 150000, label: "15-video Sprint" },
@@ -151,7 +151,7 @@ async function sendIntakeNotification(record: any) {
     return { configured: false, sent: false, error: "Notification secrets are not configured." };
   }
 
-  const offerLabel = record.offer === "episode" ? "Episode-to-Shorts" : record.offer === "test" ? "3-Clip Starter" : "15-video Sprint";
+  const offerLabel = record.offer === "episode" ? "Agency Episode Pack" : record.offer === "test" ? "3-Clip Starter" : "15-video Sprint";
   const subject = "New paid EG Studio brief — " + record.project_name;
   const optionalBrand = record.brand_assets_url
     ? '<p><strong>Brand assets:</strong> <a href="' + escapeHtml(record.brand_assets_url) + '">' + escapeHtml(record.brand_assets_url) + "</a></p>"
@@ -167,7 +167,7 @@ async function sendIntakeNotification(record: any) {
     "<p><strong>Customer:</strong> " + escapeHtml(record.customer_email) + "</p>" +
     (record.source_url
       ? '<p><strong>Source:</strong> <a href="' + escapeHtml(record.source_url) + '">' + escapeHtml(record.source_url) + "</a></p>"
-      : "<p><strong>Source:</strong> client uploads to their Drive link (see EG Client Jobs in Notion)</p>") +
+      : "<p><strong>Source:</strong> check the verified brief and EG Client Jobs.</p>") +
     optionalBrand +
     '<p><strong>Style reference:</strong> <a href="' + escapeHtml(record.style_reference_url) + '">' + escapeHtml(record.style_reference_url) + "</a></p>" +
     optionalAvoid +
@@ -234,6 +234,14 @@ Deno.serve(async (req: Request) => {
       Boolean(Deno.env.get("RESEND_API_KEY")) &&
       Boolean(Deno.env.get("INTAKE_FROM_EMAIL"));
 
+    if (paid.sku === "episode") {
+      const folder = new URL(String(body.source_url || ""));
+      if (folder.protocol !== "https:" || folder.hostname !== "drive.google.com" ||
+          !/^\/drive\/(?:u\/\d+\/)?folders\/[A-Za-z0-9_-]+\/?$/.test(folder.pathname) ||
+          body.agency_owned_folder_confirmed !== true || body.rights_confirmed !== true) {
+        throw new Error("Provide a Google Drive folder your agency owns and confirm private access and footage rights. Ownership and access are verified before work starts.");
+      }
+    }
     const record = {
       order_id: order.id,
       stripe_session_id: paid.session.id,
@@ -242,7 +250,7 @@ Deno.serve(async (req: Request) => {
       currency: "usd",
       customer_email: paid.email.toLowerCase(),
       project_name: cleanText(body.project_name, 120, true),
-      source_url: safeUrl(body.source_url, false), // optional now: client uploads to the Drive link from the welcome email
+      source_url: safeUrl(body.source_url, paid.sku === "episode"), // agency-owned production folder for new episode orders
       brand_assets_url: safeUrl(body.brand_assets_url, false),
       style_reference_url: safeUrl(body.style_reference_url, true),
       avoid_notes: cleanText(body.avoid_notes, 1200, false),
@@ -251,6 +259,9 @@ Deno.serve(async (req: Request) => {
       environment: paid.environment,
     };
 
+    if (paid.sku === "episode") {
+      record.avoid_notes = (record.avoid_notes || "") + "\nAGENCY FOLDER: ownership/private access attested; manual verification and any NDA agreement required before written acceptance. Zero end-client contact. Deliver only into source_url folder. First complete batch 1–3 business days after acceptance. Human selection without AI first pass; five hooks/titles and captions.";
+    }
     if (!record.rights_confirmed) throw new Error("Rights confirmation is required.");
 
     const { data: existing } = await supabase
@@ -259,18 +270,7 @@ Deno.serve(async (req: Request) => {
       .eq("stripe_session_id", record.stripe_session_id)
       .maybeSingle();
 
-    if (existing) {
-      await supabase
-        .from("orders")
-        .update({
-          fulfillment_status: "intake_received",
-          intake_received_at: new Date().toISOString(),
-          drive_folder_status: "pending",
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", order.id);
-      return json(req, { ok: true, duplicate: true });
-    }
+    if (existing) return json(req, { ok: true, duplicate: true });
 
     const { data: inserted, error } = await supabase
       .from("intake_submissions")
@@ -284,7 +284,7 @@ Deno.serve(async (req: Request) => {
       .update({
         fulfillment_status: "intake_received",
         intake_received_at: new Date().toISOString(),
-        drive_folder_status: "pending",
+        drive_folder_status: paid.sku === "episode" ? "waiting_for_intake" : "pending",
         updated_at: new Date().toISOString(),
       })
       .eq("id", order.id);

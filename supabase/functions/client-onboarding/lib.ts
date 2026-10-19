@@ -10,7 +10,7 @@ export type Pkg = {
 };
 
 export const PACKAGES: Record<string, Pkg> = {
-  episode: { key: "episode", name: "Episode-to-Shorts", amount: 19900, clips: 5, dueDays: 7, label: "Episode-to-Shorts" },
+  episode: { key: "episode", name: "Episode-to-Shorts", amount: 19900, clips: 5, dueDays: 3, label: "Agency Episode Pack" },
   test: { key: "test", name: "3-Clip Starter", amount: 30000, clips: 3, dueDays: 7, label: "3-Clip Starter" },
   sprint: { key: "sprint", name: "Sprint", amount: 150000, clips: 15, dueDays: 30, label: "15-video Sprint" },
 };
@@ -112,6 +112,18 @@ export async function verifyStripeSignature(rawBody: string, header: string | nu
 // ---- Welcome email ----
 export function welcomeEmail(opts: { first: string; pkg: Pkg; uploadUrl: string; lockedEmail: string }) {
   const hi = opts.first ? "Hi " + opts.first + "," : "Hi,";
+  if (opts.pkg.key === "episode") {
+    const subject = "Payment received: share your agency-owned folder";
+    const text = hi + "\n\nPayment received for your Agency Episode Pack.\n\n" +
+      "Create or use a private production folder your agency owns. Add the source recording and share Editor access with ops@egstudio.tech. Keep the end client out of this folder.\n\n" +
+      "Submit the folder link and brief here:\n" + opts.uploadUrl + "\n\n" +
+      "We confirm zero contact with the end client. Review and final files go only into your agency-owned folder. You send all client-facing file requests and delivery links. Exported videos, filenames and caption documents have no EG branding, watermark, domain or account name. Drive permissions/activity may show collaborator identities; copy final files into a separate client-facing folder before sharing if that history must not be exposed.\n\n" +
+      "We watch the full recording and select five moments ourselves, without an AI first pass. No timestamps required. Five hooks/titles and concise captions included.\n\n" +
+      "Send any NDA for review before work starts. NDA review does not mean automatic acceptance. We confirm accepted intake and the due date in writing after checking files, folder access and any required NDA agreement. The first complete batch arrives in 1–3 business days after acceptance; revision time is additional.\n\n" +
+      "Reply with any questions.\n\nEG Studio\nops@egstudio.tech\n";
+    const escaped = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+    return { subject, text, html: '<div style="white-space:pre-wrap">' + escaped + "</div>" };
+  }
   const timing = opts.pkg.key === "sprint"
     ? "We deliver within 30 days."
     : "We deliver 3-5 business days after we confirm your files.";
@@ -135,3 +147,4 @@ export function welcomeEmail(opts: { first: string; pkg: Pkg; uploadUrl: string;
     "<p>EG Studio<br>ops@egstudio.tech</p>";
   return { subject, text, html };
 }
+
