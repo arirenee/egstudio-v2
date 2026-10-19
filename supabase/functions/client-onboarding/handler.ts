@@ -145,10 +145,21 @@ function makeNotion(env: Env, f: Fetch) {
       });
       if (!r.ok) throw new Error("Notion update failed: " + r.status + " " + (await r.text()).slice(0, 300));
     },
-    async createJob(j: { client: string; email: string; pkg: Pkg; start: string; due: string; sourceUrl: string; folderUrl: string; sessionId: string; paymentIntent: string; live: boolean; locked: boolean }) {
+    async createJob(j: { client: string; email: string; pkg: Pkg; start: string; due: string | null; sourceUrl: string | null; folderUrl: string | null; agencyOwned?: boolean; sessionId: string; paymentIntent: string; live: boolean; locked: boolean }) {
       const t = (s: string) => [{ type: "text", text: { content: s.slice(0, 1900) } }];
       const children = [
-        ...(j.locked ? [] : [{
+        ...(j.agencyOwned ? [
+          { object: "block", type: "paragraph", paragraph: { rich_text: t("AGENCY EPISODE: do not create or share an EG-owned upload/delivery folder. Collect the agency-owned production folder in the verified brief. Keep the end client out of this folder. No automated client-facing file requests or delivery links.") } },
+          ...[
+            "Verify the agency owns the production folder, access is restricted and the end client has no access. Record the folder URL in Source link and Job folder.",
+            "Review any requested NDA and obtain agreement before editing. Send written confirmation to the agency: zero contact with the end client; delivery only into its folder.",
+            "Confirm footage and brief are usable, then send written intake acceptance and set Start date and Due date manually: first complete batch within 1–3 business days. No payment-based due date.",
+            "Watch the full recording and select five moments yourself. No AI first pass. Include five hooks/titles and concise captions.",
+            "Export clean MP4s and caption text: no EG watermark, domain, account name or branding in content, filenames or metadata. Use neutral clip_01 through clip_05 names.",
+            "QA all five clips and copy. Deliver only into the verified agency-owned folder. Tell the agency to copy final assets into a separate client-facing folder if collaborator history must not be exposed.",
+          ].map(note => ({ object: "block", type: "to_do", to_do: { rich_text: t(note), checked: false } })),
+        ] : []),
+        ...(j.locked || j.agencyOwned ? [] : [{
           object: "block", type: "callout", callout: { icon: { type: "emoji", emoji: "⚠️" }, rich_text: t("UPLOAD_ACCESS_FAILED: Drive would not share 01_SOURCE with " + j.email + " (likely not a Google account). The folder is private and NO welcome email or link was sent. Share it manually, send the client an upload method, then set Status to Awaiting Upload.") },
         }]),
         { object: "block", type: "paragraph", paragraph: { rich_text: t("Workflow: Awaiting Upload > Files Received/Verifying > Ready for Production > In Production > In Review > Delivered. Edward verifies 01_SOURCE, then sets Ready for Production by hand.") } },
@@ -167,12 +178,12 @@ function makeNotion(env: Env, f: Fetch) {
             "Client email": { email: j.email },
             Package: { select: { name: j.pkg.name } },
             "Payment status": { select: { name: "Paid" } },
-            "Start date": { date: { start: j.start } },
-            "Due date": { date: { start: j.due } },
+            "Start date": { date: j.agencyOwned ? null : { start: j.start } },
+            "Due date": { date: j.due ? { start: j.due } : null },
             "Source link": { url: j.sourceUrl },
             "Job folder": { url: j.folderUrl },
-            Status: { select: { name: j.locked ? "Awaiting Upload" : "UPLOAD_ACCESS_FAILED" } },
-            "Upload access": { select: { name: j.locked ? "Locked to client email" : "Access failed - fix manually" } },
+            Status: { select: { name: j.agencyOwned || j.locked ? "Awaiting Upload" : "UPLOAD_ACCESS_FAILED" } },
+            "Upload access": { select: { name: j.agencyOwned ? "Agency folder awaiting verification" : j.locked ? "Locked to client email" : "Access failed - fix manually" } },
             "Clip slots": { number: j.pkg.clips },
             Environment: { select: { name: j.live ? "Live" : "Test" } },
             "Stripe session": { rich_text: t(j.sessionId) },
@@ -303,6 +314,33 @@ export async function handle(req: Request, env: Env = (k) => Deno.env.get(k), f:
   if (!job) return json({ error: "Another worker is processing this payment." }, 503);
 
   try {
+    // Agency orders stop at agency-owned-folder intake. Never create/share a vendor folder.
+    if (pkg.key === "episode") {
+      let state = job;
+      if (!state.notion_page_id) {
+        let pageId = await notion.findBySession(session.id);
+        let pageUrl: string | null = null;
+        if (!pageId) {
+          const page = await notion.createJob({
+            client, email, pkg, start, due: null, sourceUrl: null, folderUrl: null,
+            agencyOwned: true, sessionId: session.id,
+            paymentIntent: typeof session.payment_intent === "string" ? session.payment_intent : "", live, locked: false,
+          });
+          pageId = page.id; pageUrl = page.url;
+        }
+        await store.patch(session.id, { notion_page_id: pageId, notion_page_url: pageUrl });
+        state = { ...state, notion_page_id: pageId };
+      }
+      if (!state.welcome_sent_at) {
+        const to = live ? email : OPS_EMAIL;
+        const briefUrl = "https://egstudio.tech/payment-confirmed.html?session_id=" + encodeURIComponent(session.id);
+        const message = welcomeEmail({ first: firstName(session.customer_details?.name), pkg, uploadUrl: briefUrl, lockedEmail: email });
+        await mail.send(to, live ? message : { ...message, subject: "[TEST] " + message.subject });
+        await store.patch(session.id, { welcome_sent_at: new Date().toISOString(), welcome_sent_to: to });
+      }
+      await store.patch(session.id, { status: "complete", last_error: null });
+      return json({ received: true, ok: true, package: pkg.key, intake: "agency_owned_folder" });
+    }
     let state = job;
     if (!state.drive_source_folder_id) {
       const t = await drive.createJobTree(jobFolderName(client, pkg, start, !live), session.id);
@@ -370,3 +408,4 @@ export async function handle(req: Request, env: Env = (k) => Deno.env.get(k), f:
     return json({ error: "Onboarding step failed; will retry." }, 500);
   }
 }
+
