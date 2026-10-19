@@ -19,6 +19,8 @@ for(const patch of [{source_url:null},{source_url:'https://evil.example/drive/fo
 assert.equal((await post(base)).status,200);
 assert.equal(saved.source_url,base.source_url);
 assert.ok(saved.avoid_notes.includes('manual verification'));
+assert.ok(saved.avoid_notes.includes('upload new copies'));
+assert.ok(saved.avoid_notes.includes('never forward source_url'));
 assert.equal(emails.length,1);assert.deepEqual(emails[0].to,['ops@egstudio.tech']);
 assert.equal((await post(base)).status,200);assert.equal(emails.length,1);
-console.log('PASS: server rejects missing folder, wrong host, missing agency attestation and rights; saves folder and acceptance gate; notifies ops only; duplicate intake does not resend. All services mocked.');
+console.log('PASS: server rejects missing folder, wrong host, missing agency attestation and rights; saves folder, acceptance gate and mandatory reupload instruction; notifies ops only; duplicate intake does not resend. All services mocked.');
