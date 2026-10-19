@@ -260,7 +260,7 @@ Deno.serve(async (req: Request) => {
     };
 
     if (paid.sku === "episode") {
-      record.avoid_notes = (record.avoid_notes || "") + "\nAGENCY FOLDER: ownership/private access attested; manual verification and any NDA agreement required before written acceptance. Zero end-client contact. Deliver only into source_url folder. First complete batch 1–3 business days after acceptance. Human selection without AI first pass; five hooks/titles and captions.";
+      record.avoid_notes = (record.avoid_notes || "") + "\nAGENCY FOLDER: ownership/private access attested; manual verification and any NDA agreement required before written acceptance. Zero end-client contact. Deliver only into source_url folder for the agency. Agency must download approved files and upload new copies into a separate client-facing folder; never forward source_url. First complete batch 1–3 days after acceptance. Human selection without AI first pass; five hooks/titles and captions.";
     }
     if (!record.rights_confirmed) throw new Error("Rights confirmation is required.");
 
