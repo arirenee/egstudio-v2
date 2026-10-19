@@ -38,8 +38,10 @@ for (const live of [true,false]) {
   assert.ok(JSON.stringify(pages[0]).includes('No AI first pass'));
   assert.equal(calls.filter(u=>/googleapis|oauth2/.test(u)).length,0);
   assert.deepEqual(emails[0].to,[live?'agency@example.com':'ops@egstudio.tech']);
-  assert.ok(emails[0].text.includes('1–3 business days'));
+  assert.ok(emails[0].text.includes('1–3 days'));
   assert.ok(emails[0].text.includes('zero contact with the end client'));
+  assert.ok(emails[0].text.includes('upload new copies'));
+  assert.ok(emails[0].text.includes('Never forward the production-folder link'));
   assert.ok(!emails[0].text.includes('/drive/folders/'));
   assert.equal((await handle(req(),k=>values[k],f)).status,200);
   assert.equal(pages.length,1);assert.equal(emails.length,1);
@@ -48,4 +50,4 @@ let fetched=false;
 const invalid=await handle(new Request('https://mock',{method:'POST',body:'{}'}),k=>values[k],async()=>{fetched=true;throw Error('must not fetch');});
 assert.equal(invalid.status,400);assert.equal(fetched,false);
 assert.ok(welcomeEmail({first:'Legacy',pkg:PACKAGES.test,uploadUrl:'https://drive.google.com/mock',lockedEmail:'legacy@example.com'}).text.includes('3-5 business days'));
-console.log('PASS: TypeScript syntax; signed live/test agency flows; no vendor Drive calls; null due date until acceptance; five slots; agency-only transactional recipient; duplicate suppression; invalid signatures; legacy email. All external calls mocked.');
+console.log('PASS: TypeScript syntax; signed live/test agency flows; no vendor Drive calls; null due date until acceptance; five slots; private agency handoff and mandatory reupload wording; agency-only transactional recipient; duplicate suppression; invalid signatures; legacy email. All external calls mocked.');

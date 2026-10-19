@@ -149,14 +149,14 @@ function makeNotion(env: Env, f: Fetch) {
       const t = (s: string) => [{ type: "text", text: { content: s.slice(0, 1900) } }];
       const children = [
         ...(j.agencyOwned ? [
-          { object: "block", type: "paragraph", paragraph: { rich_text: t("AGENCY EPISODE: do not create or share an EG-owned upload/delivery folder. Collect the agency-owned production folder in the verified brief. Keep the end client out of this folder. No automated client-facing file requests or delivery links.") } },
+          { object: "block", type: "paragraph", paragraph: { rich_text: t("AGENCY EPISODE: collect the agency-owned production folder in the verified brief. Keep the end client out of this folder. Deliver privately to the agency only. The agency must download approved files and upload new copies into its client-facing folder. No automated client-facing file requests or delivery links.") } },
           ...[
             "Verify the agency owns the production folder, access is restricted and the end client has no access. Record the folder URL in Source link and Job folder.",
-            "Review any requested NDA and obtain agreement before editing. Send written confirmation to the agency: zero contact with the end client; delivery only into its folder.",
-            "Confirm footage and brief are usable, then send written intake acceptance and set Start date and Due date manually: first complete batch within 1–3 business days. No payment-based due date.",
+            "Review any requested NDA and obtain agreement before editing. Send written confirmation to the agency: zero contact with the end client; private delivery only to the agency through its production folder; the agency reuploads new client-facing copies.",
+            "Confirm footage and brief are usable, then send written intake acceptance and set Start date and Due date manually: first complete batch within 1–3 days. No payment-based due date.",
             "Watch the full recording and select five moments yourself. No AI first pass. Include five hooks/titles and concise captions.",
             "Export clean MP4s and caption text: no EG watermark, domain, account name or branding in content, filenames or metadata. Use neutral clip_01 through clip_05 names.",
-            "QA all five clips and copy. Deliver only into the verified agency-owned folder. Tell the agency to copy final assets into a separate client-facing folder if collaborator history must not be exposed.",
+            "QA all five clips and copy. Deliver only into the verified agency-owned folder. Require the agency to download the approved assets and upload new copies into a separate client-facing folder. Never forward the production-folder link to the end client.",
           ].map(note => ({ object: "block", type: "to_do", to_do: { rich_text: t(note), checked: false } })),
         ] : []),
         ...(j.locked || j.agencyOwned ? [] : [{
@@ -314,7 +314,7 @@ export async function handle(req: Request, env: Env = (k) => Deno.env.get(k), f:
   if (!job) return json({ error: "Another worker is processing this payment." }, 503);
 
   try {
-    // Agency orders stop at agency-owned-folder intake. Never create/share a vendor folder.
+    // Agency orders use an agency-owned production folder. The end client receives only copies the agency reuploads.
     if (pkg.key === "episode") {
       let state = job;
       if (!state.notion_page_id) {
