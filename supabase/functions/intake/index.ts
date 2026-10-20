@@ -237,9 +237,9 @@ Deno.serve(async (req: Request) => {
     if (paid.sku === "episode") {
       const folder = new URL(String(body.source_url || ""));
       if (folder.protocol !== "https:" || folder.hostname !== "drive.google.com" ||
-          !/^\/drive\/(?:u\/\d+\/)?folders\/[A-Za-z0-9_-]+\/?$/.test(folder.pathname) ||
-          body.agency_owned_folder_confirmed !== true || body.rights_confirmed !== true) {
-        throw new Error("Provide a Google Drive folder your agency owns and confirm private access and footage rights. Ownership and access are verified before work starts.");
+          !/^\/(?:drive\/(?:u\/\d+\/)?folders\/[A-Za-z0-9_-]+|file\/d\/[A-Za-z0-9_-]+(?:\/view)?)\/?$/.test(folder.pathname) ||
+          body.private_handoff_confirmed !== true || body.rights_confirmed !== true) {
+        throw new Error("Provide a private Google Drive source link and confirm footage rights and the private agency handoff. Source access is verified before work starts.");
       }
     }
     const record = {
@@ -250,7 +250,7 @@ Deno.serve(async (req: Request) => {
       currency: "usd",
       customer_email: paid.email.toLowerCase(),
       project_name: cleanText(body.project_name, 120, true),
-      source_url: safeUrl(body.source_url, paid.sku === "episode"), // agency-owned production folder for new episode orders
+      source_url: safeUrl(body.source_url, paid.sku === "episode"), // private source link for new episode orders
       brand_assets_url: safeUrl(body.brand_assets_url, false),
       style_reference_url: safeUrl(body.style_reference_url, true),
       avoid_notes: cleanText(body.avoid_notes, 1200, false),
@@ -260,7 +260,7 @@ Deno.serve(async (req: Request) => {
     };
 
     if (paid.sku === "episode") {
-      record.avoid_notes = (record.avoid_notes || "") + "\nAGENCY FOLDER: ownership/private access attested; manual verification and any NDA agreement required before written acceptance. Zero end-client contact. Deliver only into source_url folder. First complete batch 1–3 business days after acceptance. Human selection without AI first pass; five hooks/titles and captions.";
+      record.avoid_notes = (record.avoid_notes || "") + "\nPRIVATE AGENCY HANDOFF: footage rights and download/reupload handoff confirmed; manual verification of source access and any NDA agreement required before written acceptance. Zero end-client contact. Deliver review and final files privately to the agency only. Agency downloads and reuploads client copies to its own folder and checks them from a separate account before sharing. Never forward EG links or share our working folder with the end client. First complete batch 1 to 3 days after acceptance. Human selection without AI first pass; five hooks/titles and captions.";
     }
     if (!record.rights_confirmed) throw new Error("Rights confirmation is required.");
 
