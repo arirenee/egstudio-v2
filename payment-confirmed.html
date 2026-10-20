@@ -61,7 +61,7 @@ pintrk('page');
 <header><div class="wrap"><a class="logo" href="index.html">EG<span>STUDIO</span></a></div></header>
 <main><div class="wrap">
 <p class="kicker" id="offer-kicker">Payment complete · Agency Episode Pack</p>
-<h1>Send what we need to start.</h1>
+<h1>Your payment is complete. Send your recording.</h1>
 <p class="lead"><strong>Share a private source link with our agency contact only.</strong> Give ops@egstudio.tech access to the recording. We deliver privately to your agency. Download and reupload client copies to your own folder before sharing. Do not forward EG Studio links to the end client. Complete the brief below; no timestamps required.</p>
 
 <div class="status">
@@ -76,9 +76,10 @@ pintrk('page');
   <div class="field" id="agency-folder-field"><label for="agency_folder_url">Private Google Drive source link</label><input id="agency_folder_url" name="agency_folder_url" type="url" inputmode="url" placeholder="https://drive.google.com/drive/folders/…"><p class="helper">A private Google Drive file or folder containing your recording. Give ops@egstudio.tech access. Keep the end client out of our working handoff.</p></div>
   <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox"><label for="agency_confirmed">We have permission to submit and republish the footage. EG Studio communicates only with our agency. We will download and reupload client copies to our own folder and will not forward EG Studio links to the end client.</label></div>
   <p class="helper">We watch the full recording and select five moments ourselves. No AI first pass. Five hooks/titles and concise post captions included. Need NDA review? Send it before editing; if agreement is required before payment, email us first. The delivery window of 1 to 3 days starts after written intake acceptance and any required NDA agreement.</p>
+  <details style="margin:24px 0"><summary style="cursor:pointer;font-weight:700">Add style or project details (optional)</summary>
   <div class="field">
-    <label for="project_name">Project / folder name</label>
-    <input id="project_name" name="project_name" type="text" maxlength="120" autocomplete="organization-title" placeholder="Acme Podcast Clips" required>
+    <label for="project_name">Project name <span style="color:var(--dim);font-weight:500">(optional)</span></label>
+    <input id="project_name" name="project_name" type="text" maxlength="120" autocomplete="organization-title" placeholder="Acme Podcast Clips">
     <p class="helper">Use a name you will recognize in delivery folders and email.</p>
   </div>
 
@@ -89,9 +90,9 @@ pintrk('page');
   </div>
 
   <div class="field">
-    <label for="style_reference_url">Style reference link</label>
-    <input id="style_reference_url" name="style_reference_url" type="url" inputmode="url" placeholder="https://…" required>
-    <p class="helper">One example showing the pacing, caption style, or overall feel you want.</p>
+    <label for="style_reference_url">Style reference link (optional)</label>
+    <input id="style_reference_url" name="style_reference_url" type="url" inputmode="url" placeholder="https://…">
+    <p class="helper">Leave blank to use the caption style shown in our samples.</p>
   </div>
 
   <div class="field">
@@ -99,12 +100,14 @@ pintrk('page');
     <textarea id="avoid_notes" name="avoid_notes" maxlength="1200" placeholder="Example: no emojis in captions; avoid jump cuts during the product demo."></textarea>
   </div>
 
+  </details>
+
   <div class="honeypot" aria-hidden="true">
     <label for="website">Website</label>
     <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
   </div>
 
-  <button id="submit-btn" type="submit" disabled>Send project brief</button>
+  <button id="submit-btn" type="submit" disabled>Send recording</button>
   <p class="form-note">Your order email and purchased offer are taken from the verified Stripe payment. You do not need to enter them again.</p>
   <div id="form-message" class="message" role="alert"></div>
 </form>
@@ -218,9 +221,8 @@ pintrk('page');
     const agencyConfirmed = document.getElementById("agency_confirmed").checked;
     if (expectedSku === "episode" && (!validHttps(agencyFolder, false) || !agencyConfirmed)) return showMessage("Add your private Google Drive source link and confirm footage rights and the private handoff.", "error");
 
-    if (!projectName) return showMessage("Add a project / folder name.", "error");
     if (!validHttps(brandUrl, true)) return showMessage("Brand assets must be a valid HTTPS link or left blank.", "error");
-    if (!validHttps(styleUrl, false)) return showMessage("Add a valid HTTPS style reference link.", "error");
+    if (!validHttps(styleUrl, true)) return showMessage("Add a valid HTTPS style reference link.", "error");
 
     submit.disabled = true;
     submit.textContent = "Sending brief…";
@@ -236,11 +238,11 @@ pintrk('page');
         body:JSON.stringify({
           session_id:sessionId,
           expected_sku:expectedSku,
-          project_name:projectName,
+          project_name:projectName || "Agency episode",
           source_url:expectedSku === "episode" ? agencyFolder : null,
           private_handoff_confirmed:agencyConfirmed,
           brand_assets_url:brandUrl || null,
-          style_reference_url:styleUrl,
+          style_reference_url:styleUrl || null,
           avoid_notes:avoidNotes || null,
           rights_confirmed:true,
           website:website
@@ -253,7 +255,7 @@ pintrk('page');
       if (window.posthog) posthog.capture("intake_submitted", {sku:expectedSku, experiment:"native_intake_v1"});
     } catch(err) {
       submit.disabled = false;
-      submit.textContent = "Send project brief";
+      submit.textContent = "Send recording";
       showMessage(err.message || "The brief could not be submitted.", "error");
     }
   });

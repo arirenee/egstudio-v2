@@ -24,6 +24,10 @@ assert.ok(saved.avoid_notes.includes('Agency downloads and reuploads client copi
 saved=null;
 assert.equal((await post({...base,source_url:'https://drive.google.com/file/d/mock_video/view?usp=sharing'})).status,200);
 assert.equal(saved.source_url,'https://drive.google.com/file/d/mock_video/view?usp=sharing');
-assert.equal(emails.length,2);assert.deepEqual(emails[0].to,['ops@egstudio.tech']);
-assert.equal((await post(base)).status,200);assert.equal(emails.length,2);
+saved=null;
+assert.equal((await post({...base,project_name:'',style_reference_url:null})).status,200);
+assert.equal(saved.project_name,'Agency episode');
+assert.equal(saved.style_reference_url,'https://egstudio.tech/#samples');
+assert.equal(emails.length,3);assert.deepEqual(emails[0].to,['ops@egstudio.tech']);
+assert.equal((await post(base)).status,200);assert.equal(emails.length,3);
 console.log('PASS: server rejects missing folder, wrong host, missing handoff confirmation and rights; saves folder and acceptance gate; notifies ops only; duplicate intake does not resend. All services mocked.');
