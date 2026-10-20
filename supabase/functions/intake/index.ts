@@ -249,10 +249,10 @@ Deno.serve(async (req: Request) => {
       amount_total: paid.amount,
       currency: "usd",
       customer_email: paid.email.toLowerCase(),
-      project_name: cleanText(body.project_name, 120, true),
+      project_name: cleanText(body.project_name, 120, false) || "Agency episode",
       source_url: safeUrl(body.source_url, paid.sku === "episode"), // private source link for new episode orders
       brand_assets_url: safeUrl(body.brand_assets_url, false),
-      style_reference_url: safeUrl(body.style_reference_url, true),
+      style_reference_url: safeUrl(body.style_reference_url, false) || "https://egstudio.tech/#samples",
       avoid_notes: cleanText(body.avoid_notes, 1200, false),
       rights_confirmed: body.rights_confirmed === true,
       notification_status: paid.environment === "live" && notificationConfigured ? "pending" : "not_configured",
