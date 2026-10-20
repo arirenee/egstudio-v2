@@ -15,5 +15,11 @@ body a:any-link:focus-visible,button:focus-visible,input:focus-visible,textarea:
 input[type="checkbox"],input[type="radio"]{accent-color:var(--eg-lime)}
 .pricing-badge-top{background-color:var(--eg-lime);border-color:var(--eg-lime);color:var(--eg-bg)}
 .pricing-card-main,.sku.primary{border-color:var(--eg-lime)}
-.pricing-amount-hero,.price,.image2-brand span,.brand span,.logo span{color:var(--eg-lime)}
+.pricing-amount-hero,.price{color:var(--eg-lime)}
 .btn-primary:hover{box-shadow:0 4px 20px rgba(198,245,66,.18)}
+
+/* Approved wordmark option 1: lime EG, warm white STUDIO. */
+body :is(.image2-brand,.brand,.logo,.footer-brand){color:var(--eg-lime)}
+body a:any-link:is(.image2-brand,.brand,.logo,.footer-brand),
+body a:any-link:is(.image2-brand,.brand,.logo,.footer-brand):hover{color:var(--eg-lime)}
+body :is(.image2-brand,.brand,.logo,.footer-brand)>span{color:var(--eg-text)}
