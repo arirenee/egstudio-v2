@@ -11,14 +11,19 @@ const mockFetch=async(url,init)=>{
 };
 const source=readFileSync('./supabase/functions/intake/index.ts','utf8').replace(/^import .*;\n/gm,'');
 vm.runInNewContext(stripTypeScriptTypes(source,{mode:'transform'}),{Deno:{env:{get:()=> 'mock'},serve(fn){serve=fn}},createClient:()=>db,fetch:mockFetch,Request,Response,URL,Intl,console});
-const base={session_id:'cs_live_mock',expected_sku:'episode',project_name:'Agency episode',source_url:'https://drive.google.com/drive/folders/mock_folder',agency_owned_folder_confirmed:true,style_reference_url:'https://example.com/style',rights_confirmed:true};
+const base={session_id:'cs_live_mock',expected_sku:'episode',project_name:'Agency episode',source_url:'https://drive.google.com/drive/folders/mock_folder',private_handoff_confirmed:true,style_reference_url:'https://example.com/style',rights_confirmed:true};
 async function post(body){return serve(new Request('https://mock/functions/v1/intake',{method:'POST',body:JSON.stringify(body),headers:{'content-type':'application/json'}}));}
-for(const patch of [{source_url:null},{source_url:'https://evil.example/drive/folders/mock'},{agency_owned_folder_confirmed:false},{rights_confirmed:false}]){
+for(const patch of [{source_url:null},{source_url:'http://drive.google.com/drive/folders/mock'},{source_url:'https://drive.google.com/invalid'},{source_url:'https://evil.example/drive/folders/mock'},{private_handoff_confirmed:false},{rights_confirmed:false}]){
  assert.equal((await post({...base,...patch})).status,400);assert.equal(saved,null);
 }
 assert.equal((await post(base)).status,200);
 assert.equal(saved.source_url,base.source_url);
 assert.ok(saved.avoid_notes.includes('manual verification'));
-assert.equal(emails.length,1);assert.deepEqual(emails[0].to,['ops@egstudio.tech']);
-assert.equal((await post(base)).status,200);assert.equal(emails.length,1);
-console.log('PASS: server rejects missing folder, wrong host, missing agency attestation and rights; saves folder and acceptance gate; notifies ops only; duplicate intake does not resend. All services mocked.');
+assert.ok(saved.avoid_notes.includes('1 to 3 days'));
+assert.ok(saved.avoid_notes.includes('Agency downloads and reuploads client copies'));
+saved=null;
+assert.equal((await post({...base,source_url:'https://drive.google.com/file/d/mock_video/view?usp=sharing'})).status,200);
+assert.equal(saved.source_url,'https://drive.google.com/file/d/mock_video/view?usp=sharing');
+assert.equal(emails.length,2);assert.deepEqual(emails[0].to,['ops@egstudio.tech']);
+assert.equal((await post(base)).status,200);assert.equal(emails.length,2);
+console.log('PASS: server rejects missing folder, wrong host, missing handoff confirmation and rights; saves folder and acceptance gate; notifies ops only; duplicate intake does not resend. All services mocked.');
