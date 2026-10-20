@@ -1,0 +1,19 @@
+/* Shared EG Studio palette. Color-only rules preserve page layouts and behavior. */
+:root{--eg-bg:#080f1c;--eg-text:#f5f2eb;--eg-lime:#c6f542;--eg-lime-hover:#d7ff72}
+html,body{background-color:var(--eg-bg);color:var(--eg-text)}
+body a:any-link{color:var(--eg-lime)}
+body a:any-link:hover{color:var(--eg-lime-hover)}
+body a:any-link:is(.btn-primary,.btn-primary-nav,.site-header-work,.image2-work-btn,.image3-btn-primary,.compact-offer-work,.cta,.back),
+form button:is(.btn,button),.wrap>button {
+ background-color:var(--eg-lime);border-color:var(--eg-lime);color:var(--eg-bg)
+}
+body a:any-link:is(.btn-primary,.btn-primary-nav,.site-header-work,.image2-work-btn,.image3-btn-primary,.compact-offer-work,.cta,.back):hover,
+form button:is(.btn,button):hover:not(:disabled),.wrap>button:hover:not(:disabled) {
+ background-color:var(--eg-lime-hover);border-color:var(--eg-lime-hover);color:var(--eg-bg)
+}
+body a:any-link:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--eg-lime);outline-offset:3px}
+input[type="checkbox"],input[type="radio"]{accent-color:var(--eg-lime)}
+.pricing-badge-top{background-color:var(--eg-lime);border-color:var(--eg-lime);color:var(--eg-bg)}
+.pricing-card-main,.sku.primary{border-color:var(--eg-lime)}
+.pricing-amount-hero,.price,.image2-brand span,.brand span,.logo span{color:var(--eg-lime)}
+.btn-primary:hover{box-shadow:0 4px 20px rgba(198,245,66,.18)}
