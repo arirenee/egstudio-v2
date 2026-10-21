@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Project brief · EG Studio</title>
+<title>Payment received · EG Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -27,10 +27,9 @@ main{padding:2.3rem 0 3.5rem}
 .kicker{font:600 .62rem/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.55rem}
 h1{font-size:clamp(2.2rem,9vw,3.5rem);line-height:1.02;letter-spacing:-.045em;margin-bottom:.85rem}
 .lead{color:var(--muted);font-size:.96rem;max-width:620px}
-.status{margin:1.3rem 0 1.5rem;border:1px solid var(--border);background:var(--surface)}
-.status-row{display:grid;grid-template-columns:100px 1fr;gap:.75rem;padding:.8rem .9rem;border-bottom:1px solid var(--border);align-items:start}
-.status-row:last-child{border-bottom:0}.status-row b{font:600 .62rem/1.4 var(--mono);text-transform:uppercase;letter-spacing:.06em}.status-row span{color:var(--muted);font-size:.84rem}
-#payment-state[data-state="ok"]{color:var(--success)}#payment-state[data-state="error"]{color:var(--danger)}
+.steps{margin:1.4rem 0 1.6rem 1.2rem;color:var(--muted);font-size:.92rem;line-height:1.6}.steps li{padding-left:.25rem;margin-bottom:.35rem}
+.pay-error{margin:0 0 1rem;padding:.8rem .9rem;border:1px solid var(--border);color:var(--danger);font-size:.84rem}
+.more{margin:1.1rem 0}.more summary{cursor:pointer;font-weight:700;font-size:.85rem;padding:.3rem 0}.more[open] summary{margin-bottom:.9rem}
 form{margin-top:1.25rem}
 .field{margin-bottom:1rem}label{display:block;font-weight:700;font-size:.85rem;margin-bottom:.4rem}
 .helper{font-size:.76rem;color:var(--dim);margin-top:.35rem}
@@ -65,54 +64,42 @@ pintrk('page');
 <body>
 <header><div class="wrap"><a class="logo" href="index.html">EG<span>STUDIO</span></a></div></header>
 <main><div class="wrap">
-<p class="kicker" id="offer-kicker">Payment complete · Agency Episode Pack</p>
-<h1>Your payment is complete. Send your recording.</h1>
-<p class="lead">Share a private Google Drive link to your recording with ops@egstudio.tech and complete the short brief below. No timestamps needed.</p>
+<p class="kicker" id="offer-kicker">Agency Episode Pack</p>
+<h1>Payment received. Send your recording.</h1>
+<p class="lead">Share a private Google Drive link and we take it from there.</p>
 
-<div class="status" id="next-steps" aria-label="What happens next">
-  <div class="status-row"><b>What happens next</b><span></span></div>
-  <ol style="margin:.5rem 0 .75rem 1.25rem;line-height:1.7">
-    <li>Share your recording link below.</li>
-    <li>We confirm your intake by email.</li>
-    <li>Your five clips arrive 1 to 3 days later.</li>
-  </ol>
-  <p class="helper">Questions: <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a> · <a href="/refund.html">Refund policy</a></p>
-</div>
+<ol class="steps" id="next-steps" aria-label="What happens next">
+  <li>Share your recording link.</li>
+  <li>We confirm by email, usually within one business day.</li>
+  <li>Your five clips arrive 1 to 3 days later.</li>
+</ol>
 
-<div class="status">
-  <div class="status-row"><b>Payment</b><span id="payment-state">Verifying Stripe payment…</span></div>
-  <div class="status-row"><b>Order</b><span id="verified-order">Agency Episode Pack · $199</span></div>
-  <div class="status-row"><b>Source</b><span id="source-summary">One English language recording up to 60 minutes</span></div>
-  <div class="status-row"><b>Timing</b><span id="timing-summary">1 to 3 days after written intake acceptance, folder access and any required NDA agreement</span></div>
-  <div class="status-row"><b>Contact</b><span>ops@egstudio.tech</span></div>
-</div>
+<p class="pay-error" id="payment-state" role="status" hidden></p>
 
 <form id="intake-form" novalidate>
-  <div class="field" id="agency-folder-field"><label for="agency_folder_url">Private Google Drive source link</label><input id="agency_folder_url" name="agency_folder_url" type="url" inputmode="url" placeholder="https://drive.google.com/drive/folders/…"><p class="helper">A private Google Drive file or folder containing your recording. Give ops@egstudio.tech access. Keep the end client out of our working handoff.</p></div>
-  <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox"><label for="agency_confirmed">We have permission to submit and republish the footage. EG Studio communicates only with our agency. We will download and reupload client copies to our own folder and will not forward EG Studio links to the end client.</label></div>
-  <p class="helper">We watch the full recording and select five moments ourselves. No AI first pass. Five hooks and captions included. Need NDA review? Send it before editing; if agreement is required before payment, email us first. The delivery window of 1 to 3 days starts after written intake acceptance and any required NDA agreement.</p>
-  <details style="margin:24px 0"><summary style="cursor:pointer;font-weight:700">Add style or project details (optional)</summary>
+  <div class="field" id="agency-folder-field"><label for="agency_folder_url">Google Drive link</label><input id="agency_folder_url" name="agency_folder_url" type="url" inputmode="url" placeholder="https://drive.google.com/..."><p class="helper">Give ops@egstudio.tech view access.</p></div>
+  <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox"><label for="agency_confirmed">We have the rights to this footage and you will deliver only to our agency.</label></div>
+  <details class="more"><summary>Add style details (optional)</summary>
   <div class="field">
-    <label for="project_name">Project name <span style="color:var(--dim);font-weight:500">(optional)</span></label>
+    <label for="project_name">Project name</label>
     <input id="project_name" name="project_name" type="text" maxlength="120" autocomplete="organization-title" placeholder="Acme Podcast Clips">
-    <p class="helper">Use a name you will recognize in delivery folders and email.</p>
   </div>
 
   <div class="field">
-    <label for="brand_assets_url">Brand assets link <span style="color:var(--dim);font-weight:500">(optional)</span></label>
-    <input id="brand_assets_url" name="brand_assets_url" type="url" inputmode="url" placeholder="https://drive.google.com/…">
-    <p class="helper">Logo, fonts, brand colors, or an existing brand folder. Leave blank for a clean default treatment.</p>
+    <label for="brand_assets_url">Brand assets link</label>
+    <input id="brand_assets_url" name="brand_assets_url" type="url" inputmode="url" placeholder="https://drive.google.com/...">
+    <p class="helper">Logo, fonts or colors. Leave blank for a clean default.</p>
   </div>
 
   <div class="field">
-    <label for="style_reference_url">Style reference link (optional)</label>
-    <input id="style_reference_url" name="style_reference_url" type="url" inputmode="url" placeholder="https://…">
-    <p class="helper">Leave blank to use the caption style shown in our samples.</p>
+    <label for="style_reference_url">Style reference link</label>
+    <input id="style_reference_url" name="style_reference_url" type="url" inputmode="url" placeholder="https://...">
+    <p class="helper">Leave blank to use the caption style from our samples.</p>
   </div>
 
   <div class="field">
-    <label for="avoid_notes">Anything we should avoid? <span style="color:var(--dim);font-weight:500">(optional)</span></label>
-    <textarea id="avoid_notes" name="avoid_notes" maxlength="1200" placeholder="Example: no emojis in captions; avoid jump cuts during the product demo."></textarea>
+    <label for="avoid_notes">Anything to avoid?</label>
+    <textarea id="avoid_notes" name="avoid_notes" maxlength="1200" placeholder="No emojis in captions."></textarea>
   </div>
 
   </details>
@@ -123,16 +110,15 @@ pintrk('page');
   </div>
 
   <button id="submit-btn" type="submit" disabled>Send recording</button>
-  <p class="form-note">Your order email and purchased offer are taken from the verified Stripe payment. You do not need to enter them again.</p>
   <div id="form-message" class="message" role="alert"></div>
 </form>
 
 <div id="done" class="done">
-  <h2>Brief received.</h2>
-  <p>Thanks. We will check source access, usable footage, the brief and any required NDA before confirming acceptance and a due date. Zero contact with the end client. Review and final files are delivered privately to your agency. Download and reupload client copies to your own folder, check them from a separate account, then send your own client-facing links.</p>
+  <h2>Recording received.</h2>
+  <p>We will check access and confirm by email, usually within one business day.</p>
 </div>
 </div></main>
-<footer><div class="wrap">EG STUDIO · Los Angeles, CA · <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a></div></footer>
+<footer><div class="wrap">Questions or an NDA? Email <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a>. <a href="/refund.html">Refund policy</a>.</div></footer>
 
 <script>
 (function(){
@@ -142,10 +128,7 @@ pintrk('page');
   const params = new URLSearchParams(location.search);
   const sessionId = params.get("session_id") || "";
   const state = document.getElementById("payment-state");
-  const order = document.getElementById("verified-order");
   const kicker = document.getElementById("offer-kicker");
-  const sourceSummary = document.getElementById("source-summary");
-  const timingSummary = document.getElementById("timing-summary");
   const form = document.getElementById("intake-form");
   const submit = document.getElementById("submit-btn");
   const msg = document.getElementById("form-message");
@@ -171,12 +154,14 @@ pintrk('page');
     if (!endpoint || endpoint.includes("__INTAKE_FUNCTION_URL__")) {
       state.textContent = "Backend not deployed yet.";
       state.dataset.state = "error";
+      state.hidden = false;
       showMessage("This preview intake is not connected to the backend yet.", "error");
       return;
     }
     if (!sessionId.startsWith("cs_")) {
       state.textContent = "Payment session missing.";
       state.dataset.state = "error";
+      state.hidden = false;
       showMessage("Open this page from the Stripe payment confirmation so the order can be verified.", "error");
       return;
     }
@@ -193,12 +178,9 @@ pintrk('page');
       if (!["episode", "test"].includes(data.sku)) throw new Error("This payment belongs to a different EG Studio offer.");
       expectedSku = data.sku;
       verified = true;
-      state.textContent = "Verified · paid";
+      state.hidden = true;
       state.dataset.state = "ok";
-      order.textContent = data.order_label + " · " + data.amount_display;
-      kicker.textContent = "Payment complete · " + data.order_label;
-      sourceSummary.textContent = "One English language recording up to 60 minutes";
-      timingSummary.textContent = "1 to 3 days after written intake acceptance, folder access and any required NDA agreement";
+      if (data.order_label) kicker.textContent = data.order_label;
       document.getElementById("agency-folder-field").hidden = data.sku !== "episode";
       document.getElementById("agency-confirmation-field").hidden = data.sku !== "episode";
       submit.disabled = false;
@@ -213,6 +195,7 @@ pintrk('page');
     } catch(err) {
       state.textContent = "Could not verify payment.";
       state.dataset.state = "error";
+      state.hidden = false;
       showMessage(err.message || "Could not verify payment.", "error");
     }
   }
@@ -229,13 +212,13 @@ pintrk('page');
     const website = document.getElementById("website").value.trim();
     const agencyFolder = document.getElementById("agency_folder_url").value.trim();
     const agencyConfirmed = document.getElementById("agency_confirmed").checked;
-    if (expectedSku === "episode" && (!validHttps(agencyFolder, false) || !agencyConfirmed)) return showMessage("Add your private Google Drive source link and confirm footage rights and the private handoff.", "error");
+    if (expectedSku === "episode" && (!validHttps(agencyFolder, false) || !agencyConfirmed)) return showMessage("Add your Google Drive link and tick the rights box.", "error");
 
     if (!validHttps(brandUrl, true)) return showMessage("Brand assets must be a valid HTTPS link or left blank.", "error");
     if (!validHttps(styleUrl, true)) return showMessage("Add a valid HTTPS style reference link.", "error");
 
     submit.disabled = true;
-    submit.textContent = "Sending brief…";
+    submit.textContent = "Sending…";
 
     try {
       const r = await fetch(endpoint, {
