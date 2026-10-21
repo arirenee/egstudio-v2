@@ -39,8 +39,8 @@ for (const live of [true,false]) {
   assert.equal(calls.filter(u=>/googleapis|oauth2/.test(u)).length,0);
   assert.deepEqual(emails[0].to,[live?'agency@example.com':'ops@egstudio.tech']);
   assert.ok(emails[0].text.includes('1 to 3 days'));
-  assert.ok(emails[0].text.includes('zero contact with the end client'));
-  assert.ok(emails[0].text.includes('Download the finished files and reupload client copies'));
+  assert.ok(emails[0].text.includes('white label and ready to post'));
+  assert.ok(emails[0].text.includes('shared with ops@egstudio.tech'));
   assert.ok(!emails[0].text.includes('business days'));
   assert.ok(JSON.stringify(pages[0]).includes('Never forward EG links'));
   assert.ok(!emails[0].text.includes('/drive/folders/'));

@@ -114,13 +114,11 @@ export function welcomeEmail(opts: { first: string; pkg: Pkg; uploadUrl: string;
   const hi = opts.first ? "Hi " + opts.first + "," : "Hi,";
   if (opts.pkg.key === "episode") {
     const subject = "Payment received: send your recording and brief";
-    const text = hi + "\n\nPayment received for your Agency Episode Pack.\n\n" +
-      "Share a private Google Drive source link and give ops@egstudio.tech access. Keep the end client out of our working handoff.\n\n" +
-      "Submit the source link and brief here:\n" + opts.uploadUrl + "\n\n" +
-      "We confirm zero contact with the end client. We deliver review and final files privately to your agency. Download the finished files and reupload client copies to a folder your agency owns. Check those copies from a separate account before sharing. Do not forward EG Studio links or share our working folder with the end client. You send all client-facing file requests and delivery links. Exported videos, filenames and caption documents have no EG branding, watermark, domain or account name. EG identities can appear on our private handoff to your agency.\n\n" +
-      "We watch the full recording and select five moments ourselves, without an AI first pass. No timestamps required. Five hooks/titles and concise captions included.\n\n" +
-      "Send any NDA for review before work starts. NDA review does not mean automatic acceptance. We confirm accepted intake and the due date in writing after checking files, folder access and any required NDA agreement. The first complete batch arrives in 1 to 3 days after acceptance; revision time is additional.\n\n" +
-      "Reply with any questions.\n\nEG Studio\nops@egstudio.tech\n";
+    const text = hi + "\n\nThanks for ordering the Agency Episode Pack.\n\n" +
+      "Next step: send your recording and brief here:\n" + opts.uploadUrl + "\n" +
+      "Please use a private Google Drive link shared with ops@egstudio.tech.\n\n" +
+      "We confirm your intake in writing, usually within one business day. Your first five clips arrive 1 to 3 days after that, white label and ready to post. One revision round is included.\n\n" +
+      "Questions or an NDA? Just reply to this email.\n\nEG Studio\nops@egstudio.tech\n";
     const escaped = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     return { subject, text, html: '<div style="white-space:pre-wrap">' + escaped + "</div>" };
   }
