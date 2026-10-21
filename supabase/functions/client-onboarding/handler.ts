@@ -149,14 +149,14 @@ function makeNotion(env: Env, f: Fetch) {
       const t = (s: string) => [{ type: "text", text: { content: s.slice(0, 1900) } }];
       const children = [
         ...(j.agencyHandoff ? [
-          { object: "block", type: "paragraph", paragraph: { rich_text: t("AGENCY EPISODE: collect the private source link in the verified brief. Arrange review and final delivery privately with the paying agency contact only. No automated end-client file requests or delivery links.") } },
+          { object: "block", type: "paragraph", paragraph: { rich_text: t((j.pkg.clips === 1 ? "ONE CLIP PROOF ($49, 1 clip; $49 credit toward $199 pack within 14 days). " : "") + "AGENCY EPISODE: collect the private source link in the verified brief. Arrange review and final delivery privately with the paying agency contact only. No automated end-client file requests or delivery links.") } },
           ...[
             "Verify usable footage and source access. Record the source URL in Source link. Arrange a restricted private handoff with the agency only; keep the end client out.",
             "Review any requested NDA and obtain agreement before editing. Send written confirmation to the agency: zero contact with the end client; private delivery to the agency, which downloads and reuploads client copies.",
             "Confirm footage and brief are usable, then send written intake acceptance and set Start date and Due date manually: first complete batch within 1 to 3 days. No payment-based due date.",
-            "Watch the full recording and select five moments yourself. No AI first pass. Include five hooks/titles and concise captions.",
-            "Export clean MP4s and caption text: no EG watermark, domain, account name or branding in content, filenames or metadata. Use neutral clip_01 through clip_05 names.",
-            "QA all five clips and copy. Deliver privately to the agency only. The agency must download and reupload client copies to its own folder, check them from a separate account, then share its own links. Never forward EG links or expose our working folder to the end client.",
+            j.pkg.clips === 1 ? "Watch the full recording and select the single strongest moment yourself. No AI first pass. Include one hook/title and a concise caption." : "Watch the full recording and select five moments yourself. No AI first pass. Include five hooks/titles and concise captions.",
+            "Export clean MP4s and caption text: no EG watermark, domain, account name or branding in content, filenames or metadata. Use neutral clip_01" + (j.pkg.clips === 1 ? "" : " through clip_05") + " names.",
+            (j.pkg.clips === 1 ? "QA the clip and copy." : "QA all five clips and copy.") + " Deliver privately to the agency only. The agency must download and reupload client copies to its own folder, check them from a separate account, then share its own links. Never forward EG links or expose our working folder to the end client.",
           ].map(note => ({ object: "block", type: "to_do", to_do: { rich_text: t(note), checked: false } })),
         ] : []),
         ...(j.locked || j.agencyHandoff ? [] : [{

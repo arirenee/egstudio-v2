@@ -9,6 +9,7 @@ const ALLOWED_ORIGINS = new Set([
 
 const OFFER_MAP = {
   episode_to_shorts: { sku: "episode", amount: 19900, label: "Agency Episode Pack" },
+  one_clip_proof: { sku: "episode", amount: 4900, label: "One Clip Proof" },
   starter: { sku: "test", amount: 30000, label: "3-Clip Starter" },
   paid_test: { sku: "test", amount: 30000, label: "3-Clip Starter" },
   sprint: { sku: "sprint", amount: 150000, label: "15-video Sprint" },
@@ -70,7 +71,7 @@ async function verifyStripeSession(sessionId: string) {
   const offerKey = session.metadata?.offer;
   const configured = OFFER_MAP[offerKey as keyof typeof OFFER_MAP];
   if (!configured) throw new Error("Unknown EG Studio offer.");
-  if (session.amount_total !== configured.amount || session.currency !== "usd") {
+  if ((session.amount_total ?? 0) + (session.total_details?.amount_discount ?? 0) !== configured.amount || session.currency !== "usd") {
     throw new Error("Paid amount does not match the offer.");
   }
 
@@ -151,7 +152,7 @@ async function sendIntakeNotification(record: any) {
     return { configured: false, sent: false, error: "Notification secrets are not configured." };
   }
 
-  const offerLabel = record.offer === "episode" ? "Agency Episode Pack" : record.offer === "test" ? "3-Clip Starter" : "15-video Sprint";
+  const offerLabel = record.offer === "episode" ? (record.amount_total === 4900 ? "One Clip Proof" : "Agency Episode Pack") : record.offer === "test" ? "3-Clip Starter" : "15-video Sprint";
   const subject = "New paid EG Studio brief — " + record.project_name;
   const optionalBrand = record.brand_assets_url
     ? '<p><strong>Brand assets:</strong> <a href="' + escapeHtml(record.brand_assets_url) + '">' + escapeHtml(record.brand_assets_url) + "</a></p>"
@@ -260,7 +261,9 @@ Deno.serve(async (req: Request) => {
     };
 
     if (paid.sku === "episode") {
-      record.avoid_notes = (record.avoid_notes || "") + "\nPRIVATE AGENCY HANDOFF: footage rights and download/reupload handoff confirmed; manual verification of source access and any NDA agreement required before written acceptance. Zero end-client contact. Deliver review and final files privately to the agency only. Agency downloads and reuploads client copies to its own folder and checks them from a separate account before sharing. Never forward EG links or share our working folder with the end client. First complete batch 1 to 3 days after acceptance. Human selection without AI first pass; five hooks/titles and captions.";
+      record.avoid_notes = (record.avoid_notes || "") + "\nPRIVATE AGENCY HANDOFF: footage rights and download/reupload handoff confirmed; manual verification of source access and any NDA agreement required before written acceptance. Zero end-client contact. Deliver review and final files privately to the agency only. Agency downloads and reuploads client copies to its own folder and checks them from a separate account before sharing. Never forward EG links or share our working folder with the end client. " + (paid.amount === 4900
+        ? "ONE CLIP PROOF: one captioned 9:16 clip up to 60s, 1 to 3 days after acceptance. Human selection without AI first pass; one hook/title and caption. $49 credit toward $199 pack within 14 days."
+        : "First complete batch 1 to 3 days after acceptance. Human selection without AI first pass; five hooks/titles and captions.");
     }
     if (!record.rights_confirmed) throw new Error("Rights confirmation is required.");
 

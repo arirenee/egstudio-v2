@@ -2,7 +2,7 @@
 
 export type Pkg = {
   key: "episode" | "test" | "sprint";
-  name: "Episode-to-Shorts" | "3-Clip Starter" | "Sprint";
+  name: "Episode-to-Shorts" | "One Clip Proof" | "3-Clip Starter" | "Sprint";
   amount: number; // cents
   clips: number;
   dueDays: number; // calendar days from payment date
@@ -11,12 +11,14 @@ export type Pkg = {
 
 export const PACKAGES: Record<string, Pkg> = {
   episode: { key: "episode", name: "Episode-to-Shorts", amount: 19900, clips: 5, dueDays: 3, label: "Agency Episode Pack" },
+  // One Clip Proof reuses the agency "episode" flow (DB package value stays "episode"; no migration needed).
+  proof: { key: "episode", name: "One Clip Proof", amount: 4900, clips: 1, dueDays: 3, label: "One Clip Proof" },
   test: { key: "test", name: "3-Clip Starter", amount: 30000, clips: 3, dueDays: 7, label: "3-Clip Starter" },
   sprint: { key: "sprint", name: "Sprint", amount: 150000, clips: 15, dueDays: 30, label: "15-video Sprint" },
 };
 
 // Payment Links set metadata.offer on new checkout sessions. Legacy paid_test remains accepted.
-const METADATA_TO_KEY: Record<string, string> = { episode_to_shorts: "episode", starter: "test", paid_test: "test", sprint: "sprint" };
+const METADATA_TO_KEY: Record<string, string> = { episode_to_shorts: "episode", one_clip_proof: "proof", starter: "test", paid_test: "test", sprint: "sprint" };
 
 export type PriceConfig = { episode: string[]; test: string[]; sprint: string[] };
 
@@ -112,6 +114,17 @@ export async function verifyStripeSignature(rawBody: string, header: string | nu
 // ---- Welcome email ----
 export function welcomeEmail(opts: { first: string; pkg: Pkg; uploadUrl: string; lockedEmail: string }) {
   const hi = opts.first ? "Hi " + opts.first + "," : "Hi,";
+  if (opts.pkg.key === "episode" && opts.pkg.clips === 1) {
+    const subject = "Payment received: send your recording and brief";
+    const text = hi + "\n\nThanks for ordering the One Clip Proof.\n\n" +
+      "Next step: send your recording and brief here:\n" + opts.uploadUrl + "\n" +
+      "Please use a private Google Drive link shared with ops@egstudio.tech.\n\n" +
+      "We confirm your intake in writing, usually within one business day. Your captioned 9:16 clip arrives 1 to 3 days after that, white label and ready to post.\n\n" +
+      "Want the full episode next? Your $49 is credited toward the $199 Agency Episode Pack if you order within 14 days. Reply and we will send the code.\n\n" +
+      "Questions or an NDA? Just reply to this email.\n\nEG Studio\nops@egstudio.tech\n";
+    const escaped = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+    return { subject, text, html: '<div style="white-space:pre-wrap">' + escaped + "</div>" };
+  }
   if (opts.pkg.key === "episode") {
     const subject = "Payment received: send your recording and brief";
     const text = hi + "\n\nThanks for ordering the Agency Episode Pack.\n\n" +

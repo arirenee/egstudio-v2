@@ -28,6 +28,10 @@ if(isProd){
   if(isInternal)posthog.opt_out_capturing();
 }
 
+/* PLACEHOLDER: One Clip Proof ($49) Stripe Payment Link. NOT LIVE.
+ * Replace with the real buy.stripe.com URL after Edward approves creating the link. */
+var ONE_CLIP_PROOF_URL='https://buy.stripe.com/PLACEHOLDER_ONE_CLIP_PROOF';
+window.EG_TRACKING.oneClipProofUrl=ONE_CLIP_PROOF_URL;
 var UTM_KEYS=['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
 var utm={};
 UTM_KEYS.forEach(function(k){var v=(q.get(k)||'').trim().slice(0,200);if(v)utm[k]=v;});
@@ -57,6 +61,7 @@ function decorate(a){
 }
 window.EG_TRACKING.clientRef=clientRef;
 function setup(){
+  document.querySelectorAll('a[data-offer="one_clip_proof"]').forEach(function(a){a.setAttribute('href',ONE_CLIP_PROOF_URL);});
   var links=document.querySelectorAll('a[href*="buy.stripe.com"]');
   links.forEach(function(a){
     decorate(a);
@@ -66,7 +71,7 @@ function setup(){
     a.addEventListener('click',function(){
       decorate(a);
       if(window.posthog){
-        var props={page_path:window.location.pathname,offer:'episode_to_shorts',placement:a.getAttribute('data-placement')||'unknown',
+        var props={page_path:window.location.pathname,offer:a.getAttribute('data-offer')||'episode_to_shorts',placement:a.getAttribute('data-placement')||'unknown',
           utm_source:utm.utm_source||null,utm_medium:utm.utm_medium||null,utm_campaign:utm.utm_campaign||null};
         var sku=a.getAttribute('data-sku');if(sku)props.sku=sku;
         posthog.capture('checkout_cta_clicked',props);

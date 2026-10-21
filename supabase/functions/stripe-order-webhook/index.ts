@@ -3,6 +3,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const OFFER_MAP: Record<string, { sku: "episode" | "test" | "sprint"; amount: number; label: string; intakeUrl: string }> = {
   episode_to_shorts: { sku: "episode", amount: 19900, label: "Episode-to-Shorts", intakeUrl: "https://egstudio.tech/payment-confirmed.html" },
+  one_clip_proof: { sku: "episode", amount: 4900, label: "One Clip Proof", intakeUrl: "https://egstudio.tech/payment-confirmed.html" },
   starter: { sku: "test", amount: 30000, label: "3-Clip Starter", intakeUrl: "https://egstudio.tech/payment-confirmed.html" },
   paid_test: { sku: "test", amount: 30000, label: "3-Clip Starter", intakeUrl: "https://egstudio.tech/payment-confirmed.html" },
   sprint: { sku: "sprint", amount: 150000, label: "15-video Sprint", intakeUrl: "https://egstudio.tech/thanks.html" },
@@ -172,7 +173,7 @@ Deno.serve(async (req: Request) => {
 
   const configured = OFFER_MAP[session.metadata?.offer];
   if (!configured) return json({ error: "Unknown EG Studio offer." }, 400);
-  if (session.amount_total !== configured.amount || session.currency !== "usd") {
+  if ((session.amount_total ?? 0) + (session.total_details?.amount_discount ?? 0) !== configured.amount || session.currency !== "usd") {
     return json({ error: "Paid amount does not match the offer." }, 400);
   }
 
