@@ -1261,14 +1261,7 @@
     }
 
   </style>
-<script>
-!function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="vu fu pu gu bu init Hu zu qu ju Gu Xl Bu Qu Du eh ih nh sh rh oh capture getExtension Uu cu hh calculateEventProperties uh register register_once register_for_session unregister unregister_for_session gh Nu dh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync mh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset yh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty fh Xu createPersonProfile setInternalOrTestUser ph wu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ju debug Yl Os getPageViewId captureTraceFeedback captureTraceMetric Ru".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-posthog.init('phc_ABQhr5obJDzxwBjYt4qZc6gGWUsBzB5jN8zFG46tjc52', {
-  api_host:'https://us.i.posthog.com',
-  defaults:'2026-05-30',
-  person_profiles:'identified_only'
-});
-</script>
+<script src="/assets/js/eg-tracking.js?v=20261021"></script>
 <!-- Pinterest Tag -->
 <script>
 !function(e){if(!window.pintrk){window.pintrk=function(){window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var n=window.pintrk;n.queue=[],n.version="3.0";var t=document.createElement("script");t.async=!0,t.src=e;var r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
@@ -1610,7 +1603,6 @@ pintrk('page');
       });
     });
   </script>
-<script>window.addEventListener('load',function(){document.querySelectorAll('[data-sku]').forEach(function(el){el.addEventListener('click',function(){if(window.posthog)posthog.capture('checkout_cta_clicked',{sku:el.dataset.sku,placement:el.dataset.placement||'unknown',page_version:'agency_episode_v1'});});});});</script>
 <script id="pinterest-revenue-events">
 window.addEventListener('load',function(){
   if(window.pintrk) pintrk('track','pagevisit');
@@ -1620,31 +1612,6 @@ window.addEventListener('load',function(){
     });
   });
 });
-</script>
-<script id="eg-checkout-attribution">
-(function(){
-  try {
-    var q = new URLSearchParams(window.location.search);
-    var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-    var found = {}, any = false;
-    keys.forEach(function(k){
-      var v = (q.get(k) || '').trim().slice(0, 200);
-      if (v) { found[k] = v; any = true; }
-    });
-    if (!any) return;
-    function clean(s){ return (s || '').replace(/[^A-Za-z0-9_-]+/g, '_').replace(/^_+|_+$/g, ''); }
-    var ref = [found.utm_source, found.utm_campaign, found.utm_content].map(clean).filter(Boolean).join('_');
-    ref = ref.slice(0, 200);
-    document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){
-      try {
-        var u = new URL(a.getAttribute('href'), window.location.href);
-        keys.forEach(function(k){ if (found[k] && !u.searchParams.has(k)) u.searchParams.set(k, found[k]); });
-        if (ref && !u.searchParams.has('client_reference_id')) u.searchParams.set('client_reference_id', ref);
-        a.setAttribute('href', u.toString());
-      } catch (e) {}
-    });
-  } catch (e) {}
-})();
 </script>
 </body>
 </html>
