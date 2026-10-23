@@ -1275,8 +1275,16 @@
     .flow-step.finish{color:var(--accent-green)}
     .flow-arrow{width:1px;height:18px;margin:.28rem 0 .28rem .42rem;background:#52657b;position:relative}
     .flow-arrow::after{content:"";position:absolute;left:-4px;bottom:-1px;border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-top:6px solid #52657b}
-    .pain-lines{list-style:none;margin:1.35rem 0 0;padding:0;display:flex;flex-direction:column;gap:.35rem}
-    .pain-lines li{color:#f5f2eb;font-size:1.02rem;font-weight:700;line-height:1.35}
+    .protect-block h2{margin-bottom:.4rem;max-width:16ch}
+    .protect-sub{margin:0 0 1.2rem;color:#f5f2eb;font-weight:800;font-size:clamp(1.08rem,2.3vw,1.28rem);letter-spacing:-.02em}
+    .protect-split{display:flex;flex-direction:column;align-items:flex-start;margin:0 0 1.15rem}
+    .protect-name{margin:0;font-weight:800;font-size:clamp(1.35rem,3.2vw,1.75rem);letter-spacing:.12em;text-transform:uppercase;line-height:1}
+    .protect-arrow{color:var(--accent-green);font-weight:800;font-size:.95rem;line-height:1;margin:.32rem 0 .32rem .2rem}
+    .protect-stay{margin:.65rem 0 0;color:var(--accent-green);font-weight:800;font-size:.98rem;letter-spacing:-.02em}
+    .protect-line{width:min(168px,70%);height:1px;background:#2a384c;margin:.9rem 0 .8rem}
+    .protect-eg{color:#96a3b5;font-size:clamp(.95rem,2vw,1.15rem);letter-spacing:.14em}
+    .protect-behind{margin:.32rem 0 0;color:#96a3b5;font-size:.8rem;font-weight:600}
+    .protect-support{margin:0;color:#b3bdcb;font-size:.95rem;line-height:1.45;max-width:32ch}
     .pain-close{margin:1.25rem 0 0;color:#f5f2eb;font-weight:800;font-size:clamp(1.05rem,2.2vw,1.25rem);letter-spacing:-.02em;max-width:22ch}
     @media(min-width:860px){
       .pain-grid{grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
@@ -1422,20 +1430,19 @@ pintrk('page');
     <section class="section-container">
       <div class="container">
         <div class="pain-grid">
-          <article class="pain-block">
+          <article class="pain-block protect-block">
             <h2>Protect the client relationship.</h2>
-            <ol class="flow" aria-label="Who the client sees">
-              <li class="flow-step">Your client</li>
-              <li class="flow-arrow" aria-hidden="true"></li>
-              <li class="flow-step">Your agency</li>
-              <li class="flow-arrow" aria-hidden="true"></li>
-              <li class="flow-step finish">EG Studio</li>
-            </ol>
-            <ul class="pain-lines">
-              <li>Client never sees EG.</li>
-              <li>Client never hears from EG.</li>
-              <li>Client never receives files from EG.</li>
-            </ul>
+            <p class="protect-sub">Your client never sees us.</p>
+            <div class="protect-split" aria-label="The client only sees the agency">
+              <p class="protect-name">Client</p>
+              <span class="protect-arrow" aria-hidden="true">↓</span>
+              <p class="protect-name">Agency</p>
+              <p class="protect-stay">Relationship stays here.</p>
+              <div class="protect-line" role="separator"></div>
+              <p class="protect-name protect-eg">EG Studio</p>
+              <p class="protect-behind">Behind the scenes</p>
+            </div>
+            <p class="protect-support">No client contact. No EG branding. Delivery through your workflow.</p>
           </article>
           <article class="pain-block">
             <h2>Eliminate the bottleneck.</h2>
