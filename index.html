@@ -1275,8 +1275,9 @@
     .flow-step.finish{color:var(--accent-green)}
     .flow-arrow{width:1px;height:18px;margin:.28rem 0 .28rem .42rem;background:#52657b;position:relative}
     .flow-arrow::after{content:"";position:absolute;left:-4px;bottom:-1px;border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-top:6px solid #52657b}
-    .flow-payoff{margin:.9rem 0 0;color:var(--accent-green);font-weight:800;font-size:clamp(1.2rem,2.8vw,1.55rem);letter-spacing:-.03em;line-height:1.15}
-    .pain-close.room{max-width:36ch}
+    .outcome-lines{display:flex;flex-direction:column;gap:.95rem}
+    .outcome-lines p{margin:0;font-weight:800;font-size:clamp(1.2rem,2.8vw,1.55rem);letter-spacing:-.03em;line-height:1.2;max-width:22ch}
+    .outcome-lines .finish{color:var(--accent-green)}
     .pain-close{margin:1.25rem 0 0;color:#f5f2eb;font-weight:800;font-size:clamp(1.05rem,2.2vw,1.25rem);letter-spacing:-.02em;max-width:22ch}
     @media(min-width:860px){
       .pain-grid{grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
@@ -1424,15 +1425,11 @@ pintrk('page');
         <div class="pain-grid">
           <article class="pain-block">
             <h2>Protect the client relationship.</h2>
-            <ol class="flow" aria-label="Who the client sees">
-              <li class="flow-step">Client</li>
-              <li class="flow-arrow" aria-hidden="true"></li>
-              <li class="flow-step">Your agency</li>
-              <li class="flow-arrow" aria-hidden="true"></li>
-              <li class="flow-step">Published content</li>
-            </ol>
-            <p class="flow-payoff">Client never sees EG Studio.</p>
-            <p class="pain-close room">You stay the point of contact from first conversation to final delivery.</p>
+            <div class="outcome-lines">
+              <p>Your client only sees your agency.</p>
+              <p>EG Studio stays invisible while the work gets done.</p>
+              <p class="finish">You keep the relationship. We handle the production.</p>
+            </div>
           </article>
           <article class="pain-block">
             <h2>Eliminate the bottleneck.</h2>
