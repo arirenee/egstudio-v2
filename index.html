@@ -1275,15 +1275,8 @@
     .flow-step.finish{color:var(--accent-green)}
     .flow-arrow{width:1px;height:18px;margin:.28rem 0 .28rem .42rem;background:#52657b;position:relative}
     .flow-arrow::after{content:"";position:absolute;left:-4px;bottom:-1px;border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-top:6px solid #52657b}
-    .protect-card{border:1px solid var(--border-color);border-radius:12px;padding:1.35rem 1.2rem 1.2rem;background:#101a29}
-    .protect-block h2{margin-bottom:.85rem;max-width:16ch}
-    .protect-lead{margin:0 0 1rem;color:#f5f2eb;font-weight:800;font-size:clamp(1.35rem,3.4vw,1.85rem);letter-spacing:-.03em;line-height:1.15}
-    .protect-body{margin:0 0 1.15rem;color:#b3bdcb;font-size:.98rem;line-height:1.5}
-    .protect-points{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.55rem}
-    .protect-points li{color:#f5f2eb;font-weight:700;font-size:.98rem;line-height:1.35}
-    .protect-points li::before{content:"✓ ";color:var(--accent-green)}
-    .protect-nda{margin:1.05rem 0 0;color:#96a3b5;font-size:.82rem;line-height:1.45}
-    .protect-nda a{color:#f5f2eb}
+    .flow-payoff{margin:.9rem 0 0;color:var(--accent-green);font-weight:800;font-size:clamp(1.2rem,2.8vw,1.55rem);letter-spacing:-.03em;line-height:1.15}
+    .pain-close.room{max-width:36ch}
     .pain-close{margin:1.25rem 0 0;color:#f5f2eb;font-weight:800;font-size:clamp(1.05rem,2.2vw,1.25rem);letter-spacing:-.02em;max-width:22ch}
     @media(min-width:860px){
       .pain-grid{grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
@@ -1429,19 +1422,17 @@ pintrk('page');
     <section class="section-container">
       <div class="container">
         <div class="pain-grid">
-          <article class="pain-block protect-block">
+          <article class="pain-block">
             <h2>Protect the client relationship.</h2>
-            <div class="protect-card">
-              <p class="protect-lead">Your client never sees EG Studio.</p>
-              <p class="protect-body">We work entirely behind the scenes so you can increase content output without exposing your production process.</p>
-              <ul class="protect-points">
-                <li>No client contact</li>
-                <li>No EG Studio branding</li>
-                <li>Delivery through your agency's workflow</li>
-                <li>Your client relationship stays yours</li>
-              </ul>
-              <p class="protect-nda">Need additional protection? <a href="mailto:ops@egstudio.tech?subject=NDA%20Review%20Request&body=Agency%20Name%3A%0AContact%20Name%3A%0A%0APlease%20send%20NDA%20review%20information.">NDA review is available before work begins.</a></p>
-            </div>
+            <ol class="flow" aria-label="Who the client sees">
+              <li class="flow-step">Client</li>
+              <li class="flow-arrow" aria-hidden="true"></li>
+              <li class="flow-step">Your agency</li>
+              <li class="flow-arrow" aria-hidden="true"></li>
+              <li class="flow-step">Published content</li>
+            </ol>
+            <p class="flow-payoff">Client never sees EG Studio.</p>
+            <p class="pain-close room">You stay the point of contact from first conversation to final delivery.</p>
           </article>
           <article class="pain-block">
             <h2>Eliminate the bottleneck.</h2>
