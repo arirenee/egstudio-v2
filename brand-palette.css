@@ -1,25 +1,138 @@
-/* Shared EG Studio palette. Color-only rules preserve page layouts and behavior. */
-:root{--eg-bg:#080f1c;--eg-text:#f5f2eb;--eg-lime:#c6f542;--eg-lime-hover:#d7ff72}
-html,body{background-color:var(--eg-bg);color:var(--eg-text)}
-body a:any-link{color:var(--eg-lime)}
-body a:any-link:hover{color:var(--eg-lime-hover)}
-body a:any-link:is(.btn-primary,.btn-primary-nav,.site-header-work,.image2-work-btn,.image3-btn-primary,.compact-offer-work,.cta,.back),
-form button:is(.btn,button),.wrap>button {
- background-color:var(--eg-lime);border-color:var(--eg-lime);color:var(--eg-bg)
-}
-body a:any-link:is(.btn-primary,.btn-primary-nav,.site-header-work,.image2-work-btn,.image3-btn-primary,.compact-offer-work,.cta,.back):hover,
-form button:is(.btn,button):hover:not(:disabled),.wrap>button:hover:not(:disabled) {
- background-color:var(--eg-lime-hover);border-color:var(--eg-lime-hover);color:var(--eg-bg)
-}
-body a:any-link:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--eg-lime);outline-offset:3px}
-input[type="checkbox"],input[type="radio"]{accent-color:var(--eg-lime)}
-.pricing-badge-top{background-color:var(--eg-lime);border-color:var(--eg-lime);color:var(--eg-bg)}
-.pricing-card-main,.sku.primary{border-color:var(--eg-lime)}
-.pricing-amount-hero,.price{color:var(--eg-lime)}
-.btn-primary:hover{box-shadow:0 4px 20px rgba(198,245,66,.18)}
+/* EG Studio brand palette – centralized design tokens
+   Palette refresh only. Light mode primary with dark mode support via prefers-color-scheme.
+*/
 
-/* Approved wordmark option 1: lime EG, warm white STUDIO. */
-body :is(.image2-brand,.brand,.logo,.footer-brand){color:var(--eg-lime)}
-body a:any-link:is(.image2-brand,.brand,.logo,.footer-brand),
-body a:any-link:is(.image2-brand,.brand,.logo,.footer-brand):hover{color:var(--eg-lime)}
-body :is(.image2-brand,.brand,.logo,.footer-brand)>span{color:var(--eg-text)}
+:root {
+  /* Light mode (default) */
+  --eg-primary: #1B3A5C;          /* Deep Institutional Navy – primary CTAs */
+  --eg-secondary: #4A7FB5;        /* Steel Blue – links, accents, highlights */
+  --eg-bg: #F4F6F8;               /* Background */
+  --eg-surface: #FFFFFF;          /* Surface / cards */
+  --eg-text: #1F2937;             /* Primary text */
+  --eg-muted: #6B7280;            /* Muted text */
+  --eg-border: #D8DEE5;           /* Borders */
+  --eg-focus: #4A7FB5;            /* Focus rings */
+  --eg-primary-text: #FFFFFF;     /* Text on primary buttons */
+  --eg-hover-primary: #152E4A;    /* Slightly darker navy for hover */
+  --eg-accent-bg: rgba(74, 127, 181, 0.08);
+  --eg-accent-border: rgba(74, 127, 181, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --eg-bg: #0F1724;
+    --eg-surface: #172133;
+    --eg-text: #E9EEF4;
+    --eg-muted: #9CA3AF;
+    --eg-border: #2D3748;
+    --eg-primary: #4A7FB5;        /* Steel blue reads better as primary on dark */
+    --eg-hover-primary: #5A8FC5;
+    --eg-primary-text: #0F1724;
+    --eg-accent-bg: rgba(74, 127, 181, 0.15);
+    --eg-accent-border: rgba(74, 127, 181, 0.4);
+  }
+}
+
+/* Base application of tokens */
+html, body {
+  background-color: var(--eg-bg);
+  color: var(--eg-text);
+}
+
+/* Links */
+body a:any-link {
+  color: var(--eg-secondary);
+}
+body a:any-link:hover {
+  color: var(--eg-primary);
+}
+
+/* Primary CTAs – strong visual emphasis */
+body a:any-link:is(.btn-primary, .btn-primary-nav, .site-header-work, .image2-work-btn, .image3-btn-primary, .compact-offer-work, .cta, .back),
+form button:is(.btn, button),
+.wrap > button,
+.compact-offer-work {
+  background-color: var(--eg-primary);
+  border-color: var(--eg-primary);
+  color: var(--eg-primary-text);
+}
+
+body a:any-link:is(.btn-primary, .btn-primary-nav, .site-header-work, .image2-work-btn, .image3-btn-primary, .compact-offer-work, .cta, .back):hover,
+form button:is(.btn, button):hover:not(:disabled),
+.wrap > button:hover:not(:disabled) {
+  background-color: var(--eg-hover-primary);
+  border-color: var(--eg-hover-primary);
+  color: var(--eg-primary-text);
+}
+
+/* Focus states – visible */
+body a:any-link:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--eg-focus);
+  outline-offset: 3px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--eg-secondary);
+}
+
+/* Pricing / highlights */
+.pricing-badge-top,
+.pricing-amount-hero,
+.price,
+.badge-eg,
+.text-green,
+.calc-metric-value.highlight {
+  color: var(--eg-secondary);
+}
+
+.pricing-card-main,
+.sku.primary {
+  border-color: var(--eg-secondary);
+}
+
+/* Logo lockup – EG dominant, STUDIO beneath with improved spacing */
+body :is(.image2-brand, .brand, .logo, .footer-brand, .brand-logo, .site-header-brand) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 0.85;
+  gap: 0.08rem;
+  color: var(--eg-primary);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+body :is(.image2-brand, .brand, .logo, .footer-brand, .brand-logo, .site-header-brand) > span {
+  color: var(--eg-muted);
+  font-size: 0.55em;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Surfaces and borders that may still use legacy vars */
+.bg-surface,
+.calc-container,
+.archetype-card,
+.faq-item {
+  background-color: var(--eg-surface);
+  border-color: var(--eg-border);
+}
+
+/* Ensure primary text hierarchy in dark/light */
+h1, h2, h3, h4 {
+  color: var(--eg-text);
+}
+
+.text-muted,
+.section-subtitle,
+.hero-subtitle,
+.image2-eyebrow,
+.compact-offer-intro {
+  color: var(--eg-muted);
+}
