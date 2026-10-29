@@ -370,3 +370,47 @@ h1, h2, h3, h4 {
     color: #8BB8EA !important;
   }
 }
+
+
+/* Mobile video showcase — horizontal scroll-snap carousel */
+@media (max-width: 719px) {
+  .image3-samples {
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.75rem;
+    padding: 0.25rem 1.25rem 0.5rem 0;
+    margin-left: -0.25rem;
+    scrollbar-width: none;
+  }
+  .image3-samples::-webkit-scrollbar {
+    display: none;
+  }
+  .image3-sample {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-width: 0;
+    border-radius: 6px;
+  }
+  .image3-sample video {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: contain;
+  }
+  .image3-info {
+    padding: 0.75rem 0.85rem 0.9rem !important;
+  }
+  .image3-meta {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.08em !important;
+  }
+  .image3-sample h3 {
+    font-size: 0.95rem !important;
+    line-height: 1.25 !important;
+  }
+}
