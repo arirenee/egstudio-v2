@@ -118,22 +118,22 @@ input[type="radio"] {
 body .image2-brand {
   display: inline-flex;
   flex-direction: row;
-  align-items: baseline;
-  gap: 0.38em;
+  align-items: center;
+  gap: 0.22em;
   line-height: 1;
   color: var(--eg-primary) !important;
   text-decoration: none;
   font-weight: 900;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   font-size: 0.92rem;
   white-space: nowrap;
 }
 
 body .image2-brand > span {
   color: var(--eg-muted) !important;
-  font-size: 0.68em;
-  letter-spacing: 0.16em;
-  font-weight: 700;
+  font-size: 1em;
+  letter-spacing: 0.06em;
+  font-weight: 800;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -360,6 +360,22 @@ h1, h2, h3, h4 {
   .section-container,
   hr {
     border-color: #2D3E56 !important;
+  }
+
+  /* Pricing card — force light text on dark surface */
+  .outcome-lead,
+  .outcome-list li,
+  .fine-print,
+  .pricing-checklist li,
+  .pricing-amount-hero,
+  .pricing-amount-hero span,
+  .pricing-card-main p,
+  .pricing-card-main li {
+    color: #F8FAFC !important;
+  }
+  .fine-print,
+  .pricing-amount-hero span {
+    color: #E8EEF5 !important;
   }
 
   /* Force readable text on hard-coded dark children */
