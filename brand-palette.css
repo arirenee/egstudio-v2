@@ -454,3 +454,29 @@ h1, h2, h3, h4 {
     line-height: 1.25 !important;
   }
 }
+
+/* Readability fixes — light sections keep dark text; video labels darker */
+@media (prefers-color-scheme: dark) {
+  .terminal-cta-section,
+  .terminal-cta-section .terminal-title,
+  .terminal-cta-section .chain li,
+  .wl-simple,
+  .wl-simple .section-title,
+  .wl-simple .wl-sub,
+  .wl-simple .wl-quiet,
+  .wl-simple .wl-chips li {
+    color: #1F2937 !important;
+  }
+  .wl-simple .wl-quiet {
+    color: #4B5563 !important;
+  }
+  .image3-info {
+    background: #FFFFFF !important;
+  }
+  .image3-meta {
+    color: #4B5563 !important;
+  }
+  .image3-sample h3 {
+    color: #1F2937 !important;
+  }
+}
