@@ -125,8 +125,9 @@ body .image2-brand {
   text-decoration: none;
   font-weight: 900;
   letter-spacing: 0.02em;
-  font-size: 0.92rem;
+  font-size: 1.08rem;
   white-space: nowrap;
+  margin-top: 0.35rem;
 }
 
 body .image2-brand > span {
@@ -501,5 +502,40 @@ h1, h2, h3, h4 {
   }
   .wl-section .wl-quiet {
     color: #E8EEF5 !important;
+  }
+}
+
+/* Spacing, logo position, pill contrast */
+.image2-wrap {
+  width: min(88%, 760px) !important;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.section-container .container {
+  width: min(88%, 1180px) !important;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.compact-offer-block,
+.compact-offer-intro,
+.compact-offer-rows {
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
+}
+.compact-offer-row {
+  padding-left: 0.15rem;
+  padding-right: 0.15rem;
+}
+.wl-chips li {
+  color: #1F2937 !important;
+  background: #FFFFFF !important;
+}
+@media (prefers-color-scheme: dark) {
+  .wl-chips li {
+    color: #1F2937 !important;
+    background: #FFFFFF !important;
+  }
+  .wl-chips li::before {
+    color: #1B3A5C !important;
   }
 }
