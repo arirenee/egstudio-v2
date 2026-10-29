@@ -1,71 +1,82 @@
-/* EG Studio brand palette – centralized design tokens
-   Palette refresh only. Light mode primary with dark mode support via prefers-color-scheme.
+/* EG Studio approved design system — centralized tokens only.
+   Light mode default. Dark mode via prefers-color-scheme.
+   Approved values only. No lime, green, yellow, or purple.
 */
 
 :root {
-  /* Light mode (default) */
-  --eg-primary: #1B3A5C;          /* Deep Institutional Navy – primary CTAs */
-  --eg-secondary: #4A7FB5;        /* Steel Blue – links, accents, highlights */
-  --eg-bg: #F4F6F8;               /* Background */
-  --eg-surface: #FFFFFF;          /* Surface / cards */
+  /* Light mode */
+  --eg-primary: #1B3A5C;          /* Primary / CTA */
+  --eg-secondary: #4A7FB5;        /* Secondary */
+  --eg-accent: #6EA8E5;           /* Accent — icons, links, highlights */
+  --eg-bg: #F4F6F8;               /* Light background */
+  --eg-surface: #FFFFFF;          /* Light surface */
   --eg-text: #1F2937;             /* Primary text */
   --eg-muted: #6B7280;            /* Muted text */
   --eg-border: #D8DEE5;           /* Borders */
-  --eg-focus: #4A7FB5;            /* Focus rings */
+  --eg-focus: #6EA8E5;            /* Focus rings */
   --eg-primary-text: #FFFFFF;     /* Text on primary buttons */
-  --eg-hover-primary: #152E4A;    /* Slightly darker navy for hover */
-  --eg-accent-bg: rgba(74, 127, 181, 0.08);
-  --eg-accent-border: rgba(74, 127, 181, 0.25);
+  --eg-hover-primary: #152E4A;    /* Hover for primary CTA */
+  --eg-accent-bg: rgba(110, 168, 229, 0.10);
+  --eg-accent-border: rgba(110, 168, 229, 0.28);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --eg-bg: #0F1724;
-    --eg-surface: #172133;
-    --eg-text: #E9EEF4;
+    --eg-bg: #142238;             /* Dark background */
+    --eg-surface: #1C2E48;        /* Dark surface / elevated cards */
+    --eg-text: #E9EEF4;           /* Dark text */
     --eg-muted: #9CA3AF;
-    --eg-border: #2D3748;
-    --eg-primary: #4A7FB5;        /* Steel blue reads better as primary on dark */
-    --eg-hover-primary: #5A8FC5;
-    --eg-primary-text: #0F1724;
-    --eg-accent-bg: rgba(74, 127, 181, 0.15);
-    --eg-accent-border: rgba(74, 127, 181, 0.4);
+    --eg-border: #2D3E56;
+    --eg-primary: #1B3A5C;        /* CTA stays institutional navy */
+    --eg-hover-primary: #243F63;
+    --eg-primary-text: #FFFFFF;
+    --eg-accent: #6EA8E5;
+    --eg-accent-bg: rgba(110, 168, 229, 0.16);
+    --eg-accent-border: rgba(110, 168, 229, 0.40);
   }
 }
 
-/* Base application of tokens */
+/* Base */
 html, body {
-  background-color: var(--eg-bg);
-  color: var(--eg-text);
+  background-color: var(--eg-bg) !important;
+  color: var(--eg-text) !important;
 }
 
-/* Links */
+/* Links and accents */
 body a:any-link {
-  color: var(--eg-secondary);
+  color: var(--eg-accent);
 }
 body a:any-link:hover {
-  color: var(--eg-primary);
+  color: var(--eg-secondary);
 }
 
-/* Primary CTAs – strong visual emphasis */
-body a:any-link:is(.btn-primary, .btn-primary-nav, .site-header-work, .image2-work-btn, .image3-btn-primary, .compact-offer-work, .cta, .back),
+/* Primary CTAs — institutional navy */
+body a:any-link:is(
+  .btn-primary, .btn-primary-nav, .site-header-work,
+  .image2-work-btn, .image3-btn-primary, .compact-offer-work,
+  .cta, .back
+),
 form button:is(.btn, button),
 .wrap > button,
 .compact-offer-work {
-  background-color: var(--eg-primary);
-  border-color: var(--eg-primary);
-  color: var(--eg-primary-text);
+  background-color: var(--eg-primary) !important;
+  border-color: var(--eg-primary) !important;
+  color: var(--eg-primary-text) !important;
 }
 
-body a:any-link:is(.btn-primary, .btn-primary-nav, .site-header-work, .image2-work-btn, .image3-btn-primary, .compact-offer-work, .cta, .back):hover,
+body a:any-link:is(
+  .btn-primary, .btn-primary-nav, .site-header-work,
+  .image2-work-btn, .image3-btn-primary, .compact-offer-work,
+  .cta, .back
+):hover,
 form button:is(.btn, button):hover:not(:disabled),
 .wrap > button:hover:not(:disabled) {
-  background-color: var(--eg-hover-primary);
-  border-color: var(--eg-hover-primary);
-  color: var(--eg-primary-text);
+  background-color: var(--eg-hover-primary) !important;
+  border-color: var(--eg-hover-primary) !important;
+  color: var(--eg-primary-text) !important;
 }
 
-/* Focus states – visible */
+/* Focus */
 body a:any-link:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -77,62 +88,69 @@ select:focus-visible {
 
 input[type="checkbox"],
 input[type="radio"] {
-  accent-color: var(--eg-secondary);
+  accent-color: var(--eg-accent);
 }
 
-/* Pricing / highlights */
+/* Highlights, badges, prices — accent only */
 .pricing-badge-top,
 .pricing-amount-hero,
 .price,
 .badge-eg,
 .text-green,
-.calc-metric-value.highlight {
-  color: var(--eg-secondary);
+.calc-metric-value.highlight,
+.hero-proof-bar .dot,
+.flow-step.finish,
+.outcome-lines .finish,
+.ba-after h3,
+.ba-after .ba-end {
+  color: var(--eg-accent) !important;
 }
 
 .pricing-card-main,
 .sku.primary {
-  border-color: var(--eg-secondary);
+  border-color: var(--eg-accent) !important;
 }
 
-/* Logo lockup – EG dominant, STUDIO beneath with improved spacing */
+/* Logo lockup — EG dominant, STUDIO beneath */
 body :is(.image2-brand, .brand, .logo, .footer-brand, .brand-logo, .site-header-brand) {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   line-height: 0.85;
   gap: 0.08rem;
-  color: var(--eg-primary);
+  color: var(--eg-primary) !important;
   text-decoration: none;
   letter-spacing: 0.05em;
 }
 
 body :is(.image2-brand, .brand, .logo, .footer-brand, .brand-logo, .site-header-brand) > span {
-  color: var(--eg-muted);
+  color: var(--eg-muted) !important;
   font-size: 0.55em;
   letter-spacing: 0.18em;
   font-weight: 700;
   line-height: 1;
 }
 
-/* Surfaces and borders that may still use legacy vars */
+/* Surfaces */
 .bg-surface,
 .calc-container,
 .archetype-card,
-.faq-item {
-  background-color: var(--eg-surface);
-  border-color: var(--eg-border);
+.faq-item,
+.card,
+.assurance {
+  background-color: var(--eg-surface) !important;
+  border-color: var(--eg-border) !important;
 }
 
-/* Ensure primary text hierarchy in dark/light */
 h1, h2, h3, h4 {
-  color: var(--eg-text);
+  color: var(--eg-text) !important;
 }
 
 .text-muted,
 .section-subtitle,
 .hero-subtitle,
 .image2-eyebrow,
-.compact-offer-intro {
-  color: var(--eg-muted);
+.compact-offer-intro,
+.kicker {
+  color: var(--eg-muted) !important;
 }
