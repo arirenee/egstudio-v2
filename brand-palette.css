@@ -362,6 +362,30 @@ h1, h2, h3, h4 {
     border-color: #2D3E56 !important;
   }
 
+  /* Force readable text on hard-coded dark children */
+  .compact-offer-row > span,
+  .compact-offer-row > strong,
+  .compact-offer-intro,
+  .image2-eyebrow,
+  .outcome-lines p,
+  .pain-close,
+  .ba-path li,
+  .flow-step,
+  .image3-info,
+  .image3-sample h3,
+  .image3-meta,
+  .image3-disc,
+  .image3-intro {
+    color: #F8FAFC !important;
+  }
+  .compact-offer-row > span,
+  .image2-eyebrow,
+  .image3-meta,
+  .image3-intro,
+  .text-muted {
+    color: #E8EEF5 !important;
+  }
+
   /* Links and accents */
   a:any-link {
     color: #6EA8E5 !important;
