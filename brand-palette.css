@@ -23,16 +23,18 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --eg-bg: #142238;             /* Dark background */
-    --eg-surface: #1C2E48;        /* Dark surface / elevated cards */
-    --eg-text: #E9EEF4;           /* Dark text */
-    --eg-muted: #9CA3AF;
-    --eg-border: #2D3E56;
-    --eg-primary: #1B3A5C;        /* CTA stays institutional navy */
+    --eg-surface: #1C2E48;        /* Elevated cards */
+    --eg-text: #F8FAFC;           /* Primary text */
+    --eg-muted: #D5DCE6;          /* Secondary text */
+    --eg-border: #2D3E56;         /* Dividers */
+    --eg-primary: #1B3A5C;        /* Primary CTA */
     --eg-hover-primary: #243F63;
-    --eg-primary-text: #FFFFFF;
-    --eg-accent: #6EA8E5;
-    --eg-accent-bg: rgba(110, 168, 229, 0.16);
-    --eg-accent-border: rgba(110, 168, 229, 0.40);
+    --eg-primary-text: #F8FAFC;
+    --eg-accent: #6EA8E5;         /* Accent icons / links */
+    --eg-accent-bg: rgba(110, 168, 229, 0.14);
+    --eg-accent-border: rgba(110, 168, 229, 0.38);
+    --eg-elevated: #1C2E48;
+    --eg-elevated-hover: #243F63;
   }
 }
 
@@ -200,4 +202,171 @@ h1, h2, h3, h4 {
 .compact-offer-intro,
 .kicker {
   color: var(--eg-muted) !important;
+}
+
+
+/* Intentional dark mode — hierarchy, separation, readability */
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background-color: #142238 !important;
+    color: #F8FAFC !important;
+  }
+
+  /* Navigation */
+  .image2-header,
+  .nav-container,
+  header {
+    background: rgba(20, 34, 56, 0.94) !important;
+    border-bottom-color: #2D3E56 !important;
+    color: #F8FAFC !important;
+  }
+
+  .image2-brand,
+  .brand-logo {
+    color: #F8FAFC !important;
+  }
+  .image2-brand > span,
+  .brand-logo span {
+    color: #D5DCE6 !important;
+  }
+
+  /* Hero */
+  .image2-hero,
+  .hero-section {
+    background: #142238 !important;
+    color: #F8FAFC !important;
+  }
+  .image2-title,
+  h1, h2, h3, h4 {
+    color: #F8FAFC !important;
+  }
+  .image2-eyebrow,
+  .hero-subtitle,
+  .section-subtitle,
+  .compact-offer-intro,
+  .text-muted,
+  .kicker {
+    color: #D5DCE6 !important;
+  }
+
+  /* Elevated cards and surfaces */
+  .compact-offer-block,
+  .compact-offer-row,
+  .pricing-card-main,
+  .faq-item,
+  .archetype-card,
+  .calc-container,
+  .bg-surface,
+  .card,
+  .assurance,
+  .arbitrage-table-container {
+    background-color: #1C2E48 !important;
+    border-color: #2D3E56 !important;
+    color: #F8FAFC !important;
+  }
+
+  /* Comparison / tables */
+  .arbitrage-table th,
+  .arbitrage-table td {
+    border-color: #2D3E56 !important;
+    color: #F8FAFC !important;
+  }
+  .arbitrage-table th {
+    background: rgba(0, 0, 0, 0.22) !important;
+    color: #D5DCE6 !important;
+  }
+  .arbitrage-table tr.highlight-row {
+    background: rgba(110, 168, 229, 0.08) !important;
+  }
+
+  /* Video section */
+  .image3-work,
+  .archetype-video-viewport {
+    background: #142238 !important;
+  }
+  .archetype-info {
+    background: #1C2E48 !important;
+    border-top-color: #2D3E56 !important;
+  }
+
+  /* Pricing */
+  .pricing-wrap,
+  .pricing-card-main {
+    background: #1C2E48 !important;
+    border-color: #6EA8E5 !important;
+  }
+  .pricing-amount-hero,
+  .pricing-badge-top,
+  .price,
+  .badge-eg {
+    color: #6EA8E5 !important;
+  }
+
+  /* FAQ */
+  .faq-item {
+    background: #1C2E48 !important;
+    border-color: #2D3E56 !important;
+  }
+  .faq-item summary,
+  .faq-item button {
+    color: #F8FAFC !important;
+  }
+
+  /* Forms */
+  input, textarea, select,
+  .input-field {
+    background: #142238 !important;
+    color: #F8FAFC !important;
+    border-color: #2D3E56 !important;
+  }
+  input:focus, textarea:focus, select:focus,
+  .input-field:focus {
+    border-color: #6EA8E5 !important;
+    outline-color: #6EA8E5 !important;
+  }
+  label {
+    color: #D5DCE6 !important;
+  }
+
+  /* Footer */
+  footer,
+  .site-footer-current,
+  .footer {
+    background: #142238 !important;
+    color: #D5DCE6 !important;
+    border-top-color: #2D3E56 !important;
+  }
+  footer a,
+  .site-footer-current a,
+  .footer-links a {
+    color: #6EA8E5 !important;
+  }
+
+  /* Primary CTA — distinct from navy background */
+  body a:any-link:is(
+    .btn-primary, .btn-primary-nav, .site-header-work,
+    .image2-work-btn, .image3-btn-primary, .compact-offer-work,
+    .cta, .back
+  ),
+  form button:is(.btn, button),
+  .compact-offer-work {
+    background-color: #1B3A5C !important;
+    border: 1px solid #6EA8E5 !important;
+    color: #F8FAFC !important;
+    box-shadow: 0 0 0 1px rgba(110, 168, 229, 0.25);
+  }
+
+  /* Dividers and borders */
+  .section-container,
+  hr {
+    border-color: #2D3E56 !important;
+  }
+
+  /* Links and accents */
+  a:any-link {
+    color: #6EA8E5 !important;
+  }
+  a:any-link:hover {
+    color: #8BB8EA !important;
+  }
 }
