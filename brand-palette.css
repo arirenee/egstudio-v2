@@ -539,3 +539,39 @@ h1, h2, h3, h4 {
     color: #1B3A5C !important;
   }
 }
+
+/* Premium offer box under the hero */
+.compact-offer-block {
+  margin-top: 1.25rem !important;
+  padding: 1.1rem 1rem 0.85rem !important;
+  background: #1C2E48 !important;
+  border: 1px solid #2D3E56 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+.compact-offer-intro {
+  padding: 0 !important;
+  margin-bottom: 0.15rem !important;
+}
+.compact-offer-work {
+  margin-top: 0.95rem !important;
+  border-radius: 8px !important;
+}
+.compact-offer-rows {
+  margin-top: 0.85rem !important;
+  border-top: 1px solid #2D3E56 !important;
+}
+.compact-offer-row {
+  padding-left: 0.1rem !important;
+  padding-right: 0.1rem !important;
+}
+@media (prefers-color-scheme: light) {
+  .compact-offer-block {
+    background: #FFFFFF !important;
+    border-color: #D8DEE5 !important;
+    box-shadow: 0 6px 22px rgba(20, 34, 56, 0.06);
+  }
+  .compact-offer-rows {
+    border-top-color: #D8DEE5 !important;
+  }
+}
