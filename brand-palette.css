@@ -480,3 +480,26 @@ h1, h2, h3, h4 {
     color: #1F2937 !important;
   }
 }
+
+/* Unify the two light sections */
+.wl-section,
+.terminal-cta-section {
+  background: #F4F6F8 !important;
+}
+@media (prefers-color-scheme: dark) {
+  .wl-section,
+  .terminal-cta-section {
+    background: #142238 !important;
+  }
+  .wl-section .section-title,
+  .wl-section .wl-sub,
+  .wl-section .wl-quiet,
+  .wl-section .wl-chips li,
+  .terminal-cta-section .terminal-title,
+  .terminal-cta-section .chain li {
+    color: #F8FAFC !important;
+  }
+  .wl-section .wl-quiet {
+    color: #E8EEF5 !important;
+  }
+}
