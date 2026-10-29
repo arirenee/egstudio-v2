@@ -495,7 +495,6 @@ h1, h2, h3, h4 {
   .wl-section .section-title,
   .wl-section .wl-sub,
   .wl-section .wl-quiet,
-  .wl-section .wl-chips li,
   .terminal-cta-section .terminal-title,
   .terminal-cta-section .chain li {
     color: #F8FAFC !important;
@@ -526,6 +525,7 @@ h1, h2, h3, h4 {
   padding-left: 0.15rem;
   padding-right: 0.15rem;
 }
+.wl-section .wl-chips li,
 .wl-chips li {
   color: #1F2937 !important;
   background: #FFFFFF !important;
