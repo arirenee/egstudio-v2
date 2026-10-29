@@ -111,24 +111,71 @@ input[type="radio"] {
   border-color: var(--eg-accent) !important;
 }
 
-/* Logo lockup — EG dominant, STUDIO beneath */
-body :is(.image2-brand, .brand, .logo, .footer-brand, .brand-logo, .site-header-brand) {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 0.85;
-  gap: 0.08rem;
+/* Header logo lockup — horizontal: EG STUDIO
+   EG dominant, STUDIO secondary. No stacking. */
+body .image2-brand {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.38em;
+  line-height: 1;
   color: var(--eg-primary) !important;
   text-decoration: none;
-  letter-spacing: 0.05em;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  font-size: 0.92rem;
+  white-space: nowrap;
 }
 
-body :is(.image2-brand, .brand, .logo, .footer-brand, .brand-logo, .site-header-brand) > span {
+body .image2-brand > span {
   color: var(--eg-muted) !important;
-  font-size: 0.55em;
-  letter-spacing: 0.18em;
+  font-size: 0.68em;
+  letter-spacing: 0.16em;
   font-weight: 700;
   line-height: 1;
+  text-transform: uppercase;
+}
+
+/* Header bar — vertical centering and balance */
+body .image2-header {
+  display: flex;
+  align-items: center;
+}
+
+body .image2-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 3.25rem;
+  padding-top: 0.55rem;
+  padding-bottom: 0.55rem;
+}
+
+body .image2-nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Slightly larger logo presence on mobile */
+@media (max-width: 640px) {
+  body .image2-brand {
+    font-size: 1rem;
+  }
+  body .image2-nav {
+    min-height: 3.4rem;
+  }
+}
+
+/* Desktop refinement */
+@media (min-width: 860px) {
+  body .image2-brand {
+    font-size: 0.98rem;
+    gap: 0.42em;
+  }
+  body .image2-nav {
+    min-height: 3.5rem;
+  }
 }
 
 /* Surfaces */
