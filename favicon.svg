@@ -1,8 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#0F1419"/>
-  <g fill="#C6E84A">
-    <!-- Simplified EG path - for production better to use proper outlines -->
-    <text x="32" y="40" font-family="Arial Black, sans-serif" font-weight="900" font-size="26" text-anchor="middle">EG</text>
-  </g>
-  <text x="32" y="54" font-family="Arial, sans-serif" font-weight="700" font-size="7" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">STUDIO</text>
+  <rect width="64" height="64" rx="12" fill="#142238"/>
+  <text x="32" y="38" font-family="Arial Black, sans-serif" font-weight="900" font-size="26" fill="#6EA8E5" text-anchor="middle">EG</text>
+  <text x="32" y="52" font-family="Arial, sans-serif" font-weight="700" font-size="7" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.8">STUDIO</text>
 </svg>
