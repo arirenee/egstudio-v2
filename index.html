@@ -94,7 +94,7 @@
   <meta name="apple-mobile-web-app-title" content="EG Studio">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -1380,7 +1380,7 @@ pintrk('page');
 </script>
 <noscript><img height="1" width="1" style="display:none;" alt="" src="https://ct.pinterest.com/v3/?event=init&tid=2614116778572&noscript=1"></noscript>
 <!-- end Pinterest Tag -->
-<link rel="stylesheet" href="/brand-palette.css?v=20261029-box"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
+<link rel="stylesheet" href="/brand-palette.css?v=20261029-box"><link rel="stylesheet" href="/assets/css/redesign.css?v=20261031"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
 <link rel="icon" href="/favicon.svg?v=20261029-spaced" type="image/svg+xml">
 <link rel="icon" href="/favicon-48x48.png?v=20261029-spaced" sizes="48x48" type="image/png">
 <link rel="icon" href="/favicon-32x32.png?v=20261029-spaced" sizes="32x32" type="image/png">
@@ -1403,164 +1403,184 @@ pintrk('page');
 <meta name="twitter:image" content="https://egstudio.tech/assets/brand/share-preview.png?v=20261029-spaced">
 <meta name="twitter:image:alt" content="EG Studio. Your client stays yours. Your content backlog disappears.">
 </head>
-<body id="top">
+<body id="top" class="rd">
 
+  <a class="rd-skip" href="#main">Skip to content</a>
   <!-- 1. GLOBAL NAVIGATION BAR -->
-  <header class="image2-header">
-    <div class="image2-wrap image2-nav">
-      <a class="image2-brand" href="#top">EG<span>STUDIO</span></a>
-      <div class="image2-nav-actions">
-        <a class="image2-work-btn" href="#work">See the work ↓</a>
-      </div>
+  <header class="image2-header rd-header">
+    <div class="rd-container rd-nav">
+      <a class="image2-brand rd-brand" href="#top">EG<span>STUDIO</span></a>
+      <nav class="rd-nav-actions" aria-label="Primary">
+        <a class="rd-link" href="#work">See the work ↓</a>
+        <a class="btn btn-primary rd-btn rd-btn-sm rd-nav-cta" data-sku="episode" data-placement="header_primary" href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f">Get 5 Finished Clips — $199</a>
+      </nav>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <!-- 1. HERO -->
-    <section class="image2-hero">
-      <div class="image2-wrap">
-        <p class="image2-eyebrow">White label operating model</p>
-        <h1 class="image2-title">Your client stays yours.<br>Your content backlog disappears.</h1>
-        <p class="hero-subtitle" style="max-width:720px;margin:0 auto 1.5rem;">Turn one client recording into five finished, white-label clips—without reviewing footage, selecting timestamps, or adding another editor to your team.</p>
-        <p style="font-size:0.95rem;font-weight:600;color:var(--text-gray);margin-bottom:1.5rem;">5 finished 9:16 clips · $199<br>One recording up to 60 minutes · 1–3 business days</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" data-sku="episode" data-placement="hero_primary" href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f">Get 5 Finished Clips — $199</a>
+    <section class="rd-hero">
+      <div class="rd-container rd-hero-grid">
+        <div class="rd-hero-copy">
+          <p class="rd-eyebrow">White label operating model</p>
+          <h1 class="rd-display">Your client stays yours.<br>Your content backlog disappears.</h1>
+          <p class="rd-lead">Turn one client recording into five finished, white-label clips—without reviewing footage, selecting timestamps, or adding another editor to your team.</p>
+          <p class="rd-facts">5 finished 9:16 clips · $199<br>One recording up to 60 minutes · 1–3 business days</p>
+          <div class="rd-actions">
+            <a class="btn btn-primary rd-btn" data-sku="episode" data-placement="hero_primary" href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f">Get 5 Finished Clips — $199</a>
+          </div>
+          <p class="rd-assure">No subscription. No sales call. No client contact.</p>
         </div>
-        <p class="text-muted" style="font-size:0.875rem;">No subscription. No sales call. No client contact.</p>
+        <div class="rd-hero-media" aria-hidden="true">
+          <img class="rd-hero-poster rd-hero-poster-a" src="/assets/samples/sample-saas-founder.jpg?v=8" alt="" width="360" height="640" fetchpriority="high">
+          <img class="rd-hero-poster rd-hero-poster-b" src="/assets/samples/sample-panel.jpg?v=8" alt="" width="360" height="640" loading="lazy">
+        </div>
       </div>
     </section>
 
     <!-- 2. WORK SAMPLES -->
-    <section id="work" class="image3-work">
+    <section id="work" class="rd-section rd-work">
       <span id="samples" class="anchor-alias" aria-hidden="true"></span>
-      <div class="image3-wrap">
-        <h2>See what comes back</h2>
-        <p class="image3-disc" style="margin-bottom:1.5rem;">Public recuts are editing demonstrations only. No endorsement or client relationship is implied.</p>
-        <div class="image3-samples">
-          <article class="image3-sample">
-            <video controls playsinline preload="metadata" poster="/assets/samples/sample-panel.jpg?v=8">
+      <div class="rd-container">
+        <div class="rd-head">
+          <h2 class="rd-h2 rd-display-sm">See what comes back</h2>
+          <p class="rd-disc">Public recuts are editing demonstrations only. No endorsement or client relationship is implied.</p>
+        </div>
+        <div class="rd-samples" id="rdSamples" tabindex="0" aria-label="Work samples">
+          <article class="rd-sample" aria-label="Sample 1 of 3: Panel">
+            <video controls playsinline preload="metadata" poster="/assets/samples/sample-panel.jpg?v=8" aria-label="Panel sample: recording to finished clip">
               <source src="/assets/samples/sample-panel.mp4?v=8" type="video/mp4">
             </video>
-            <div class="image3-info"><p class="image3-meta">Panel</p><h3>Recording to finished clip</h3></div>
+            <div class="rd-sample-info"><p class="rd-meta">Panel</p><h3>Recording to finished clip</h3></div>
           </article>
-          <article class="image3-sample">
-            <video controls playsinline preload="metadata" poster="/assets/samples/sample-saas-founder.jpg?v=8">
+          <article class="rd-sample" aria-label="Sample 2 of 3: Talking head">
+            <video controls playsinline preload="metadata" poster="/assets/samples/sample-saas-founder.jpg?v=8" aria-label="Talking head sample: recording to finished clip">
               <source src="/assets/samples/sample-saas-founder.mp4?v=8" type="video/mp4">
             </video>
-            <div class="image3-info"><p class="image3-meta">Talking head</p><h3>Recording to finished clip</h3></div>
+            <div class="rd-sample-info"><p class="rd-meta">Talking head</p><h3>Recording to finished clip</h3></div>
           </article>
-          <article class="image3-sample">
-            <video controls playsinline preload="metadata" poster="/assets/samples/sample-process.jpg?v=8">
+          <article class="rd-sample" aria-label="Sample 3 of 3: Same recording">
+            <video controls playsinline preload="none" poster="/assets/samples/sample-process.jpg?v=8" aria-label="Same recording sample: before, then finished">
               <source src="/assets/samples/sample-process.mp4?v=8" type="video/mp4">
             </video>
-            <div class="image3-info"><p class="image3-meta">Same recording</p><h3>Before, then finished</h3></div>
+            <div class="rd-sample-info"><p class="rd-meta">Same recording</p><h3>Before, then finished</h3></div>
           </article>
+        </div>
+        <div class="rd-dots" role="group" aria-label="Choose sample">
+          <button type="button" class="rd-dot" aria-label="Show sample 1" aria-current="true"></button>
+          <button type="button" class="rd-dot" aria-label="Show sample 2"></button>
+          <button type="button" class="rd-dot" aria-label="Show sample 3"></button>
         </div>
       </div>
     </section>
 
     <!-- 3. WHITE-LABEL PROTECTION -->
-    <section class="section-container">
-      <div class="container text-center">
-        <h2 class="section-title">Your agency stays visible. EG Studio does not.</h2>
-        <p class="section-subtitle">We work behind your agency. We do not contact your client, add EG Studio branding to the files, or publish the work without permission.</p>
-        <ul style="list-style:none;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;margin:2rem 0;font-weight:600;">
-          <li>Delivered through your agency</li>
-          <li>No client contact</li>
-          <li>No visible EG Studio branding</li>
-        </ul>
-        <p>You own the finished clips and control how they reach the client.</p>
+    <section class="rd-section rd-tone">
+      <div class="rd-container rd-split">
+        <div>
+          <h2 class="rd-h2">Your agency stays visible. EG Studio does not.</h2>
+          <p class="rd-body">We work behind your agency. We do not contact your client, add EG Studio branding to the files, or publish the work without permission.</p>
+        </div>
+        <div>
+          <ul class="rd-assurances">
+            <li><span class="rd-num">01</span>Delivered through your agency</li>
+            <li><span class="rd-num">02</span>No client contact</li>
+            <li><span class="rd-num">03</span>No visible EG Studio branding</li>
+          </ul>
+          <p class="rd-body rd-muted">You own the finished clips and control how they reach the client.</p>
+        </div>
       </div>
     </section>
 
     <!-- 4. BEFORE-AND-AFTER WORKFLOW -->
-    <section class="section-container bg-surface">
-      <div class="container">
-        <div class="section-header text-center">
-          <h2 class="section-title">Remove the production bottleneck</h2>
+    <section class="rd-section">
+      <div class="rd-container">
+        <div class="rd-head">
+          <h2 class="rd-h2 rd-display-sm">Remove the production bottleneck</h2>
         </div>
-        <div class="ba">
-          <article class="ba-col ba-before">
+        <div class="rd-compare">
+          <article class="rd-col rd-before">
             <h3>Before EG Studio</h3>
-            <ul class="ba-path">
+            <ol class="rd-steps">
               <li>Someone reviews the entire recording</li>
               <li>Someone selects the moments</li>
               <li>Someone edits and captions each clip</li>
               <li>Someone prepares the files for delivery</li>
-            </ul>
+            </ol>
           </article>
-          <article class="ba-col ba-after">
+          <div class="rd-arrow" aria-hidden="true">→</div>
+          <article class="rd-col rd-after">
             <h3>With EG Studio</h3>
-            <ul class="ba-path">
+            <ol class="rd-steps">
               <li>Send the recording and brief</li>
               <li>Receive five finished clips</li>
               <li>Review once, if corrections are needed</li>
               <li>Deliver through your agency</li>
-            </ul>
+            </ol>
           </article>
         </div>
-        <p class="text-center" style="margin-top:2rem;">You retain the client relationship. We take over the footage review, moment selection, editing, captioning, and packaging.</p>
+        <p class="rd-body rd-note">You retain the client relationship. We take over the footage review, moment selection, editing, captioning, and packaging.</p>
       </div>
     </section>
 
     <!-- 5. AGENCY CLIP PACK OFFER CARD -->
-    <section id="pricing" class="section-container">
-      <div class="container text-center">
-        <div class="pricing-wrap">
-          <div class="pricing-card-main">
-            <h2 class="section-title" style="margin-top:.4rem">Agency Clip Pack</h2>
-            <p class="outcome-lead">Turn one client recording into five finished, white-label clips.</p>
-            <div class="pricing-amount-hero">$199 <span>one time</span></div>
-            <ul class="outcome-list">
-              <li><span>✓</span> One recording up to 60 minutes</li>
-              <li><span>✓</span> Five 9:16 clips, up to 60 seconds each</li>
-              <li><span>✓</span> Human moment selection</li>
-              <li><span>✓</span> Captions and branding</li>
-              <li><span>✓</span> Five hooks/titles</li>
-              <li><span>✓</span> One consolidated revision round</li>
-              <li><span>✓</span> Delivery within 1–3 business days after accepted intake</li>
-              <li><span>✓</span> No subscription or required sales call</li>
-              <li><span>✓</span> No client contact or EG Studio branding</li>
-            </ul>
-            <a href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f" class="btn btn-primary btn-block" data-sku="episode" data-placement="pricing_episode">Get 5 Finished Clips — $199</a>
-            <p class="fine-print" style="margin-top:1rem;">After payment, you’ll receive a private intake link.</p>
+    <section id="pricing" class="rd-section rd-tone">
+      <div class="rd-container">
+        <div class="rd-offer">
+          <div class="rd-offer-main">
+            <h2 class="rd-h2">Agency Clip Pack</h2>
+            <p class="rd-body">Turn one client recording into five finished, white-label clips.</p>
+            <div class="rd-price">$199 <span>one time</span></div>
+            <a href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f" class="btn btn-primary rd-btn" data-sku="episode" data-placement="pricing_episode">Get 5 Finished Clips — $199</a>
+            <p class="rd-fine">After payment, you’ll receive a private intake link.</p>
           </div>
+          <ul class="rd-includes">
+            <li>One recording up to 60 minutes</li>
+            <li>Five 9:16 clips, up to 60 seconds each</li>
+            <li>Human moment selection</li>
+            <li>Captions and branding</li>
+            <li>Five hooks/titles</li>
+            <li>One consolidated revision round</li>
+            <li>Delivery within 1–3 business days after accepted intake</li>
+            <li>No subscription or required sales call</li>
+            <li>No client contact or EG Studio branding</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <!-- 6. FAQ -->
-    <section id="faq" class="section-container bg-surface">
-      <div class="container">
-        <div class="section-header text-center">
-          <div class="eyebrow-tag">FAQ</div>
-          <h2 class="section-title">Know exactly what you are buying.</h2>
+    <section id="faq" class="rd-section">
+      <div class="rd-container rd-split rd-faq-split">
+        <div>
+          <p class="rd-eyebrow">FAQ</p>
+          <h2 class="rd-h2">Know exactly what you are buying.</h2>
         </div>
-        <div class="faq-container">
-          <div class="faq-item"><button class="faq-question"><span>What footage can I send?</span><span class="faq-chevron">▼</span></button><div class="faq-answer">One podcast, interview, webinar, or expert/talking-head recording up to 60 minutes. The standard pack covers up to two synchronized speakers or cameras.</div></div>
-          <div class="faq-item"><button class="faq-question"><span>Do I need to choose timestamps?</span><span class="faq-chevron">▼</span></button><div class="faq-answer">No. We watch the full recording and select the moments ourselves. You skip the footage review and timestamp selection.</div></div>
-          <div class="faq-item"><button class="faq-question"><span>What does branding include?</span><span class="faq-chevron">▼</span></button><div class="faq-answer">Branding includes one consistent caption style, your supplied logo, and your approved brand colors or visual reference.</div></div>
-          <div class="faq-item"><button class="faq-question"><span>How do revisions and turnaround work?</span><span class="faq-chevron">▼</span></button><div class="faq-answer">Delivery within 1–3 business days after accepted intake. One consolidated revision round is included for caption, branding, and timing corrections.</div></div>
-          <div class="faq-item"><button class="faq-question"><span>Do I need a call or subscription?</span><span class="faq-chevron">▼</span></button><div class="faq-answer">No. Pay online and complete the private intake form. Each $199 order is a separate, one-time purchase.</div></div>
+        <div class="rd-faq">
+          <div class="faq-item"><h3><button class="faq-question" aria-expanded="false" aria-controls="faq-a1" id="faq-q1"><span>What footage can I send?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3><div class="faq-answer" id="faq-a1" role="region" aria-labelledby="faq-q1" hidden><p>One podcast, interview, webinar, or expert/talking-head recording up to 60 minutes. The standard pack covers up to two synchronized speakers or cameras.</p></div></div>
+          <div class="faq-item"><h3><button class="faq-question" aria-expanded="false" aria-controls="faq-a2" id="faq-q2"><span>Do I need to choose timestamps?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3><div class="faq-answer" id="faq-a2" role="region" aria-labelledby="faq-q2" hidden><p>No. We watch the full recording and select the moments ourselves. You skip the footage review and timestamp selection.</p></div></div>
+          <div class="faq-item"><h3><button class="faq-question" aria-expanded="false" aria-controls="faq-a3" id="faq-q3"><span>What does branding include?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3><div class="faq-answer" id="faq-a3" role="region" aria-labelledby="faq-q3" hidden><p>Branding includes one consistent caption style, your supplied logo, and your approved brand colors or visual reference.</p></div></div>
+          <div class="faq-item"><h3><button class="faq-question" aria-expanded="false" aria-controls="faq-a4" id="faq-q4"><span>How do revisions and turnaround work?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3><div class="faq-answer" id="faq-a4" role="region" aria-labelledby="faq-q4" hidden><p>Delivery within 1–3 business days after accepted intake. One consolidated revision round is included for caption, branding, and timing corrections.</p></div></div>
+          <div class="faq-item"><h3><button class="faq-question" aria-expanded="false" aria-controls="faq-a5" id="faq-q5"><span>Do I need a call or subscription?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3><div class="faq-answer" id="faq-a5" role="region" aria-labelledby="faq-q5" hidden><p>No. Pay online and complete the private intake form. Each $199 order is a separate, one-time purchase.</p></div></div>
         </div>
       </div>
     </section>
 
     <!-- 7. FINAL CTA -->
-    <section class="terminal-cta-section">
-      <div class="container">
-        <h2 class="terminal-title">Keep the client. Clear the backlog.</h2>
-        <p>You record.<br>We review, select, and edit.<br>Your agency delivers.</p>
-        <p style="font-weight:700;margin:1.5rem 0 1rem;">Keep the client. Send the recording.</p>
-        <div class="terminal-actions">
-          <a href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f" data-sku="episode" data-placement="terminal_primary" class="btn btn-primary" style="padding: 1.1rem 2.5rem; font-size: 1.05rem;">Get 5 Finished Clips — $199</a>
+    <section class="rd-final">
+      <div class="rd-container rd-final-inner">
+        <h2 class="rd-display-sm rd-final-title">Keep the client. Clear the backlog.</h2>
+        <p class="rd-final-body">You record.<br>We review, select, and edit.<br>Your agency delivers.</p>
+        <p class="rd-final-line">Keep the client. Send the recording.</p>
+        <div class="rd-actions">
+          <a href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f" data-sku="episode" data-placement="terminal_primary" class="btn btn-primary rd-btn rd-btn-invert">Get 5 Finished Clips — $199</a>
         </div>
-        <p class="text-muted" style="margin-top:1rem;font-size:0.875rem;">One recording up to 60 minutes. Delivered within 1–3 business days after accepted intake.</p>
+        <p class="rd-final-support">One recording up to 60 minutes. Delivered within 1–3 business days after accepted intake.</p>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer-current"><div class="site-footer-shell"><div>EG STUDIO | Los Angeles, CA | egstudio.tech</div><nav class="site-footer-links" aria-label="Footer navigation"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refund.html">Refunds</a><a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a></nav></div></footer>
+  <footer class="site-footer-current rd-footer"><div class="rd-container rd-footer-inner"><div>EG STUDIO | Los Angeles, CA | egstudio.tech</div><nav class="site-footer-links" aria-label="Footer navigation"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="refund.html">Refunds</a><a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a></nav></div></footer>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
@@ -1587,18 +1607,43 @@ pintrk('page');
       }
 
 
-      // 3. FAQ Accordion
+      // 3. FAQ Accordion (single open, ARIA synced)
       const faqItems = document.querySelectorAll('.faq-item');
+      const setFaq = (item, open) => {
+        const b = item.querySelector('.faq-question');
+        const a = item.querySelector('.faq-answer');
+        item.classList.toggle('active', open);
+        if (b) b.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (a) a.hidden = !open;
+      };
       faqItems.forEach(item => {
         const btn = item.querySelector('.faq-question');
         btn.addEventListener('click', () => {
           const isOpen = item.classList.contains('active');
-          faqItems.forEach(i => i.classList.remove('active'));
-          if (!isOpen) {
-            item.classList.add('active');
-          }
+          faqItems.forEach(i => setFaq(i, false));
+          if (!isOpen) setFaq(item, true);
         });
       });
+
+      // 4. Work samples: one player at a time + mobile carousel dots
+      const sampleVids = Array.from(document.querySelectorAll('.rd-sample video'));
+      sampleVids.forEach(v => v.addEventListener('play', () => sampleVids.forEach(o => { if (o !== v && !o.paused) o.pause(); })));
+      const track = document.getElementById('rdSamples');
+      const dots = Array.from(document.querySelectorAll('.rd-dot'));
+      if (track && dots.length) {
+        const cards = Array.from(track.querySelectorAll('.rd-sample'));
+        dots.forEach((d, i) => d.addEventListener('click', () => {
+          track.scrollTo({ left: cards[i].offsetLeft - track.offsetLeft, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        }));
+        let t;
+        track.addEventListener('scroll', () => {
+          clearTimeout(t);
+          t = setTimeout(() => {
+            const idx = Math.round(track.scrollLeft / (cards[0].offsetWidth || 1));
+            dots.forEach((d, i) => d.toggleAttribute('aria-current', i === Math.min(idx, dots.length - 1)));
+          }, 60);
+        }, { passive: true });
+      }
 
       // 5. Video Playback Engine (Cross-Browser Reliable Handler)
       const allVideos = Array.from(document.querySelectorAll('.sample-video-elem'));
