@@ -5,7 +5,7 @@
 .wrap{width:92%;max-width:880px;margin:auto}.nav,footer{padding:18px 0;border-bottom:1px solid var(--border)}
 .nav .wrap,footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
 .logo{font-weight:900;letter-spacing:2px;text-decoration:none;color:#1F2937}.logo span{color:#6B7280}
-.back{background:#1F2937;color:#F4F6F8;padding:8px 14px;border-radius:2px;text-decoration:none;font-weight:800;font-size:.8rem}
+.back{background:#1B3A5C;color:#FFFFFF;padding:8px 14px;border-radius:2px;text-decoration:none;font-weight:800;font-size:.8rem}
 main{padding:48px 0 64px}.card{background:var(--card);border:1px solid var(--border);padding:clamp(22px,5vw,42px)}
 .kicker{font-family:monospace;color:#6B7280;text-transform:uppercase;font-size:12px;font-weight:700;letter-spacing:1.5px}
 h1{font-size:clamp(2rem,7vw,3.6rem);line-height:1.08;letter-spacing:-.04em}h2{margin-top:36px;margin-bottom:10px;line-height:1.25}ul{padding-left:1.35rem}li+li{margin-top:.45rem}
@@ -14,6 +14,19 @@ p,li{color:var(--muted)}a,strong{color:#1F2937}footer{border-top:1px solid var(-
 .assurance{margin:24px 0 8px;padding:18px 20px;border:1px solid #6EA8E5;background:#FFFFFF}
 .assurance strong{display:block;font-size:1rem;line-height:1.6;color:#1F2937}
 .footer-brand{font-family:Montserrat,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:inherit;line-height:inherit;font-weight:900;letter-spacing:2px;color:#1F2937;white-space:nowrap;text-decoration:none}.footer-brand span{color:#6B7280}
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#142238; --card:#1C2E48; --border:#2D3E56; --text:#E9EEF4; --muted:#D5DCE6; }
+  body{background:#142238;color:#E9EEF4}
+  .card,.assurance{background:#1C2E48;border-color:#2D3E56}
+  .logo,.footer-brand,a,strong{color:#E9EEF4}
+  .logo span,.footer-brand span{color:#9CA3AF}
+  .back{background:#4A7FB5;color:#142238}
+  p,li{color:#D5DCE6}
+  .kicker{color:#9CA3AF}
+  footer{color:#9CA3AF}
+  .assurance strong{color:#E9EEF4}
+}
 </style>
 <!-- Pinterest Tag -->
 <script>
