@@ -235,3 +235,72 @@ body.rd .rd-work .rd-meta{font-size:.875rem}
 }
 body.rd .rd-hero-copy .rd-display .rd-h1-line{display:block}
 @media (min-width:900px) and (max-width:1199px){body.rd .rd-hero-copy .rd-display .rd-h1-line{display:inline}}
+
+/* Studio composition pass: editorial, portfolio-led, proposal offer, trust centre. Tokens unchanged. */
+/* Continuous flow: one ground, hairline rules instead of tinted bands */
+body.rd .rd-studio-hero,body.rd .rd-studio-work,body.rd .rd-trust,body.rd .rd-flow,body.rd .rd-proposal{background:var(--c-bg)}
+body.rd .rd-studio-work,body.rd .rd-trust,body.rd .rd-flow,body.rd .rd-proposal{padding:clamp(56px,4rem + 3vw,112px) 0}
+body.rd .rd-trust>.rd-container,body.rd .rd-flow>.rd-container,body.rd .rd-proposal>.rd-container{border-top:1px solid var(--c-line);padding-top:clamp(40px,3rem + 2vw,88px)}
+body.rd .rd-header{border-bottom-color:transparent}
+
+/* Hero: quiet editorial transformation still, no device bezel */
+body.rd .rd-studio-hero{padding-bottom:clamp(24px,3vw,48px)}
+body.rd .rd-hero-proof{margin:0;position:relative}
+body.rd .rd-hero-proof .rd-hero-poster{width:100%;border-radius:2px;box-shadow:none;aspect-ratio:9/16;object-fit:cover}
+body.rd .rd-proof-cap{display:flex;justify-content:space-between;gap:1rem;margin-top:.9rem;padding-top:.75rem;border-top:1px solid var(--c-text);font-size:.8125rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--c-muted)}
+body.rd .rd-proof-cap span:last-child{color:var(--c-text)}
+body.rd .rd-facts{border-left:0;padding-left:0;padding-top:1rem;border-top:1px solid var(--c-line);max-width:46ch}
+@media (min-width:900px){
+  body.rd .rd-studio-hero .rd-hero-grid{align-items:end}
+  body.rd .rd-studio-hero .rd-hero-media{max-width:320px;justify-self:end;transform:translateY(clamp(40px,6vw,96px));position:relative;z-index:2}
+}
+
+/* Work: cinematic, asymmetric portfolio grid; first sample dominant */
+body.rd .rd-studio-work .rd-h2{font-size:clamp(2.25rem,1.3rem + 3.6vw,4.5rem);line-height:1.02;letter-spacing:-.03em;font-weight:800}
+body.rd .rd-studio-work .rd-head{align-items:flex-end;border-bottom:1px solid var(--c-line);padding-bottom:1.5rem}
+body.rd .rd-studio-work .rd-sample video{border-radius:4px;box-shadow:0 30px 80px rgba(19,38,61,.18)}
+body.rd .rd-studio-work .rd-sample-info{display:flex;gap:1rem;align-items:baseline;border-top:1px solid var(--c-line);margin-top:1rem;padding:.85rem 0 0}
+body.rd .rd-studio-work .rd-meta{text-transform:uppercase;letter-spacing:.08em;font-size:.75rem;margin:0;min-width:9ch}
+body.rd .rd-studio-work .rd-sample h3{font-weight:600}
+@media (min-width:640px) and (max-width:1023px){
+  body.rd .rd-studio-work .rd-sample:first-child{max-width:none;justify-self:stretch}
+  body.rd .rd-studio-work .rd-sample:first-child video{aspect-ratio:4/5}
+  body.rd .rd-studio-work .rd-sample:nth-child(3){margin-top:clamp(2rem,8vw,5rem)}
+}
+@media (min-width:1024px){
+  body.rd .rd-studio-work .rd-samples{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(1.25rem,2vw,2rem);align-items:start}
+  body.rd .rd-studio-work .rd-sample:nth-child(1){grid-column:1/7}
+  body.rd .rd-studio-work .rd-sample:nth-child(1) h3{font-size:clamp(1.5rem,1.2rem + .7vw,1.9rem)}
+  body.rd .rd-studio-work .rd-sample:nth-child(2){grid-column:7/10;margin-top:clamp(6rem,12vw,11rem)}
+  body.rd .rd-studio-work .rd-sample:nth-child(3){grid-column:10/13;margin-top:clamp(2rem,4vw,4rem)}
+}
+
+/* White label: primary trust centre, large statement, oversized assurances */
+body.rd .rd-trust .rd-split{display:block}
+body.rd .rd-trust .rd-h2{font-size:clamp(2.25rem,1.2rem + 4vw,5rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:16ch}
+body.rd .rd-trust .rd-split>div:first-child .rd-body{font-size:var(--fs-lead);max-width:52ch;margin-top:1.75rem}
+body.rd .rd-trust .rd-assurances{margin-top:clamp(2.5rem,5vw,4.5rem);display:grid;gap:0}
+body.rd .rd-trust .rd-assurances li{flex-direction:column;gap:.75rem;font-size:clamp(1.375rem,1rem + 1.4vw,2.25rem);font-weight:700;letter-spacing:-.015em;line-height:1.15;padding:1.5rem 0;border-top:1px solid var(--c-text);border-bottom:0}
+body.rd .rd-trust .rd-assurances li:first-child{border-top:1px solid var(--c-text)}
+body.rd .rd-trust .rd-split>div:last-child>.rd-body{margin-top:2rem}
+@media (min-width:768px){
+  body.rd .rd-trust .rd-assurances{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:clamp(1.5rem,3vw,3rem)}
+  body.rd .rd-trust .rd-split>div:first-child{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(2rem,5vw,5rem);align-items:end}
+  body.rd .rd-trust .rd-split>div:first-child .rd-body{margin-top:0}
+}
+
+/* Workflow: lighter, no cards */
+body.rd .rd-flow .rd-after{background:transparent;box-shadow:inset 0 0 0 1px var(--c-text)}
+
+/* Offer: statement-of-work proposal, not a plan card */
+body.rd .rd-proposal .rd-offer{background:transparent;box-shadow:none;border-radius:0;padding:0}
+body.rd .rd-proposal .rd-h2{font-size:clamp(2.25rem,1.3rem + 3.6vw,4.5rem);font-weight:800;line-height:1.02;letter-spacing:-.03em}
+body.rd .rd-proposal .rd-offer-main .rd-body{font-size:var(--fs-lead);margin-top:1.25rem}
+body.rd .rd-proposal .rd-price{font-size:1.25rem;font-weight:700;letter-spacing:0;color:var(--c-text);margin:2.25rem 0 1.5rem;padding:1rem 0;border-top:1px solid var(--c-text);border-bottom:1px solid var(--c-line);display:flex;justify-content:space-between;align-items:baseline;max-width:420px}
+body.rd .rd-proposal .rd-price span{font-size:.8125rem;text-transform:uppercase;letter-spacing:.08em}
+body.rd .rd-proposal .rd-includes{counter-reset:d;align-self:start;border-top:1px solid var(--c-text)}
+body.rd .rd-proposal .rd-includes li{counter-increment:d;padding:1rem 0 1rem 3.25rem;font-weight:500}
+body.rd .rd-proposal .rd-includes li+li{border-top:1px solid var(--c-line)}
+body.rd .rd-proposal .rd-includes li::before{content:counter(d,decimal-leading-zero);border:0;transform:none;width:auto;height:auto;top:1.1rem;left:0;font-size:.8125rem;font-weight:600;color:var(--c-accent);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+@media (min-width:860px){body.rd .rd-proposal .rd-offer{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(3rem,7vw,7rem)}}
+@media (prefers-color-scheme:dark){body.rd .rd-proposal .rd-price{color:#FFFFFF}}
