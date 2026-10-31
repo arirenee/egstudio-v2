@@ -1380,7 +1380,7 @@ pintrk('page');
 </script>
 <noscript><img height="1" width="1" style="display:none;" alt="" src="https://ct.pinterest.com/v3/?event=init&tid=2614116778572&noscript=1"></noscript>
 <!-- end Pinterest Tag -->
-<link rel="stylesheet" href="/brand-palette.css?v=20261029-box"><link rel="stylesheet" href="/assets/css/redesign.css?v=20261031"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
+<link rel="stylesheet" href="/brand-palette.css?v=20261029-box"><link rel="stylesheet" href="/assets/css/redesign.css?v=20261031p"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
 <link rel="icon" href="/favicon.svg?v=20261029-spaced" type="image/svg+xml">
 <link rel="icon" href="/favicon-48x48.png?v=20261029-spaced" sizes="48x48" type="image/png">
 <link rel="icon" href="/favicon-32x32.png?v=20261029-spaced" sizes="32x32" type="image/png">
@@ -1432,8 +1432,13 @@ pintrk('page');
           </div>
           <p class="rd-assure">No subscription. No sales call. No client contact.</p>
         </div>
-        <div class="rd-hero-media" aria-hidden="true">
-          <figure class="rd-hero-proof"><img class="rd-hero-poster" src="/assets/samples/sample-process.jpg?v=8" alt="" width="360" height="640" fetchpriority="high"><figcaption class="rd-proof-cap"><span>Same recording</span><span>Before, then finished</span></figcaption></figure>
+        <div class="rd-hero-media">
+          <figure class="rd-hero-proof">
+            <video class="rd-hero-video" controls playsinline preload="metadata" poster="/assets/samples/sample-process.jpg?v=8" width="360" height="640" aria-label="Same recording sample: before, then finished">
+              <source src="/assets/samples/sample-process.mp4?v=8" type="video/mp4">
+            </video>
+            <figcaption class="rd-proof-cap"><span>Same recording</span><span>Before, then finished</span></figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -1447,29 +1452,22 @@ pintrk('page');
           <p class="rd-disc">Public recuts are editing demonstrations only. No endorsement or client relationship is implied.</p>
         </div>
         <div class="rd-samples" id="rdSamples" tabindex="0" aria-label="Work samples">
-          <article class="rd-sample" aria-label="Sample 1 of 3: Panel">
+          <article class="rd-sample" aria-label="Sample 1 of 2: Panel">
             <video controls playsinline preload="metadata" poster="/assets/samples/sample-panel.jpg?v=8" aria-label="Panel sample: recording to finished clip">
               <source src="/assets/samples/sample-panel.mp4?v=8" type="video/mp4">
             </video>
             <div class="rd-sample-info"><p class="rd-meta">Panel</p><h3>Recording to finished clip</h3></div>
           </article>
-          <article class="rd-sample" aria-label="Sample 2 of 3: Talking head">
+          <article class="rd-sample" aria-label="Sample 2 of 2: Talking head">
             <video controls playsinline preload="metadata" poster="/assets/samples/sample-saas-founder.jpg?v=8" aria-label="Talking head sample: recording to finished clip">
               <source src="/assets/samples/sample-saas-founder.mp4?v=8" type="video/mp4">
             </video>
             <div class="rd-sample-info"><p class="rd-meta">Talking head</p><h3>Recording to finished clip</h3></div>
           </article>
-          <article class="rd-sample" aria-label="Sample 3 of 3: Same recording">
-            <video controls playsinline preload="none" poster="/assets/samples/sample-process.jpg?v=8" aria-label="Same recording sample: before, then finished">
-              <source src="/assets/samples/sample-process.mp4?v=8" type="video/mp4">
-            </video>
-            <div class="rd-sample-info"><p class="rd-meta">Same recording</p><h3>Before, then finished</h3></div>
-          </article>
         </div>
         <div class="rd-dots" role="group" aria-label="Choose sample">
           <button type="button" class="rd-dot" aria-label="Show sample 1" aria-current="true"></button>
           <button type="button" class="rd-dot" aria-label="Show sample 2"></button>
-          <button type="button" class="rd-dot" aria-label="Show sample 3"></button>
         </div>
       </div>
     </section>
@@ -1626,7 +1624,7 @@ pintrk('page');
       });
 
       // 4. Work samples: one player at a time + mobile carousel dots
-      const sampleVids = Array.from(document.querySelectorAll('.rd-sample video'));
+      const sampleVids = Array.from(document.querySelectorAll('.rd-sample video, .rd-hero-video'));
       sampleVids.forEach(v => v.addEventListener('play', () => sampleVids.forEach(o => { if (o !== v && !o.paused) o.pause(); })));
       const track = document.getElementById('rdSamples');
       const dots = Array.from(document.querySelectorAll('.rd-dot'));

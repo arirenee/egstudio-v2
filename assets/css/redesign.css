@@ -304,3 +304,131 @@ body.rd .rd-proposal .rd-includes li+li{border-top:1px solid var(--c-line)}
 body.rd .rd-proposal .rd-includes li::before{content:counter(d,decimal-leading-zero);border:0;transform:none;width:auto;height:auto;top:1.1rem;left:0;font-size:.8125rem;font-weight:600;color:var(--c-accent);font-variant-numeric:tabular-nums;letter-spacing:.04em}
 @media (min-width:860px){body.rd .rd-proposal .rd-offer{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(3rem,7vw,7rem)}}
 @media (prefers-color-scheme:dark){body.rd .rd-proposal .rd-price{color:#FFFFFF}}
+
+/* ==========================================================================
+   Premiumization pass: hierarchy, contrast, proof, proposal, editorial rhythm.
+   Presentation only. Palette family unchanged (navy/steel).
+   ========================================================================== */
+
+/* Contrast: stronger body + supporting text, firmer rules (light + dark) */
+body.rd{--c-text:#0F2135;--c-body:#24374E;--c-muted:#3E5068;--c-line:rgba(19,38,61,.16);--c-bg:#F3F5F8;--c-surface:#FFFFFF;--c-ink:#0F2135;--c-ink-body:#D9E4F0;--c-ink-muted:#B9CBDF;--c-ink-line:rgba(217,228,240,.24);--c-ink-accent:#9CC3EC}
+@media (prefers-color-scheme:dark){
+  body.rd{--c-bg:#101D31;--c-surface:#16263D;--c-text:#F5F8FC;--c-body:#DCE6F1;--c-muted:#BFCDDD;--c-line:rgba(220,230,241,.2);--c-accent:#8DBBEB;--c-ink:#0A1423;--c-ink-body:#DCE6F1;--c-ink-muted:#BFCDDD}
+}
+body.rd .rd-lead{font-weight:500;color:var(--c-body)}
+body.rd .rd-body{line-height:1.7}
+body.rd .rd-eyebrow{color:var(--c-navy);font-weight:700;letter-spacing:.12em;font-size:.8125rem}
+@media (prefers-color-scheme:dark){body.rd .rd-eyebrow{color:var(--c-accent)}}
+
+/* Rhythm: one section scale; bands carry contrast instead of hairlines */
+body.rd .rd-studio-work,body.rd .rd-trust,body.rd .rd-flow,body.rd .rd-proposal,body.rd #faq{padding:clamp(80px,4rem + 5vw,152px) 0}
+body.rd .rd-trust>.rd-container,body.rd .rd-flow>.rd-container,body.rd .rd-proposal>.rd-container{border-top:0;padding-top:0}
+body.rd .rd-studio-work,body.rd .rd-proposal{background:var(--c-surface)}
+
+/* 1. HERO: offer first, featured transformation as anchor */
+body.rd .rd-studio-hero{padding:clamp(48px,7vw,104px) 0 clamp(72px,8vw,120px)}
+body.rd .rd-hero-copy .rd-display{color:var(--c-text)}
+body.rd .rd-hero-copy .rd-display .rd-h1-line{color:var(--c-navy)}
+@media (prefers-color-scheme:dark){body.rd .rd-hero-copy .rd-display .rd-h1-line{color:var(--c-accent)}}
+body.rd .rd-hero .rd-lead{margin-top:0}
+body.rd .rd-hero .rd-facts{color:var(--c-text);font-weight:600;font-size:1.0625rem;line-height:1.7;border-top:1px solid var(--c-text);padding-top:1.1rem;margin-top:2rem;max-width:44ch}
+body.rd .rd-hero .rd-actions{margin-top:2rem}
+body.rd .rd-hero .rd-assure{color:var(--c-muted);font-weight:500;font-size:.9375rem}
+body.rd .rd-hero-proof{margin:0}
+body.rd .rd-hero-video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#0E1A2B;border-radius:6px;box-shadow:0 2px 6px rgba(15,33,53,.10),0 40px 90px rgba(15,33,53,.26)}
+body.rd .rd-proof-cap{border-top-color:var(--c-text);color:var(--c-muted);font-weight:700;letter-spacing:.1em;font-size:.75rem}
+body.rd .rd-proof-cap span:first-child::after{content:" \2192";color:var(--c-accent)}
+@media (max-width:899px){
+  body.rd .rd-studio-hero .rd-hero-media{max-width:340px;width:100%;margin:0 auto}
+}
+@media (min-width:900px){
+  body.rd .rd-studio-hero .rd-hero-grid{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(3rem,6vw,6.5rem);align-items:center}
+  body.rd .rd-studio-hero .rd-hero-media{max-width:380px;width:100%;justify-self:end;transform:none}
+}
+@media (min-width:1200px){
+  body.rd .rd-hero-copy .rd-display{font-size:clamp(3.4rem,1.4rem + 2.7vw,4.1rem);line-height:1.02;letter-spacing:-.032em}
+}
+
+/* 2. WORK: supporting evidence, editorial left rail + offset pair */
+body.rd .rd-studio-work .rd-head{border-bottom:0;padding-bottom:0;flex-direction:column;align-items:flex-start;gap:1.25rem}
+body.rd .rd-studio-work .rd-disc{color:var(--c-muted);font-size:.9375rem;line-height:1.6;max-width:38ch}
+body.rd .rd-studio-work .rd-sample video{border-radius:6px;box-shadow:0 2px 6px rgba(15,33,53,.08),0 30px 70px rgba(15,33,53,.18)}
+body.rd .rd-studio-work .rd-sample-info{border-top-color:var(--c-text)}
+body.rd .rd-studio-work .rd-meta{color:var(--c-muted);font-weight:700;letter-spacing:.1em}
+body.rd .rd-studio-work .rd-sample h3{color:var(--c-text);font-size:var(--fs-h3)}
+@media (min-width:640px) and (max-width:1023px){
+  body.rd .rd-studio-work .rd-samples{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1.25rem,3vw,2rem)}
+  body.rd .rd-studio-work .rd-sample:first-child{grid-column:auto;max-width:none}
+  body.rd .rd-studio-work .rd-sample:first-child video{aspect-ratio:9/16}
+  body.rd .rd-studio-work .rd-sample:nth-child(2){margin-top:clamp(3rem,10vw,6rem)}
+}
+@media (min-width:1024px){
+  body.rd .rd-studio-work>.rd-container{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(1.25rem,2vw,2rem);align-items:start}
+  body.rd .rd-studio-work .rd-head{grid-column:1/5;margin:0;position:sticky;top:120px}
+  body.rd .rd-studio-work .rd-samples{grid-column:6/13;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(1.5rem,3vw,3rem)}
+  body.rd .rd-studio-work .rd-sample:nth-child(1){grid-column:auto;margin-top:0}
+  body.rd .rd-studio-work .rd-sample:nth-child(1) h3{font-size:var(--fs-h3)}
+  body.rd .rd-studio-work .rd-sample:nth-child(2){grid-column:auto;margin-top:clamp(5rem,9vw,9rem)}
+  body.rd .rd-studio-work .rd-dots{display:none}
+}
+
+/* 3. WHITE LABEL: the trust centre, set in ink */
+body.rd .rd-trust{background:var(--c-ink);color:var(--c-ink-body)}
+body.rd .rd-trust .rd-h2{color:#FFFFFF}
+body.rd .rd-trust .rd-body{color:var(--c-ink-body);font-weight:500}
+body.rd .rd-trust .rd-split>div:last-child>.rd-body{color:var(--c-ink-muted);font-weight:500;margin-top:2.5rem}
+body.rd .rd-trust .rd-assurances li,body.rd .rd-trust .rd-assurances li:first-child{color:#FFFFFF;border-top:1px solid var(--c-ink-line);padding:1.75rem 0 0}
+body.rd .rd-trust .rd-assurances li{padding-bottom:1.5rem}
+body.rd .rd-trust .rd-num{color:var(--c-ink-accent);font-size:.8125rem;font-weight:700;letter-spacing:.12em}
+body.rd .rd-trust :focus-visible{outline-color:#FFFFFF}
+
+/* 4. WORKFLOW: before recedes, after leads; no boxes */
+body.rd .rd-flow .rd-col{padding:0;border-radius:0;background:transparent;box-shadow:none}
+body.rd .rd-flow .rd-col h3{font-size:.8125rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;padding-top:1rem;margin-bottom:.75rem}
+body.rd .rd-flow .rd-before h3{color:var(--c-muted);border-top:1px solid var(--c-line)}
+body.rd .rd-flow .rd-after h3{color:var(--c-text);border-top:2px solid var(--c-text)}
+body.rd .rd-flow .rd-before .rd-steps li{color:var(--c-muted)}
+body.rd .rd-flow .rd-after .rd-steps li{color:var(--c-text);font-weight:600;font-size:clamp(1.0625rem,1rem + .35vw,1.25rem)}
+body.rd .rd-flow .rd-steps li+li{border-top:1px solid var(--c-line)}
+body.rd .rd-flow .rd-steps li{padding:1rem 0}
+body.rd .rd-flow .rd-arrow{color:var(--c-muted);font-size:1.5rem}
+body.rd .rd-flow .rd-note{color:var(--c-body);font-size:var(--fs-lead);font-weight:500;max-width:58ch;margin-top:clamp(2.5rem,4vw,3.5rem)}
+@media (min-width:768px){body.rd .rd-flow .rd-compare{grid-template-columns:minmax(0,1fr) auto minmax(0,1.15fr);gap:clamp(1.5rem,4vw,4rem)}}
+
+/* 5. PROPOSAL: engagement terms, price as the focal figure */
+body.rd .rd-proposal .rd-price{font-size:clamp(3.75rem,2.4rem + 4.5vw,6rem);font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--c-text);padding:1.5rem 0 1.25rem;margin:2.5rem 0 2rem;border-top:2px solid var(--c-text);border-bottom:0;max-width:none;justify-content:flex-start;gap:1rem}
+body.rd .rd-proposal .rd-price span{font-size:.8125rem;font-weight:700;letter-spacing:.12em;color:var(--c-muted)}
+body.rd .rd-proposal .rd-fine{color:var(--c-muted);font-weight:500;margin-top:1rem;font-size:.9375rem}
+body.rd .rd-proposal .rd-includes{border-top:2px solid var(--c-text)}
+body.rd .rd-proposal .rd-includes li{color:var(--c-text);font-weight:500;padding:1.05rem 0 1.05rem 3.25rem}
+body.rd .rd-proposal .rd-includes li::before{color:var(--c-muted);font-weight:700}
+@media (min-width:860px){body.rd .rd-proposal .rd-offer{align-items:start}body.rd .rd-proposal .rd-includes{margin-top:.5rem}}
+@media (prefers-color-scheme:dark){body.rd .rd-proposal .rd-price{color:#FFFFFF}}
+
+/* 6. FAQ: quieter scale, firmer questions */
+body.rd #faq .rd-h2{font-size:clamp(1.75rem,1.3rem + 1.8vw,2.75rem);font-weight:800;letter-spacing:-.025em;line-height:1.08}
+body.rd .rd-faq{border-top:2px solid var(--c-text)}
+body.rd .rd-faq .faq-question{font-weight:600;color:var(--c-text)}
+body.rd .rd-faq .faq-answer{color:var(--c-body)}
+
+/* 7. FINAL CTA: confident close */
+body.rd .rd-final{padding:clamp(88px,5rem + 5vw,160px) 0}
+body.rd .rd-final-title{font-size:clamp(2.25rem,1.3rem + 3.4vw,4.25rem);line-height:1.02;letter-spacing:-.03em;font-weight:800}
+body.rd .rd-final-body{color:#E3ECF6;font-weight:500}
+body.rd .rd-final-support{color:#D5E2F0;opacity:1}
+/* Headings on ink bands: override legacy brand-palette `h1,h2,h3,h4{color:...!important}` */
+body.rd .rd-trust .rd-h2,body.rd .rd-final .rd-final-title{color:#FFFFFF!important}
+body.rd .rd-final .rd-btn-invert{background:#FFFFFF!important;color:#0F2135!important}
+body.rd .rd-final .rd-btn-invert:hover{background:#E6EEF7!important}
+body.rd .rd-proposal .rd-fine,body.rd .rd-hero .rd-assure{font-size:1rem}
+body.rd .rd-flow .rd-before .rd-steps li{font-weight:500}
+body.rd .rd-studio-work .rd-disc,body.rd .rd-final-support{font-size:1rem}
+body.rd .rd-final-body{margin-top:1.75rem}
+body.rd .rd-final-line{margin-top:2rem}
+body.rd .rd-final .rd-actions{margin-top:1.5rem}
+/* Featured transformation is the single source of the before/after proof, so it shows on every breakpoint */
+body.rd .rd-studio-hero .rd-hero-media{display:block}
+@media (max-width:899px){body.rd .rd-studio-hero .rd-hero-media{max-width:300px;margin-top:.5rem}}
+@media (min-width:600px) and (max-width:899px){body.rd .rd-studio-hero .rd-hero-media{max-width:340px}}
+body.rd .rd-nav-link,body.rd .rd-nav-cta{white-space:nowrap}
+@media (min-width:768px) and (max-width:1023px){body.rd .rd-nav-actions{gap:.75rem}}
