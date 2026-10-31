@@ -1380,7 +1380,7 @@ pintrk('page');
 </script>
 <noscript><img height="1" width="1" style="display:none;" alt="" src="https://ct.pinterest.com/v3/?event=init&tid=2614116778572&noscript=1"></noscript>
 <!-- end Pinterest Tag -->
-<link rel="stylesheet" href="/brand-palette.css?v=20261029-box"><link rel="stylesheet" href="/assets/css/redesign.css?v=20261031p"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
+<link rel="stylesheet" href="/assets/css/redesign.css?v=20261031w"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
 <link rel="icon" href="/favicon.svg?v=20261029-spaced" type="image/svg+xml">
 <link rel="icon" href="/favicon-48x48.png?v=20261029-spaced" sizes="48x48" type="image/png">
 <link rel="icon" href="/favicon-32x32.png?v=20261029-spaced" sizes="32x32" type="image/png">
@@ -1434,9 +1434,10 @@ pintrk('page');
         </div>
         <div class="rd-hero-media">
           <figure class="rd-hero-proof">
-            <video class="rd-hero-video" controls playsinline preload="metadata" poster="/assets/samples/sample-process.jpg?v=8" width="360" height="640" aria-label="Same recording sample: before, then finished">
+            <video class="rd-hero-video rd-player" playsinline preload="metadata" poster="/assets/samples/sample-process.jpg?v=8" width="360" height="640" aria-label="Same recording sample: before, then finished">
               <source src="/assets/samples/sample-process.mp4?v=8" type="video/mp4">
             </video>
+            <button type="button" class="rd-play" aria-label="Play same recording sample"><img src="/assets/samples/sample-process.jpg?v=8" alt=""><span aria-hidden="true"></span></button>
             <figcaption class="rd-proof-cap"><span>Same recording</span><span>Before, then finished</span></figcaption>
           </figure>
         </div>
@@ -1452,22 +1453,29 @@ pintrk('page');
           <p class="rd-disc">Public recuts are editing demonstrations only. No endorsement or client relationship is implied.</p>
         </div>
         <div class="rd-samples" id="rdSamples" tabindex="0" aria-label="Work samples">
-          <article class="rd-sample" aria-label="Sample 1 of 2: Panel">
-            <video controls playsinline preload="metadata" poster="/assets/samples/sample-panel.jpg?v=8" aria-label="Panel sample: recording to finished clip">
+          <article class="rd-sample" aria-label="Sample 1 of 3: Panel">
+            <video class="rd-player" playsinline preload="metadata" poster="/assets/samples/sample-panel.jpg?v=8" aria-label="Panel sample: recording to finished clip">
               <source src="/assets/samples/sample-panel.mp4?v=8" type="video/mp4">
             </video>
+            <button type="button" class="rd-play" aria-label="Play panel sample"><img src="/assets/samples/sample-panel.jpg?v=8" alt="" loading="lazy"><span aria-hidden="true"></span></button>
             <div class="rd-sample-info"><p class="rd-meta">Panel</p><h3>Recording to finished clip</h3></div>
           </article>
-          <article class="rd-sample" aria-label="Sample 2 of 2: Talking head">
-            <video controls playsinline preload="metadata" poster="/assets/samples/sample-saas-founder.jpg?v=8" aria-label="Talking head sample: recording to finished clip">
+          <article class="rd-sample" aria-label="Sample 2 of 3: Talking head">
+            <video class="rd-player" playsinline preload="metadata" poster="/assets/samples/sample-saas-founder.jpg?v=8" aria-label="Talking head sample: recording to finished clip">
               <source src="/assets/samples/sample-saas-founder.mp4?v=8" type="video/mp4">
             </video>
+            <button type="button" class="rd-play" aria-label="Play talking head sample"><img src="/assets/samples/sample-saas-founder.jpg?v=8" alt="" loading="lazy"><span aria-hidden="true"></span></button>
             <div class="rd-sample-info"><p class="rd-meta">Talking head</p><h3>Recording to finished clip</h3></div>
           </article>
+          <figure class="rd-sample rd-sample-still" aria-label="Sample 3 of 3: Same recording">
+            <img src="/assets/samples/sample-process.jpg?v=8" alt="Same recording: editing timeline beneath the before and finished frames" loading="lazy" width="720" height="1280">
+            <figcaption class="rd-sample-info"><p class="rd-meta">Same recording</p><h3>Before, then finished</h3></figcaption>
+          </figure>
         </div>
         <div class="rd-dots" role="group" aria-label="Choose sample">
           <button type="button" class="rd-dot" aria-label="Show sample 1" aria-current="true"></button>
           <button type="button" class="rd-dot" aria-label="Show sample 2"></button>
+          <button type="button" class="rd-dot" aria-label="Show sample 3"></button>
         </div>
       </div>
     </section>
@@ -1506,7 +1514,6 @@ pintrk('page');
               <li>Someone prepares the files for delivery</li>
             </ol>
           </article>
-          <div class="rd-arrow" aria-hidden="true">→</div>
           <article class="rd-col rd-after">
             <h3>With EG Studio</h3>
             <ol class="rd-steps">
@@ -1626,6 +1633,17 @@ pintrk('page');
       // 4. Work samples: one player at a time + mobile carousel dots
       const sampleVids = Array.from(document.querySelectorAll('.rd-sample video, .rd-hero-video'));
       sampleVids.forEach(v => v.addEventListener('play', () => sampleVids.forEach(o => { if (o !== v && !o.paused) o.pause(); })));
+      // Quiet player: no native chrome until the visitor chooses to play
+      document.querySelectorAll('.rd-play').forEach(btn => {
+        const v = btn.parentElement.querySelector('video');
+        if (!v) return;
+        btn.addEventListener('click', () => {
+          v.controls = true;
+          btn.parentElement.classList.add('is-playing');
+          const p = v.play(); if (p && p.catch) p.catch(() => {});
+        });
+        v.addEventListener('ended', () => { v.controls = false; btn.parentElement.classList.remove('is-playing'); });
+      });
       const track = document.getElementById('rdSamples');
       const dots = Array.from(document.querySelectorAll('.rd-dot'));
       if (track && dots.length) {
