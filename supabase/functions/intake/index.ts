@@ -8,7 +8,7 @@ const ALLOWED_ORIGINS = new Set([
 ]);
 
 const OFFER_MAP = {
-  episode_to_shorts: { sku: "episode", amount: 19900, label: "Agency Episode Pack" },
+  episode_to_shorts: { sku: "episode", amount: 19900, label: "Agency Clip Pack" },
   starter: { sku: "test", amount: 30000, label: "3-Clip Starter" },
   paid_test: { sku: "test", amount: 30000, label: "3-Clip Starter" },
   sprint: { sku: "sprint", amount: 150000, label: "15-video Sprint" },
@@ -151,7 +151,7 @@ async function sendIntakeNotification(record: any) {
     return { configured: false, sent: false, error: "Notification secrets are not configured." };
   }
 
-  const offerLabel = record.offer === "episode" ? "Agency Episode Pack" : record.offer === "test" ? "3-Clip Starter" : "15-video Sprint";
+  const offerLabel = record.offer === "episode" ? "Agency Clip Pack" : record.offer === "test" ? "3-Clip Starter" : "15-video Sprint";
   const subject = "New paid EG Studio brief — " + record.project_name;
   const optionalBrand = record.brand_assets_url
     ? '<p><strong>Brand assets:</strong> <a href="' + escapeHtml(record.brand_assets_url) + '">' + escapeHtml(record.brand_assets_url) + "</a></p>"

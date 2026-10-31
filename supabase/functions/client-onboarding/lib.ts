@@ -10,7 +10,7 @@ export type Pkg = {
 };
 
 export const PACKAGES: Record<string, Pkg> = {
-  episode: { key: "episode", name: "Episode-to-Shorts", amount: 19900, clips: 5, dueDays: 3, label: "Agency Episode Pack" },
+  episode: { key: "episode", name: "Episode-to-Shorts", amount: 19900, clips: 5, dueDays: 3, label: "Agency Clip Pack" },
   test: { key: "test", name: "3-Clip Starter", amount: 30000, clips: 3, dueDays: 7, label: "3-Clip Starter" },
   sprint: { key: "sprint", name: "Sprint", amount: 150000, clips: 15, dueDays: 30, label: "15-video Sprint" },
 };
@@ -114,7 +114,7 @@ export function welcomeEmail(opts: { first: string; pkg: Pkg; uploadUrl: string;
   const hi = opts.first ? "Hi " + opts.first + "," : "Hi,";
   if (opts.pkg.key === "episode") {
     const subject = "Payment received: send your recording and brief";
-    const text = hi + "\n\nThanks for ordering the Agency Episode Pack.\n\n" +
+    const text = hi + "\n\nThanks for ordering the Agency Clip Pack.\n\n" +
       "Next step: send your recording and brief here:\n" + opts.uploadUrl + "\n" +
       "Please use a private Google Drive link shared with ops@egstudio.tech.\n\n" +
       "We confirm your intake in writing, usually within one business day. Your first five clips arrive 1 to 3 days after that, white label and ready to post. One revision round is included.\n\n" +
