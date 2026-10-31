@@ -207,3 +207,31 @@ body.rd .rd-price span{font-size:1.125rem;font-weight:600;color:var(--c-muted);l
 @media (min-width:1024px){body.rd .rd-samples{grid-template-columns:1.45fr 1fr 1fr}body.rd .rd-sample:first-child h3{font-size:clamp(1.25rem,1.1rem + .4vw,1.45rem)}}
 
 @media (prefers-reduced-motion:reduce){body.rd *{transition:none!important;scroll-behavior:auto!important}}
+
+/* Refinement pass: single hero proof, balanced hero, headline wrap, work emphasis, light contrast */
+body.rd{--c-bg:#F4F6F9;--c-bg-alt:#E6ECF3;--c-bg-work:#EBF0F6}
+@media (prefers-color-scheme:dark){body.rd{--c-bg-work:#16273F}}
+body.rd .rd-hero-copy .rd-display{max-width:19ch;text-wrap:balance}
+body.rd .rd-hero-poster-b{display:none}
+body.rd .rd-hero-frame{position:relative;padding:10px;border-radius:calc(var(--r-lg) + 10px);background:#0E1A2B;box-shadow:0 4px 12px rgba(19,38,61,.10),0 36px 80px rgba(19,38,61,.24)}
+body.rd .rd-hero-frame .rd-hero-poster{display:block;width:100%;border-radius:var(--r-lg);box-shadow:none}
+@media (min-width:900px){
+  body.rd .rd-hero{padding:clamp(56px,6vw,96px) 0 clamp(72px,7vw,112px)}
+  body.rd .rd-hero-grid{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(2rem,4vw,4rem)}
+  body.rd .rd-hero-copy .rd-display{max-width:22ch}
+  body.rd .rd-hero-media{max-width:340px;justify-self:center;margin-bottom:0}
+}
+@media (min-width:1200px){
+  body.rd .rd-hero-copy .rd-display{max-width:none;font-size:clamp(3.1rem,1.2rem + 2.5vw,3.75rem)}
+  body.rd .rd-hero-copy .rd-display .rd-h1-line{display:block}
+  body.rd .rd-hero-media{max-width:360px}
+}
+body.rd .rd-work{background:var(--c-bg-work)}
+body.rd .rd-work .rd-h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.25rem)}
+body.rd .rd-work .rd-meta{font-size:.875rem}
+@media (min-width:1024px){
+  body.rd .rd-work .rd-samples{grid-template-columns:1.6fr 1fr 1fr;gap:clamp(1.5rem,2.5vw,2.5rem)}
+  body.rd .rd-work .rd-sample:first-child h3{font-size:clamp(1.35rem,1.15rem + .5vw,1.6rem)}
+}
+body.rd .rd-hero-copy .rd-display .rd-h1-line{display:block}
+@media (min-width:900px) and (max-width:1199px){body.rd .rd-hero-copy .rd-display .rd-h1-line{display:inline}}
