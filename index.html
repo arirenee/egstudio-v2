@@ -1380,7 +1380,7 @@ pintrk('page');
 </script>
 <noscript><img height="1" width="1" style="display:none;" alt="" src="https://ct.pinterest.com/v3/?event=init&tid=2614116778572&noscript=1"></noscript>
 <!-- end Pinterest Tag -->
-<link rel="stylesheet" href="/assets/css/redesign.css?v=20261031w"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
+<link rel="stylesheet" href="/assets/css/redesign.css?v=20261031-phase1"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
 <link rel="icon" href="/favicon.svg?v=20261029-spaced" type="image/svg+xml">
 <link rel="icon" href="/favicon-48x48.png?v=20261029-spaced" sizes="48x48" type="image/png">
 <link rel="icon" href="/favicon-32x32.png?v=20261029-spaced" sizes="32x32" type="image/png">
@@ -1630,20 +1630,7 @@ pintrk('page');
         });
       });
 
-      // 4. Work samples: one player at a time + mobile carousel dots
-      const sampleVids = Array.from(document.querySelectorAll('.rd-sample video, .rd-hero-video'));
-      sampleVids.forEach(v => v.addEventListener('play', () => sampleVids.forEach(o => { if (o !== v && !o.paused) o.pause(); })));
-      // Quiet player: no native chrome until the visitor chooses to play
-      document.querySelectorAll('.rd-play').forEach(btn => {
-        const v = btn.parentElement.querySelector('video');
-        if (!v) return;
-        btn.addEventListener('click', () => {
-          v.controls = true;
-          btn.parentElement.classList.add('is-playing');
-          const p = v.play(); if (p && p.catch) p.catch(() => {});
-        });
-        v.addEventListener('ended', () => { v.controls = false; btn.parentElement.classList.remove('is-playing'); });
-      });
+      // 4. Work samples: quiet player lives in /assets/js/rd-player.js; mobile carousel dots below
       const track = document.getElementById('rdSamples');
       const dots = Array.from(document.querySelectorAll('.rd-dot'));
       if (track && dots.length) {
@@ -1705,6 +1692,7 @@ pintrk('page');
       });
     });
   </script>
+<script src="/assets/js/rd-player.js?v=20261031-phase1"></script>
 <script id="pinterest-revenue-events">
 window.addEventListener('load',function(){
   if(window.pintrk) pintrk('track','pagevisit');
