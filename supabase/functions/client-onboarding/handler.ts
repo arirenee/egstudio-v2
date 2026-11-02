@@ -149,14 +149,14 @@ function makeNotion(env: Env, f: Fetch) {
       const t = (s: string) => [{ type: "text", text: { content: s.slice(0, 1900) } }];
       const children = [
         ...(j.agencyHandoff ? [
-          { object: "block", type: "paragraph", paragraph: { rich_text: t("AGENCY EPISODE: collect the private source link in the verified brief. Arrange review and final delivery privately with the paying agency contact only. No automated end-client file requests or delivery links.") } },
+          { object: "block", type: "paragraph", paragraph: { rich_text: t("AGENCY EPISODE: collect the agency-owned Google Drive production folder through the verified brief. Deliver directly into that private folder, coordinating only with the paying agency. No automated end-client file requests or delivery links.") } },
           ...[
-            "Verify usable footage and source access. Record the source URL in Source link. Arrange a restricted private handoff with the agency only; keep the end client out.",
-            "Review any requested NDA and obtain agreement before editing. Send written confirmation to the agency: zero contact with the end client; private delivery to the agency, which downloads and reuploads client copies.",
-            "Confirm footage and brief are usable, then send written intake acceptance and set Start date and Due date manually: first complete batch within 1 to 3 days. No payment-based due date.",
+            "Verify usable footage in the agency-owned production folder and Editor access for ops@egstudio.tech. Record the folder URL in Source link. The folder must stay private to the agency and EG Studio; keep the end client out.",
+            "Review any requested NDA and obtain agreement before editing. Confirm in writing: zero contact with the end client; five clips and copy delivered directly to the agency-owned folder. Explain that Google Drive may expose uploader account metadata if this production folder is later shared with end clients.",
+            "Confirm footage and brief are usable, then send written intake acceptance and set Start date and Due date manually: first complete batch within 1 to 3 calendar days. No payment-based due date.",
             "Watch the full recording and select five moments yourself. No AI first pass. Include five hooks/titles and concise captions.",
             "Export clean MP4s and caption text: no EG watermark, domain, account name or branding in content, filenames or metadata. Use neutral clip_01 through clip_05 names.",
-            "QA all five clips and copy. Deliver privately to the agency only. The agency must download and reupload client copies to its own folder, check them from a separate account, then share its own links. Never forward EG links or expose our working folder to the end client.",
+            "QA all five clips and copy. Upload completed deliverables directly into the private agency-owned production folder, then confirm delivery to the agency only. The agency should share separate client-facing copies or links and check the result from a separate account; never expose the production folder or EG account metadata to the end client.",
           ].map(note => ({ object: "block", type: "to_do", to_do: { rich_text: t(note), checked: false } })),
         ] : []),
         ...(j.locked || j.agencyHandoff ? [] : [{

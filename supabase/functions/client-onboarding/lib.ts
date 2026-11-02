@@ -116,8 +116,8 @@ export function welcomeEmail(opts: { first: string; pkg: Pkg; uploadUrl: string;
     const subject = "Payment received: send your recording and brief";
     const text = hi + "\n\nThanks for ordering the Agency Clip Pack.\n\n" +
       "Next step: send your recording and brief here:\n" + opts.uploadUrl + "\n" +
-      "Please use a private Google Drive link shared with ops@egstudio.tech.\n\n" +
-      "We confirm your intake in writing, usually within one business day. Your first five clips arrive 1 to 3 days after that, white label and ready to post. One revision round is included.\n\n" +
+      "Put your recording into a private Google Drive folder your agency owns and share it with ops@egstudio.tech as Editor. We will return your finished clips directly to that folder. Keep the production folder private from end clients.\n\n" +
+      "We verify access and accept your intake in writing, usually within one business day. Your first five clips arrive within 1 to 3 calendar days after that, white label and ready to post. One revision round is included.\n\n" +
       "Questions or an NDA? Just reply to this email.\n\nEG Studio\nops@egstudio.tech\n";
     const escaped = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     return { subject, text, html: '<div style="white-space:pre-wrap">' + escaped + "</div>" };

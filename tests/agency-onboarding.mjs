@@ -38,11 +38,11 @@ for (const live of [true,false]) {
   assert.ok(JSON.stringify(pages[0]).includes('No AI first pass'));
   assert.equal(calls.filter(u=>/googleapis|oauth2/.test(u)).length,0);
   assert.deepEqual(emails[0].to,[live?'agency@example.com':'ops@egstudio.tech']);
-  assert.ok(emails[0].text.includes('1 to 3 days'));
+  assert.ok(emails[0].text.includes('1 to 3 calendar days'));
   assert.ok(emails[0].text.includes('white label and ready to post'));
-  assert.ok(emails[0].text.includes('shared with ops@egstudio.tech'));
+  assert.ok(emails[0].text.includes('ops@egstudio.tech as Editor'));
   assert.ok(!emails[0].text.includes('business days'));
-  assert.ok(JSON.stringify(pages[0]).includes('Never forward EG links'));
+  assert.ok(JSON.stringify(pages[0]).includes('private agency-owned production folder'));
   assert.ok(!emails[0].text.includes('/drive/folders/'));
   assert.equal((await handle(req(),k=>values[k],f)).status,200);
   assert.equal(pages.length,1);assert.equal(emails.length,1);
