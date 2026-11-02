@@ -749,11 +749,14 @@ body.rd-home .rd-footer-copy{grid-column:1/-1;border-top:1px solid var(--c-line)
 /* Secondary row: four equal pieces, no featured span (the lead lives above) */
 body.rd-home #rdSamples .rd-sample:nth-child(n){grid-column:auto!important;grid-row:auto!important;max-width:none;display:block;margin-top:0!important;padding:0}
 body.rd-home #rdSamples .rd-sample:nth-child(n) .rd-player,body.rd-home #rdSamples .rd-sample:nth-child(n) .rd-play,body.rd-home #rdSamples .rd-sample:nth-child(n) .rd-play img{aspect-ratio:9/13.6;height:auto}
+body.rd-home #rdSamples .rd-sample.rd-feature .rd-player,body.rd-home #rdSamples .rd-sample.rd-feature .rd-play,body.rd-home #rdSamples .rd-sample.rd-feature .rd-play img{aspect-ratio:9/10;object-fit:contain;object-position:50% 50%;height:auto}
 body.rd-home #rdSamples .rd-sample:nth-child(n) .rd-play{left:0;width:100%}
 body.rd-home #rdSamples .rd-sample:nth-child(n) .rd-play img{height:100%}
 body.rd-home #rdSamples .rd-sample h3{font-size:1rem}
 @media (max-width:639px){body.rd-home #rdSamples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem 1rem;margin:0;overflow:visible}body.rd-home .rd-studio-work .rd-dots{display:none}}
-body.rd-home .rd-feature .rd-player,body.rd-home .rd-feature .rd-play,body.rd-home .rd-feature .rd-play img{aspect-ratio:9/13.6}
+/* Lead before/after is 720x800 (9:10). Do not force 9/13.6 phone crop — it cuts BEFORE/AFTER labels. */
+body.rd-home .rd-feature .rd-player,body.rd-home .rd-feature .rd-play,body.rd-home .rd-feature .rd-play img{aspect-ratio:9/10;object-fit:contain;object-position:50% 50%}
+body.rd-home .rd-feature .rd-player{background:#0E1A2B}
 body.rd-home .rd-proof-wall .rd-feature{max-width:none!important;width:100%}
 body.rd-home .rd-trust-band{padding-block:clamp(88px,5rem + 4vw,152px)}
 body.rd-home .rd-footer a.rd-footer-brand{padding:0}
