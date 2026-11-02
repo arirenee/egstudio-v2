@@ -40,7 +40,7 @@ for (const live of [true,false]) {
   assert.deepEqual(emails[0].to,[live?'agency@example.com':'ops@egstudio.tech']);
   assert.ok(emails[0].text.includes('1 to 3 calendar days'));
   assert.ok(emails[0].text.includes('white label and ready to post'));
-  assert.ok(emails[0].text.includes('ops@egstudio.tech as Editor'));
+  assert.ok(emails[0].text.includes('ops@egstudio.tech with edit/upload permission'));
   assert.ok(!emails[0].text.includes('business days'));
   assert.ok(JSON.stringify(pages[0]).includes('private agency-owned production folder'));
   assert.ok(!emails[0].text.includes('/drive/folders/'));

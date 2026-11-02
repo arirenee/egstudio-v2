@@ -11,9 +11,9 @@ const mockFetch=async(url,init)=>{
 };
 const source=readFileSync('./supabase/functions/intake/index.ts','utf8').replace(/^import .*;\n/gm,'');
 vm.runInNewContext(stripTypeScriptTypes(source,{mode:'transform'}),{Deno:{env:{get:()=> 'mock'},serve(fn){serve=fn}},createClient:()=>db,fetch:mockFetch,Request,Response,URL,Intl,console});
-const base={session_id:'cs_live_mock',expected_sku:'episode',project_name:'Agency episode',source_url:'https://drive.google.com/drive/folders/mock_folder',private_handoff_confirmed:true,style_reference_url:'https://example.com/style',rights_confirmed:true};
+const base={session_id:'cs_live_mock',expected_sku:'episode',project_name:'Agency episode',source_url:'https://files.example.com/team-folder',private_handoff_confirmed:true,style_reference_url:'https://example.com/style',rights_confirmed:true};
 async function post(body){return serve(new Request('https://mock/functions/v1/intake',{method:'POST',body:JSON.stringify(body),headers:{'content-type':'application/json'}}));}
-for(const patch of [{source_url:null},{source_url:'http://drive.google.com/drive/folders/mock'},{source_url:'https://drive.google.com/invalid'},{source_url:'https://evil.example/drive/folders/mock'},{source_url:'https://drive.google.com/file/d/mock_video/view?usp=sharing'},{private_handoff_confirmed:false},{rights_confirmed:false}]){
+for(const patch of [{source_url:null},{source_url:'http://files.example.com/team-folder'},{source_url:'https://localhost/team-folder'},{source_url:'https://127.0.0.1/team-folder'},{source_url:'https://files.local/team-folder'},{source_url:'https://user:pass@files.example.com/team-folder'},{private_handoff_confirmed:false},{rights_confirmed:false}]){
  assert.equal((await post({...base,...patch})).status,400);assert.equal(saved,null);
 }
 assert.equal((await post(base)).status,200);
@@ -21,7 +21,7 @@ assert.equal(saved.source_url,base.source_url);
 assert.ok(saved.avoid_notes.includes('Manually verify'));
 assert.ok(saved.avoid_notes.includes('1 to 3 calendar days'));
 assert.ok(saved.avoid_notes.includes('directly into that agency-owned private folder'));
-assert.ok(saved.avoid_notes.includes('Drive may expose uploader account metadata'));
+assert.ok(saved.avoid_notes.includes('file-sharing services may expose uploader account metadata'));
 saved=null;
 assert.equal((await post({...base,brand_assets_url:'https://example.com/brand',avoid_notes:'No sensitive client names'})).status,200);
 assert.equal(saved.brand_assets_url,'https://example.com/brand');
@@ -32,4 +32,4 @@ assert.equal(saved.project_name,'Agency episode');
 assert.equal(saved.style_reference_url,'https://egstudio.tech/#samples');
 assert.equal(emails.length,3);assert.deepEqual(emails[0].to,['ops@egstudio.tech']);
 assert.equal((await post(base)).status,200);assert.equal(emails.length,3);
-console.log('PASS: server rejects missing/invalid folder and file links, missing handoff confirmation and rights; saves private folder and optional brief, notifies ops only, and does not resend duplicate intake. All services mocked.');
+console.log('PASS: server rejects insecure/local/credentialed folder links, missing handoff confirmation and rights; saves provider-neutral private folder and optional brief for manual access review, notifies ops only, and does not resend duplicate intake. All services mocked.');

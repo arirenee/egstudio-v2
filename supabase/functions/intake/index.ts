@@ -236,10 +236,11 @@ Deno.serve(async (req: Request) => {
 
     if (paid.sku === "episode") {
       const folder = new URL(String(body.source_url || ""));
-      if (folder.protocol !== "https:" || folder.hostname !== "drive.google.com" ||
-          !/^\/drive\/(?:u\/\d+\/)?folders\/[A-Za-z0-9_-]+\/?$/.test(folder.pathname) ||
+      if (folder.protocol !== "https:" || folder.username || folder.password ||
+          !folder.hostname.includes(".") || folder.hostname.endsWith(".local") ||
+          /^(?:\d+\.){3}\d+$/.test(folder.hostname) ||
           body.private_handoff_confirmed !== true || body.rights_confirmed !== true) {
-        throw new Error("Provide your private Google Drive folder link, grant EG Studio Editor access, and confirm footage rights and agency-only access. We verify access before work starts.");
+        throw new Error("Provide a secure link to your private production folder, grant EG Studio edit/upload access, and confirm footage rights and agency-only access. We verify access before work starts.");
       }
     }
     const record = {
@@ -260,7 +261,7 @@ Deno.serve(async (req: Request) => {
     };
 
     if (paid.sku === "episode") {
-      record.avoid_notes = (record.avoid_notes || "") + "\nPRIVATE AGENCY HANDOFF: agency confirms rights and owns the private production folder. Manually verify the recording and Editor permission for ops@egstudio.tech; complete any requested NDA before written acceptance. Zero end-client contact. Upload the five finished clips, hooks/titles and captions directly into that agency-owned private folder. No EG branding, watermark or domain inside delivered files or filenames. Keep the end client out of the production folder; Drive may expose uploader account metadata, so the agency must use its own client-facing copies or links. First complete batch within 1 to 3 calendar days after written acceptance; revisions additional. Human moment selection without AI first pass.";
+      record.avoid_notes = (record.avoid_notes || "") + "\nPRIVATE AGENCY HANDOFF: agency confirms rights and owns the private production folder. Manually verify the recording and edit/upload permission for ops@egstudio.tech; complete any requested NDA before written acceptance. Zero end-client contact. Upload the five finished clips, hooks/titles and captions directly into that agency-owned private folder. No EG branding, watermark or domain inside delivered files or filenames. Keep the end client out of the production folder; file-sharing services may expose uploader account metadata, so the agency must use its own client-facing copies or links. First complete batch within 1 to 3 calendar days after written acceptance; revisions additional. Human moment selection without AI first pass.";
     }
     if (!record.rights_confirmed) throw new Error("Rights confirmation is required.");
 

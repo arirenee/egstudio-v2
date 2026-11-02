@@ -67,7 +67,7 @@ pintrk('page');
 <p class="lead" id="intake-lead">We are verifying your payment before opening the private project brief.</p>
 
 <ol class="steps" id="next-steps" aria-label="What happens next" hidden>
-  <li>Create a private Google Drive folder you own, add your recording and grant ops@egstudio.tech Editor access.</li>
+  <li>Create a private folder you own, add your recording and grant ops@egstudio.tech edit/upload access.</li>
   <li>We verify the folder and accept your intake in writing, usually within one business day.</li>
   <li>We deliver five finished clips into that same folder within 1 to 3 calendar days of acceptance.</li>
 </ol>
@@ -75,7 +75,7 @@ pintrk('page');
 <p class="pay-error" id="payment-state" role="status" hidden></p>
 
 <form id="intake-form" novalidate hidden>
-  <div class="field" id="agency-folder-field"><label for="agency_folder_url">Your private Google Drive folder <span aria-hidden="true">*</span></label><input id="agency_folder_url" name="agency_folder_url" type="url" inputmode="url" placeholder="https://drive.google.com/drive/folders/..." autocomplete="url" required><p class="helper">Add the recording (up to 60 minutes), then share this folder with ops@egstudio.tech as <strong>Editor</strong>. Keep end clients out of this production folder. We'll deliver finished files directly here.</p></div>
+  <div class="field" id="agency-folder-field"><label for="agency_folder_url">Your private production folder <span aria-hidden="true">*</span></label><input id="agency_folder_url" name="agency_folder_url" type="url" inputmode="url" placeholder="https://your-file-service.com/private-folder" autocomplete="url" required><p class="helper">Add the recording (up to 60 minutes), then share this folder with ops@egstudio.tech with <strong>edit/upload permission</strong>. Keep end clients out of this production folder. We'll verify access and deliver finished files directly here.</p></div>
   <div id="agency-optional-fields">
     <div class="field"><label for="brand_assets_url">Brand assets link (optional)</label><input id="brand_assets_url" type="url" inputmode="url" placeholder="https://..."><p class="helper">Logos, colors or brand guidelines. Share access with us if restricted.</p></div>
     <div class="field"><label for="style_reference_url">Style reference link (optional)</label><input id="style_reference_url" type="url" inputmode="url" placeholder="https://..."></div>
@@ -129,10 +129,10 @@ pintrk('page');
     }
   }
 
-  function validDriveFolder(value){
+  function validPrivateFolder(value){
     try {
       const u = new URL(value);
-      return u.protocol === "https:" && u.hostname === "drive.google.com" && /^\/drive\/(?:u\/\d+\/)?folders\/[A-Za-z0-9_-]+\/?$/.test(u.pathname);
+      return u.protocol === "https:" && !u.username && !u.password && u.hostname.includes(".") && !u.hostname.endsWith(".local") && !/^(?:\d+\.){3}\d+$/.test(u.hostname);
     } catch {
       return false;
     }
@@ -204,7 +204,7 @@ pintrk('page');
     const brandAssets = document.getElementById("brand_assets_url").value.trim();
     const styleReference = document.getElementById("style_reference_url").value.trim();
     const avoidNotes = document.getElementById("avoid_notes").value.trim();
-    if (expectedSku === "episode" && (!validDriveFolder(agencyFolder) || !agencyConfirmed)) return showMessage("Add an agency-owned Google Drive folder link and confirm footage rights and private access.", "error");
+    if (expectedSku === "episode" && (!validPrivateFolder(agencyFolder) || !agencyConfirmed)) return showMessage("Add a secure link to your private production folder and confirm footage rights and private access.", "error");
     if (!validHttps(brandAssets, true) || !validHttps(styleReference, true)) return showMessage("Optional links must start with https://", "error");
 
     submit.disabled = true;
