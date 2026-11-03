@@ -115,10 +115,12 @@ export function welcomeEmail(opts: { first: string; pkg: Pkg; uploadUrl: string;
   if (opts.pkg.key === "episode") {
     const subject = "Payment received: send your recording and brief";
     const text = hi + "\n\nThanks for ordering the Agency Clip Pack.\n\n" +
-      "Next step: send your recording and brief here:\n" + opts.uploadUrl + "\n" +
-      "Put your recording into a private folder your agency owns and share it with ops@egstudio.tech with edit/upload permission. We will return your finished clips directly to that folder. Keep the production folder private from end clients.\n\n" +
-      "We verify access and accept your intake in writing, usually within one business day. Your first five clips arrive within 1 to 3 calendar days after that, white label and ready to post. One revision round is included.\n\n" +
-      "Questions or an NDA? Just reply to this email.\n\nEG Studio\nops@egstudio.tech\n";
+      "Submit your recording and project brief here:\n" + opts.uploadUrl + "\n\n" +
+      "Place your recording in a private folder your agency owns and share it with ops@egstudio.tech with edit/upload permission. We will verify access before starting. Keep the production folder private from end clients.\n\n" +
+      "We confirm zero contact with the end client. Your finished videos, filenames and captions will contain no EG Studio watermark, domain or branding. File-sharing services may reveal uploader details, so please use separate client-facing copies and links. Your agency handles all client communication.\n\n" +
+      "We watch the full recording and select five moments ourselves, without an AI first pass. No timestamps needed. Five hooks/titles and captions are included.\n\n" +
+      "Send any NDA for review before editing. We verify footage, permissions and any agreed NDA, then accept your intake in writing, usually within one business day. Your first five clips arrive within 1 to 3 calendar days after acceptance, white label and ready to post. One consolidated revision round is included; revision time is additional.\n\n" +
+      "Reply with any questions.\n\nEG Studio\nops@egstudio.tech\n";
     const escaped = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
     return { subject, text, html: '<div style="white-space:pre-wrap">' + escaped + "</div>" };
   }
