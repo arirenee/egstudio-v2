@@ -60,7 +60,10 @@ assert.match(home, /premium-hero-media/);
 assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
 assert.match(home, /premium-deliverable-showcase/, 'Real editing mockups missing');
-assert.match(home, /premium-polish\.css\?v=20261103-d/, 'Finishing styles not linked');
+assert.match(home, /premium-polish\.css\?v=20261103-e/, 'Finishing styles not linked');
+assert.equal((home.match(/<source src="\/assets\/samples\/sample-process\.mp4\?v=20261103"/g)||[]).length, 2, 'Both hero and proof player must use the approved editing process video');
+assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
+assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');
 assert.match(home, /1 to 3 calendar days/);
 assert.match(home, /data-placement="hero_primary"/);
 assert(home.includes(stripe), 'Live checkout link missing');
@@ -71,6 +74,7 @@ for (const cssFile of ['assets/css/premium.css','assets/css/premium-polish.css',
   assert.equal((clean.match(/\{/g) || []).length, (clean.match(/\}/g) || []).length, `${cssFile}: unmatched CSS braces`);
 }
 const polish = read('assets/css/premium-polish.css');
+assert.match(polish, /\.rd-feature \.rd-player,[^]*?aspect-ratio:\s*9\s*\/\s*16;/, 'Before and after video must preserve the full vertical process frame');
 assert.match(polish, /max-width:599px/, 'Missing mobile-specific polish');
 assert.match(polish, /max-width:849px[^]*?\.premium-hero-deliverable\s*\{\s*position:\s*static;/, 'Hero status cards must not overlap workflow labels on mobile and tablet');
 assert.match(polish, /prefers-reduced-motion:reduce/, 'Missing reduced-motion accessibility');
