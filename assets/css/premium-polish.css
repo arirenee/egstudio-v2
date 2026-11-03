@@ -80,11 +80,11 @@ body.rd.premium-home .rd-header {
 
 /* Hero: the same real source and finished sample, now surrounded by tangible handoff cards. */
 body.rd.premium-home .premium-hero {
-  padding-top: clamp(64px, 6.5vw, 106px);
+  padding-top: clamp(54px, 5vw, 86px);
   padding-bottom: clamp(112px, 9vw, 150px);
 }
 body.rd.premium-home .premium-hero .rd-display {
-  font-size: clamp(3rem, 6.5vw, 5.4rem);
+  font-size: clamp(3rem, 6vw, 5.1rem);
   line-height: 1.035;
   letter-spacing: -.06em;
 }
@@ -96,6 +96,9 @@ body.rd.premium-home .premium-dashboard {
   background: linear-gradient(145deg, var(--c-surface), var(--c-bg-alt));
   box-shadow: 0 4px 16px rgba(15, 33, 53, .07), 0 34px 78px rgba(15, 33, 53, .14);
 }
+body.rd.premium-home .premium-dashboard-top { justify-content: flex-start; }
+body.rd.premium-home .premium-dashboard-top .premium-live-dot { margin-right: .55rem; }
+body.rd.premium-home .premium-dashboard-top > span:last-child { display: none; }
 body.rd.premium-home .premium-source-preview,
 body.rd.premium-home .premium-output-preview { border-radius: 18px; }
 body.rd.premium-home .premium-hero-deliverable {
