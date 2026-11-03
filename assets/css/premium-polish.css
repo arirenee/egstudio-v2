@@ -280,6 +280,16 @@ body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0
   body.rd.premium-home .premium-showcase-stack:hover .premium-showcase-frame-side { transform: translateY(-47%) rotate(12deg); }
 }
 @media (max-width:849px) {
+  /* Keep both status cards in normal flow so they never cover the workflow labels. */
+  body.rd.premium-home .premium-hero-deliverable {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: .85rem;
+    transform: none;
+    box-shadow: 0 7px 24px rgba(15, 33, 53, .1);
+  }
   body.rd.premium-home .premium-deliverable-showcase { grid-template-columns: minmax(0,1fr); }
   body.rd.premium-home .premium-showcase-copy h3 { max-width: 18ch; }
   body.rd.premium-home .premium-showcase-stack { max-width: 640px; width: 100%; margin: auto; }
@@ -293,16 +303,14 @@ body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0
   body.rd.premium-home .premium-hero .rd-lead { font-size: 1.045rem; line-height: 1.76; }
   body.rd.premium-home .premium-trust-strip { gap: 1.05rem .65rem; margin-top: 2rem; }
   body.rd.premium-home .premium-hero-note { margin-top: 1.2rem; }
-  body.rd.premium-home .premium-hero-deliverable { gap: .48rem; padding: .62rem .7rem; min-width: 0; border-radius: 12px; }
-  body.rd.premium-home .premium-hero-deliverable small { font-size: .5rem; }
-  body.rd.premium-home .premium-hero-deliverable strong { font-size: .69rem; }
-  body.rd.premium-home .premium-hero-deliverable em { font-size: .58rem; }
+  body.rd.premium-home .premium-hero-deliverable { gap: .7rem; padding: .75rem .9rem; min-width: 0; border-radius: 13px; }
+  body.rd.premium-home .premium-hero-deliverable small { font-size: .6rem; }
+  body.rd.premium-home .premium-hero-deliverable strong { font-size: .82rem; }
+  body.rd.premium-home .premium-hero-deliverable em { font-size: .7rem; }
   body.rd.premium-home .premium-deliverable-mark,
-  body.rd.premium-home .premium-deliverable-check { width: 29px; height: 29px; border-radius: 9px; }
+  body.rd.premium-home .premium-deliverable-check { width: 32px; height: 32px; border-radius: 9px; }
   body.rd.premium-home .premium-deliverable-mark .premium-icon,
   body.rd.premium-home .premium-deliverable-check .premium-icon { width: 17px; height: 17px; }
-  body.rd.premium-home .premium-hero-deliverable-count { top: -18px; right: -5px; transform: rotate(2deg); }
-  body.rd.premium-home .premium-hero-deliverable-ready { left: -5px; bottom: -25px; transform: rotate(-2deg); }
   body.rd.premium-home .premium-benefit-grid,
   body.rd.premium-home .premium-included-grid,
   body.rd.premium-home .premium-quote-grid { gap: 1.25rem; }

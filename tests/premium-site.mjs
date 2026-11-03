@@ -60,7 +60,7 @@ assert.match(home, /premium-hero-media/);
 assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
 assert.match(home, /premium-deliverable-showcase/, 'Real editing mockups missing');
-assert.match(home, /premium-polish\.css\?v=20261103-c/, 'Finishing styles not linked');
+assert.match(home, /premium-polish\.css\?v=20261103-d/, 'Finishing styles not linked');
 assert.match(home, /1 to 3 calendar days/);
 assert.match(home, /data-placement="hero_primary"/);
 assert(home.includes(stripe), 'Live checkout link missing');
@@ -72,6 +72,7 @@ for (const cssFile of ['assets/css/premium.css','assets/css/premium-polish.css',
 }
 const polish = read('assets/css/premium-polish.css');
 assert.match(polish, /max-width:599px/, 'Missing mobile-specific polish');
+assert.match(polish, /max-width:849px[^]*?\.premium-hero-deliverable\s*\{\s*position:\s*static;/, 'Hero status cards must not overlap workflow labels on mobile and tablet');
 assert.match(polish, /prefers-reduced-motion:reduce/, 'Missing reduced-motion accessibility');
 assert.match(read('assets/css/premium-pages.css'), /font-size:16px!important/, 'iOS form field zoom prevention missing');
 for (const page of ['content-graveyard/index.html','white-label-podcast-clips/index.html']) {
