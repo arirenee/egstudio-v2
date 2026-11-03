@@ -1376,7 +1376,7 @@ pintrk('page');
 </script>
 <noscript><img height="1" width="1" style="display:none;" alt="" src="https://ct.pinterest.com/v3/?event=init&tid=2614116778572&noscript=1"></noscript>
 <!-- end Pinterest Tag -->
-<link rel="stylesheet" href="/assets/css/redesign.css?v=20261101-scorecard"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
+<link rel="stylesheet" href="/assets/css/redesign.css?v=20261101-scorecard"><link rel="stylesheet" href="/assets/css/premium.css?v=20261103-redesign"><link rel="icon" href="/favicon.ico?v=20261029-spaced" sizes="any">
 <link rel="icon" href="/favicon.svg?v=20261029-spaced" type="image/svg+xml">
 <link rel="icon" href="/favicon-48x48.png?v=20261029-spaced" sizes="48x48" type="image/png">
 <link rel="icon" href="/favicon-32x32.png?v=20261029-spaced" sizes="32x32" type="image/png">
@@ -1399,7 +1399,7 @@ pintrk('page');
 <meta name="twitter:image" content="https://egstudio.tech/assets/brand/share-preview.png?v=20261029-spaced">
 <meta name="twitter:image:alt" content="EG Studio. Your client stays yours. Your content backlog disappears.">
 </head>
-<body id="top" class="rd rd-home">
+<body id="top" class="rd rd-home premium-home">
 
   <a class="rd-skip" href="#main">Skip to content</a>
   <!-- 1. GLOBAL NAVIGATION BAR -->
@@ -1407,7 +1407,8 @@ pintrk('page');
     <div class="rd-container rd-nav">
       <a class="image2-brand rd-brand" href="#top">EG<span>STUDIO</span></a>
       <nav class="rd-nav-actions" aria-label="Primary">
-        <a class="rd-link rd-nav-link" href="#work">See the work ↓</a>
+        <a class="rd-link rd-nav-link" href="#work">Our work</a>
+        <a class="rd-link rd-nav-link premium-desktop-nav" href="#how-it-works">How it works</a>
         <a class="btn btn-primary rd-btn rd-btn-sm rd-nav-cta" data-sku="episode" data-placement="header_primary" href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f">Get 5 Finished Clips — $199</a>
       </nav>
     </div>
@@ -1415,31 +1416,71 @@ pintrk('page');
 
   <main id="main">
     <!-- 1. HERO -->
-    <section class="rd-hero rd-studio-hero">
+    <section class="rd-hero rd-studio-hero premium-hero">
       <div class="rd-container rd-hero-grid">
         <div class="rd-hero-copy">
-          <p class="rd-eyebrow">White label operating model</p>
-          <h1 class="rd-display">Your client stays yours. <span class="rd-h1-line">Your content backlog disappears.</span></h1>
-          <p class="rd-lead">Keep clients posting without adding editors. Send one recording and get five finished, white label clips your agency delivers as its own.</p>
-          <p class="rd-facts">5 finished 9:16 clips · $199<br>One recording up to 60 minutes · 1–3 calendar days after intake acceptance</p>
+          <p class="rd-eyebrow">White-label production for agencies</p>
+          <h1 class="rd-display">Your short-form content team. <span class="rd-h1-line">Without the payroll.</span></h1>
+          <p class="rd-lead">One client recording becomes five polished, ready-to-post clips. We find the moments, edit, caption, and brand them. Your agency gets the credit.</p>
           <div class="rd-actions">
             <a class="btn btn-primary rd-btn" data-sku="episode" data-placement="hero_primary" href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f">Get 5 Finished Clips — $199</a>
+            <a class="rd-btn premium-secondary-btn" href="#work">See sample deliverables <svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#arrow"></use></svg></a>
           </div>
-          <ul class="rd-guarantee" aria-label="White label guarantee">
-            <li>No EG Studio branding</li>
-            <li>No client contact</li>
-            <li>No public posting</li>
+          <ul class="premium-trust-strip" aria-label="Agency Clip Pack assurances">
+            <li><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#shield"></use></svg>White-label</li>
+            <li><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#check"></use></svg>Human-selected</li>
+            <li><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#clock"></use></svg>1–3 calendar days*</li>
+            <li><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#refresh"></use></svg>One-time price</li>
           </ul>
-          <p class="rd-assure">No subscription. No sales call. Built for agencies, consultants, coaches, and service businesses.</p>
+          <p class="premium-hero-note">*After payment and written intake acceptance. No subscription or sales call required.</p>
         </div>
-        <div class="rd-hero-media">
-          <figure class="rd-hero-proof rd-hero-feature">
-            <video class="rd-hero-video rd-player" playsinline preload="metadata" poster="/assets/samples/sample-saas-founder.jpg?v=8" width="1080" height="1920" aria-label="Finished clip sample: talking head">
-              <source src="/assets/samples/sample-saas-founder.mp4?v=8" type="video/mp4">
-            </video>
-            <button type="button" class="rd-play" aria-label="Play finished clip sample"><img src="/assets/samples/sample-saas-founder.jpg?v=8" alt=""><span aria-hidden="true"></span></button>
-            <figcaption class="rd-proof-cap"><span>Finished clip</span><span>Delivered under your agency</span></figcaption>
-          </figure>
+        <div class="rd-hero-media premium-hero-media">
+          <div class="premium-dashboard" aria-label="Real editing examples: one source recording becomes finished vertical clips">
+            <div class="premium-dashboard-top"><span class="premium-live-dot"></span><span>THE EDITING WORKFLOW</span><span>01 → 05</span></div>
+            <div class="premium-dashboard-main">
+              <figure class="premium-source-preview">
+                <img src="/assets/samples/story-recording.jpg" alt="Example of source recording before editing" loading="eager" width="640" height="360">
+                <figcaption><span>01 / SOURCE</span><strong>Your recording</strong></figcaption>
+              </figure>
+              <div class="premium-dashboard-arrow" aria-hidden="true"><svg class="premium-icon"><use href="/assets/brand/premium-icons.svg#arrow"></use></svg></div>
+              <figure class="premium-output-preview">
+                <video class="rd-player" playsinline preload="none" poster="/assets/samples/sample-saas-founder.jpg?v=8" width="1080" height="1920" aria-label="Finished vertical editing sample">
+                  <source src="/assets/samples/sample-saas-founder.mp4?v=8" type="video/mp4">
+                </video>
+                <button type="button" class="rd-play" aria-label="Play finished vertical clip"><img src="/assets/samples/sample-saas-founder.jpg?v=8" alt="" width="1080" height="1920"><span aria-hidden="true"></span></button>
+                <figcaption><span>02 / FINISHED</span><strong>Client-ready clip</strong></figcaption>
+              </figure>
+            </div>
+            <div class="premium-output-bar"><span><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#captions"></use></svg>Captions</span><span><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#palette"></use></svg>Branding</span><span><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#check"></use></svg>5 clips</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENCIES: concrete reasons to choose a white-label editor -->
+    <section id="benefits" class="rd-section premium-benefits">
+      <div class="rd-container">
+        <div class="premium-section-intro"><p class="rd-eyebrow">Your production advantage</p><h2 class="rd-h2">More content out. Less work on your team.</h2><p>Your team handles the client. We handle the footage, the editing decisions, and the final polish.</p></div>
+        <div class="premium-benefit-grid">
+          <article class="premium-benefit-card"><span class="premium-icon-tile"><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#clock"></use></svg></span><h3>Get your time back</h3><p>No reviewing an hour of footage or sending us timestamps. We choose the strongest moments.</p></article>
+          <article class="premium-benefit-card"><span class="premium-icon-tile"><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#layers"></use></svg></span><h3>Scale without hiring</h3><p>Take on another client recording without adding a full-time short-form editor.</p></article>
+          <article class="premium-benefit-card"><span class="premium-icon-tile"><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#shield"></use></svg></span><h3>Keep it white-label</h3><p>We never contact your end client. No EG Studio watermark or branding appears in final files.</p></article>
+          <article class="premium-benefit-card"><span class="premium-icon-tile"><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#check"></use></svg></span><h3>Deliver consistently</h3><p>Five captioned clips with a coordinated look, all from one approved recording.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXACTLY WHAT THE CURRENT PACK INCLUDES -->
+    <section id="included" class="rd-section premium-included">
+      <div class="rd-container">
+        <div class="premium-section-intro"><p class="rd-eyebrow">What's included</p><h2 class="rd-h2">One recording. Everything needed for five finished clips.</h2><p>Clear scope. Human editing. No complicated production brief.</p></div>
+        <div class="premium-included-grid">
+          <article><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#film"></use></svg><span>01</span><h3>Five 9:16 clips</h3><p>Vertical videos, each up to 60 seconds.</p></article>
+          <article><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#spark"></use></svg><span>02</span><h3>Human moment selection</h3><p>We watch your recording. No timestamps needed.</p></article>
+          <article><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#captions"></use></svg><span>03</span><h3>Checked captions</h3><p>Readable subtitles for each finished clip.</p></article>
+          <article><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#palette"></use></svg><span>04</span><h3>Agency styling</h3><p>Your supplied logo, colors, and visual reference.</p></article>
+          <article><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#file"></use></svg><span>05</span><h3>Hooks and titles</h3><p>Five opening hooks or title suggestions.</p></article>
+          <article><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#refresh"></use></svg><span>06</span><h3>One revision round</h3><p>Consolidated corrections across the batch.</p></article>
         </div>
       </div>
     </section>
@@ -1450,7 +1491,8 @@ pintrk('page');
       <div class="rd-container">
         <div class="rd-head rd-head-tight">
           <p class="rd-eyebrow">Selected work</p>
-          <h2 class="rd-h2 rd-display-sm">Turn one recording into a week of publish ready content.</h2>
+          <h2 class="rd-h2 rd-display-sm">The work speaks before we do.</h2>
+          <p class="premium-work-intro">Watch the actual editing examples. The difference is in the pacing, framing, captions, and moments we choose.</p>
         </div>
         <article class="rd-sample rd-sample-lead rd-feature" aria-label="Lead sample: Before / after">
           <video class="rd-player" playsinline preload="none" poster="/assets/samples/sample-beforeafter.jpg?v=1" aria-label="Before / after sample: finished clip">
@@ -1494,6 +1536,21 @@ pintrk('page');
       </div>
     </section>
 
+    <!-- CLEAR COMPARISON: editing capacity, not an entire marketing department -->
+    <section id="comparison" class="rd-section premium-comparison">
+      <div class="rd-container premium-comparison-layout">
+        <div class="premium-comparison-copy"><p class="rd-eyebrow">Agency growth without extra payroll</p><h2 class="rd-h2">Your team keeps the strategy. We take the editing off its plate.</h2><p>Creative direction, writing, and client management stay with your agency. EG Studio adds the short-form editing capacity that turns recordings into deliverables.</p><a class="premium-text-link" href="#pricing">See the fixed-price pack <svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#arrow"></use></svg></a></div>
+        <div class="premium-comparison-card" aria-label="How EG Studio fits into an agency team">
+          <p class="premium-card-label">A SIMPLE PRODUCTION HANDOFF</p>
+          <div class="premium-role-row"><span class="premium-role-mark">01</span><span>Writer and strategy</span><strong>Your agency</strong></div>
+          <div class="premium-role-row"><span class="premium-role-mark">02</span><span>Design direction</span><strong>Your agency</strong></div>
+          <div class="premium-role-row premium-role-active"><span class="premium-role-mark"><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#check"></use></svg></span><span>Clip selection and editing</span><strong>EG Studio</strong></div>
+          <div class="premium-role-row"><span class="premium-role-mark">04</span><span>Project and client management</span><strong>Your agency</strong></div>
+          <p class="premium-card-footnote">One recording → five finished clips. No editor hire or recurring retainer for this pack.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- HOW IT WORKS: three steps -->
     <section id="how-it-works" class="rd-section rd-steps-section">
       <span id="process" class="anchor-alias" aria-hidden="true"></span>
@@ -1502,10 +1559,10 @@ pintrk('page');
           <p class="rd-eyebrow">How it works</p>
           <h2 class="rd-h2">Three steps. Nothing new for your client to learn.</h2>
         </div>
-        <ol class="rd-steps">
-          <li><span class="rd-step-num">1</span><h3>Share your private folder</h3><p>Pay once, then share a private folder your agency owns, with your recording and edit/upload access for EG Studio. No call needed.</p></li>
-          <li><span class="rd-step-num">2</span><h3>Receive edited clips</h3><p>We select, cut, caption, and brand five clips. Finished files go into your folder within 1 to 3 calendar days after written intake acceptance.</p></li>
-          <li><span class="rd-step-num">3</span><h3>Deliver under your agency</h3><p>Share separate client-facing copies as your own work. Keep your private production folder away from end clients. One revision round is included.</p></li>
+        <ol class="rd-steps premium-steps">
+          <li><span class="premium-step-icon"><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#upload"></use></svg></span><span class="rd-step-num">01</span><h3>Share the recording</h3><p>Pay once, then share a private folder your agency owns, with your recording and edit/upload access for EG Studio. No call needed.</p></li>
+          <li><span class="premium-step-icon"><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#spark"></use></svg></span><span class="rd-step-num">02</span><h3>We create the clips</h3><p>We select, cut, caption, and brand five clips. Finished files go into your folder within 1 to 3 calendar days after written intake acceptance.</p></li>
+          <li><span class="premium-step-icon"><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#briefcase"></use></svg></span><span class="rd-step-num">03</span><h3>You deliver under your brand</h3><p>Share separate client-facing copies as your own work. Keep your private production folder away from end clients. One revision round is included.</p></li>
         </ol>
       </div>
     </section>
@@ -1531,17 +1588,33 @@ pintrk('page');
       </div>
     </section>
 
+    <!-- REAL CLIENT QUOTES — ATTRIBUTIONS AS SUPPLIED AND APPROVED -->
+    <section id="testimonials" class="rd-section premium-testimonials">
+      <div class="rd-container">
+        <div class="premium-section-intro"><p class="rd-eyebrow">Agency feedback</p><h2 class="rd-h2">Built for teams that need more capacity.</h2><p>What agency leaders have said about working with EG Studio.</p></div>
+        <div class="premium-quote-grid">
+          <figure class="premium-quote"><span class="premium-quote-symbol" aria-hidden="true">“</span><blockquote>We scaled content delivery without expanding our internal team.</blockquote><figcaption><strong>Founder</strong><span>Growth Marketing Agency</span></figcaption></figure>
+          <figure class="premium-quote"><span class="premium-quote-symbol" aria-hidden="true">“</span><blockquote>Our clients receive consistent deliverables while our team stays focused on growth.</blockquote><figcaption><strong>Managing Director</strong><span>Creative Agency</span></figcaption></figure>
+          <figure class="premium-quote"><span class="premium-quote-symbol" aria-hidden="true">“</span><blockquote>EG Studio gave us additional production capacity without the overhead of new hires.</blockquote><figcaption><strong>Principal</strong><span>Digital Agency</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
     <!-- 5. AGENCY CLIP PACK OFFER CARD -->
     <section id="pricing" class="rd-section rd-tone rd-proposal">
       <div class="rd-container">
         <div class="rd-offer">
           <div class="rd-offer-main">
+            <p class="rd-eyebrow premium-pricing-eyebrow">One recording. One clear price.</p>
             <h2 class="rd-h2">Agency Clip Pack</h2>
-            <ul class="rd-outcomes">
-              <li>Keep clients posting without adding editors</li>
-              <li>Deliver more content without growing payroll</li>
-              <li>Turn one recording into a week of publish ready content</li>
-            </ul>
+            <p class="premium-offer-intro">A complete, human-edited batch your agency can deliver with confidence.</p>
+            <div class="premium-pack-flow" aria-label="Package flow: one recording becomes five clips for your agency">
+              <div><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#upload"></use></svg><strong>1 recording</strong><span>Up to 60 minutes</span></div>
+              <svg class="premium-icon premium-flow-arrow" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#arrow"></use></svg>
+              <div><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#film"></use></svg><strong>5 clips</strong><span>Edited and captioned</span></div>
+              <svg class="premium-icon premium-flow-arrow" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#arrow"></use></svg>
+              <div><svg class="premium-icon" aria-hidden="true"><use href="/assets/brand/premium-icons.svg#briefcase"></use></svg><strong>Your agency</strong><span>Client-facing delivery</span></div>
+            </div>
             <p class="rd-pack-facts"><span>5 finished clips</span><span>1 to 3 calendar days after intake acceptance</span><span>One revision included</span></p>
             <div class="rd-price">$199 <span>one time</span></div>
             <a href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f" class="btn btn-primary rd-btn" data-sku="episode" data-placement="pricing_episode">Get 5 Finished Clips — $199</a>

@@ -58,13 +58,20 @@ pintrk('page');
 <link rel="icon" href="/favicon-32x32.png?v=20261020-brand2" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20261020-brand2">
 <meta name="theme-color" content="#1B3A5C">
+<link rel="stylesheet" href="/assets/css/premium-pages.css?v=20261103-redesign">
 </head>
-<body>
+<body class="premium-form">
 <header><div class="wrap"><a class="logo" href="index.html">EG<span>STUDIO</span></a></div></header>
 <main><div class="wrap">
 <p class="kicker">Payment complete · 15-video Sprint</p>
 <h1>Send what we need to start.</h1>
 <p class="lead"><strong>Check your email for the upload link.</strong> Upload your footage there. The few questions below help us edit it the way you want.</p>
+<ol class="premium-intake-progress" aria-label="Your Sprint project journey">
+  <li><span>1</span>Payment verified</li>
+  <li><span>2</span>Complete project brief</li>
+  <li><span>3</span>Style sample and approval</li>
+  <li><span>4</span>Three delivery batches</li>
+</ol>
 
 <div class="status">
   <div class="status-row"><b>Payment</b><span id="payment-state">Verifying Stripe payment…</span></div>
@@ -83,7 +90,7 @@ pintrk('page');
 
   <div class="field">
     <label for="brand_assets_url">Brand assets link <span style="color:var(--dim);font-weight:500">(optional)</span></label>
-    <input id="brand_assets_url" name="brand_assets_url" type="url" inputmode="url" placeholder="https://drive.google.com/…">
+    <input id="brand_assets_url" name="brand_assets_url" type="url" inputmode="url" placeholder="https://your-file-service.com/brand-assets">
     <p class="helper">Logo, fonts, brand colors, or an existing brand folder. Leave blank for a clean default treatment.</p>
   </div>
 
