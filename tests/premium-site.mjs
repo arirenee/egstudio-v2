@@ -16,7 +16,7 @@ const stripe = 'https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f';
 
 for (const page of pages) {
   const html = read(page);
-  assert.match(html, /premium(?:-pages)?\.css\?v=20261103-redesign/, `${page}: premium styles missing`);
+  assert.match(html, /premium(?:-pages)?\.css\?v=20261103-(?:redesign|polish)/, `${page}: premium styles missing`);
   assert.match(html, /<main\b/i, `${page}: main landmark missing`);
   assert.match(html, /<h1\b/i, `${page}: h1 missing`);
   assert.doesNotMatch(html, /Google Drive|Unbranded Drive/i, `${page}: obsolete public file-service wording`);
@@ -46,14 +46,26 @@ for (const s of ['id="benefits"','id="included"','id="work"','id="comparison"','
   assert(home.includes(s), `Missing homepage section: ${s}`);
 }
 assert.match(home, /premium-hero-media/);
+assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
+assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
+assert.match(home, /premium-deliverable-showcase/, 'Real editing mockups missing');
+assert.match(home, /premium-polish\.css\?v=20261103-a/, 'Finishing styles not linked');
 assert.match(home, /1–3 calendar days/);
 assert.match(home, /data-placement="hero_primary"/);
 assert(home.includes(stripe), 'Live checkout link missing');
 
-for (const cssFile of ['assets/css/premium.css','assets/css/premium-pages.css']) {
+for (const cssFile of ['assets/css/premium.css','assets/css/premium-polish.css','assets/css/premium-pages.css']) {
   const css = read(cssFile);
   const clean = css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g, '');
   assert.equal((clean.match(/\{/g) || []).length, (clean.match(/\}/g) || []).length, `${cssFile}: unmatched CSS braces`);
+}
+const polish = read('assets/css/premium-polish.css');
+assert.match(polish, /max-width:599px/, 'Missing mobile-specific polish');
+assert.match(polish, /prefers-reduced-motion:reduce/, 'Missing reduced-motion accessibility');
+assert.match(read('assets/css/premium-pages.css'), /font-size:16px!important/, 'iOS form field zoom prevention missing');
+for (const page of ['content-graveyard/index.html','white-label-podcast-clips/index.html']) {
+  const count = [...read(page).matchAll(/<meta name="theme-color"/g)].length;
+  assert.equal(count, 1, `${page}: conflicting iOS Safari browser theme colors`);
 }
 const symbols = new Set([...read('assets/brand/premium-icons.svg').matchAll(/<symbol id="([^"]+)"/g)].map(m => m[1]));
 for (const match of home.matchAll(/premium-icons\.svg#([^" ]+)/g)) {
