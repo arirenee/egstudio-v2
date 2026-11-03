@@ -101,6 +101,8 @@ body.rd.premium-home .premium-dashboard-top .premium-live-dot { margin-right: .5
 body.rd.premium-home .premium-dashboard-top > span:last-child { display: none; }
 body.rd.premium-home .premium-source-preview,
 body.rd.premium-home .premium-output-preview { border-radius: 18px; }
+/* The process sample includes both versions and the edit timeline in a full vertical frame. */
+body.rd.premium-home .premium-output-preview { aspect-ratio: 9 / 16; }
 body.rd.premium-home .premium-hero-deliverable {
   position: absolute;
   z-index: 6;
@@ -160,6 +162,12 @@ body.rd.premium-home .premium-pack-flow { border-radius: 19px; padding: clamp(1.
 body.rd.premium-home .premium-role-active { border-radius: 15px; }
 body.rd.premium-home .rd-feature .rd-play,
 body.rd.premium-home .rd-studio-work .rd-sample .rd-play img { border-radius: 17px; }
+body.rd.premium-home .rd-feature .rd-player,
+body.rd.premium-home .rd-feature .rd-play,
+body.rd.premium-home .rd-feature .rd-play img { aspect-ratio: 9 / 16; object-fit: contain; }
+@media (min-width: 768px) {
+  body.rd.premium-home .rd-feature { grid-template-columns: minmax(0, 440px) minmax(0, 1fr); }
+}
 body.rd.premium-home .rd-studio-work .rd-sample-info { border-top-color: var(--c-line); }
 body.rd.premium-home .rd-studio-work .rd-more-label { margin-top: clamp(3rem, 5vw, 5rem); }
 
