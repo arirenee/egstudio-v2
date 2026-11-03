@@ -20,6 +20,7 @@ for (const page of pages) {
   assert.match(html, /<main\b/i, `${page}: main landmark missing`);
   assert.match(html, /<h1\b/i, `${page}: h1 missing`);
   assert.doesNotMatch(html, /Google Drive|Unbranded Drive/i, `${page}: obsolete public file-service wording`);
+  assert.doesNotMatch(html, /written intake acceptance|intake acceptance|accept(?:ed)? (?:your|the) intake in writing|after accepted intake/i, `${page}: outdated delivery trigger wording`);
   for (const match of html.matchAll(/(?:src|href|poster)="([^"]+)"/g)) {
     const url = match[1].split(/[?#]/)[0];
     if (!url || url.startsWith('#') || /^(?:https?:|mailto:|tel:|data:)/.test(url)) continue;
@@ -49,7 +50,7 @@ assert.match(home, /premium-hero-media/);
 assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
 assert.match(home, /premium-deliverable-showcase/, 'Real editing mockups missing');
-assert.match(home, /premium-polish\.css\?v=20261103-b/, 'Finishing styles not linked');
+assert.match(home, /premium-polish\.css\?v=20261103-c/, 'Finishing styles not linked');
 assert.match(home, /1–3 calendar days/);
 assert.match(home, /data-placement="hero_primary"/);
 assert(home.includes(stripe), 'Live checkout link missing');

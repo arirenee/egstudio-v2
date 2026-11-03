@@ -324,11 +324,65 @@ body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0
   body.rd.premium-home .premium-showcase-frame figcaption span { font-size: .49rem; }
   body.rd.premium-home .premium-showcase-frame figcaption strong { font-size: .63rem; }
   body.rd.premium-home .premium-quote { min-height: 0; }
-  body.rd.premium-home .rd-faq .faq-question { min-height: 78px; padding: 1.2rem 1.2rem; font-size: 1.025rem; }
-  body.rd.premium-home .rd-faq .faq-answer { padding: 0 1.2rem 1.5rem; }
-  body.rd.premium-home .rd-proposal .rd-offer { border-radius: 22px; }
+  /* The pricing card needs visible gutters and a compact mobile handoff. */
+  body.rd.premium-home .rd-proposal .rd-offer {
+    border-radius: 22px;
+    padding: clamp(1.35rem, 6vw, 1.75rem);
+    gap: 1.7rem;
+  }
+  body.rd.premium-home .rd-proposal .rd-offer-main { min-width: 0; }
+  body.rd.premium-home .rd-proposal .premium-pricing-eyebrow { font-size: .69rem; line-height: 1.45; margin-bottom: .75rem; }
+  body.rd.premium-home .rd-proposal .rd-offer-main .rd-h2 {
+    font-size: clamp(2.1rem, 8.4vw, 2.8rem);
+    line-height: 1.09;
+    letter-spacing: -.045em;
+    text-wrap: balance;
+  }
+  body.rd.premium-home .rd-proposal .premium-offer-intro { margin-top: .85rem; font-size: 1rem; line-height: 1.55; }
+  body.rd.premium-home .premium-pack-flow { margin: 1.5rem 0 1.2rem; padding: 1rem 1.1rem; gap: .2rem; }
+  body.rd.premium-home .premium-pack-flow > div {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: .15rem .75rem;
+    justify-items: start;
+    text-align: left;
+    padding: .38rem 0;
+  }
+  body.rd.premium-home .premium-pack-flow > div > .premium-icon {
+    grid-row: span 2;
+    width: 25px;
+    height: 25px;
+    align-self: center;
+  }
+  body.rd.premium-home .premium-pack-flow strong { font-size: 1rem; }
+  body.rd.premium-home .premium-pack-flow span { font-size: .78rem; }
+  body.rd.premium-home .premium-flow-arrow { justify-self: start; width: 15px; height: 15px; margin-left: .45rem; }
+  body.rd.premium-home .rd-pack-facts { gap: .45rem; margin-top: 1.2rem; }
+  body.rd.premium-home .rd-pack-facts span { font-size: .82rem; padding: .38rem .64rem; }
+  body.rd.premium-home .rd-proposal .rd-price { margin: 1.35rem 0 1.1rem; }
+  body.rd.premium-home .rd-proposal .rd-includes {
+    min-width: 0;
+    margin-top: .25rem;
+    border-top-width: 1px;
+  }
+  body.rd.premium-home .rd-proposal .rd-includes li {
+    padding: .9rem .1rem .9rem 2.6rem;
+    font-size: .98rem;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+  }
+  body.rd.premium-home .rd-proposal .rd-includes li::before { left: .1rem; top: .94rem; }
+  /* The expanded answer should be readable without becoming page-height. */
+  body.rd.premium-home .rd-faq .faq-question { min-height: 68px; padding: 1.1rem 1.2rem; font-size: 1.025rem; line-height: 1.4; gap: .75rem; }
+  body.rd.premium-home .rd-faq .faq-question > span:first-child { min-width: 0; }
+  body.rd.premium-home .rd-faq .faq-answer { padding: 0 1.2rem 1.3rem; font-size: .98rem; line-height: 1.57; }
+  body.rd.premium-home .rd-faq .faq-answer p { margin: 0; }
   body.rd.premium-home .rd-final,
   body.rd.premium-home .rd-footer { padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px)); }
+  body.rd.premium-home .rd-final { padding-top: 4.9rem; padding-bottom: max(4.9rem, env(safe-area-inset-bottom, 0px)); }
+  body.rd.premium-home .rd-final-title { line-height: 1.1; text-wrap: balance; }
+  body.rd.premium-home .rd-final .rd-actions { margin-top: 1.6rem; }
+  body.rd.premium-home .rd-final-support { max-width: 34ch; margin-top: 1.35rem; font-size: .98rem; line-height: 1.6; }
+  body.rd.premium-home .rd-final-guarantee { max-width: 34ch; margin-top: 1.35rem; font-size: .9rem; line-height: 1.55; }
 }
 @media (max-width:359px) {
   body.rd.premium-home { --pad-x: 21px; }
