@@ -90,3 +90,66 @@ body.premium-legal footer{background:#FFF;border-top:1px solid #D9E2EB}
   body.premium-legal a{color:#9CC3EC}
 }
 @media (max-width:599px){body.premium-form .premium-readiness-visual{grid-template-columns:1fr}body.premium-form .premium-readiness-visual img{height:180px}}
+
+/* Production polish: consistent widths, safe-area breathing room and tactile cards. */
+body.premium-sat,body.premium-form,body.premium-legal{
+  -webkit-text-size-adjust:100%;
+  text-rendering:optimizeLegibility;
+}
+body.premium-sat{--w-page:1200px;--pad-x:clamp(24px,4.7vw,68px)}
+body.premium-sat .rd-sat-section{padding-block:clamp(90px,8vw,138px);position:relative}
+body.premium-sat .rd-sat-section:not(.rd-cg-hero)::before{
+  content:"";position:absolute;top:0;left:max(var(--pad-x),calc((100vw - 1200px)/2));right:max(var(--pad-x),calc((100vw - 1200px)/2));
+  height:1px;background:linear-gradient(90deg,transparent,var(--c-line) 20%,var(--c-line) 80%,transparent);pointer-events:none
+}
+body.premium-sat .rd-card,
+body.premium-sat .premium-sat-timeline li{
+  border-radius:22px;padding:clamp(1.8rem,3vw,2.7rem);
+  box-shadow:0 2px 5px rgba(15,33,53,.035),0 18px 45px rgba(15,33,53,.07);
+  transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease
+}
+body.premium-sat .premium-sat-hero-media{
+  border-radius:26px;padding:clamp(12px,2vw,20px);
+  box-shadow:0 6px 20px rgba(4,17,31,.16),0 35px 75px rgba(4,17,31,.3)
+}
+body.premium-sat .premium-sat-hero-grid{gap:clamp(2.5rem,5vw,5rem)}
+body.premium-sat .rd-btn{
+  background:linear-gradient(120deg,#183A5E,#285784);color:white;
+  box-shadow:0 5px 12px rgba(19,44,70,.12),0 14px 32px rgba(19,44,70,.22);
+  transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease
+}
+body.premium-sat .rd-btn:hover{background:linear-gradient(120deg,#214C77,#326798)}
+body.premium-sat .premium-sat-offer{border-radius:26px;box-shadow:0 3px 12px rgba(15,33,53,.07),0 26px 60px rgba(15,33,53,.12)}
+body.premium-form form,body.premium-form .premium-readiness-visual{border-radius:22px;box-shadow:0 3px 12px rgba(15,33,53,.04),0 24px 60px rgba(15,33,53,.085)}
+body.premium-form input,body.premium-form select,body.premium-form textarea{
+  font-size:16px!important;line-height:1.4;min-height:50px
+}
+body.premium-form form button[type="submit"],body.premium-form .btn{min-height:54px}
+body.premium-legal article.card{border-radius:24px;box-shadow:0 3px 12px rgba(15,33,53,.04),0 22px 60px rgba(15,33,53,.075)}
+@media (hover:hover) and (pointer:fine){
+  body.premium-sat .rd-card:hover,
+  body.premium-sat .premium-sat-timeline li:hover{
+    transform:translateY(-4px);border-color:color-mix(in srgb,var(--c-accent) 26%,var(--c-line));
+    box-shadow:0 8px 20px rgba(15,33,53,.07),0 26px 58px rgba(15,33,53,.11)
+  }
+  body.premium-sat .rd-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(19,44,70,.27)}
+}
+@media (max-width:599px){
+  body.premium-sat{--pad-x:clamp(24px,6vw,32px)}
+  body.premium-sat .rd-sat-section{padding-block:clamp(90px,17vw,112px)}
+  body.premium-sat .rd-cg-hero h1{font-size:clamp(2.65rem,10.5vw,3.4rem)}
+  body.premium-sat .premium-sat-hero-grid{gap:2.8rem}
+  body.premium-sat .rd-card,body.premium-sat .premium-sat-timeline li{padding:1.85rem}
+  body.premium-sat .premium-sat-offer{padding:1.9rem}
+  body.premium-sat .premium-sat-proof-quote{padding:1.4rem}
+  body.premium-form main{padding-top:3rem;padding-bottom:4.5rem}
+  body.premium-form main>.wrap,body.premium-legal main.wrap{padding-inline:max(22px,env(safe-area-inset-left,0px))}
+  body.premium-form .premium-intake-progress{gap:.85rem}
+  body.premium-form .premium-intake-progress li{padding:1rem;line-height:1.45}
+  body.premium-form form{padding:1.65rem}
+  body.premium-legal article.card{padding:1.8rem}
+  body.premium-sat footer,body.premium-form footer,body.premium-legal footer{padding-bottom:max(2rem,env(safe-area-inset-bottom,0px))}
+}
+@media (prefers-reduced-motion:reduce){
+  body.premium-sat .rd-card,body.premium-sat .premium-sat-timeline li,body.premium-sat .rd-btn{transition:none;transform:none!important}
+}
