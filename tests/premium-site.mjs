@@ -49,7 +49,7 @@ assert.match(home, /premium-hero-media/);
 assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
 assert.match(home, /premium-deliverable-showcase/, 'Real editing mockups missing');
-assert.match(home, /premium-polish\.css\?v=20261103-a/, 'Finishing styles not linked');
+assert.match(home, /premium-polish\.css\?v=20261103-b/, 'Finishing styles not linked');
 assert.match(home, /1–3 calendar days/);
 assert.match(home, /data-placement="hero_primary"/);
 assert(home.includes(stripe), 'Live checkout link missing');
