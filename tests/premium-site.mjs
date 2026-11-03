@@ -36,6 +36,16 @@ for (const page of pages) {
 }
 
 const home = read('index.html');
+const publicHome = home
+  .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '')
+  .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
+  .replace(/<!--[\s\S]*?-->/g, '');
+const visibleHomeText = [...publicHome.matchAll(/>([^<>]+)</g)].map((match) => match[1].trim()).join(' ');
+assert.doesNotMatch(visibleHomeText, /[-–—]/, 'Homepage customer-facing text should not contain dashes');
+for (const match of publicHome.matchAll(/\b(?:alt|aria-label)="([^"]+)"/g)) {
+  assert.doesNotMatch(match[1], /[-–—]/, 'Homepage image and accessibility labels should not contain dashes');
+}
+assert.doesNotMatch(home.match(/<title>([^<]+)<\/title>/)?.[1] || '', /[-–—]/, 'Homepage title should not contain dashes');
 for (const q of [
   'We scaled content delivery without expanding our internal team.',
   'Our clients receive consistent deliverables while our team stays focused on growth.',
@@ -51,7 +61,7 @@ assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverab
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
 assert.match(home, /premium-deliverable-showcase/, 'Real editing mockups missing');
 assert.match(home, /premium-polish\.css\?v=20261103-c/, 'Finishing styles not linked');
-assert.match(home, /1–3 calendar days/);
+assert.match(home, /1 to 3 calendar days/);
 assert.match(home, /data-placement="hero_primary"/);
 assert(home.includes(stripe), 'Live checkout link missing');
 
