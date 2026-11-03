@@ -166,7 +166,7 @@ async function sendIntakeNotification(record: any) {
     "<p><strong>Project:</strong> " + escapeHtml(record.project_name) + "</p>" +
     "<p><strong>Customer:</strong> " + escapeHtml(record.customer_email) + "</p>" +
     (record.source_url
-      ? '<p><strong>Source:</strong> <a href="' + escapeHtml(record.source_url) + '">' + escapeHtml(record.source_url) + "</a></p>"
+      ? '<p><strong>Agency-owned production folder:</strong> <a href="' + escapeHtml(record.source_url) + '">' + escapeHtml(record.source_url) + "</a></p>"
       : "<p><strong>Source:</strong> check the verified brief and EG Client Jobs.</p>") +
     optionalBrand +
     '<p><strong>Style reference:</strong> <a href="' + escapeHtml(record.style_reference_url) + '">' + escapeHtml(record.style_reference_url) + "</a></p>" +
@@ -236,10 +236,11 @@ Deno.serve(async (req: Request) => {
 
     if (paid.sku === "episode") {
       const folder = new URL(String(body.source_url || ""));
-      if (folder.protocol !== "https:" || folder.hostname !== "drive.google.com" ||
-          !/^\/(?:drive\/(?:u\/\d+\/)?folders\/[A-Za-z0-9_-]+|file\/d\/[A-Za-z0-9_-]+(?:\/view)?)\/?$/.test(folder.pathname) ||
+      if (folder.protocol !== "https:" || folder.username || folder.password ||
+          !folder.hostname.includes(".") || folder.hostname.endsWith(".local") ||
+          /^(?:\d+\.){3}\d+$/.test(folder.hostname) ||
           body.private_handoff_confirmed !== true || body.rights_confirmed !== true) {
-        throw new Error("Provide a private Google Drive source link and confirm footage rights and the private agency handoff. Source access is verified before work starts.");
+        throw new Error("Provide a secure link to your private production folder, grant EG Studio edit/upload access, and confirm footage rights and agency-only access. We verify access before work starts.");
       }
     }
     const record = {
@@ -250,7 +251,7 @@ Deno.serve(async (req: Request) => {
       currency: "usd",
       customer_email: paid.email.toLowerCase(),
       project_name: cleanText(body.project_name, 120, false) || "Agency episode",
-      source_url: safeUrl(body.source_url, paid.sku === "episode"), // private source link for new episode orders
+      source_url: safeUrl(body.source_url, paid.sku === "episode"), // agency-owned production folder for new episode orders
       brand_assets_url: safeUrl(body.brand_assets_url, false),
       style_reference_url: safeUrl(body.style_reference_url, false) || "https://egstudio.tech/#samples",
       avoid_notes: cleanText(body.avoid_notes, 1200, false),
@@ -260,7 +261,7 @@ Deno.serve(async (req: Request) => {
     };
 
     if (paid.sku === "episode") {
-      record.avoid_notes = (record.avoid_notes || "") + "\nPRIVATE AGENCY HANDOFF: footage rights and download/reupload handoff confirmed; manual verification of source access and any NDA agreement required before written acceptance. Zero end-client contact. Deliver review and final files privately to the agency only. Agency downloads and reuploads client copies to its own folder and checks them from a separate account before sharing. Never forward EG links or share our working folder with the end client. First complete batch 1 to 3 days after acceptance. Human selection without AI first pass; five hooks/titles and captions.";
+      record.avoid_notes = (record.avoid_notes || "") + "\nPRIVATE AGENCY HANDOFF: agency confirms rights and owns the private production folder. Manually verify the recording and edit/upload permission for ops@egstudio.tech; complete any requested NDA before written acceptance. Zero end-client contact. Upload the five finished clips, hooks/titles and captions directly into that agency-owned private folder. No EG branding, watermark or domain inside delivered files or filenames. Keep the end client out of the production folder; file-sharing services may expose uploader account metadata, so the agency must use its own client-facing copies or links. First complete batch within 1 to 3 calendar days after written acceptance; revisions additional. Human moment selection without AI first pass.";
     }
     if (!record.rights_confirmed) throw new Error("Rights confirmation is required.");
 
