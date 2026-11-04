@@ -38,7 +38,7 @@ for (const page of pages) {
 const home = read('index.html');
 // The owner specifically approved these new hyphenated and en dash lines.
 for (const s of [
-  'White-Label Short Form Editing <span class="rd-h1-line">For Agencies</span>',
+  '<span class="premium-word-keep">White-Label</span> Short Form Editing <span class="rd-h1-line">For Agencies</span>',
   'Turn one client recording into five finished clips in 1–3 days.',
   '$199 fixed price.',
   'No hiring. No subscriptions. No client contact.',
@@ -101,6 +101,7 @@ assert.match(polish, /max-width:599px/, 'Missing mobile-specific polish');
 assert.match(polish, /max-width:849px[^]*?\.premium-hero-deliverable\s*\{\s*position:\s*static;/, 'Hero status cards must not overlap workflow labels on mobile and tablet');
 assert.match(polish, /prefers-reduced-motion:reduce/, 'Missing reduced-motion accessibility');
 assert.match(polish, /premium-icon-tile[\s\S]*?background: transparent; border: 0;/, 'Benefit icons must use the minimalist outline treatment');
+assert.match(polish, /premium-word-keep\s*\{\s*white-space:\s*nowrap;/, 'The White-Label headline must not split across lines at the hyphen');
 assert.match(read('assets/css/premium-pages.css'), /font-size:16px!important/, 'iOS form field zoom prevention missing');
 for (const page of ['content-graveyard/index.html','white-label-podcast-clips/index.html']) {
   const count = [...read(page).matchAll(/<meta name="theme-color"/g)].length;
