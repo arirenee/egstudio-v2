@@ -82,7 +82,7 @@ assert.match(home, /premium-hero-media/);
 assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
 assert.match(home, /premium-deliverable-showcase/, 'Real editing mockups missing');
-assert.match(home, /premium-polish\.css\?v=20261103-brand-copy/, 'Current finishing styles not linked');
+assert.match(home, /premium-polish\.css\?v=20261103-brand-wrap/, 'Current finishing styles not linked');
 assert.equal((home.match(/<source src="\/assets\/samples\/sample-process\.mp4\?v=20261103"/g)||[]).length, 2, 'Both hero and proof player must use the approved editing process video');
 assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
 assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');
