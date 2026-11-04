@@ -98,6 +98,7 @@ body.rd.premium-home .premium-hero .rd-display {
   letter-spacing: -.06em;
   max-width: 16.5ch;
 }
+body.rd.premium-home .premium-word-keep { white-space: nowrap; }
 body.rd.premium-home .premium-hero .rd-lead { line-height: 1.76; max-width: 51ch; }
 body.rd.premium-home .premium-hero-price {
   margin-top: .95rem; color: var(--c-text); font-weight: 800;
