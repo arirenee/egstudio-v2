@@ -12,7 +12,7 @@ body.rd.premium-home {
 
 /* Editorial rhythm: each change of surface gets a restrained dividing line. */
 body.rd.premium-home .rd-section {
-  padding-block: clamp(90px, 8.2vw, 142px);
+  padding-block: clamp(72px, 7vw, 112px);
   position: relative;
 }
 body.rd.premium-home main > .rd-section:not(.rd-trust-band)::before {
@@ -25,7 +25,7 @@ body.rd.premium-home main > .rd-section:not(.rd-trust-band)::before {
   background: linear-gradient(90deg, transparent, var(--c-line) 18%, var(--c-line) 82%, transparent);
   pointer-events: none;
 }
-body.rd.premium-home .premium-benefits { background: var(--c-surface); }
+body.rd.premium-home .premium-benefits { background: var(--c-bg-alt); }
 body.rd.premium-home .premium-included {
   background: linear-gradient(180deg, var(--c-bg-alt), var(--c-bg) 88%);
 }
@@ -35,10 +35,10 @@ body.rd.premium-home .premium-comparison {
 }
 body.rd.premium-home .rd-steps-section { background: var(--c-surface); }
 body.rd.premium-home .premium-testimonials { background: var(--c-surface); }
-body.rd.premium-home #faq { background: var(--c-bg); }
+body.rd.premium-home #faq { background: transparent; }
 
 /* Typography and repeated content widths. */
-body.rd.premium-home .premium-section-intro { max-width: 780px; margin-bottom: clamp(2.4rem, 5vw, 4rem); }
+body.rd.premium-home .premium-section-intro { max-width: 780px; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
 body.rd.premium-home .premium-section-intro .rd-h2,
 body.rd.premium-home .rd-studio-work .rd-h2,
 body.rd.premium-home .rd-faq-split .rd-h2 {
@@ -81,7 +81,7 @@ body.rd.premium-home .rd-header {
 /* Hero: the same real source and finished sample, now surrounded by tangible handoff cards. */
 body.rd.premium-home .premium-hero {
   padding-top: clamp(54px, 5vw, 86px);
-  padding-bottom: clamp(112px, 9vw, 150px);
+  padding-bottom: clamp(80px, 7vw, 110px);
 }
 body.rd.premium-home .premium-hero .rd-display {
   font-size: clamp(3rem, 6vw, 5.1rem);
@@ -151,9 +151,16 @@ body.rd.premium-home .premium-steps li {
   transition: transform .24s cubic-bezier(.2,.7,.2,1), box-shadow .24s ease, border-color .24s ease;
 }
 body.rd.premium-home .premium-benefit-card { background: var(--c-surface); }
-body.rd.premium-home .premium-included-grid article { min-height: 223px; }
+body.rd.premium-home .premium-included-grid article { min-height: 195px; }
 body.rd.premium-home .premium-steps li { background: var(--c-bg); }
 body.rd.premium-home .premium-steps .rd-step-num { color: var(--c-accent); }
+body.rd.premium-home .premium-process-note {
+  max-width: 680px; margin: 1.8rem auto 0; color: var(--c-muted);
+  font-size: .9rem; line-height: 1.65; text-align: center;
+}
+@media (min-width:860px) {
+  body.rd.premium-home .premium-included-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 body.rd.premium-home .premium-comparison-card,
 body.rd.premium-home .rd-proposal .rd-offer {
   border-radius: 28px; border: var(--premium-card-border); box-shadow: var(--premium-lift-shadow);
@@ -224,16 +231,25 @@ body.rd.premium-home .premium-showcase-frame figcaption strong { color: white; f
 body.rd.premium-home .premium-showcase-frame-back { left: 4%; z-index: 1; transform: translateY(-45%) rotate(-10deg); }
 body.rd.premium-home .premium-showcase-frame-front { left: 32%; z-index: 3; transform: translateY(-51%) rotate(0deg) scale(1.08); }
 body.rd.premium-home .premium-showcase-frame-side { left: 61%; z-index: 2; transform: translateY(-45%) rotate(9deg); }
+body.rd.premium-home .premium-deliverable-showcase-compact {
+  margin: clamp(1.75rem, 3.2vw, 3.25rem) 0 0;
+  padding: clamp(1.4rem, 3.2vw, 2.4rem);
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+body.rd.premium-home .premium-deliverable-showcase-compact .premium-showcase-stack {
+  height: clamp(270px, 29vw, 370px);
+}
+body.rd.premium-home .premium-deliverable-showcase-compact .premium-showcase-copy > p { margin-top: .85rem; }
 
 /* The featured client quote anchors the grid without using fabricated logos or ratings. */
 body.rd.premium-home .premium-quote {
-  padding: clamp(2rem, 3vw, 2.7rem);
-  min-height: 322px;
+  padding: clamp(1.65rem, 2.5vw, 2.2rem);
+  min-height: 260px;
   border-radius: var(--premium-card-radius);
   border: var(--premium-card-border);
   box-shadow: var(--premium-card-shadow);
 }
-body.rd.premium-home .premium-quote-symbol { margin-bottom: 1.3rem; color: var(--c-accent); font-size: 4.8rem; }
+body.rd.premium-home .premium-quote-symbol { margin-bottom: .7rem; color: var(--c-accent); font-size: 3rem; }
 body.rd.premium-home .premium-quote blockquote { letter-spacing: -.026em; font-weight: 650; line-height: 1.55; }
 body.rd.premium-home .premium-quote:first-child {
   background: linear-gradient(145deg, #14304E, #234C75);
@@ -272,6 +288,24 @@ body.rd.premium-home .rd-faq .faq-chevron::before { width: 12px; height: 2px; }
 body.rd.premium-home .rd-faq .faq-chevron::after { width: 2px; height: 12px; transition: transform .2s ease; }
 body.rd.premium-home .rd-faq .faq-item.active .faq-chevron { transform: none; }
 body.rd.premium-home .rd-faq .faq-item.active .faq-chevron::after { transform: scaleY(0); }
+body.rd.premium-home #faq {
+  padding: clamp(2.4rem, 4.5vw, 4.5rem) 0 0;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  border-top: 1px solid var(--c-line);
+}
+body.rd.premium-home #faq .rd-faq-split { align-items: start; }
+
+body.rd.premium-home .rd-final-founder {
+  width: min(100%, 650px); margin-top: clamp(2.4rem, 4vw, 3.4rem);
+  padding-top: 1.5rem; border-top: 1px solid rgba(220, 235, 251, .25);
+  color: #D5E2F0; font-size: .9rem; line-height: 1.65;
+}
+body.rd.premium-home .rd-final-founder-sig {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: .35rem 1rem;
+  margin-top: 1rem; font-size: .8rem;
+}
+body.rd.premium-home .rd-final-founder-sig strong { color: #FFF; }
+body.rd.premium-home .rd-final-founder-sig a { color: #D5E2F0; text-underline-offset: 3px; }
 
 /* Polished footer separation and tactile detail. */
 body.rd.premium-home .rd-founder-card { border-radius: 24px; box-shadow: var(--premium-card-shadow); }
@@ -304,13 +338,13 @@ body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0
 }
 @media (max-width:599px) {
   body.rd.premium-home { --pad-x: clamp(24px, 6vw, 32px); }
-  body.rd.premium-home .rd-section { padding-block: clamp(90px, 18vw, 110px); }
-  body.rd.premium-home .premium-hero { padding-top: 62px; padding-bottom: 105px; }
-  body.rd.premium-home .premium-hero .rd-hero-grid { gap: 4.2rem; }
+  body.rd.premium-home .rd-section { padding-block: clamp(56px, 15vw, 72px); }
+  body.rd.premium-home .premium-hero { padding-top: 56px; padding-bottom: 68px; }
+  body.rd.premium-home .premium-hero .rd-hero-grid { gap: 2.4rem; }
   body.rd.premium-home .premium-hero .rd-display { font-size: clamp(2.75rem, 11vw, 3.45rem); line-height: 1.04; }
   body.rd.premium-home .premium-hero .rd-lead { font-size: 1.045rem; line-height: 1.76; }
-  body.rd.premium-home .premium-trust-strip { gap: 1.05rem .65rem; margin-top: 2rem; }
-  body.rd.premium-home .premium-hero-note { margin-top: 1.2rem; }
+  body.rd.premium-home .premium-trust-strip { gap: .75rem .6rem; margin-top: 1.35rem; }
+  body.rd.premium-home .premium-hero-note { margin-top: .9rem; }
   body.rd.premium-home .premium-hero-deliverable { gap: .7rem; padding: .75rem .9rem; min-width: 0; border-radius: 13px; }
   body.rd.premium-home .premium-hero-deliverable small { font-size: .6rem; }
   body.rd.premium-home .premium-hero-deliverable strong { font-size: .82rem; }
@@ -321,17 +355,18 @@ body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0
   body.rd.premium-home .premium-deliverable-check .premium-icon { width: 17px; height: 17px; }
   body.rd.premium-home .premium-benefit-grid,
   body.rd.premium-home .premium-included-grid,
-  body.rd.premium-home .premium-quote-grid { gap: 1.25rem; }
+  body.rd.premium-home .premium-quote-grid { gap: 1rem; }
   body.rd.premium-home .premium-benefit-card,
   body.rd.premium-home .premium-included-grid article,
   body.rd.premium-home .premium-steps li,
-  body.rd.premium-home .premium-quote { padding: 1.9rem; }
+  body.rd.premium-home .premium-quote { padding: 1.45rem; }
   body.rd.premium-home .premium-included-grid article { min-height: 0; }
   body.rd.premium-home .premium-section-intro .rd-h2,
   body.rd.premium-home .rd-studio-work .rd-h2,
   body.rd.premium-home .rd-faq-split .rd-h2 { font-size: clamp(2.2rem, 9vw, 2.65rem); line-height: 1.11; }
-  body.rd.premium-home .premium-deliverable-showcase { padding: 1.6rem; border-radius: 23px; }
+  body.rd.premium-home .premium-deliverable-showcase { padding: 1.35rem; border-radius: 23px; }
   body.rd.premium-home .premium-showcase-stack { height: clamp(285px, 83vw, 405px); }
+  body.rd.premium-home .premium-deliverable-showcase-compact .premium-showcase-stack { height: clamp(235px, 65vw, 310px); }
   body.rd.premium-home .premium-showcase-frame { border-width: 4px; border-radius: 16px; width: 43%; }
   body.rd.premium-home .premium-showcase-frame-back { left: 0; }
   body.rd.premium-home .premium-showcase-frame-front { left: 28%; }
@@ -388,9 +423,9 @@ body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0
   }
   body.rd.premium-home .rd-proposal .rd-includes li::before { left: .1rem; top: .94rem; }
   /* The expanded answer should be readable without becoming page-height. */
-  body.rd.premium-home .rd-faq .faq-question { min-height: 68px; padding: 1.1rem 1.2rem; font-size: 1.025rem; line-height: 1.4; gap: .75rem; }
+  body.rd.premium-home .rd-faq .faq-question { min-height: 56px; padding: .95rem 1.1rem; font-size: 1.025rem; line-height: 1.4; gap: .75rem; }
   body.rd.premium-home .rd-faq .faq-question > span:first-child { min-width: 0; }
-  body.rd.premium-home .rd-faq .faq-answer { padding: 0 1.2rem 1.3rem; font-size: .98rem; line-height: 1.57; }
+  body.rd.premium-home .rd-faq .faq-answer { padding: 0 1.1rem 1.15rem; font-size: .98rem; line-height: 1.57; }
   body.rd.premium-home .rd-faq .faq-answer p { margin: 0; }
   body.rd.premium-home .rd-final,
   body.rd.premium-home .rd-footer { padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px)); }

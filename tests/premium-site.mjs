@@ -53,14 +53,26 @@ for (const q of [
   'Growth Marketing Agency', 'Creative Agency', 'Digital Agency',
 ]) assert(home.includes(q), `Missing approved testimonial text: ${q}`);
 assert.doesNotMatch(home, /Anonymous agency client/i);
-for (const s of ['id="benefits"','id="included"','id="work"','id="comparison"','id="how-it-works"','id="white-label"','id="testimonials"','id="pricing"']) {
+for (const s of ['id="benefits"','id="included"','id="work"','id="why-eg"','id="how-it-works"','id="testimonials"','id="pricing"','id="faq"','id="founder"']) {
   assert(home.includes(s), `Missing homepage section: ${s}`);
 }
+const main = home.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] || '';
+const mainSections = [...main.matchAll(/^\s*<section\b[^>]*class="([^"]+)"[^>]*>/gm)];
+assert.equal(mainSections.length, 8, 'Homepage must have eight distinct visual sections');
+assert.deepEqual(
+  [...main.matchAll(/^\s*<section\b[^>]*id="([^"]+)"/gm)].map(m => m[1]),
+  ['how-it-works', 'included', 'work', 'why-eg', 'testimonials', 'pricing'],
+  'Homepage should show process, scope, proof and offer in the approved order',
+);
+assert.doesNotMatch(main, /<section\b[^>]*id="(?:comparison|white-label|benefits|faq|founder)"/, 'Redundant standalone sections remain');
+assert.match(main, /<section id="pricing"[\s\S]*?<div id="faq"[^>]*>[\s\S]*?<\/section>/, 'FAQ must sit inside pricing');
+assert.equal([...main.matchAll(/class="premium-included-grid"[\s\S]*?<\/div>/g)][0]?.[0].match(/<article>/g)?.length, 4, 'Offer inclusions must be concise');
+assert.equal((main.match(/class="faq-item"/g) || []).length, 5, 'FAQ should answer five distinct buying questions');
 assert.match(home, /premium-hero-media/);
 assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
 assert.match(home, /premium-deliverable-showcase/, 'Real editing mockups missing');
-assert.match(home, /premium-polish\.css\?v=20261103-e/, 'Finishing styles not linked');
+assert.match(home, /premium-polish\.css\?v=20261103-conversion/, 'Current finishing styles not linked');
 assert.equal((home.match(/<source src="\/assets\/samples\/sample-process\.mp4\?v=20261103"/g)||[]).length, 2, 'Both hero and proof player must use the approved editing process video');
 assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
 assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');
