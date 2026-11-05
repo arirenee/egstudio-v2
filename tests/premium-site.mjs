@@ -80,6 +80,7 @@ for (const phrase of ['White-label short-form post-production for agencies.', 'L
   assert.equal(footer.split(phrase).length - 1, 1, `Footer must contain ${phrase} exactly once`);
 }
 assert.equal((footer.match(/class="footer-brand"/g) || []).length, 1, 'Footer must use the exact Privacy-page footer wordmark');
+assert.match(home, /Montserrat:wght@400;500;600;700;800;900&display=swap/, 'The legal footer requires Montserrat weight 900 on the homepage');
 assert.equal((home.match(/<a class="logo" href="#top">EG<span>STUDIO<\/span><\/a>/g) || []).length, 1, 'Homepage header must match the legal header');
 assert.equal((home.match(/<a class="footer-brand" href="#top">EG<span>STUDIO<\/span><\/a>/g) || []).length, 1, 'Homepage footer must match the legal footer');
 assert.doesNotMatch(home, /class="(?:image2-brand rd-brand|rd-brand rd-footer-brand)"/, 'Legacy homepage logos must be removed');
