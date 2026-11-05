@@ -172,6 +172,22 @@ body.rd.premium-home .premium-benefit-card { background: var(--c-surface); }
 body.rd.premium-home .premium-included-grid article { min-height: 195px; }
 body.rd.premium-home .premium-steps li { background: var(--c-bg); }
 body.rd.premium-home .premium-steps .rd-step-num { color: var(--c-accent); }
+/* One restrained outline icon treatment for the three handoff steps. */
+body.rd.premium-home .premium-step-icon {
+  width: 34px; height: 34px; margin-bottom: 1.1rem;
+  background: transparent; border: 0; border-radius: 0;
+}
+body.rd.premium-home .premium-step-icon .premium-icon { width: 30px; height: 30px; }
+body.rd.premium-home .premium-included-grid article > .premium-icon { width: 30px; height: 30px; }
+body.rd.premium-home .premium-process-timing {
+  display: flex; align-items: flex-start; gap: .7rem;
+  max-width: 76ch; margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+  padding: 0 .25rem; color: var(--c-body); font-size: .93rem; line-height: 1.6;
+}
+body.rd.premium-home .premium-process-timing .premium-icon {
+  flex: none; width: 21px; height: 21px; margin-top: .15rem; color: var(--c-accent);
+}
+body.rd.premium-home .premium-process-timing strong { color: var(--c-text); }
 @media (min-width:860px) {
   body.rd.premium-home .premium-included-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -251,6 +267,15 @@ body.rd.premium-home .premium-includes-wrap h3 {
   color: var(--c-text); font-size: .84rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: .1em; margin-bottom: .7rem;
 }
+body.rd.premium-home .premium-pricing-requirements {
+  display: grid; gap: .35rem; margin-top: 1.5rem; padding-top: 1.35rem;
+  border-top: 1px solid var(--c-line);
+}
+body.rd.premium-home .premium-pricing-requirements h3 { margin: .7rem 0 .05rem; }
+body.rd.premium-home .premium-pricing-requirements h3:first-child { margin-top: 0; }
+body.rd.premium-home .premium-pricing-requirements p {
+  margin: 0; max-width: 52ch; font-size: .94rem; line-height: 1.65; color: var(--c-body);
+}
 body.rd.premium-home .rd-proposal .rd-includes li { padding-left: 2.2rem; }
 body.rd.premium-home .rd-proposal .rd-includes li::before {
   content: "✓"; border: 0; transform: none; color: var(--c-accent);
@@ -318,6 +343,8 @@ body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0
   body.rd.premium-home .premium-steps li,
   body.rd.premium-home .premium-quote { padding: 1.45rem; }
   body.rd.premium-home .premium-included-grid article { min-height: 0; }
+  body.rd.premium-home .premium-process-timing { font-size: .89rem; line-height: 1.55; }
+  body.rd.premium-home .premium-step-icon { margin-bottom: .8rem; }
   body.rd.premium-home .premium-section-intro .rd-h2,
   body.rd.premium-home .rd-studio-work .rd-h2,
   body.rd.premium-home .rd-faq-split .rd-h2 { font-size: clamp(2.2rem, 9vw, 2.65rem); line-height: 1.11; }
@@ -337,6 +364,8 @@ body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0
     text-wrap: balance;
   }
   body.rd.premium-home .rd-proposal .premium-offer-intro { margin-top: .85rem; font-size: 1rem; line-height: 1.55; }
+  body.rd.premium-home .premium-pricing-requirements { margin-top: 1.1rem; padding-top: 1rem; }
+  body.rd.premium-home .premium-pricing-requirements p { font-size: .91rem; }
   body.rd.premium-home .premium-pack-flow { margin: 1.5rem 0 1.2rem; padding: 1rem 1.1rem; gap: .2rem; }
   body.rd.premium-home .premium-pack-flow > div {
     grid-template-columns: 2rem minmax(0, 1fr);

@@ -16,7 +16,7 @@ const stripe = 'https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f';
 
 for (const page of pages) {
   const html = read(page);
-  assert.match(html, /premium(?:-pages)?\.css\?v=2026110[34]-(?:redesign|polish|copy)/, `${page}: premium styles missing`);
+  assert.match(html, /premium(?:-pages)?\.css\?v=2026110[345]-(?:redesign|polish|copy|handoff)/, `${page}: premium styles missing`);
   assert.match(html, /<main\b/i, `${page}: main landmark missing`);
   assert.match(html, /<h1\b/i, `${page}: h1 missing`);
   assert.doesNotMatch(html, /Google Drive|Unbranded Drive/i, `${page}: obsolete public file-service wording`);
@@ -38,22 +38,28 @@ for (const page of pages) {
 const home = read('index.html');
 const schema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || '{}');
 const faqSchema = schema['@graph']?.find(node => node['@type'] === 'FAQPage');
-assert.equal(faqSchema?.mainEntity?.length, 4, 'Structured FAQ must match the four visible questions');
+assert.equal(faqSchema?.mainEntity?.length, 5, 'Structured FAQ must match the five visible questions');
 // Maintain the established offer while presenting each point in its correct context.
 for (const s of [
   '<span class="premium-word-keep">White-Label</span> Short Form Editing <span class="rd-h1-line">For Agencies</span>',
-  'Turn one client recording into five finished clips in 1–3 calendar days.',
+  'One client recording becomes five captioned and branded vertical clips.',
   '$199 fixed price.',
-  'No hiring. No subscriptions. No client contact.',
-  'No timestamps required',
-  'We review the full recording and select the strongest moments for you.',
-  'Ready for client delivery',
-  'Checked captions and styling based on the agency assets you provide.',
-  'Built for your agency\'s workflow.',
-  'Private agency handoff',
-  'Less editor management',
-  'Capacity when needed',
-  'Turnaround begins once payment clears and all required project materials are ready.',
+  'Delivered in 1–3 calendar days once materials are ready.',
+  'No subscription. No sales call. No contact with your client.',
+  'What you send. What we do. What you get back.',
+  'Send recording and assets',
+  'We review and edit',
+  'Your agency reviews and delivers',
+  'Five separate video files',
+  'Moments selected for you',
+  'Checked captions and brand styling',
+  'Five hook or title suggestions',
+  'Your agency stays in control.',
+  'You manage the client',
+  'We handle post-production',
+  'You control delivery',
+  'First batch in 1–3 calendar days once payment clears and all materials are ready.',
+  'No contract',
   'EG Studio is a white-label production partner for agencies that need reliable short-form content editing without expanding payroll.',
 ]) assert(home.includes(s), `Missing owner-approved homepage copy: ${s}`);
 for (const q of [
@@ -80,28 +86,40 @@ assert.doesNotMatch(main, /<section\b[^>]*id="(?:comparison|white-label|benefits
 assert.match(main, /<section id="pricing"[\s\S]*?<div id="faq"[^>]*>[\s\S]*?<\/section>/, 'FAQ must sit inside pricing');
 assert.equal([...main.matchAll(/class="premium-included-grid"[\s\S]*?<\/div>/g)][0]?.[0].match(/<article>/g)?.length, 4, 'Offer inclusions must be concise');
 assert.equal((main.match(/class="premium-benefit-card"/g) || []).length, 3, 'Agency benefits should not repeat the included list');
-assert.equal((main.match(/class="faq-item"/g) || []).length, 4, 'FAQ should answer only unanswered buying questions');
+assert.equal((main.match(/class="faq-item"/g) || []).length, 5, 'FAQ should answer only unanswered buying questions');
 assert.doesNotMatch(main, /premium-deliverable-showcase/, 'Duplicate work sample thumbnails must not compete with real video proof');
 assert.doesNotMatch(main, /premium-trust-strip/, 'Repeated hero promises should not clutter the purchase action');
-const assurances = main.match(/<div class="premium-includes-wrap">[\s\S]*?<\/ul><\/div>/)?.[0] || '';
-assert.deepEqual([...assurances.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]), [
-  'Fixed price', 'No contract', 'No subscription', 'No sales call required',
-  'White label', 'One revision', 'Delivery in 1–3 calendar days once materials are ready',
-], 'Pricing must display the agreed terms without hiding the delivery start condition');
+const inclusions = main.match(/<div class="premium-includes-wrap">[\s\S]*?<\/ul>/)?.[0] || '';
+assert.deepEqual([...inclusions.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]), [
+  'Five separate 9:16 video clips', 'Human moment selection, no timestamps needed',
+  'Checked captions and supplied brand styling', 'Five hook or title suggestions',
+  'One consolidated revision round', 'Private white-label handoff to your agency folder',
+], 'Pricing must describe the exact deliverables');
+assert.match(main, /Your agency provides[\s\S]*?One usable recording/);
+assert.match(main, /No contract\. No subscription\. No sales call required\./);
 assert.match(home, /premium-hero-media/);
 assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
-assert.match(home, /premium-polish\.css\?v=20261104-copy/, 'Current finishing styles not linked');
+assert.match(home, /premium-polish\.css\?v=20261105-handoff/, 'Current finishing styles not linked');
 assert.equal((home.match(/<source src="\/assets\/samples\/sample-process\.mp4\?v=20261103"/g)||[]).length, 2, 'Both hero and proof player must use the approved editing process video');
 assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
 assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');
 assert.match(home, /1 to 3 calendar days/);
-assert.match(home, /One recording up to 60 minutes\. Five vertical clips up to 60 seconds each/);
+assert.match(home, /One recording, up to 60 minutes\. Five vertical clips, up to 60 seconds each/);
 assert.match(home, /File sharing services can show uploader identities/, 'Private handoff caveat lost');
 assert.match(home, /Public recuts are editing demonstrations only\. No endorsement or client relationship is implied\./, 'Public recut disclaimer lost');
 assert.match(home, /Revision time is additional\./, 'Revision timing caveat lost');
 assert.match(home, /data-placement="hero_primary"/);
 assert(home.includes(stripe), 'Live checkout link missing');
+for (const match of main.matchAll(/<a\b[^>]*data-placement="[^"]+"[^>]*>/g)) {
+  assert(match[0].includes(`href="${stripe}"`), `Unexpected checkout target: ${match[0]}`);
+}
+const visibleFaqs = [...main.matchAll(/class="faq-question"[^>]*><span>([^<]+)<\/span>[\s\S]*?<div class="faq-answer"[^>]*><p>([^<]+)<\/p>/g)];
+assert.equal(visibleFaqs.length, 5, 'Five FAQ questions must be visible to the accordion');
+for (let index = 0; index < visibleFaqs.length; index++) {
+  assert.equal(faqSchema.mainEntity[index].name, visibleFaqs[index][1], `FAQ question ${index + 1} differs from structured data`);
+  assert.equal(faqSchema.mainEntity[index].acceptedAnswer.text, visibleFaqs[index][2], `FAQ answer ${index + 1} differs from structured data`);
+}
 
 for (const cssFile of ['assets/css/premium.css','assets/css/premium-polish.css','assets/css/premium-pages.css']) {
   const css = read(cssFile);
