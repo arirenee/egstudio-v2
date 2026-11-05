@@ -79,14 +79,18 @@ assert.doesNotMatch(home, /Founder, EG Studio|private editing|Los Angeles based|
 for (const phrase of ['White-label short-form post-production for agencies.', 'Los Angeles, California', 'mailto:ops@egstudio.tech', '>ops@egstudio.tech</a>', '© 2026 EG Studio. All rights reserved.']) {
   assert.equal(footer.split(phrase).length - 1, 1, `Footer must contain ${phrase} exactly once`);
 }
-assert.equal((footer.match(/class="logo"/g) || []).length, 1, 'Footer must use the approved legal-page logo');
-assert.equal((home.match(/<a class="logo" href="#top">EG<span>STUDIO<\/span><\/a>/g) || []).length, 2, 'Homepage header and footer must share the legal-page wordmark markup');
+assert.equal((footer.match(/class="footer-brand"/g) || []).length, 1, 'Footer must use the exact Privacy-page footer wordmark');
+assert.equal((home.match(/<a class="logo" href="#top">EG<span>STUDIO<\/span><\/a>/g) || []).length, 1, 'Homepage header must match the legal header');
+assert.equal((home.match(/<a class="footer-brand" href="#top">EG<span>STUDIO<\/span><\/a>/g) || []).length, 1, 'Homepage footer must match the legal footer');
 assert.doesNotMatch(home, /class="(?:image2-brand rd-brand|rd-brand rd-footer-brand)"/, 'Legacy homepage logos must be removed');
 for (const page of ['terms.html', 'privacy.html', 'refund.html']) {
   assert(read(page).includes('<a class="logo" href="index.html">EG<span>STUDIO</span></a>'), `${page}: legal header logo changed`);
+  assert(read(page).includes('<a class="footer-brand" href="index.html">EG<span>STUDIO</span></a>'), `${page}: legal footer logo changed`);
 }
 assert.match(read('assets/css/premium-pages.css'), /body\.premium-legal \.logo,body\.rd-home \.logo\{font-family:var\(--eg-font\)/, 'Legal and homepage logos must use one shared typography rule');
-assert.match(read('assets/css/premium-pages.css'), /@media \(prefers-color-scheme:dark\)\{body\.rd-home a\.logo,body\.rd-home \.rd-footer a\.logo\{color:#6EA8E5\}body\.rd-home a\.logo span\{color:#9CA3AF\}/, 'Homepage wordmarks must use the exact Privacy-page dark-mode colors');
+assert.match(read('assets/css/premium-pages.css'), /body\.rd-home \.rd-footer a\.footer-brand\{[^}]*font-size:12px;line-height:1\.7;font-weight:900;letter-spacing:2px;color:#255F9A/, 'Homepage footer must retain the Privacy footer sizing and spacing');
+assert.match(read('assets/css/premium-pages.css'), /@media \(prefers-color-scheme:dark\)\{body\.rd-home a\.logo,body\.rd-home \.rd-footer a\.footer-brand\{color:#6EA8E5!important\}/, 'Both homepage wordmarks must match Privacy-page dark-mode blue');
+assert.match(read('assets/css/premium-pages.css'), /@media \(max-width:599px\)\{body\.rd-home \.rd-header \.rd-nav,body\.rd-home \.rd-footer \.rd-footer-inner\{--pad-x:4vw\}/, 'Mobile homepage logos must align with the 92% legal-page content width');
 assert.equal((footer.match(/<nav\b/g) || []).length, 1, 'One accessible footer navigation required');
 assert.match(footer, /<nav class="site-footer-links" aria-label="Footer navigation">/, 'Footer navigation needs an accessible label');
 for (const [label, destination] of [['Privacy','privacy.html'],['Terms','terms.html'],['Refunds','refund.html']]) {
