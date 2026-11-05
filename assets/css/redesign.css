@@ -740,12 +740,16 @@ body.rd-home .rd-final-guarantee{margin-top:1.5rem;color:#fff;font-weight:600;fo
 /* 9. Footer */
 body.rd-home .rd-footer{padding:clamp(3rem,5vw,4.5rem) 0 2.5rem}
 body.rd-home .rd-footer-inner{display:grid;gap:2rem;align-items:start}
+body.rd-home .rd-footer-co{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
 body.rd-home .rd-footer-brand{font-size:1.125rem}
-body.rd-home .rd-footer-co p{margin-top:.75rem;line-height:1.6;color:var(--c-muted)}
+body.rd-home .rd-footer-co p{line-height:1.6;color:var(--c-muted)}
+body.rd-home .rd-footer-co .rd-footer-description{margin-top:1.25rem;max-width:40ch}
+body.rd-home .rd-footer-co .rd-footer-location{margin-top:.75rem}
+body.rd-home .rd-footer .rd-footer-email{display:inline-flex;align-items:center;min-height:44px;max-width:100%;margin-top:.5rem;padding:0;overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:3px}
 body.rd-home .rd-footer .site-footer-links{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem}
-body.rd-home .rd-footer .site-footer-links a{padding:.5rem 0}
+body.rd-home .rd-footer .site-footer-links a{display:inline-flex;align-items:center;min-height:44px;padding:.5rem 0}
 body.rd-home .rd-footer-copy{grid-column:1/-1;border-top:1px solid var(--c-line);padding-top:1.5rem;font-size:.875rem;color:var(--c-muted)}
-@media (min-width:768px){body.rd-home .rd-footer-inner{grid-template-columns:1fr auto}body.rd-home .rd-footer .site-footer-links{justify-content:flex-end}}
+@media (min-width:768px){body.rd-home .rd-footer-inner{grid-template-columns:minmax(0,1fr) auto}body.rd-home .rd-footer .site-footer-links{justify-content:flex-end}}
 /* Secondary row: four equal pieces, no featured span (the lead lives above) */
 body.rd-home #rdSamples .rd-sample:nth-child(n){grid-column:auto!important;grid-row:auto!important;max-width:none;display:block;margin-top:0!important;padding:0}
 body.rd-home #rdSamples .rd-sample:nth-child(n) .rd-player,body.rd-home #rdSamples .rd-sample:nth-child(n) .rd-play,body.rd-home #rdSamples .rd-sample:nth-child(n) .rd-play img{aspect-ratio:9/13.6;height:auto}

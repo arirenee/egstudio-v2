@@ -71,7 +71,25 @@ for (const q of [
   '<strong>Owner</strong><span>Local Advertising Agency</span>',
 ]) assert(home.includes(q), `Missing approved testimonial text: ${q}`);
 assert.doesNotMatch(home, /Anonymous agency client/i);
-for (const s of ['id="benefits"','id="included"','id="work"','id="why-eg"','id="how-it-works"','id="testimonials"','id="pricing"','id="faq"','id="founder"']) {
+const footer = home.match(/<footer class="site-footer-current rd-footer">[\s\S]*?<\/footer>/)?.[0] || '';
+const finalCallToAction = home.match(/<section class="rd-final">[\s\S]*?<\/section>/)?.[0] || '';
+assert(footer, 'The consolidated footer must render');
+assert.doesNotMatch(finalCallToAction, /rd-final-founder|id="founder"|Founder, EG Studio|private editing|mailto:/, 'The final CTA must not contain a second company block');
+assert.doesNotMatch(home, /Founder, EG Studio|private editing|Los Angeles based|Los Angeles, CA(?!lifornia)|without expanding payroll/i, 'Obsolete footer messaging must be absent');
+for (const phrase of ['White-label short-form post-production for agencies.', 'Los Angeles, California', 'mailto:ops@egstudio.tech', '>ops@egstudio.tech</a>', '© 2026 EG Studio. All rights reserved.']) {
+  assert.equal(footer.split(phrase).length - 1, 1, `Footer must contain ${phrase} exactly once`);
+}
+assert.equal((footer.match(/class="rd-brand rd-footer-brand"/g) || []).length, 1, 'One footer wordmark required');
+assert.equal((footer.match(/<nav\b/g) || []).length, 1, 'One accessible footer navigation required');
+assert.match(footer, /<nav class="site-footer-links" aria-label="Footer navigation">/, 'Footer navigation needs an accessible label');
+for (const [label, destination] of [['Privacy','privacy.html'],['Terms','terms.html'],['Refunds','refund.html']]) {
+  assert(footer.includes(`href="${destination}">${label}</a>`), `Footer ${label} link changed`);
+}
+assert.match(home, /A person reviews the finished batch before delivery\./, 'The human final-batch check must remain in the editing process');
+assert.doesNotMatch(read('assets/css/premium-polish.css'), /rd-final-founder/, 'Removed founder block CSS must not remain');
+assert.match(read('assets/css/redesign.css'), /rd-footer-email\{[^}]*min-height:44px/, 'Email tap target must remain accessible');
+
+for (const s of ['id="benefits"','id="included"','id="work"','id="why-eg"','id="how-it-works"','id="testimonials"','id="pricing"','id="faq"']) {
   assert(home.includes(s), `Missing homepage section: ${s}`);
 }
 const main = home.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] || '';
@@ -100,7 +118,7 @@ assert.match(main, /No contract\. No subscription\. No sales call required\./);
 assert.match(home, /premium-hero-media/);
 assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
-assert.match(home, /premium-polish\.css\?v=20261105-handoff/, 'Current finishing styles not linked');
+assert.match(home, /premium-polish\.css\?v=20261105-footer/, 'Current finishing styles not linked');
 assert.equal((home.match(/<source src="\/assets\/samples\/sample-process\.mp4\?v=20261103"/g)||[]).length, 2, 'Both hero and proof player must use the approved editing process video');
 assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
 assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');

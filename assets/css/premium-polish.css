@@ -283,18 +283,6 @@ body.rd.premium-home .rd-proposal .rd-includes li::before {
   top: 1rem; left: .1rem;
 }
 
-body.rd.premium-home .rd-final-founder {
-  width: min(100%, 650px); margin-top: clamp(2.4rem, 4vw, 3.4rem);
-  padding-top: 1.5rem; border-top: 1px solid rgba(220, 235, 251, .25);
-  color: #D5E2F0; font-size: .9rem; line-height: 1.65;
-}
-body.rd.premium-home .rd-final-founder-sig {
-  display: flex; justify-content: center; flex-wrap: wrap; gap: .35rem 1rem;
-  margin-top: 1rem; font-size: .8rem;
-}
-body.rd.premium-home .rd-final-founder-sig strong { color: #FFF; }
-body.rd.premium-home .rd-final-founder-sig a { color: #D5E2F0; text-underline-offset: 3px; }
-
 /* Polished footer separation and tactile detail. */
 body.rd.premium-home .rd-founder-card { border-radius: 24px; box-shadow: var(--premium-card-shadow); }
 body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0,0,.19); }
