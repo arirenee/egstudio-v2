@@ -41,7 +41,7 @@ const faqSchema = schema['@graph']?.find(node => node['@type'] === 'FAQPage');
 assert.equal(faqSchema?.mainEntity?.length, 5, 'Structured FAQ must match the five visible questions');
 // Maintain the established offer while presenting each point in its correct context.
 for (const s of [
-  '<span class="premium-word-keep">White-Label</span> Short Form Editing <span class="rd-h1-line">For Agencies</span>',
+  '<span class="premium-word-keep">White Label</span> Short Form Editing <span class="rd-h1-line">For Agencies</span>',
   'One client recording becomes five captioned and branded vertical clips.',
   '$199 fixed price.',
   'Delivered in 1–3 calendar days once materials are ready.',
@@ -56,11 +56,10 @@ for (const s of [
   'Five hook or title suggestions',
   'Your agency stays in control.',
   'You manage the client',
-  'We handle post-production',
+  'We handle post production',
   'You control delivery',
   'First batch in 1–3 calendar days once payment clears and all materials are ready.',
   'No contract',
-  'EG Studio is a white-label production partner for agencies that need reliable short-form content editing without expanding payroll.',
 ]) assert(home.includes(s), `Missing owner-approved homepage copy: ${s}`);
 for (const q of [
   'We scaled content delivery without expanding our internal team.',
@@ -76,7 +75,7 @@ const finalCallToAction = home.match(/<section class="rd-final">[\s\S]*?<\/secti
 assert(footer, 'The consolidated footer must render');
 assert.doesNotMatch(finalCallToAction, /rd-final-founder|id="founder"|Founder, EG Studio|private editing|mailto:/, 'The final CTA must not contain a second company block');
 assert.doesNotMatch(home, /Founder, EG Studio|private editing|Los Angeles based|Los Angeles, CA(?!lifornia)|without expanding payroll/i, 'Obsolete footer messaging must be absent');
-for (const phrase of ['White-label short-form post-production for agencies.', 'Los Angeles, California', 'mailto:ops@egstudio.tech', '>ops@egstudio.tech</a>', '© 2026 EG Studio. All rights reserved.']) {
+for (const phrase of ['White label short form post production for agencies.', 'Los Angeles, California', 'mailto:ops@egstudio.tech', '>ops@egstudio.tech</a>', '© 2026 EG Studio. All rights reserved.']) {
   assert.equal(footer.split(phrase).length - 1, 1, `Footer must contain ${phrase} exactly once`);
 }
 assert.equal((footer.match(/class="footer-brand"/g) || []).length, 1, 'Footer must use the exact Privacy-page footer wordmark');
@@ -123,7 +122,7 @@ const inclusions = main.match(/<div class="premium-includes-wrap">[\s\S]*?<\/ul>
 assert.deepEqual([...inclusions.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]), [
   'Five separate 9:16 video clips', 'Human moment selection, no timestamps needed',
   'Checked captions and supplied brand styling', 'Five hook or title suggestions',
-  'One consolidated revision round', 'Private white-label handoff to your agency folder',
+  'One consolidated revision round', 'Private white label handoff to your agency folder',
 ], 'Pricing must describe the exact deliverables');
 assert.match(main, /Your agency provides[\s\S]*?One usable recording/);
 assert.match(main, /No contract\. No subscription\. No sales call required\./);
@@ -175,4 +174,48 @@ for (const match of home.matchAll(/premium-icons\.svg#([^" ]+)/g)) {
 assert(symbols.has('clip-select'), 'Clip selection icon missing');
 assert.doesNotMatch(home, /premium-icons\.svg#review/, 'Eye icon must not imply public visibility');
 assert.match(read('assets/css/premium.css'), /premium-benefit-grid\{grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/, 'Three cards must balance on desktop');
+
+const copyPages = [
+  ...pages, 'pinterest-diagnostic.html', 'thanks-test.html',
+  'thanks-test/index.html', 'thanks/index.html',
+];
+const visibleMeta = new Set(['description', 'og:title', 'og:description', 'twitter:title', 'twitter:description', 'og:image:alt', 'twitter:image:alt']);
+const copyFields = new Set(['name', 'description', 'text', 'headline', 'alternativeHeadline', 'caption']);
+for (const page of copyPages) {
+  const html = read(page);
+  const tokens = html.match(/<script\b[^>]*>[\s\S]*?<\/script\s*>|<style\b[^>]*>[\s\S]*?<\/style\s*>|<!--[\s\S]*?-->|<[^>]*>|[^<]+/gi) || [];
+  for (const token of tokens) {
+    if (/^<script\b/i.test(token)) {
+      if (/type="application\/ld\+json"/.test(token)) {
+        const body = token.replace(/^<script[^>]*>/i, '').replace(/<\/script\s*>$/i, '');
+        const check = (value, field) => {
+          if (typeof value === 'string' && copyFields.has(field)) assert(!value.includes('-'), `${page}: structured copy contains a hyphen: ${value}`);
+          else if (Array.isArray(value)) value.forEach(item => check(item, field));
+          else if (value && typeof value === 'object') Object.entries(value).forEach(([key, item]) => check(item, key));
+        };
+        check(JSON.parse(body), '');
+      }
+      continue;
+    }
+    if (/^<(?:style\b|!--)/i.test(token)) continue;
+    if (token.startsWith('<')) {
+      if (/^<meta\b/i.test(token)) {
+        const key = token.match(/(?:name|property)="([^"]+)"/i)?.[1];
+        if (visibleMeta.has(key)) {
+          const content = token.match(/\bcontent="([^"]*)"/)?.[1] || '';
+          assert(!content.includes('-'), `${page}: search preview copy contains a hyphen: ${content}`);
+        }
+      }
+      for (const match of token.matchAll(/\b(?:alt|aria-label|aria-description|title)="([^"]*)"/gi)) {
+        if (!/^(?:https?:|\/)/i.test(match[1])) assert(!match[1].includes('-'), `${page}: accessible copy contains a hyphen: ${match[1]}`);
+      }
+    } else {
+      const value = token.trim();
+      if (value && !/^\/?[\w.-]+\.(?:html?|js|css|png|svg)(?:\?.*)?$/i.test(value))
+        assert(!value.includes('-'), `${page}: visible copy contains a hyphen: ${value.slice(0,120)}`);
+    }
+  }
+}
+assert(!read('payment-confirmed.html').includes('One private, agency-owned folder'), 'Verified intake copy still contains a hyphen');
+
 console.log(`PASS: ${pages.length} redesigned pages, local assets, scripts, offer link, real quotes and CSS structure.`);

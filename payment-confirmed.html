@@ -88,7 +88,7 @@ pintrk('page');
     <div class="field"><label for="style_reference_url">Style reference link (optional)</label><input id="style_reference_url" type="url" inputmode="url" placeholder="https://..."></div>
     <div class="field"><label for="avoid_notes">Instructions (optional)</label><textarea id="avoid_notes" maxlength="1200" placeholder="Names, topics or moments to avoid; caption preferences..."></textarea></div>
   </div>
-  <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox" required><label for="agency_confirmed">I confirm we have the rights to the recording, own the production folder and can share it privately with EG Studio. I understand that the folder is for our agency's use, not end-client access.</label></div>
+  <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox" required><label for="agency_confirmed">I confirm we have the rights to the recording, own the production folder and can share it privately with EG Studio. I understand that the folder is for our agency's use, not end client access.</label></div>
 
   <div class="honeypot" aria-hidden="true">
     <label for="website">Website</label>
@@ -174,7 +174,7 @@ pintrk('page');
       expectedSku = data.sku;
       verified = true;
       document.getElementById("intake-title").textContent = "Payment verified. Send your brief.";
-      document.getElementById("intake-lead").textContent = "One private, agency-owned folder for your source footage and finished clips. No call required.";
+      document.getElementById("intake-lead").textContent = "One private, agency owned folder for your source footage and finished clips. No call required.";
       state.hidden = true;
       state.dataset.state = "ok";
       if (data.order_label) kicker.textContent = data.order_label;
