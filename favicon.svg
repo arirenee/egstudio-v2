@@ -1,5 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>EG Studio</title>
   <rect width="64" height="64" fill="#142238"/>
-  <text x="32" y="36" font-family="Montserrat, Arial Black, sans-serif" font-weight="900" font-size="26" fill="#6EA8E5" text-anchor="middle">EG</text>
-  <text x="32" y="52" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="7" fill="#F8FAFC" text-anchor="middle" letter-spacing="0.6">STUDIO</text>
+  <!-- Geometric EG ligature derived from the approved two-tone wordmark. -->
+  <path d="M11 13 H33 V20 H19 V29 H30 V36 H19 V44 H33 V51 H11 Z" fill="#6EA8E5"/>
+  <path d="M54 23 V20 C51 16 47 14 43 14 C35 14 31 21 31 32 C31 44 36 51 44 51 C49 51 53 49 55 45 V30 H43 V37 H48 V43 C47 44 46 44 44 44 C40 44 38 39 38 32 C38 25 40 21 44 21 C46 21 48 22 49 24 Z" fill="#9CA3AF"/>
 </svg>

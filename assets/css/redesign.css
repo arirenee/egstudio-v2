@@ -74,8 +74,6 @@ body.rd .rd-link:hover{color:var(--c-accent)}
 /* Header */
 body.rd .rd-header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--c-bg) 92%,transparent);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--c-line);padding:0;box-shadow:none}
 body.rd .rd-nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1rem}
-body.rd .rd-brand{font-family:var(--f-ui);font-weight:800;font-size:1.25rem;letter-spacing:.02em;color:var(--c-text);text-decoration:none}
-body.rd .rd-brand span{color:var(--c-accent);margin-left:.3em;font-weight:600}
 body.rd .rd-nav-actions{display:flex;align-items:center;gap:1.25rem}
 @media (max-width:767px){body.rd .rd-nav-cta{display:none}}
 
@@ -362,7 +360,7 @@ body.rd.rd-sat h1{font-family:var(--f-display);font-weight:800;font-size:clamp(2
 body.rd.rd-sat h2{font-size:var(--fs-h2);font-weight:800;line-height:1.1;letter-spacing:-.025em;color:var(--c-text);margin-bottom:1.25rem;max-width:24ch}
 body.rd.rd-sat p,body.rd.rd-sat li{color:var(--c-body);font-size:var(--fs-body);line-height:1.65}
 body.rd.rd-sat p+p{margin-top:1rem}
-body.rd.rd-sat a:not(.rd-btn):not(.rd-brand):not(.rd-link){color:var(--c-text);text-decoration:underline;text-underline-offset:3px}
+body.rd.rd-sat a:not(.rd-btn):not(.eg-wordmark):not(.rd-link){color:var(--c-text);text-decoration:underline;text-underline-offset:3px}
 body.rd.rd-sat .rd-eyebrow{display:block}
 body.rd .rd-checks{list-style:none;margin:1.25rem 0 0;padding:0;border-top:1px solid var(--c-line)}
 body.rd .rd-checks li{position:relative;padding:.85rem 0 .85rem 2rem;border-bottom:1px solid var(--c-line);color:var(--c-text)}

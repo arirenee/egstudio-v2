@@ -78,19 +78,60 @@ assert.doesNotMatch(home, /Founder, EG Studio|private editing|Los Angeles based|
 for (const phrase of ['White label short form post production for agencies.', 'Los Angeles, California', 'mailto:ops@egstudio.tech', '>ops@egstudio.tech</a>', '© 2026 EG Studio. All rights reserved.']) {
   assert.equal(footer.split(phrase).length - 1, 1, `Footer must contain ${phrase} exactly once`);
 }
-assert.equal((footer.match(/class="footer-brand"/g) || []).length, 1, 'Footer must use the exact Privacy-page footer wordmark');
-assert.match(home, /Montserrat:wght@400;500;600;700;800;900&display=swap/, 'The legal footer requires Montserrat weight 900 on the homepage');
-assert.equal((home.match(/<a class="logo" href="#top">EG<span>STUDIO<\/span><\/a>/g) || []).length, 1, 'Homepage header must match the legal header');
-assert.equal((home.match(/<a class="footer-brand" href="#top">EG<span>STUDIO<\/span><\/a>/g) || []).length, 1, 'Homepage footer must match the legal footer');
-assert.doesNotMatch(home, /class="(?:image2-brand rd-brand|rd-brand rd-footer-brand)"/, 'Legacy homepage logos must be removed');
+assert.equal((footer.match(/class="eg-wordmark"/g) || []).length, 1, 'Footer must use the shared wordmark');
+assert.equal((home.match(/<a class="eg-wordmark" href="#top">EG<span>STUDIO<\/span><\/a>/g) || []).length, 2, 'Homepage header and footer must share the exact logo implementation');
+assert.doesNotMatch(home, /class="(?:logo|footer-brand|rd-brand|image2-brand|brand-logo)"/, 'Legacy homepage logos must be removed');
 for (const page of ['terms.html', 'privacy.html', 'refund.html']) {
-  assert(read(page).includes('<a class="logo" href="index.html">EG<span>STUDIO</span></a>'), `${page}: legal header logo changed`);
-  assert(read(page).includes('<a class="footer-brand" href="index.html">EG<span>STUDIO</span></a>'), `${page}: legal footer logo changed`);
+  assert.equal((read(page).match(/<a class="eg-wordmark" href="index\.html">EG<span>STUDIO<\/span><\/a>/g) || []).length, 2, `${page}: legal header and footer must use one logo implementation`);
 }
-assert.match(read('assets/css/premium-pages.css'), /body\.premium-legal \.logo,body\.rd-home \.logo\{font-family:var\(--eg-font\)/, 'Legal and homepage logos must use one shared typography rule');
-assert.match(read('assets/css/premium-pages.css'), /body\.rd-home \.rd-footer a\.footer-brand\{[^}]*font-size:12px;line-height:1\.7;font-weight:900;letter-spacing:2px;color:#255F9A/, 'Homepage footer must retain the Privacy footer sizing and spacing');
-assert.match(read('assets/css/premium-pages.css'), /@media \(prefers-color-scheme:dark\)\{body\.rd-home a\.logo,body\.rd-home \.rd-footer a\.footer-brand\{color:#6EA8E5!important\}/, 'Both homepage wordmarks must match Privacy-page dark-mode blue');
+const wordmarkStyles = read('assets/css/eg-wordmark.css');
+for (const rule of [/font-family:\s*Montserrat/, /font-size:\s*1\.15rem/, /font-weight:\s*800/, /letter-spacing:\s*-\.035em/, /color:\s*#6EA8E5\s*!important/, /color:\s*#9CA3AF\s*!important/]) {
+  assert.match(wordmarkStyles, rule, `Shared legal-page wordmark styling missing: ${rule}`);
+}
+assert.doesNotMatch(read('assets/css/premium-pages.css'), /\.footer-brand|\.rd-home \.logo/, 'Legacy parallel logo rules must be removed');
 assert.match(read('assets/css/premium-pages.css'), /@media \(max-width:599px\)\{body\.rd-home \.rd-header \.rd-nav,body\.rd-home \.rd-footer \.rd-footer-inner\{--pad-x:4vw\}/, 'Mobile homepage logos must align with the 92% legal-page content width');
+const brandPages = [
+  ...pages, 'pinterest-diagnostic.html', 'thanks-test.html',
+  'thanks-test/index.html', 'thanks/index.html',
+];
+const iconRefs = [
+  '/favicon.ico', '/favicon.svg', '/favicon-16x16.png',
+  '/favicon-32x32.png', '/favicon-48x48.png',
+  '/apple-touch-icon.png', '/safari-pinned-tab.svg', '/site.webmanifest',
+  '/assets/css/eg-wordmark.css',
+];
+let wordmarkCount = 0;
+for (const page of brandPages) {
+  const source = read(page);
+  for (const reference of iconRefs) {
+    assert.equal(source.split(`${reference}?v=20261105-brand`).length - 1, 1, `${page}: missing or duplicate brand reference ${reference}`);
+  }
+  assert.doesNotMatch(source, /<a\b[^>]*class="(?:logo|rd-brand|footer-brand|brand)"[^>]*>EG<span>STUDIO<\/span>/, `${page}: old wordmark implementation remains`);
+  wordmarkCount += [...source.matchAll(/class="eg-wordmark"[^>]*>EG<span>STUDIO<\/span>/g)].length;
+}
+assert.equal(wordmarkCount, 16, 'All 16 visible wordmarks must use the same shared implementation');
+const manifest = JSON.parse(read('site.webmanifest'));
+assert.equal(manifest.name, 'EG Studio');
+assert.equal(manifest.icons.length, 5);
+for (const icon of manifest.icons) {
+  assert(fs.existsSync(path.join(root, icon.src.slice(1))), `Missing PWA icon: ${icon.src}`);
+}
+const pngSizes = new Map([
+  ['favicon-16x16.png',16],['favicon-32x32.png',32],['favicon-48x48.png',48],
+  ['favicon-64x64.png',64],['favicon-128x128.png',128],['favicon-256x256.png',256],
+  ['apple-touch-icon.png',180],['android-chrome-192x192.png',192],['android-chrome-512x512.png',512],
+]);
+for (const [file,size] of pngSizes) {
+  const png = fs.readFileSync(path.join(root, file));
+  assert.equal(png.subarray(1,4).toString(), 'PNG', `${file}: invalid image format`);
+  assert.equal(png.readUInt32BE(16), size, `${file}: incorrect width`);
+  assert.equal(png.readUInt32BE(20), size, `${file}: incorrect height`);
+}
+assert.equal(fs.readFileSync(path.join(root,'favicon.ico')).readUInt16LE(4), 3, 'ICO must contain three icon resolutions');
+assert.match(read('favicon.svg'), /#6EA8E5/);
+assert.match(read('favicon.svg'), /#9CA3AF/);
+assert.doesNotMatch(read('favicon.svg'), /<text\b/, 'Favicon cannot rely on tiny runtime text');
+assert(!fs.existsSync(path.join(root, 'apple-touch-icon.svg')) && !fs.existsSync(path.join(root, 'icon-512.png')), 'Unused prior-generation icon files must be removed');
 assert.equal((footer.match(/<nav\b/g) || []).length, 1, 'One accessible footer navigation required');
 assert.match(footer, /<nav class="site-footer-links" aria-label="Footer navigation">/, 'Footer navigation needs an accessible label');
 for (const [label, destination] of [['Privacy','privacy.html'],['Terms','terms.html'],['Refunds','refund.html']]) {

@@ -1,0 +1,27 @@
+/* EG Studio wordmark, extracted from the approved legal-page header treatment.
+   All site contexts use this one lockup and the same responsive dimensions. */
+body a.eg-wordmark,
+body a.eg-wordmark:any-link,
+body .eg-wordmark {
+  display: inline-block;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1.7;
+  white-space: nowrap;
+  text-decoration: none !important;
+  color: #1B2B3E !important;
+}
+body .eg-wordmark > span { color: #6B7280 !important; }
+body a.eg-wordmark:hover,
+body a.eg-wordmark:focus-visible { text-decoration: none; }
+@media (prefers-color-scheme: dark) {
+  body a.eg-wordmark,
+  body a.eg-wordmark:any-link,
+  body .eg-wordmark { color: #6EA8E5 !important; }
+  body .eg-wordmark > span { color: #9CA3AF !important; }
+}

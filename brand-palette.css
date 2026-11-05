@@ -113,32 +113,6 @@ input[type="radio"] {
   border-color: var(--eg-accent) !important;
 }
 
-/* Header logo lockup — horizontal: EG STUDIO
-   EG dominant, STUDIO secondary. No stacking. */
-body .image2-brand {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.22em;
-  line-height: 1;
-  color: var(--eg-primary) !important;
-  text-decoration: none;
-  font-weight: 900;
-  letter-spacing: 0.02em;
-  font-size: 1.08rem;
-  white-space: nowrap;
-  margin-top: 0.35rem;
-}
-
-body .image2-brand > span {
-  color: var(--eg-muted) !important;
-  font-size: 1em;
-  letter-spacing: 0.06em;
-  font-weight: 800;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
 /* Header bar — vertical centering and balance */
 body .image2-header {
   display: flex;
@@ -160,22 +134,13 @@ body .image2-nav-actions {
   align-items: center;
 }
 
-/* Slightly larger logo presence on mobile */
 @media (max-width: 640px) {
-  body .image2-brand {
-    font-size: 1rem;
-  }
   body .image2-nav {
     min-height: 3.4rem;
   }
 }
 
-/* Desktop refinement */
 @media (min-width: 860px) {
-  body .image2-brand {
-    font-size: 0.98rem;
-    gap: 0.42em;
-  }
   body .image2-nav {
     min-height: 3.5rem;
   }
@@ -220,15 +185,6 @@ h1, h2, h3, h4 {
     background: rgba(20, 34, 56, 0.94) !important;
     border-bottom-color: #2D3E56 !important;
     color: #F8FAFC !important;
-  }
-
-  .image2-brand,
-  .brand-logo {
-    color: #F8FAFC !important;
-  }
-  .image2-brand > span,
-  .brand-logo span {
-    color: #D5DCE6 !important;
   }
 
   /* Hero */
