@@ -79,7 +79,13 @@ assert.doesNotMatch(home, /Founder, EG Studio|private editing|Los Angeles based|
 for (const phrase of ['White-label short-form post-production for agencies.', 'Los Angeles, California', 'mailto:ops@egstudio.tech', '>ops@egstudio.tech</a>', '© 2026 EG Studio. All rights reserved.']) {
   assert.equal(footer.split(phrase).length - 1, 1, `Footer must contain ${phrase} exactly once`);
 }
-assert.equal((footer.match(/class="rd-brand rd-footer-brand"/g) || []).length, 1, 'One footer wordmark required');
+assert.equal((footer.match(/class="logo"/g) || []).length, 1, 'Footer must use the approved legal-page logo');
+assert.equal((home.match(/<a class="logo" href="#top">EG<span>STUDIO<\/span><\/a>/g) || []).length, 2, 'Homepage header and footer must share the legal-page wordmark markup');
+assert.doesNotMatch(home, /class="(?:image2-brand rd-brand|rd-brand rd-footer-brand)"/, 'Legacy homepage logos must be removed');
+for (const page of ['terms.html', 'privacy.html', 'refund.html']) {
+  assert(read(page).includes('<a class="logo" href="index.html">EG<span>STUDIO</span></a>'), `${page}: legal header logo changed`);
+}
+assert.match(read('assets/css/premium-pages.css'), /body\.premium-legal \.logo,body\.rd-home \.logo\{font-family:var\(--eg-font\)/, 'Legal and homepage logos must use one shared typography rule');
 assert.equal((footer.match(/<nav\b/g) || []).length, 1, 'One accessible footer navigation required');
 assert.match(footer, /<nav class="site-footer-links" aria-label="Footer navigation">/, 'Footer navigation needs an accessible label');
 for (const [label, destination] of [['Privacy','privacy.html'],['Terms','terms.html'],['Refunds','refund.html']]) {

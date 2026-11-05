@@ -2,7 +2,10 @@
 :root{--eg-navy:#1B3A5C;--eg-blue:#4A7FB5;--eg-soft:#E6ECF3;--eg-font:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif}
 body.premium-sat,body.premium-form,body.premium-legal{font-family:var(--eg-font);-webkit-font-smoothing:antialiased}
 body.premium-sat .rd-header,body.premium-form header,body.premium-legal .nav{min-height:70px;backdrop-filter:blur(14px);border-bottom:1px solid rgba(99,133,170,.18)}
-body.premium-sat .rd-brand,body.premium-form .logo,body.premium-form .brand,body.premium-legal .logo{font-family:var(--eg-font);font-weight:800;letter-spacing:-.035em;font-size:1.15rem}
+body.premium-sat .rd-brand,body.premium-form .logo,body.premium-form .brand,body.premium-legal .logo,body.rd-home .logo{font-family:var(--eg-font);font-weight:800;letter-spacing:-.035em;font-size:1.15rem}
+body.rd-home a.logo{display:block;line-height:1.7;color:#1B2B3E;text-decoration:none;white-space:nowrap}
+body.rd-home a.logo span{color:#6B7280}
+body.rd-home .rd-footer a.logo{padding:0;color:#1B2B3E}
 body.premium-sat .rd-sat-section{padding-block:clamp(74px,7vw,118px)}
 body.premium-sat .rd-cg-hero{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(135deg,#0F2239,#1B3A5C)}
 body.premium-sat .rd-cg-hero::after{content:"";position:absolute;z-index:-1;pointer-events:none;width:620px;height:620px;right:-220px;top:-230px;border-radius:50%;background:radial-gradient(circle,rgba(142,189,237,.28),transparent 69%)}

@@ -741,7 +741,6 @@ body.rd-home .rd-final-guarantee{margin-top:1.5rem;color:#fff;font-weight:600;fo
 body.rd-home .rd-footer{padding:clamp(3rem,5vw,4.5rem) 0 2.5rem}
 body.rd-home .rd-footer-inner{display:grid;gap:2rem;align-items:start}
 body.rd-home .rd-footer-co{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-body.rd-home .rd-footer-brand{font-size:1.125rem}
 body.rd-home .rd-footer-co p{line-height:1.6;color:var(--c-muted)}
 body.rd-home .rd-footer-co .rd-footer-description{margin-top:1.25rem;max-width:40ch}
 body.rd-home .rd-footer-co .rd-footer-location{margin-top:.75rem}
@@ -763,4 +762,3 @@ body.rd-home .rd-feature .rd-player,body.rd-home .rd-feature .rd-play,body.rd-ho
 body.rd-home .rd-feature .rd-player{background:#0E1A2B}
 body.rd-home .rd-proof-wall .rd-feature{max-width:none!important;width:100%}
 body.rd-home .rd-trust-band{padding-block:clamp(88px,5rem + 4vw,152px)}
-body.rd-home .rd-footer a.rd-footer-brand{padding:0}

@@ -14,7 +14,6 @@ body.rd.premium-home .premium-section-intro>p:last-child{max-width:54ch;margin-t
 body.rd.premium-home .rd-section{padding-block:clamp(74px,7.5vw,126px)}
 body.rd.premium-home .rd-header{box-shadow:0 4px 20px rgba(13,35,58,.035)}
 body.rd.premium-home .rd-nav{min-height:72px}
-body.rd.premium-home .rd-brand{font-size:1.16rem;letter-spacing:-.035em}
 body.rd.premium-home .rd-nav-actions{gap:clamp(.75rem,2vw,1.8rem)}
 body.rd.premium-home .rd-link{font-size:.875rem}
 body.rd.premium-home .premium-desktop-nav{display:none}
