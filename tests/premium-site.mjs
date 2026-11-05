@@ -86,7 +86,7 @@ for (const page of ['terms.html', 'privacy.html', 'refund.html']) {
   assert(read(page).includes('<a class="logo" href="index.html">EG<span>STUDIO</span></a>'), `${page}: legal header logo changed`);
 }
 assert.match(read('assets/css/premium-pages.css'), /body\.premium-legal \.logo,body\.rd-home \.logo\{font-family:var\(--eg-font\)/, 'Legal and homepage logos must use one shared typography rule');
-assert.match(read('assets/css/premium-pages.css'), /@media \(prefers-color-scheme:dark\)\{body\.rd-home a\.logo/, 'The legal-page dark-mode wordmark colors must carry over');
+assert.match(read('assets/css/premium-pages.css'), /@media \(prefers-color-scheme:dark\)\{body\.rd-home a\.logo,body\.rd-home \.rd-footer a\.logo\{color:#6EA8E5\}body\.rd-home a\.logo span\{color:#9CA3AF\}/, 'Homepage wordmarks must use the exact Privacy-page dark-mode colors');
 assert.equal((footer.match(/<nav\b/g) || []).length, 1, 'One accessible footer navigation required');
 assert.match(footer, /<nav class="site-footer-links" aria-label="Footer navigation">/, 'Footer navigation needs an accessible label');
 for (const [label, destination] of [['Privacy','privacy.html'],['Terms','terms.html'],['Refunds','refund.html']]) {
