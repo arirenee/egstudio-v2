@@ -1,5 +1,14 @@
-# egstudio-v2
-Testing ground for E.G. Studio website experiments, messaging, conversion optimization, and offer validation before deploying changes to the live site at egstudio.tech.
+# EG Studio Production Website
+
+Production repository for the live EG Studio website at [egstudio.tech](https://egstudio.tech/).
+
+## Repository roles
+
+- **Production:** [egstudio-v2](https://github.com/arirenee/egstudio-v2) powers the public website at egstudio.tech.
+- **Staging:** [egstudio-core](https://github.com/arirenee/egstudio-core) is for development, testing, and validation before production deployment.
+- **Archive:** [egstudio-homepage](https://github.com/arirenee/egstudio-homepage) retains historical homepage experiments and conversion testing.
+
+Do not treat this repository as a staging sandbox. Review changes before promoting them to the production branch. Existing deployment, checkout, analytics, and intake configuration remain managed by this repository.
 
 ## Analytics / tracking
 
