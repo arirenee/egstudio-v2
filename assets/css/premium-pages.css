@@ -6,10 +6,15 @@ body.premium-sat .rd-header,body.premium-form header,body.premium-legal .nav{min
 body.premium-sat .rd-sat-section{padding-block:clamp(74px,7vw,118px)}
 body.premium-sat .rd-cg-hero{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(135deg,#0F2239,#1B3A5C)}
 body.premium-sat .rd-cg-hero::after{content:"";position:absolute;z-index:-1;pointer-events:none;width:620px;height:620px;right:-220px;top:-230px;border-radius:50%;background:radial-gradient(circle,rgba(142,189,237,.28),transparent 69%)}
-body.premium-sat .rd-cg-hero h1{font-size:clamp(2.75rem,6.5vw,5.1rem);line-height:1.04;letter-spacing:-.05em;max-width:14ch;color:white}
+/* Shared selector: this H1 color also applies to the content-graveyard navy hero, not only the white-label landing. */
+body.premium-sat .rd-cg-hero h1{font-size:clamp(2.75rem,6.5vw,5.1rem);line-height:1.04;letter-spacing:-.05em;max-width:14ch;color:#FFFFFF!important}
 body.premium-sat .rd-cg-hero .rd-lead{font-size:clamp(1.05rem,1.45vw,1.25rem);line-height:1.7;color:#D9E6F5;max-width:55ch}
 body.premium-sat .rd-cg-hero .rd-eyebrow{color:#B3D3F1}
 body.premium-sat .rd-cg-hero .rd-cg-formats,body.premium-sat .rd-cg-hero .rd-cg-protect{color:#C2D7EA}
+body.premium-sat .rd-cg-hero .rd-fold-facts{border-top-color:rgba(245,249,253,.28)}
+body.premium-sat .rd-cg-hero .rd-fold-facts li{border-bottom-color:rgba(245,249,253,.16);color:#C2D7EA}
+body.premium-sat .rd-cg-hero .rd-fold-facts b{color:#F5F9FD}
+body.premium-sat .rd-cg-hero .rd-fold-facts span{color:#C2D7EA}
 body.premium-sat .rd-sat-section h2{font-size:clamp(2rem,3.5vw,3.25rem);line-height:1.13;letter-spacing:-.035em;max-width:22ch}
 body.premium-sat .rd-sat-section .rd-read{max-width:950px}
 body.premium-sat .rd-card{border-radius:18px;border:1px solid rgba(99,133,170,.18);padding:clamp(1.5rem,3vw,2.3rem);box-shadow:0 6px 22px rgba(15,33,53,.045)}

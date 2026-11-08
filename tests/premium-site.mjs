@@ -39,28 +39,29 @@ const home = read('index.html');
 const schema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || '{}');
 const faqSchema = schema['@graph']?.find(node => node['@type'] === 'FAQPage');
 assert.equal(faqSchema?.mainEntity?.length, 5, 'Structured FAQ must match the five visible questions');
-// Maintain the established offer while presenting each point in its correct context.
+// Maintain the established offer and required customer facts, expressed as benefits.
 for (const s of [
   '<span class="premium-word-keep">White Label</span> Short Form Editing <span class="rd-h1-line">For Agencies</span>',
-  'One client recording becomes five captioned and branded vertical clips.',
-  '$199 fixed price.',
-  'Delivered in 1–3 calendar days once materials are ready.',
-  'No subscription. No sales call. No contact with your client.',
-  'What you send. What we do. What you get back.',
-  'Send recording and assets',
+  'One client recording becomes five finished vertical clips your team can deliver.',
+  'Five finished clips. $199 one time.',
+  'No subscription and no sales call. We never contact your client.',
+  'What changes after you order.',
+  'Share the recording',
   'We review and edit',
-  'Your agency reviews and delivers',
-  'Five separate video files',
-  'Moments selected for you',
-  'Checked captions and brand styling',
-  'Five hook or title suggestions',
-  'Your agency stays in control.',
-  'You manage the client',
-  'We handle post production',
-  'You control delivery',
+  'No timestamps required',
+  'You review, then your client does',
+  'Five finished video files',
+  'A starting point for each hook',
+  'starting from a blank page.',
+  'More capacity, without another hire.',
+  'Protected client relationships',
+  'Less manual review work',
+  'Easier client fulfillment',
   'First batch in 1–3 calendar days once payment clears and all materials are ready.',
   'No contract',
-]) assert(home.includes(s), `Missing owner-approved homepage copy: ${s}`);
+  'Illustrative workflow. It shows the editing steps, not a client project.',
+  'expert or talking head recording',
+]) assert(home.includes(s), `Missing required homepage copy: ${s}`);
 for (const q of [
   'We scaled content delivery without expanding our internal team.',
   'Our clients receive consistent deliverables while our team stays focused on growth.',
@@ -164,22 +165,42 @@ assert.doesNotMatch(main, /premium-deliverable-showcase/, 'Duplicate work sample
 assert.doesNotMatch(main, /premium-trust-strip/, 'Repeated hero promises should not clutter the purchase action');
 const inclusions = main.match(/<div class="premium-includes-wrap">[\s\S]*?<\/ul>/)?.[0] || '';
 assert.deepEqual([...inclusions.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]), [
-  'Five separate 9:16 video clips', 'Human moment selection, no timestamps needed',
-  'Checked captions and supplied brand styling', 'Five hook or title suggestions',
-  'One consolidated revision round for caption, branding, and timing corrections. A new direction or replacement moments is outside this round.', 'Private white label handoff to your agency folder',
-], 'Pricing must describe the exact deliverables');
+  'Five separate 9:16 video clips', 'No timestamps required. We review the recording and select the moments',
+  'Checked captions and supplied brand styling', 'Five hook or title suggestions so your team has a starting point',
+  'One consolidated revision round for caption, branding, and timing corrections. A new direction or replacement moments is outside this round.', 'Private white label delivery to a folder your agency owns',
+], 'Pricing must describe the exact deliverables and their customer benefit');
 assert.match(main, /Your agency provides[\s\S]*?One usable recording/);
 assert.match(main, /No contract\. No subscription\. No sales call required\./);
 assert.match(home, /premium-hero-media/);
 assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
 assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
 assert.match(home, /premium-polish\.css\?v=20261105-footer/, 'Current finishing styles not linked');
-assert.equal((home.match(/<source src="\/assets\/samples\/sample-process\.mp4\?v=20261103"/g)||[]).length, 2, 'Both hero and proof player must use the approved editing process video');
+assert.equal((home.match(/<source src="\/assets\/samples\/sample-process\.mp4\?v=20261103"/g)||[]).length, 1, 'The process video should appear once in the portfolio, not again in the hero');
+assert.doesNotMatch(home, /story-recording\.jpg/, 'Hero must not use the portrait labeled as the customer recording');
+const publicPages = [
+  'index.html', 'white-label-podcast-clips/index.html',
+  'content-graveyard/index.html', 'short-form-readiness-review.html',
+  'payment-confirmed.html', 'thanks.html', 'terms.html',
+  'privacy.html', 'refund.html',
+];
+for (const page of publicPages) {
+  const html = read(page);
+  assert.doesNotMatch(html, /sample-podcast\.(?:jpg|mp4)|sample-executive\.(?:jpg|mp4)/, `${page}: Interview or Explainer media remains visible`);
+  assert.doesNotMatch(html, />Interview<|>Explainer</, `${page}: Interview or Explainer card label remains visible`);
+}
+assert(fs.existsSync(path.join(root, 'assets/samples/sample-podcast.mp4')), 'Interview sample file must be kept because it may be used elsewhere');
+assert(fs.existsSync(path.join(root, 'assets/samples/sample-executive.mp4')), 'Explainer sample file must be kept because it may be used elsewhere');
+const hero = home.match(/<section class="rd-hero[\s\S]*?<\/section>/)?.[0] || '';
+assert.match(hero, /Five finished clips\. \$199 one time\./, 'Hero should lead with the offer, not intake conditions');
+assert.doesNotMatch(hero, /payment clears and (?:the |all )?required materials/, 'Hero must not place intake timing conditions next to the main buttons');
+assert.match(home, /1–3 calendar days after payment clears and all required materials are ready/, 'Full timing qualifier must remain outside the hero');
+assert.match(home, /premium-workflow-diagram/, 'Illustrative hero workflow diagram missing');
+assert.match(home, /class="premium-workflow-label">ILLUSTRATIVE</, 'Workflow diagram must be labelled illustrative');
 assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
 assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');
 assert.match(home, /1 to 3 calendar days/);
 assert.match(home, /One recording, up to 60 minutes\. Five vertical clips, up to 60 seconds each/);
-assert.match(home, /File sharing services can show uploader identities/, 'Private handoff caveat lost');
+assert.match(home, /File sharing services may show who uploaded a file/, 'Private handoff caveat lost');
 assert.match(home, /Public recuts are editing demonstrations only\. No endorsement or client relationship is implied\./, 'Public recut disclaimer lost');
 assert.match(home, /Revision time is additional\./, 'Revision timing caveat lost');
 assert.match(home, /data-placement="hero_primary"/);
@@ -261,6 +282,13 @@ for (const page of copyPages) {
   }
 }
 assert(!read('payment-confirmed.html').includes('One private, agency-owned folder'), 'Verified intake copy still contains a hyphen');
+
+
+const privacy = read('privacy.html');
+assert.equal((privacy.match(/mailto:ops@egstudio\.tech/g) || []).length, 1, 'Privacy page should not repeat the contact email in the body and footer');
+assert.match(privacy, /contact link in the footer/, 'Privacy page must still point to a clear contact route');
+assert.doesNotMatch(read('white-label-podcast-clips/index.html'), /Principal<\/strong> · Digital Agency/, 'Landing page must not invent a testimonial attribution');
+assert.match(read('white-label-podcast-clips/index.html'), /<strong>Owner<\/strong> · Local Advertising Agency/, 'Landing page quote must keep the approved attribution');
 
 const thanks = read('thanks.html');
 assert.match(thanks, /<p class="kicker" id="page-kicker">Verify your order<\/p>/, 'thanks.html must not claim payment complete before verification');
