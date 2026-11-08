@@ -420,3 +420,69 @@ body.rd.premium-home .rd-final .rd-btn-invert { box-shadow: 0 12px 36px rgba(0,0
   body.rd.premium-home .premium-text-link,
   body.rd.premium-home .rd-faq .faq-chevron::after { transition: none !important; }
 }
+
+/* Copy rebuild 20261108: illustrative hero workflow and two remaining sample cards */
+body.rd.premium-home .premium-dashboard-top > span.premium-workflow-label {
+  display: inline;
+  margin-left: auto;
+  letter-spacing: .12em;
+}
+body.rd.premium-home .premium-dashboard-main.premium-workflow-main {
+  display: block;
+  grid-template-columns: none;
+}
+body.rd.premium-home .premium-workflow-diagram {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .65rem;
+}
+body.rd.premium-home .premium-workflow-diagram li {
+  display: grid;
+  justify-items: start;
+  gap: .35rem;
+  margin: 0;
+  padding: .7rem .7rem .75rem;
+  border: 1px solid var(--c-line);
+  border-radius: 14px;
+  background: var(--c-surface);
+}
+body.rd.premium-home .premium-workflow-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #F4F6F8;
+}
+body.rd.premium-home .premium-workflow-diagram span {
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: var(--c-muted);
+}
+body.rd.premium-home .premium-workflow-diagram strong {
+  font-size: .82rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+body.rd.premium-home .premium-workflow-caption {
+  margin: .85rem .15rem 0;
+  color: var(--c-muted);
+  font-size: .78rem;
+  line-height: 1.5;
+}
+@media (max-width:599px) {
+  body.rd.premium-home .premium-workflow-diagram {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width:640px) {
+  body.rd-home .rd-proof-wall .rd-samples,
+  body.rd-home .rd-studio-work .rd-samples {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+}
