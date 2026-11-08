@@ -1,7 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const OFFER_MAP: Record<string, { sku: "episode" | "test" | "sprint"; amount: number; label: string; intakeUrl: string }> = {
-  episode_to_shorts: { sku: "episode", amount: 19900, label: "Episode-to-Shorts", intakeUrl: "https://egstudio.tech/payment-confirmed.html" },
+  episode_to_shorts: { sku: "episode", amount: 19900, label: "Agency Clip Pack", intakeUrl: "https://egstudio.tech/payment-confirmed.html" },
   starter: { sku: "test", amount: 30000, label: "3-Clip Starter", intakeUrl: "https://egstudio.tech/payment-confirmed.html" },
   paid_test: { sku: "test", amount: 30000, label: "3-Clip Starter", intakeUrl: "https://egstudio.tech/payment-confirmed.html" },
   sprint: { sku: "sprint", amount: 150000, label: "15-video Sprint", intakeUrl: "https://egstudio.tech/thanks.html" },

@@ -1,0 +1,20 @@
+=== tests/premium-site.mjs ===
+PASS: 9 redesigned pages, local assets, scripts, offer link, real quotes and CSS structure.
+EXIT:0
+
+=== tests/agency-intake.mjs ===
+PASS: server rejects insecure/local/credentialed folder links, missing handoff confirmation and rights; saves provider-neutral private folder and optional brief for manual access review, notifies ops only, and does not resend duplicate intake. All services mocked.
+(node:63779) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+EXIT:0
+
+=== tests/agency-onboarding.mjs (node --experimental-transform-types) ===
+(node:63788) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:63788) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+PASS: TypeScript syntax; signed live/test agency flows; no vendor Drive calls; null due date until acceptance; five slots; agency-only transactional recipient; duplicate suppression; invalid signatures; legacy email. All external calls mocked.
+EXIT:0
+
+=== tests/thanks-runtime.mjs ===
+PASS: thanks.html runtime — missing and invalid sessions stay on Verify your order with the brief hidden; unpaid and wrong-sku responses do not reveal Sprint details or fire tracking; a mocked paid sprint session reveals the legacy brief; analytics throws do not overwrite verification; backend failures stay unverified. Fetch stayed on the mock endpoint. Author stylesheet cascade hides [hidden] Sprint details despite display:grid rules.
+EXIT:0

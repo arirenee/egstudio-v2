@@ -53,6 +53,14 @@ pintrk('page');
 <!-- end Pinterest Tag -->
 <link rel="stylesheet" href="/brand-palette.css?v=20261020-logo1"><meta name="theme-color" content="#1B3A5C">
 <link rel="stylesheet" href="/assets/css/premium-pages.css?v=20261103-polish">
+<style>
+#sprint-progress[hidden],
+#source-row[hidden],
+#timing-row[hidden],
+#intake-form[hidden] {
+  display: none !important;
+}
+</style>
 
 <link rel="icon" href="/favicon.ico?v=20261105-brand" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261105-brand">
@@ -68,10 +76,10 @@ pintrk('page');
 <body class="premium-form">
 <header><div class="wrap"><a class="eg-wordmark" href="index.html">EG<span>STUDIO</span></a></div></header>
 <main><div class="wrap">
-<p class="kicker">Payment complete · 15 video Sprint</p>
-<h1>Send what we need to start.</h1>
-<p class="lead"><strong>Check your email for the upload link.</strong> Upload your footage there. The few questions below help us edit it the way you want.</p>
-<ol class="premium-intake-progress" aria-label="Your Sprint project journey">
+<p class="kicker" id="page-kicker">Verify your order</p>
+<h1 id="intake-title">Checking your order.</h1>
+<p class="lead" id="intake-lead">We are verifying your payment before opening the project brief.</p>
+<ol class="premium-intake-progress" id="sprint-progress" aria-label="Your Sprint project journey" hidden>
   <li><span>1</span>Payment verified</li>
   <li><span>2</span>Complete project brief</li>
   <li><span>3</span>Style sample and approval</li>
@@ -80,13 +88,13 @@ pintrk('page');
 
 <div class="status">
   <div class="status-row"><b>Payment</b><span id="payment-state">Verifying Stripe payment…</span></div>
-  <div class="status-row"><b>Order</b><span id="verified-order">15 video Sprint · $1,500</span></div>
-  <div class="status-row"><b>Source</b><span>Up to 90 minutes of source footage</span></div>
-  <div class="status-row"><b>Timing</b><span>Style sample first, then 5 video batches across 30 days</span></div>
+  <div class="status-row"><b>Order</b><span id="verified-order">Waiting for Stripe verification</span></div>
+  <div class="status-row" id="source-row" hidden><b>Source</b><span>Up to 90 minutes of source footage</span></div>
+  <div class="status-row" id="timing-row" hidden><b>Timing</b><span>Style sample first, then 5 video batches across 30 days</span></div>
   <div class="status-row"><b>Contact</b><span>ops@egstudio.tech</span></div>
 </div>
 
-<form id="intake-form" novalidate>
+<form id="intake-form" novalidate hidden>
   <div class="field">
     <label for="project_name">Project / folder name</label>
     <input id="project_name" name="project_name" type="text" maxlength="120" autocomplete="organization-title" placeholder="Acme Podcast Clips" required>
@@ -189,16 +197,27 @@ pintrk('page');
       verified = true;
       state.textContent = "Verified · paid";
       state.dataset.state = "ok";
+      document.getElementById("page-kicker").textContent = "Payment complete · " + (data.order_label || "15 video Sprint");
+      document.getElementById("intake-title").textContent = "Send what we need to start.";
+      document.getElementById("intake-lead").innerHTML = "<strong>Check your email for the upload link.</strong> Upload your footage there. The few questions below help us edit it the way you want.";
+      document.getElementById("sprint-progress").hidden = false;
+      document.getElementById("source-row").hidden = false;
+      document.getElementById("timing-row").hidden = false;
       order.textContent = data.order_label + " · " + data.amount_display;
+      form.hidden = false;
       submit.disabled = false;
-      if (window.posthog) posthog.capture("intake_payment_verified", {sku:data.sku, experiment:"native_intake_v1"});
-      if (window.pintrk) pintrk('track','checkout',{
-        event_id:sessionId,
-        order_id:sessionId,
-        value:1500,
-        order_quantity:1,
-        currency:'USD'
-      });
+      try {
+        if (window.posthog) posthog.capture("intake_payment_verified", {sku:data.sku, experiment:"native_intake_v1"});
+      } catch (_analyticsErr) {}
+      try {
+        if (window.pintrk) pintrk('track','checkout',{
+          event_id:sessionId,
+          order_id:sessionId,
+          value:1500,
+          order_quantity:1,
+          currency:'USD'
+        });
+      } catch (_analyticsErr) {}
     } catch(err) {
       state.textContent = "Could not verify payment.";
       state.dataset.state = "error";

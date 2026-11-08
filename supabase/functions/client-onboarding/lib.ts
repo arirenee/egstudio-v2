@@ -9,6 +9,12 @@ export type Pkg = {
   label: string;
 };
 
+// Current live customer offer is episode: Agency Clip Pack, $199, five clips (see label).
+// The internal name "Episode-to-Shorts" is retained because jobFolderName() uses pkg.name
+// for existing operations folder naming. Do not rename keys: webhook, intake, and
+// metadata.offer tags still identify episode / test / sprint this way.
+// test ($300 3-Clip Starter) and sprint ($1,500 15-video Sprint) are historical offers
+// kept for old-order and test-mode support, not current homepage checkout.
 export const PACKAGES: Record<string, Pkg> = {
   episode: { key: "episode", name: "Episode-to-Shorts", amount: 19900, clips: 5, dueDays: 3, label: "Agency Clip Pack" },
   test: { key: "test", name: "3-Clip Starter", amount: 30000, clips: 3, dueDays: 7, label: "3-Clip Starter" },
