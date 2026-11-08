@@ -69,6 +69,9 @@ for (const q of [
   '<strong>Managing Director</strong><span>B2B Content Agency</span>',
   '<strong>Owner</strong><span>Local Advertising Agency</span>',
 ]) assert(home.includes(q), `Missing approved testimonial text: ${q}`);
+assert(home.includes("Names and company identities are withheld at the agencies' request to protect confidentiality."), 'Confidentiality note missing near testimonials');
+assert(home.includes('EG Studio provides white label video editing for agencies.'), 'Fulfillment identity note missing');
+assert(home.includes('href="refund.html">refund policy</a>'), 'Refund policy link missing near testimonials or offer');
 assert.doesNotMatch(home, /Anonymous agency client/i);
 const footer = home.match(/<footer class="site-footer-current rd-footer">[\s\S]*?<\/footer>/)?.[0] || '';
 const finalCallToAction = home.match(/<section class="rd-final">[\s\S]*?<\/section>/)?.[0] || '';
@@ -163,7 +166,7 @@ const inclusions = main.match(/<div class="premium-includes-wrap">[\s\S]*?<\/ul>
 assert.deepEqual([...inclusions.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]), [
   'Five separate 9:16 video clips', 'Human moment selection, no timestamps needed',
   'Checked captions and supplied brand styling', 'Five hook or title suggestions',
-  'One consolidated revision round', 'Private white label handoff to your agency folder',
+  'One consolidated revision round for caption, branding, and timing corrections. A new direction or replacement moments is outside this round.', 'Private white label handoff to your agency folder',
 ], 'Pricing must describe the exact deliverables');
 assert.match(main, /Your agency provides[\s\S]*?One usable recording/);
 assert.match(main, /No contract\. No subscription\. No sales call required\./);
@@ -258,5 +261,13 @@ for (const page of copyPages) {
   }
 }
 assert(!read('payment-confirmed.html').includes('One private, agency-owned folder'), 'Verified intake copy still contains a hyphen');
+
+const thanks = read('thanks.html');
+assert.match(thanks, /<p class="kicker" id="page-kicker">Verify your order<\/p>/, 'thanks.html must not claim payment complete before verification');
+assert.match(thanks, /id="verified-order">Waiting for Stripe verification</, 'thanks.html must not advertise the Sprint price before verification');
+assert.match(thanks, /<form id="intake-form" novalidate hidden>/, 'thanks.html must withhold the Sprint brief until verification');
+assert.match(thanks, /id="sprint-progress"[^>]*hidden/, 'thanks.html must hide Sprint journey details until verification');
+assert.doesNotMatch(thanks, /<p class="kicker"[^>]*>Payment complete/, 'thanks.html default kicker still claims payment complete');
+assert.doesNotMatch(thanks, /id="verified-order">15 video Sprint/, 'thanks.html default order row still advertises the Sprint');
 
 console.log(`PASS: ${pages.length} redesigned pages, local assets, scripts, offer link, real quotes and CSS structure.`);

@@ -1,14 +1,19 @@
 # EG Studio — Codex Instructions
 
 ## Mission
-Help EG Studio find and validate a stronger, simpler video-editing business model before changing the live website.
+This repository is the production website for EG Studio at egstudio.tech.
 
-Current strategic direction:
-- Expand beyond agency-only buyers.
-- Consider creators, podcasters, consultants, coaches, founders, SMBs, brands, marketing teams, and agencies.
-- Core customer job: turn raw or long-form footage into finished short-form vertical videos.
-- "No call required" is a candidate differentiator to validate with evidence, not an assumption to force.
-- EG Studio should aim to make pricing, deliverables, turnaround, revisions, process, and checkout understandable without a sales call.
+Current approved commercial offer:
+- Agency Clip Pack, $199 one time, five finished vertical clips from one recording up to 60 minutes.
+- Human moment selection, checked captions, supplied brand styling, five hook or title suggestions, and one consolidated revision round.
+- Private white-label delivery into an agency-owned folder. No subscription. No mandatory sales call. No contact with agency end clients.
+- Positioning is agency / white-label. Do not expand the public offer to adjacent audiences unless Edward approves that change.
+
+Historical offers, retained only for old-order and backend compatibility:
+- $300 3-Clip Starter (inactive public checkout).
+- $1,500 15-video Sprint (legacy thanks.html intake after verified Sprint payment).
+
+Do not present those historical packages as current homepage offers.
 
 ## Commercial priority
 The primary goal is a paying customer and a repeatable profitable offer. Revenue/customer evidence outranks internal preference.
@@ -22,7 +27,7 @@ When evaluating offers, prioritize:
 6. Strong fit with a no-call/self-serve buying flow.
 7. Ability to launch with EG Studio's existing editing capability.
 
-Do not assume the current $300 Starter or $1,500 Sprint must remain unchanged. Treat them as existing baselines until research supports keeping, replacing, or reframing them.
+The live public offer is the $199 Agency Clip Pack. Treat the $300 Starter and $1,500 Sprint as historical baselines, not current checkout options.
 
 ## Research rules
 For competitor, pricing, offer, review, or market research:
