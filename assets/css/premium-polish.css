@@ -649,3 +649,34 @@ body.rd.premium-home .premium-quote figcaption span::before{content:"\00B7";marg
 body.rd.premium-home .rd-faq{gap:.6rem}
 body.rd.premium-home .rd-faq .faq-item{border:0;border-radius:16px;background:var(--c-surface);box-shadow:0 1px 2px rgba(15,33,53,.05)}
 body.rd.premium-home .rd-final .rd-final-title{margin-bottom:0}
+
+/* Agency buyer copy addendum (Nov 9 2026): minimal structure for the new copy sections, existing tokens only. */
+body.rd.premium-home #what-we-need,
+body.rd.premium-home #delivery,
+body.rd.premium-home #what-you-get{scroll-margin-top:var(--rd-sticky-header-height)}
+body.rd.premium-home .premium-needs-section,
+body.rd.premium-home .premium-delivery-section{background:var(--c-surface)}
+body.rd.premium-home .premium-needs-lead{margin:0 0 .85rem;color:var(--c-body);font-size:1.0625rem}
+body.rd.premium-home .premium-needs{list-style:none;margin:0 0 1.1rem;padding:0;display:grid;gap:.65rem}
+body.rd.premium-home .premium-needs li{position:relative;padding:0 0 0 1.75rem;font-size:1.0625rem;font-weight:700;color:var(--c-text);line-height:1.5}
+body.rd.premium-home .premium-needs li::before,
+body.rd.premium-home .rd-proposal .premium-included-list li::before{content:"";position:absolute;left:.15rem;top:.42rem;width:.8rem;height:.45rem;border-left:2px solid var(--c-accent);border-bottom:2px solid var(--c-accent);transform:rotate(-45deg)}
+body.rd.premium-home .premium-needs-close{margin:0;color:var(--c-body);max-width:52ch}
+body.rd.premium-home .premium-delivery{max-width:44rem}
+body.rd.premium-home .premium-delivery .rd-h2{margin-bottom:1rem}
+body.rd.premium-home .premium-delivery p{margin:0 0 .7rem;color:var(--c-body);font-size:1.0625rem;line-height:1.6}
+body.rd.premium-home .premium-delivery .premium-delivery-close{margin:1rem 0 0;color:var(--c-text);font-weight:750}
+body.rd.premium-home .premium-steps-short li p+p{margin-top:.5rem}
+body.rd.premium-home .premium-gets{list-style:none}
+body.rd.premium-home .premium-gets h3{margin-top:0}
+body.rd.premium-home .rd-proposal .premium-offer-intro+.premium-offer-intro{margin-top:.75rem}
+body.rd.premium-home .rd-proposal .premium-offer-label{margin:1.6rem 0 0;font-size:.8125rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-muted)}
+body.rd.premium-home .rd-proposal .premium-included-list{gap:.6rem;margin:.85rem 0 1.5rem}
+body.rd.premium-home .rd-proposal .premium-included-list li{position:relative;display:block;color:var(--c-text);font-weight:600}
+body.rd.premium-home .rd-faq .faq-answer p+p,
+body.rd.premium-home .rd-faq .faq-answer ul,
+body.rd.premium-home .rd-faq .faq-answer ul+p{margin-top:.6rem}
+body.rd.premium-home .rd-faq .faq-answer ul{margin-bottom:0;padding-left:1.25rem}
+@media (min-width:720px){
+  body.rd.premium-home .premium-needs{grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+}
