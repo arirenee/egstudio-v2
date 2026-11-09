@@ -1,6 +1,6 @@
 import {
-  addDays, clientDisplayName, firstName, identifyPackage, jobFolderName, pacificDate, parsePriceIds,
-  verifyStripeSignature, welcomeEmail, type Pkg,
+  addDays, briefFormUrl, clientDisplayName, firstName, identifyPackage, jobFolderName, pacificDate, parsePriceIds,
+  projectBriefDocText, verifyStripeSignature, welcomeEmail, workspaceFolderName, WORKSPACE_SUBFOLDERS, type Pkg,
 } from "./lib.ts";
 
 type Env = (k: string) => string | undefined;
@@ -90,16 +90,65 @@ function makeDrive(env: Env, f: Fetch) {
     return r.json();
   }
   const q = (s: string) => s.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
-  async function ensureFolder(name: string, parentId: string, tag: string) {
+  async function findTagged(parentId: string, tag: string, mimeType: string) {
     const found = await api("/files?supportsAllDrives=true&includeItemsFromAllDrives=true&fields=files(id,webViewLink)&q=" +
-      encodeURIComponent(`mimeType='application/vnd.google-apps.folder' and trashed=false and '${q(parentId)}' in parents and appProperties has { key='eg_tag' and value='${q(tag)}' }`));
-    if (found.files?.length) return found.files[0] as { id: string; webViewLink: string };
+      encodeURIComponent(`mimeType='${q(mimeType)}' and trashed=false and '${q(parentId)}' in parents and appProperties has { key='eg_tag' and value='${q(tag)}' }`));
+    return (found.files?.[0] ?? null) as { id: string; webViewLink: string } | null;
+  }
+  async function ensureFolder(name: string, parentId: string, tag: string, extra: Record<string, unknown> = {}) {
+    const found = await findTagged(parentId, tag, "application/vnd.google-apps.folder");
+    if (found) return found;
     return await api("/files?supportsAllDrives=true&fields=id,webViewLink", {
       method: "POST",
-      body: JSON.stringify({ name, mimeType: "application/vnd.google-apps.folder", parents: [parentId], appProperties: { eg_tag: tag } }),
+      body: JSON.stringify({ name, mimeType: "application/vnd.google-apps.folder", parents: [parentId], appProperties: { eg_tag: tag }, ...extra }),
     }) as { id: string; webViewLink: string };
   }
   return {
+    /**
+     * Agency Clip Pack private project workspace: one per-order folder (the private project link) with
+     * "01 Recording and branding" (agency uploads) and "02 Finished clips" (we return the clips here).
+     * writersCanShare=false: the agency can use and download everything but cannot add anyone (e.g. their client)
+     * to EG Studio-owned items, so EG Studio's account never appears in a client-facing share. Idempotent via tags.
+     */
+    async createWorkspace(name: string, sessionId: string) {
+      const root = env("GOOGLE_DRIVE_PARENT_FOLDER_ID")!;
+      const ws = await ensureFolder(name, root, sessionId, { writersCanShare: false });
+      const subs: Record<string, { id: string; webViewLink: string }> = {};
+      for (const s of WORKSPACE_SUBFOLDERS) subs[s] = await ensureFolder(s, ws.id, sessionId + ":" + s, { writersCanShare: false });
+      return { workspaceId: ws.id, workspaceUrl: ws.webViewLink, uploadFolderId: subs[WORKSPACE_SUBFOLDERS[0]].id, uploadFolderUrl: subs[WORKSPACE_SUBFOLDERS[0]].webViewLink };
+    },
+    /** "Start here: project brief" Google Doc inside the workspace with the private brief form link. Idempotent. */
+    async ensureBriefDoc(workspaceId: string, sessionId: string, text: string) {
+      const tag = sessionId + ":brief";
+      const found = await findTagged(workspaceId, tag, "application/vnd.google-apps.document");
+      if (found) return found;
+      const b = "egbrief" + sessionId.replace(/[^A-Za-z0-9]/g, "").slice(-16);
+      const meta = { name: "Start here - project brief", mimeType: "application/vnd.google-apps.document", parents: [workspaceId], appProperties: { eg_tag: tag }, writersCanShare: false };
+      const body = `--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${b}\r\nContent-Type: text/plain; charset=UTF-8\r\n\r\n${text}\r\n--${b}--`;
+      const r = await f("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true&fields=id,webViewLink", {
+        method: "POST", headers: { Authorization: "Bearer " + (await accessToken()), "Content-Type": `multipart/related; boundary=${b}` }, body,
+      });
+      if (!r.ok) { const t = (await r.text()).slice(0, 300); throw new DriveError("Drive brief doc failed: " + r.status + " " + t, r.status, t); }
+      return await r.json() as { id: string; webViewLink: string };
+    },
+    /**
+     * Share the workspace with the buyer's email only (writer, no Google notification; our welcome email carries the link).
+     * Never creates link sharing. Refuses (AccessError) if the workspace is public or domain-shared through inheritance,
+     * or if the buyer's grant did not land.
+     */
+    async shareWorkspace(workspaceId: string, clientEmail: string) {
+      await api(`/files/${workspaceId}/permissions?supportsAllDrives=true&sendNotificationEmail=false`, {
+        method: "POST", body: JSON.stringify({ type: "user", role: "writer", emailAddress: clientEmail }),
+      });
+      const perms = await api(`/files/${workspaceId}/permissions?supportsAllDrives=true&fields=permissions(type,role,emailAddress)`);
+      const list = (perms.permissions || []) as Array<{ type: string; role: string; emailAddress?: string }>;
+      if (list.some((p) => p.type === "anyone" || p.type === "domain")) {
+        throw new AccessError("Project workspace is link- or domain-shared through an inherited permission; not sending a link.");
+      }
+      if (!list.some((p) => p.type === "user" && p.role === "writer" && (p.emailAddress || "").toLowerCase() === clientEmail.toLowerCase())) {
+        throw new AccessError("Buyer grant missing on project workspace after share.");
+      }
+    },
     /** Job folder + 4 subfolders. Nothing is shared here (folders inherit only the private parent). Idempotent via appProperties tags. */
     async createJobTree(jobName: string, sessionId: string) {
       const root = env("GOOGLE_DRIVE_PARENT_FOLDER_ID")!;
@@ -145,22 +194,22 @@ function makeNotion(env: Env, f: Fetch) {
       });
       if (!r.ok) throw new Error("Notion update failed: " + r.status + " " + (await r.text()).slice(0, 300));
     },
-    async createJob(j: { client: string; email: string; pkg: Pkg; start: string; due: string | null; sourceUrl: string | null; folderUrl: string | null; agencyHandoff?: boolean; sessionId: string; paymentIntent: string; live: boolean; locked: boolean }) {
+    async createJob(j: { client: string; email: string; pkg: Pkg; start: string; due: string | null; sourceUrl: string | null; folderUrl: string | null; workspace?: boolean; sessionId: string; paymentIntent: string; live: boolean; locked: boolean }) {
       const t = (s: string) => [{ type: "text", text: { content: s.slice(0, 1900) } }];
       const children = [
-        ...(j.agencyHandoff ? [
-          { object: "block", type: "paragraph", paragraph: { rich_text: t("AGENCY EPISODE: collect the agency-owned private production folder link through the verified brief. Deliver directly into that private folder, coordinating only with the paying agency. No automated end-client file requests or delivery links.") } },
+        ...(j.workspace ? [
+          { object: "block", type: "paragraph", paragraph: { rich_text: t("AGENCY CLIP PACK: private project workspace (EG Drive, shared only with the buyer's email as editor, sharing by editors disabled). The buyer uploads the recording and branding to '01 Recording and branding' and completes the brief from the 'Start here - project brief' doc or the welcome email. We return the clips to '02 Finished clips'. Coordinate only with the paying agency; never contact the end client.") } },
           ...[
-            "Verify usable footage in the agency-owned production folder and edit/upload access for ops@egstudio.tech. Record the folder URL in Source link. The folder must stay private to the agency and EG Studio; keep the end client out.",
-            "Review any requested NDA and obtain agreement before editing. Confirm in writing: zero contact with the end client; five clips and copy delivered directly to the agency-owned folder. Explain that the file-sharing service may expose uploader account metadata if this production folder is later shared with end clients.",
-            "Confirm footage and brief are usable, then send written intake acceptance and set Start date and Due date manually: first complete batch within 1 to 3 calendar days. No payment-based due date.",
-            "Watch the full recording and select five moments yourself. No AI first pass. Include five hooks/titles and concise captions.",
-            "Export clean MP4s and caption text: no EG watermark, domain, account name or branding in content, filenames or metadata. Use neutral clip_01 through clip_05 names.",
-            "QA all five clips and copy. Upload completed deliverables directly into the private agency-owned production folder, then confirm delivery to the agency only. The agency should share separate client-facing copies or links and check the result from a separate account; never expose the production folder or EG account metadata to the end client.",
+            "Check '01 Recording and branding' for a usable recording (up to 60 minutes) and branding, and check the submitted brief. Email the agency if anything is missing before editing begins.",
+            "Review any requested NDA and obtain agreement before editing. Then set Start date and Due date by hand: first complete batch within 1 to 3 calendar days.",
+            "Watch the full recording and select five moments yourself. No AI first pass. Include five hook suggestions and captions.",
+            "Export clean MP4s and caption text: no EG watermark, domain, account name or branding in content, filenames or metadata (strip encoder/author tags). Use neutral clip_01 through clip_05 names.",
+            "Upload the finished files into '02 Finished clips' of this workspace only. For each uploaded file, turn OFF 'Editors can change permissions and share' (Share > settings) so EG Studio's account is never exposed in a client-facing share; the agency downloads its own copies to deliver.",
+            "Email the agency that the clips are ready in the same workspace. One revision round: replace files in '02 Finished clips'.",
           ].map(note => ({ object: "block", type: "to_do", to_do: { rich_text: t(note), checked: false } })),
         ] : []),
-        ...(j.locked || j.agencyHandoff ? [] : [{
-          object: "block", type: "callout", callout: { icon: { type: "emoji", emoji: "⚠️" }, rich_text: t("UPLOAD_ACCESS_FAILED: Drive would not share 01_SOURCE with " + j.email + " (likely not a Google account). The folder is private and NO welcome email or link was sent. Share it manually, send the client an upload method, then set Status to Awaiting Upload.") },
+        ...(j.locked ? [] : [{
+          object: "block", type: "callout", callout: { icon: { type: "emoji", emoji: "⚠️" }, rich_text: t("UPLOAD_ACCESS_FAILED: Drive would not share the " + (j.workspace ? "project workspace" : "01_SOURCE") + " with " + j.email + " (likely not a Google account). The folder is private and NO welcome email or link was sent. Share it manually, send the client an upload method, then set Status to Awaiting Upload.") },
         }]),
         { object: "block", type: "paragraph", paragraph: { rich_text: t("Workflow: Awaiting Upload > Files Received/Verifying > Ready for Production > In Production > In Review > Delivered. Edward verifies source footage and access, then sets Ready for Production by hand.") } },
         { object: "block", type: "heading_2", heading_2: { rich_text: t(`Clip slots (${j.pkg.clips})`) } },
@@ -178,12 +227,12 @@ function makeNotion(env: Env, f: Fetch) {
             "Client email": { email: j.email },
             Package: { select: { name: j.pkg.name } },
             "Payment status": { select: { name: "Paid" } },
-            "Start date": { date: j.agencyHandoff ? null : { start: j.start } },
+            "Start date": { date: j.workspace ? null : { start: j.start } },
             "Due date": { date: j.due ? { start: j.due } : null },
             "Source link": { url: j.sourceUrl },
             "Job folder": { url: j.folderUrl },
-            Status: { select: { name: j.agencyHandoff || j.locked ? "Awaiting Upload" : "UPLOAD_ACCESS_FAILED" } },
-            "Upload access": { select: { name: j.agencyHandoff ? "Private handoff awaiting verification" : j.locked ? "Locked to client email" : "Access failed - fix manually" } },
+            Status: { select: { name: j.locked ? "Awaiting Upload" : "UPLOAD_ACCESS_FAILED" } },
+            "Upload access": { select: { name: j.locked ? "Locked to client email" : "Access failed - fix manually" } },
             "Clip slots": { number: j.pkg.clips },
             Environment: { select: { name: j.live ? "Live" : "Test" } },
             "Stripe session": { rich_text: t(j.sessionId) },
@@ -314,32 +363,65 @@ export async function handle(req: Request, env: Env = (k) => Deno.env.get(k), f:
   if (!job) return json({ error: "Another worker is processing this payment." }, 503);
 
   try {
-    // Agency orders await source intake and a manually verified private handoff to the agency only.
+    // Agency Clip Pack: per-order private Drive workspace = the private project link (upload + brief + return in one place).
     if (pkg.key === "episode") {
       let state = job;
+      const briefUrl = briefFormUrl(session.id);
+      if (!state.drive_job_folder_id) {
+        const w = await drive.createWorkspace(workspaceFolderName(client, start, !live), session.id);
+        await store.patch(session.id, { drive_job_folder_id: w.workspaceId, drive_job_folder_url: w.workspaceUrl, drive_source_folder_id: w.uploadFolderId, drive_source_url: w.uploadFolderUrl });
+        state = { ...state, drive_job_folder_id: w.workspaceId, drive_job_folder_url: w.workspaceUrl, drive_source_folder_id: w.uploadFolderId, drive_source_url: w.uploadFolderUrl };
+      }
+      await drive.ensureBriefDoc(state.drive_job_folder_id, session.id, projectBriefDocText(briefUrl));
+      let accessError: string | null = null;
+      if (!state.share_locked_at) {
+        try {
+          await drive.shareWorkspace(state.drive_job_folder_id, email);
+          const now = new Date().toISOString();
+          await store.patch(session.id, { share_locked_at: now });
+          state = { ...state, share_locked_at: now };
+        } catch (e) {
+          if (!isShareRejection(e)) throw e;
+          accessError = (e as Error).message.slice(0, 300);
+        }
+      }
+      const locked = !!state.share_locked_at;
       if (!state.notion_page_id) {
         let pageId = await notion.findBySession(session.id);
         let pageUrl: string | null = null;
         if (!pageId) {
           const page = await notion.createJob({
-            client, email, pkg, start, due: null, sourceUrl: null, folderUrl: null,
-            agencyHandoff: true, sessionId: session.id,
-            paymentIntent: typeof session.payment_intent === "string" ? session.payment_intent : "", live, locked: false,
+            client, email, pkg, start, due: null, sourceUrl: state.drive_source_url, folderUrl: state.drive_job_folder_url,
+            workspace: true, sessionId: session.id,
+            paymentIntent: typeof session.payment_intent === "string" ? session.payment_intent : "", live, locked,
           });
           pageId = page.id; pageUrl = page.url;
         }
         await store.patch(session.id, { notion_page_id: pageId, notion_page_url: pageUrl });
-        state = { ...state, notion_page_id: pageId };
+        state = { ...state, notion_page_id: pageId, notion_page_url: pageUrl };
+      } else if (locked && existing?.status === "access_failed") {
+        await notion.markAccessOk(state.notion_page_id);
+      }
+      if (!locked) {
+        if (!state.access_alerted_at) {
+          const ok = await mail.alertOps("EG onboarding: UPLOAD_ACCESS_FAILED" + (live ? "" : " [TEST]"),
+            `Could not share the private project workspace with the buyer, so NO project link was sent.\n` +
+            `Client: ${client} <${email}>\nPackage: ${pkg.label}\nStripe session: ${session.id}\nWorkspace: ${state.drive_job_folder_url}\n` +
+            `Error: ${accessError}\n\nThe workspace is still private (no link sharing). Usually the buyer email is not a Google account. ` +
+            `Next: ask the buyer for a Google account email, share the workspace with it (editor, notifications off), email them the link, then set Notion Status to Awaiting Upload.`);
+          if (ok) await store.patch(session.id, { access_alerted_at: new Date().toISOString() });
+        }
+        await store.patch(session.id, { status: "access_failed", last_error: accessError });
+        return json({ received: true, access_failed: true });
       }
       if (!state.welcome_sent_at) {
         const to = live ? email : OPS_EMAIL;
-        const briefUrl = "https://egstudio.tech/payment-confirmed.html?session_id=" + encodeURIComponent(session.id);
-        const message = welcomeEmail({ first: firstName(session.customer_details?.name), pkg, uploadUrl: briefUrl, lockedEmail: email });
+        const message = welcomeEmail({ first: firstName(session.customer_details?.name), pkg, uploadUrl: state.drive_job_folder_url, lockedEmail: email, briefUrl });
         await mail.send(to, live ? message : { ...message, subject: "[TEST] " + message.subject });
         await store.patch(session.id, { welcome_sent_at: new Date().toISOString(), welcome_sent_to: to });
       }
       await store.patch(session.id, { status: "complete", last_error: null });
-      return json({ received: true, ok: true, package: pkg.key, intake: "private_agency_handoff" });
+      return json({ received: true, ok: true, package: pkg.key, intake: "private_project_workspace" });
     }
     let state = job;
     if (!state.drive_source_folder_id) {

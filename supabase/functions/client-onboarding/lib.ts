@@ -89,6 +89,25 @@ export function safeFolderPart(s: string): string {
   return s.replace(/[\\/:*?"<>|\[\]]/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// Agency Clip Pack private project workspace (shared with the buyer). Names are what the agency sees.
+export const WORKSPACE_SUBFOLDERS = ["01 Recording and branding", "02 Finished clips"] as const;
+
+export function workspaceFolderName(client: string, date: string, test: boolean): string {
+  return (test ? "TEST - " : "") + safeFolderPart(client) + " | Agency Clip Pack | " + date;
+}
+
+export function briefFormUrl(sessionId: string): string {
+  return "https://egstudio.tech/payment-confirmed.html?session_id=" + encodeURIComponent(sessionId);
+}
+
+export function projectBriefDocText(briefUrl: string): string {
+  return "Start here: project brief\n\n" +
+    "1. Complete your quick project brief: " + briefUrl + "\n" +
+    "2. Upload your recording and your logo or brand assets to the folder \"01 Recording and branding\".\n" +
+    "3. Your five finished clips will be returned to \"02 Finished clips\" in this same folder for review and delivery.\n\n" +
+    "No timestamps required. Questions: ops@egstudio.tech\n";
+}
+
 export function jobFolderName(client: string, pkg: Pkg, date: string, test: boolean): string {
   return "[EG] " + (test ? "TEST - " : "") + safeFolderPart(client) + " | " + pkg.name + " (" + pkg.clips + " clips) | " + date;
 }
@@ -116,19 +135,32 @@ export async function verifyStripeSignature(rawBody: string, header: string | nu
 }
 
 // ---- Welcome email ----
-export function welcomeEmail(opts: { first: string; pkg: Pkg; uploadUrl: string; lockedEmail: string }) {
+export function welcomeEmail(opts: { first: string; pkg: Pkg; uploadUrl: string; lockedEmail: string; briefUrl?: string }) {
   const hi = opts.first ? "Hi " + opts.first + "," : "Hi,";
   if (opts.pkg.key === "episode") {
-    const subject = "Payment received: send your recording and brief";
+    const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    const subject = "Your private project link: Agency Clip Pack";
+    const brief = opts.briefUrl || "";
     const text = hi + "\n\nThanks for ordering the Agency Clip Pack.\n\n" +
-      "Submit your recording and project brief here:\n" + opts.uploadUrl + "\n\n" +
-      "Place your recording in a private folder your agency owns and share it with ops@egstudio.tech with edit/upload permission. We will verify access before starting. Keep the production folder private from end clients.\n\n" +
-      "We confirm zero contact with the end client. Your finished videos, filenames and captions will contain no EG Studio watermark, domain or branding. File-sharing services may reveal uploader details, so please use separate client-facing copies and links. Your agency handles all client communication.\n\n" +
-      "We watch the full recording and select five moments ourselves, without an AI first pass. No timestamps needed. Five hooks/titles and captions are included.\n\n" +
-      "Send any NDA for review before editing. We verify footage, permissions and any agreed NDA, then accept your intake in writing, usually within one business day. Your first five clips arrive within 1 to 3 calendar days after acceptance, white label and ready to post. One consolidated revision round is included; revision time is additional.\n\n" +
+      "Your private project link:\n" + opts.uploadUrl + "\n" +
+      "Open it with the Google account for " + opts.lockedEmail + ". It is shared only with that account.\n\n" +
+      "1. Upload your recording and your logo or brand assets to \"01 Recording and branding\". No timestamps required.\n" +
+      "2. Complete your quick project brief: " + brief + "\n" +
+      "3. When the clips are finished, your five clips arrive in \"02 Finished clips\" in the same workspace for review and delivery.\n\n" +
+      "We'll confirm everything is ready before editing begins. Your first five clips arrive within 1 to 3 calendar days after that, white label and ready to post. One revision round is included.\n\n" +
+      "We never contact your client, and the finished clips carry no EG Studio branding. Download the clips to deliver them to your client.\n\n" +
       "Reply with any questions.\n\nEG Studio\nops@egstudio.tech\n";
-    const escaped = text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-    return { subject, text, html: '<div style="white-space:pre-wrap">' + escaped + "</div>" };
+    const html =
+      "<p>" + esc(hi) + "</p><p>Thanks for ordering the Agency Clip Pack.</p>" +
+      '<p><strong>Your private project link:</strong><br><a href="' + esc(opts.uploadUrl) + '">' + esc(opts.uploadUrl) + "</a><br>" +
+      "Open it with the Google account for " + esc(opts.lockedEmail) + ". It is shared only with that account.</p>" +
+      "<ol><li>Upload your recording and your logo or brand assets to &quot;01 Recording and branding&quot;. No timestamps required.</li>" +
+      '<li>Complete your quick project brief: <a href="' + esc(brief) + '">' + esc(brief) + "</a></li>" +
+      "<li>When the clips are finished, your five clips arrive in &quot;02 Finished clips&quot; in the same workspace for review and delivery.</li></ol>" +
+      "<p>We'll confirm everything is ready before editing begins. Your first five clips arrive within 1 to 3 calendar days after that, white label and ready to post. One revision round is included.</p>" +
+      "<p>We never contact your client, and the finished clips carry no EG Studio branding. Download the clips to deliver them to your client.</p>" +
+      "<p>Reply with any questions.</p><p>EG Studio<br>ops@egstudio.tech</p>";
+    return { subject, text, html };
   }
   const timing = opts.pkg.key === "sprint"
     ? "We deliver within 30 days."

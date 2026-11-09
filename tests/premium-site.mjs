@@ -19,7 +19,8 @@ for (const page of pages) {
   assert.match(html, /premium(?:-pages)?\.css\?v=2026110[345]-(?:redesign|polish|copy|handoff)/, `${page}: premium styles missing`);
   assert.match(html, /<main\b/i, `${page}: main landmark missing`);
   assert.match(html, /<h1\b/i, `${page}: h1 missing`);
-  assert.doesNotMatch(html, /Google Drive|Unbranded Drive/i, `${page}: obsolete public file-service wording`);
+  // Legal pages must name the storage processor (private Google Drive workspace); marketing pages must not.
+  assert.doesNotMatch(['terms.html', 'privacy.html'].includes(page) ? html.replace(/private project workspace \(a Google Drive folder\)|Google Drive for project files|private Google Drive workspace|EG Studio’s Google Drive account/g, '') : html, /Google Drive|Unbranded Drive/i, `${page}: obsolete public file-service wording`);
   assert.doesNotMatch(html, /written intake acceptance|intake acceptance|accept(?:ed)? (?:your|the) intake in writing|after accepted intake/i, `${page}: outdated delivery trigger wording`);
   for (const match of html.matchAll(/(?:src|href|poster)="([^"]+)"/g)) {
     const url = match[1].split(/[?#]/)[0];
@@ -189,7 +190,7 @@ assert.deepEqual([...inclusions.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]), 
   'Five clips', 'Moment selection', 'Captions', 'Brand styling', 'Hook suggestions', 'One revision round', 'First delivery in 1–3 calendar days',
 ], 'Pricing must list the owner-approved inclusions exactly');
 assert.match(pricing, /<div class="rd-price">\$199 <span>one time<\/span><\/div>/, 'Pricing must keep $199 one time');
-assert.match(pricing, /One recording up to 60 minutes\. Five 9:16 clips, up to 60 seconds each\./, 'Pricing must keep the verified product limits');
+assert.doesNotMatch(pricing, /premium-offer-timing|One recording up to 60 minutes\. Five 9:16 clips/, 'Unapproved product-limits line must not appear under the pricing button');
 assert.equal((pricing.match(/data-sku="episode"/g) || []).length, 1, 'Pricing card must have exactly one checkout action');
 assert.equal((pricing.match(/1–3 calendar days/g) || []).length, 1, 'Pricing must show one concise timing statement');
 assert.doesNotMatch(pricing, /project brief|What you’ll send|private project link/, 'Pricing card must not repeat the project brief explanation');
@@ -233,12 +234,16 @@ const hero = home.match(/<section class="rd-hero[\s\S]*?<\/section>/)?.[0] || ''
 assert.match(hero, /Turn one client recording into five branded clips\./);
 assert.match(hero, /\$199 one time\./, 'Hero should lead with the offer, not intake conditions');
 assert.doesNotMatch(hero, /payment clears and (?:the |all )?required materials/, 'Hero must not place intake timing conditions next to the main buttons');
-assert.match(home, /Delivery timing starts once payment clears and all required materials are ready\./, 'Full timing qualifier must remain outside the hero');
+const deliverySection = main.match(/<section[^>]*id="delivery"[\s\S]*?<\/section>/)?.[0] || '';
+assert.match(deliverySection, /Your client never interacts with EG Studio\.<\/p>\s*<p class="premium-delivery-close">That’s all you need\.<\/p>/, 'How delivery works must close with the approved line');
 assert.doesNotMatch(home, /You review, then your client does/);
 assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
 assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');
 const terms = read('terms.html'), refund = read('refund.html'), refundText = refund.replace(/<[^>]+>/g, '');
-assert.match(terms, /File sharing services may reveal uploader account details/);
+assert.match(terms, /we share a private project workspace \(a Google Drive folder\) with the email used for the order/);
+assert.match(terms, /deliver the finished files to the same workspace/);
+assert.match(terms, /File sharing services may reveal uploader account details if workspace items are shared directly\./);
+assert.doesNotMatch(terms, /agency owned production folder|folder your agency owns|edit\/upload access/, 'Terms must describe the EG private workspace, not an agency-owned folder');
 assert.match(terms, /Revision time is additional\./);
 assert.match(terms, /The standard pack is for one English language recording with up to two synchronized speakers or cameras\./);
 assert.match(terms, /Eligible footage includes podcasts, interviews, webinars, and expert or talking head recordings\./);
@@ -248,13 +253,16 @@ for (const page of ['terms.html', 'privacy.html', 'refund.html']) assert.match(r
 for (const line of [
   'You may request cancellation before editing begins. Eligible cancellations are refunded in full.',
   'A cancellation is eligible when you email ops@egstudio.tech before we start reviewing your recording for editing.',
+  'The included revision round corrects the delivered clips.',
   'We’ll let you know before editing begins and issue a refund.',
   'Orders become non-refundable once editing work has started.',
   'If EG Studio cannot finish your order for reasons within our control, we will agree with you on a refund of the unfinished work.',
   'refund the unfinished portion of the order',
   'pause the delivery clock',
 ]) assert(refundText.includes(line), `Refund policy line missing: ${line}`);
-assert.match(refund, /<h2>Before production begins<\/h2>[\s\S]*<h2>If the recording is not a fit<\/h2>[\s\S]*<h2>After production begins<\/h2>[\s\S]*<h2>Need help\?<\/h2>/, 'Refund policy must follow the owner-approved structure');
+assert.match(refund, /<h2>Before production begins<\/h2>\s*<p>You may request cancellation before editing begins\. Eligible cancellations are refunded in full\.<\/p>\s*<h2>If the recording is not a fit<\/h2>\s*<p>We’ll let you know before editing begins and issue a refund\.<\/p>\s*<h2>After production begins<\/h2>\s*<p>Orders become non-refundable once editing work has started\.<\/p>\s*<h2>Need help\?<\/h2>/, 'Refund policy approved sections must be unaltered');
+assert.match(refund, /<h2>Need help\?<\/h2>[\s\S]*<h2>Policy details<\/h2>/, 'Required refund disclosures sit after the approved sections');
+assert.match(read('privacy.html'), /<h2>Service providers and storage<\/h2>/, 'Privacy must disclose processors');
 const privacyPage = read('privacy.html');
 assert.match(privacyPage, /<h2>Your client relationship stays yours<\/h2>\s*<p>Client recordings are used only to complete your project\.<\/p>\s*<p>We do not contact your clients, share recordings publicly, or use project materials outside your order without permission\.<\/p>\s*<p>The content stays between your agency and EG Studio\.<\/p>/, 'Privacy must use the owner-approved client relationship section');
 assert.doesNotMatch(privacyPage, /Client recordings and white label work|class="assurance"/, 'Old nested privacy callout must be gone');

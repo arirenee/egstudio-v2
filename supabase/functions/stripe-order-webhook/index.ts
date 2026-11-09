@@ -91,12 +91,16 @@ async function sendConfirmation(order: any, session: any, offer: any) {
 
   const email = String(session.customer_details?.email || session.customer_email || "").toLowerCase();
   const briefUrl = offer.intakeUrl + "?session_id=" + encodeURIComponent(session.id);
-  const html =
-    "<p>Payment received for your <strong>" + offer.label + "</strong>.</p>" +
-    "<p>Send the project brief and source links here:</p>" +
-    '<p><a href="' + briefUrl + '">Complete your EG Studio project brief</a></p>' +
-    "<p>Once the brief and source files are usable, we can start.</p>" +
-    "<p>EG Studio<br>ops@egstudio.tech</p>";
+  const html = offer.sku === "episode"
+    ? "<p>Payment received for your <strong>" + offer.label + "</strong>.</p>" +
+      "<p>Your private project link arrives in a separate email. Upload your recording and branding there.</p>" +
+      '<p><a href="' + briefUrl + '">Open your order page and quick project brief</a></p>' +
+      "<p>EG Studio<br>ops@egstudio.tech</p>"
+    : "<p>Payment received for your <strong>" + offer.label + "</strong>.</p>" +
+      "<p>Send the project brief and source links here:</p>" +
+      '<p><a href="' + briefUrl + '">Complete your EG Studio project brief</a></p>' +
+      "<p>Once the brief and source files are usable, we can start.</p>" +
+      "<p>EG Studio<br>ops@egstudio.tech</p>";
 
   await patchOrder(order.id, {
     confirmation_status: "sending",
