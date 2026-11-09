@@ -39,28 +39,28 @@ const home = read('index.html');
 const schema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || '{}');
 const faqSchema = schema['@graph']?.find(node => node['@type'] === 'FAQPage');
 assert.equal(faqSchema?.mainEntity?.length, 5, 'Structured FAQ must match the five visible questions');
-// Maintain the established offer and required customer facts, expressed as benefits.
 for (const s of [
-  '<span class="premium-word-keep">White Label</span> Short Form Editing <span class="rd-h1-line">For Agencies</span>',
-  'One client recording becomes five finished vertical clips your team can deliver.',
-  'Five finished clips. $199 one time.',
-  'No subscription and no sales call. We never contact your client.',
-  'What changes after you order.',
-  'Share the recording',
-  'We review and edit',
-  'No timestamps required',
-  'You review, then your client does',
-  'Five finished video files',
-  'A starting point for each hook',
-  'starting from a blank page.',
-  'More capacity, without another hire.',
-  'Protected client relationships',
-  'Less manual review work',
-  'Easier client fulfillment',
-  'First batch in 1–3 calendar days once payment clears and all materials are ready.',
-  'No contract',
-  'Illustrative workflow. It shows the editing steps, not a client project.',
-  'expert or talking head recording',
+  'Turn one recording into five short clips.',
+  'White-label video editing for agencies. We select the moments, add captions and your branding, and deliver five vertical clips.',
+  '$199 one time.',
+  'Get 5 Clips for $199',
+  'See Editing Samples',
+  'No subscription. No sales call. We work with your agency, not your client.',
+  'See the editing quality.',
+  'Before &amp; After',
+  'Podcast / Panel',
+  'Talking Head',
+  'Send your recording',
+  'After checkout, complete a short project brief and share your recording, branding, and an agency-owned folder.',
+  'We edit the clips',
+  'We review the recording, select five moments, and add captions and your brand styling.',
+  'Review and share',
+  'Your agency receives the finished clips privately, reviews them, and decides when to share them with the client.',
+  'First delivery: 1–3 calendar days after payment clears and all required materials are ready.',
+  'Agency Clip Pack',
+  'One recording. Five finished vertical clips. Everything your agency needs to review and deliver the batch.',
+  'No subscription. Your private project brief follows checkout.',
+  'What you’ll send: Your recording, a short brief, brand assets, and access to an agency-owned folder.',
 ]) assert(home.includes(s), `Missing required homepage copy: ${s}`);
 for (const q of [
   'We scaled content delivery without expanding our internal team.',
@@ -71,8 +71,8 @@ for (const q of [
   '<strong>Owner</strong><span>Local Advertising Agency</span>',
 ]) assert(home.includes(q), `Missing approved testimonial text: ${q}`);
 assert(home.includes("Names and company identities are withheld at the agencies' request to protect confidentiality."), 'Confidentiality note missing near testimonials');
-assert(home.includes('EG Studio provides white label video editing for agencies.'), 'Fulfillment identity note missing');
-assert(home.includes('href="refund.html">refund policy</a>'), 'Refund policy link missing near testimonials or offer');
+assert.doesNotMatch(home, /EG Studio provides white label video editing for agencies/);
+assert.doesNotMatch(home, /Review the refund policy/);
 assert.doesNotMatch(home, /Anonymous agency client/i);
 const footer = home.match(/<footer class="site-footer-current rd-footer">[\s\S]*?<\/footer>/)?.[0] || '';
 const finalCallToAction = home.match(/<section class="rd-final">[\s\S]*?<\/section>/)?.[0] || '';
@@ -141,40 +141,40 @@ assert.match(footer, /<nav class="site-footer-links" aria-label="Footer navigati
 for (const [label, destination] of [['Privacy','privacy.html'],['Terms','terms.html'],['Refunds','refund.html']]) {
   assert(footer.includes(`href="${destination}">${label}</a>`), `Footer ${label} link changed`);
 }
-assert.match(home, /A person reviews the finished batch before delivery\./, 'The human final-batch check must remain in the editing process');
+assert.doesNotMatch(home, /A person reviews the finished batch before delivery\./);
 assert.doesNotMatch(read('assets/css/premium-polish.css'), /rd-final-founder/, 'Removed founder block CSS must not remain');
 assert.match(read('assets/css/redesign.css'), /rd-footer-email\{[^}]*min-height:44px/, 'Email tap target must remain accessible');
 
-for (const s of ['id="benefits"','id="included"','id="work"','id="why-eg"','id="how-it-works"','id="testimonials"','id="pricing"','id="faq"']) {
+for (const s of ['id="work"','id="how-it-works"','id="testimonials"','id="pricing"','id="faq"']) {
   assert(home.includes(s), `Missing homepage section: ${s}`);
 }
+assert.doesNotMatch(home, /id="included"|id="why-eg"|id="benefits"/, 'Removed inclusion and agency-workflow sections must stay gone');
 const main = home.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] || '';
 const mainSections = [...main.matchAll(/^\s*<section\b[^>]*class="([^"]+)"[^>]*>/gm)];
-assert.equal(mainSections.length, 8, 'Homepage must have eight distinct visual sections');
+assert.equal(mainSections.length, 7, 'Homepage must have the seven-section buying journey');
 assert.deepEqual(
   [...main.matchAll(/^\s*<section\b[^>]*id="([^"]+)"/gm)].map(m => m[1]),
-  ['how-it-works', 'included', 'work', 'why-eg', 'testimonials', 'pricing'],
-  'Homepage should show process, scope, proof and offer in the approved order',
+  ['work', 'how-it-works', 'pricing', 'testimonials', 'faq'],
+  'Homepage should show samples, steps, offer, quotes, then FAQs',
 );
-assert.doesNotMatch(main, /<section\b[^>]*id="(?:comparison|white-label|benefits|faq|founder)"/, 'Redundant standalone sections remain');
-assert.match(main, /<section id="pricing"[\s\S]*?<div id="faq"[^>]*>[\s\S]*?<\/section>/, 'FAQ must sit inside pricing');
-assert.equal([...main.matchAll(/class="premium-included-grid"[\s\S]*?<\/div>/g)][0]?.[0].match(/<article>/g)?.length, 4, 'Offer inclusions must be concise');
-assert.equal((main.match(/class="premium-benefit-card"/g) || []).length, 3, 'Agency benefits should not repeat the included list');
+assert.doesNotMatch(main, /<section\b[^>]*id="(?:comparison|white-label|benefits|included|why-eg|founder)"/, 'Redundant standalone sections remain');
+assert.match(main, /<section id="faq"/, 'FAQ must be its own section after testimonials');
+assert.doesNotMatch(main, /premium-included-grid|premium-benefit-card/);
 assert.equal((main.match(/class="faq-item"/g) || []).length, 5, 'FAQ should answer only unanswered buying questions');
 assert.doesNotMatch(main, /premium-deliverable-showcase/, 'Duplicate work sample thumbnails must not compete with real video proof');
 assert.doesNotMatch(main, /premium-trust-strip/, 'Repeated hero promises should not clutter the purchase action');
-const inclusions = main.match(/<div class="premium-includes-wrap">[\s\S]*?<\/ul>/)?.[0] || '';
+const inclusions = main.match(/<ul class="rd-includes">[\s\S]*?<\/ul>/)?.[0] || '';
 assert.deepEqual([...inclusions.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]), [
-  'Five separate 9:16 video clips', 'No timestamps required. We review the recording and select the moments',
-  'Checked captions and supplied brand styling', 'Five hook or title suggestions so your team has a starting point',
-  'One consolidated revision round for caption, branding, and timing corrections. A new direction or replacement moments is outside this round.', 'Private white label delivery to a folder your agency owns',
-], 'Pricing must describe the exact deliverables and their customer benefit');
-assert.match(main, /Your agency provides[\s\S]*?One usable recording/);
-assert.match(main, /No contract\. No subscription\. No sales call required\./);
-assert.match(home, /premium-hero-media/);
-assert.match(home, /premium-hero-deliverable-count/, 'Overlapping hero deliverable card missing');
-assert.match(home, /premium-hero-deliverable-ready/, 'Hero handoff card missing');
-assert.match(home, /premium-polish\.css\?v=20261105-footer/, 'Current finishing styles not linked');
+  'One recording up to 60 minutes',
+  'Five separate vertical 9:16 clips, up to 60 seconds each',
+  'Moment selection by EG Studio',
+  'Captions and supplied brand styling',
+  'Five hook or title suggestions',
+  'One consolidated correction round covering captions, branding, and timing',
+  'Private delivery to an agency-owned folder',
+], 'Pricing must describe the pack facts once');
+assert.doesNotMatch(home, /premium-hero-media|premium-hero-deliverable-count|premium-hero-deliverable-ready|premium-workflow-diagram/);
+assert.match(home, /premium-polish\.css\?v=7976b2cbf09a/, 'Current finishing styles not linked');
 assert.equal((home.match(/<source src="\/assets\/samples\/sample-process\.mp4\?v=20261103"/g)||[]).length, 1, 'The process video should appear once in the portfolio, not again in the hero');
 assert.doesNotMatch(home, /story-recording\.jpg/, 'Hero must not use the portrait labeled as the customer recording');
 const publicPages = [
@@ -191,18 +191,31 @@ for (const page of publicPages) {
 assert(fs.existsSync(path.join(root, 'assets/samples/sample-podcast.mp4')), 'Interview sample file must be kept because it may be used elsewhere');
 assert(fs.existsSync(path.join(root, 'assets/samples/sample-executive.mp4')), 'Explainer sample file must be kept because it may be used elsewhere');
 const hero = home.match(/<section class="rd-hero[\s\S]*?<\/section>/)?.[0] || '';
-assert.match(hero, /Five finished clips\. \$199 one time\./, 'Hero should lead with the offer, not intake conditions');
+assert.match(hero, /Turn one recording into five short clips\./);
+assert.match(hero, /\$199 one time\./, 'Hero should lead with the offer, not intake conditions');
 assert.doesNotMatch(hero, /payment clears and (?:the |all )?required materials/, 'Hero must not place intake timing conditions next to the main buttons');
-assert.match(home, /1–3 calendar days after payment clears and all required materials are ready/, 'Full timing qualifier must remain outside the hero');
-assert.match(home, /premium-workflow-diagram/, 'Illustrative hero workflow diagram missing');
-assert.match(home, /class="premium-workflow-label">ILLUSTRATIVE</, 'Workflow diagram must be labelled illustrative');
+assert.match(home, /First delivery: 1–3 calendar days after payment clears and all required materials are ready/, 'Full timing qualifier must remain outside the hero');
+assert.doesNotMatch(home, /You review, then your client does/);
 assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
 assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');
-assert.match(home, /1 to 3 calendar days/);
-assert.match(home, /One recording, up to 60 minutes\. Five vertical clips, up to 60 seconds each/);
-assert.match(home, /File sharing services may show who uploaded a file/, 'Private handoff caveat lost');
-assert.match(home, /Public recuts are editing demonstrations only\. No endorsement or client relationship is implied\./, 'Public recut disclaimer lost');
-assert.match(home, /Revision time is additional\./, 'Revision timing caveat lost');
+assert.match(read('terms.html'), /File sharing services may reveal uploader account details/);
+assert.match(read('terms.html'), /Revision time is additional\./);
+assert.match(read('terms.html'), /The standard pack is for one English language recording with up to two synchronized speakers or cameras\./);
+assert.match(read('terms.html'), /Eligible footage includes podcasts, interviews, webinars, and expert or talking head recordings\./);
+assert.match(read('terms.html'), /Last updated: November 2, 2026\./);
+assert.match(read('privacy.html'), /Last updated: October 23, 2026\./);
+assert.match(read('refund.html'), /Last updated: October 23, 2026\./);
+assert.doesNotMatch(read('terms.html') + read('privacy.html') + read('refund.html'), /substantively updated|reworded for readability|without changing (?:those terms|that policy)/);
+assert.doesNotMatch(home, /Public recuts are editing demonstrations only/);
+const sampleBlock = main.match(/id="work"[\s\S]*?<\/section>/)?.[0] || '';
+assert.equal((sampleBlock.match(/<article class="rd-sample"/g) || []).length, 3, 'Homepage must show three editing samples');
+for (const poster of ['/assets/samples/sample-process.jpg?v=20261108', '/assets/samples/sample-panel.jpg?v=20261108', '/assets/samples/sample-saas-founder.jpg?v=20261108']) {
+  assert(sampleBlock.includes(`poster="${poster}"`), `Missing poster ${poster}`);
+  assert(sampleBlock.includes(`<img src="${poster}"`), `Missing visible thumbnail ${poster}`);
+}
+assert.equal((sampleBlock.match(/preload="metadata"/g) || []).length, 3, 'Samples should preload metadata so posters can display');
+assert.equal((sampleBlock.match(/webkit-playsinline/g) || []).length, 3, 'Samples need the webkit inline attribute');
+assert.equal((sampleBlock.match(/<video[^>]*\splaysinline[\s>]/g) || []).length, 3, 'Samples must stay inline on mobile');
 assert.match(home, /data-placement="hero_primary"/);
 assert(home.includes(stripe), 'Live checkout link missing');
 for (const match of main.matchAll(/<a\b[^>]*data-placement="[^"]+"[^>]*>/g)) {
@@ -254,7 +267,10 @@ for (const page of copyPages) {
       if (/type="application\/ld\+json"/.test(token)) {
         const body = token.replace(/^<script[^>]*>/i, '').replace(/<\/script\s*>$/i, '');
         const check = (value, field) => {
-          if (typeof value === 'string' && copyFields.has(field)) assert(!value.includes('-'), `${page}: structured copy contains a hyphen: ${value}`);
+          if (typeof value === 'string' && copyFields.has(field)) {
+            const cleaned = page === 'index.html' ? value.replace(/White-label|talking-head|agency-owned|one-time/g, '') : value;
+            assert(!cleaned.includes('-'), `${page}: structured copy contains a hyphen: ${value}`);
+          }
           else if (Array.isArray(value)) value.forEach(item => check(item, field));
           else if (value && typeof value === 'object') Object.entries(value).forEach(([key, item]) => check(item, key));
         };
@@ -268,16 +284,22 @@ for (const page of copyPages) {
         const key = token.match(/(?:name|property)="([^"]+)"/i)?.[1];
         if (visibleMeta.has(key)) {
           const content = token.match(/\bcontent="([^"]*)"/)?.[1] || '';
-          assert(!content.includes('-'), `${page}: search preview copy contains a hyphen: ${content}`);
+          const cleanedMeta = page === 'index.html' ? content.replace(/White-label|talking-head|agency-owned|one-time/g, '') : content;
+          assert(!cleanedMeta.includes('-'), `${page}: search preview copy contains a hyphen: ${content}`);
         }
       }
       for (const match of token.matchAll(/\b(?:alt|aria-label|aria-description|title)="([^"]*)"/gi)) {
-        if (!/^(?:https?:|\/)/i.test(match[1])) assert(!match[1].includes('-'), `${page}: accessible copy contains a hyphen: ${match[1]}`);
+        if (!/^(?:https?:|\/)/i.test(match[1])) {
+          const cleanedLabel = page === 'index.html' ? match[1].replace(/White-label|talking-head|agency-owned|one-time/g, '') : match[1];
+          assert(!cleanedLabel.includes('-'), `${page}: accessible copy contains a hyphen: ${match[1]}`);
+        }
       }
     } else {
       const value = token.trim();
-      if (value && !/^\/?[\w.-]+\.(?:html?|js|css|png|svg)(?:\?.*)?$/i.test(value))
-        assert(!value.includes('-'), `${page}: visible copy contains a hyphen: ${value.slice(0,120)}`);
+      if (value && !/^\/?[\w.-]+\.(?:html?|js|css|png|svg)(?:\?.*)?$/i.test(value)) {
+        const cleaned = page === 'index.html' ? value.replace(/White-label|talking-head|agency-owned|one-time/g, '') : value;
+        assert(!cleaned.includes('-'), `${page}: visible copy contains a hyphen: ${cleaned.slice(0,120)}`);
+      }
     }
   }
 }

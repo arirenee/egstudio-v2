@@ -8,18 +8,28 @@
     vids = vids.filter(function (v, i) { return vids.indexOf(v) === i; });
     vids.forEach(function (v) {
       v.addEventListener('play', function () {
+        var card = v.closest('.rd-sample') || v.parentElement;
+        if (card) card.classList.add('is-playing');
+        v.controls = true;
         vids.forEach(function (o) { if (o !== v && !o.paused) o.pause(); });
+      });
+      v.addEventListener('pause', function () {
+        if (v.ended) return;
+        var card = v.closest('.rd-sample') || v.parentElement;
+        if (card) card.classList.remove('is-playing');
+      });
+      v.addEventListener('ended', function () {
+        v.controls = false;
+        var card = v.closest('.rd-sample') || v.parentElement;
+        if (card) card.classList.remove('is-playing');
       });
     });
     Array.prototype.forEach.call(document.querySelectorAll('.rd-play'), function (btn) {
       var v = btn.parentElement.querySelector('video');
       if (!v) return;
       btn.addEventListener('click', function () {
-        v.controls = true;
-        btn.parentElement.classList.add('is-playing');
         var p = v.play(); if (p && p.catch) p.catch(function () {});
       });
-      v.addEventListener('ended', function () { v.controls = false; btn.parentElement.classList.remove('is-playing'); });
     });
     /* Optional mobile carousel dots for satellite pages (homepage keeps its own inline handler) */
     Array.prototype.forEach.call(document.querySelectorAll('[data-rd-carousel]'), function (track) {
