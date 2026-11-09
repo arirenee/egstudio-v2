@@ -55,12 +55,12 @@ for (const s of [
   'We edit the clips',
   'We review the recording, select five moments, and add captions and your brand styling.',
   'Review and share',
-  'Your agency receives the finished clips privately, reviews them, and decides when to share them with the client.',
+  'Your agency receives the finished clips privately for review and delivery.',
   'First delivery: 1–3 calendar days after payment clears and all required materials are ready.',
   'Agency Clip Pack',
   'One recording. Five finished vertical clips. Everything your agency needs to review and deliver the batch.',
-  'No subscription. Your private project brief follows checkout.',
-  'What you’ll send: Your recording, a short brief, brand assets, and access to an agency-owned folder.',
+  'No contract. No subscription. No sales call.',
+  'Have a recording ready?',
 ]) assert(home.includes(s), `Missing required homepage copy: ${s}`);
 for (const q of [
   'We scaled content delivery without expanding our internal team.',
@@ -70,7 +70,8 @@ for (const q of [
   '<strong>Managing Director</strong><span>B2B Content Agency</span>',
   '<strong>Owner</strong><span>Local Advertising Agency</span>',
 ]) assert(home.includes(q), `Missing approved testimonial text: ${q}`);
-assert(home.includes("Names and company identities are withheld at the agencies' request to protect confidentiality."), 'Confidentiality note missing near testimonials');
+assert.doesNotMatch(home, /identities are withheld|withheld at the agencies/i, 'Testimonial withheld-identity note must be removed');
+assert.doesNotMatch(home, /anonymous/i, 'Testimonials must never be labelled anonymous');
 assert.doesNotMatch(home, /EG Studio provides white label video editing for agencies/);
 assert.doesNotMatch(home, /Review the refund policy/);
 assert.doesNotMatch(home, /Anonymous agency client/i);
@@ -163,18 +164,35 @@ assert.doesNotMatch(main, /premium-included-grid|premium-benefit-card/);
 assert.equal((main.match(/class="faq-item"/g) || []).length, 5, 'FAQ should answer only unanswered buying questions');
 assert.doesNotMatch(main, /premium-deliverable-showcase/, 'Duplicate work sample thumbnails must not compete with real video proof');
 assert.doesNotMatch(main, /premium-trust-strip/, 'Repeated hero promises should not clutter the purchase action');
-const inclusions = main.match(/<ul class="rd-includes">[\s\S]*?<\/ul>/)?.[0] || '';
-assert.deepEqual([...inclusions.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]), [
-  'One recording up to 60 minutes',
-  'Five separate vertical 9:16 clips, up to 60 seconds each',
-  'Moment selection by EG Studio',
-  'Captions and supplied brand styling',
-  'Five hook or title suggestions',
-  'One consolidated correction round covering captions, branding, and timing',
-  'Private delivery to an agency-owned folder',
-], 'Pricing must describe the pack facts once');
+const pricing = main.match(/<section id="pricing"[\s\S]*?<\/section>/)?.[0] || '';
+const inclusions = pricing.match(/<ul class="rd-includes premium-benefits">[\s\S]*?<\/ul>/)?.[0] || '';
+assert.deepEqual([...inclusions.matchAll(/<li><strong>([^<]+)<\/strong><span>([^<]+)<\/span><\/li>/g)].map(m => `${m[1]} — ${m[2]}`), [
+  'Five finished vertical clips — 9:16, up to 60 seconds each, from one recording up to 60 minutes.',
+  'Moment selection and editing — We review the footage and choose the moments.',
+  'Captions, branding, and hooks — Supplied brand styling and five hook or title suggestions.',
+  'Review and delivery — One included correction round and private delivery to your agency-owned folder.',
+], 'Pricing must show the four grouped benefits exactly');
+assert.equal((pricing.match(/data-sku="episode"/g) || []).length, 1, 'Pricing card must have exactly one checkout action');
+assert.equal((pricing.match(/First delivery: 1–3 calendar days/g) || []).length, 1, 'Pricing must show one concise timing statement');
+assert.doesNotMatch(pricing, /project brief|What you’ll send/, 'Pricing card must not repeat the project brief explanation');
+assert.doesNotMatch(main, /premium-process-timing/, 'Standalone turnaround paragraph below the process cards must be removed');
+const finalCta = main.match(/<section class="rd-final">[\s\S]*?<\/section>/)?.[0] || '';
+assert.match(finalCta, /Have a recording ready\?/);
+assert.match(finalCta, /Get 5 Clips for \$199/);
+assert.doesNotMatch(finalCta, /follows checkout|rd-final-support/, 'Final CTA must not carry the brief fine print');
+for (const [q, a] of [
+  ['What happens after payment?', 'After checkout, complete your short project brief and provide your recording and brand assets. We’ll confirm what’s needed to begin.'],
+  ['When does the turnaround period begin?', 'The first batch is delivered within 1–3 calendar days once payment is confirmed and the required materials are ready.'],
+  ['Can I review clips, and what revisions are included?', 'Yes. One round of caption, branding, and timing corrections is included.'],
+  ['How is my client relationship protected?', 'We work directly with your agency, never your client. The finished files carry no EG Studio branding.'],
+]) assert(main.includes(`<span>${q}</span>`) && main.includes(`<p>${a}</p>`), `FAQ copy missing: ${q}`);
+const gallery = main.match(/<div class="rd-samples" id="rdSamples"[\s\S]*?<\/div>\s*<\/div>\s*<\/section>/)?.[0] || '';
+assert.deepEqual([...gallery.matchAll(/<article class="rd-sample ([^"]+)" aria-label="([^"]+)"/g)].map(m => `${m[1]}|${m[2]}`),
+  ['rd-sample-featured|Before &amp; After', 'rd-sample-support|Podcast / Panel', 'rd-sample-support|Talking Head'],
+  'Before & After must lead as the featured sample with two equal supporting cards');
 assert.doesNotMatch(home, /premium-hero-media|premium-hero-deliverable-count|premium-hero-deliverable-ready|premium-workflow-diagram/);
-assert.match(home, /premium-polish\.css\?v=7976b2cbf09a/, 'Current finishing styles not linked');
+assert.match(home, /premium-polish\.css\?v=d88798b3dbe8/, 'Current finishing styles not linked');
+
 assert.equal((home.match(/<source src="\/assets\/samples\/sample-process\.mp4\?v=20261103"/g)||[]).length, 1, 'The process video should appear once in the portfolio, not again in the hero');
 assert.doesNotMatch(home, /story-recording\.jpg/, 'Hero must not use the portrait labeled as the customer recording');
 const publicPages = [
@@ -204,11 +222,17 @@ assert.match(read('terms.html'), /The standard pack is for one English language 
 assert.match(read('terms.html'), /Eligible footage includes podcasts, interviews, webinars, and expert or talking head recordings\./);
 assert.match(read('terms.html'), /Last updated: November 2, 2026\./);
 assert.match(read('privacy.html'), /Last updated: October 23, 2026\./);
-assert.match(read('refund.html'), /Last updated: October 23, 2026\./);
+assert.match(read('refund.html'), /Last updated: November 9, 2026\./);
+assert(read('refund.html').replace(/<[^>]+>/g, '').includes('Before production begins, you may request cancellation by emailing ops@egstudio.tech. If we have not started reviewing your recording for editing, we will refund your payment in full.'), 'Refund policy must state the owner-approved pre-production cancellation wording');
+assert.match(read('refund.html'), /<h3>Before production begins<\/h3>[\s\S]*<h3>After production has started<\/h3>/, 'Refund policy must separate before and after production');
+assert.match(read('refund.html'), /non refundable once recording review for production has started, except for an agreed refund of unfinished scope/, 'After-production provision must remain');
+assert.match(read('refund.html'), /We tell you before production and refund in full\./, 'Cannot-support provision must remain');
+assert.match(read('refund.html'), /refund the unfinished portion of the order/, 'EG Studio delay provision must remain');
+assert.doesNotMatch(read('white-label-podcast-clips/index.html'), /identities are withheld|withheld at the agencies/i, 'Landing page withheld-identity note must be removed');
 assert.doesNotMatch(read('terms.html') + read('privacy.html') + read('refund.html'), /substantively updated|reworded for readability|without changing (?:those terms|that policy)/);
 assert.doesNotMatch(home, /Public recuts are editing demonstrations only/);
 const sampleBlock = main.match(/id="work"[\s\S]*?<\/section>/)?.[0] || '';
-assert.equal((sampleBlock.match(/<article class="rd-sample"/g) || []).length, 3, 'Homepage must show three editing samples');
+assert.equal((sampleBlock.match(/<article class="rd-sample[ "]/g) || []).length, 3, 'Homepage must show three editing samples');
 for (const poster of ['/assets/samples/sample-process.jpg?v=20261108', '/assets/samples/sample-panel.jpg?v=20261108', '/assets/samples/sample-saas-founder.jpg?v=20261108']) {
   assert(sampleBlock.includes(`poster="${poster}"`), `Missing poster ${poster}`);
   assert(sampleBlock.includes(`<img src="${poster}"`), `Missing visible thumbnail ${poster}`);
@@ -234,6 +258,9 @@ for (const cssFile of ['assets/css/premium.css','assets/css/premium-polish.css',
   assert.equal((clean.match(/\{/g) || []).length, (clean.match(/\}/g) || []).length, `${cssFile}: unmatched CSS braces`);
 }
 const polish = read('assets/css/premium-polish.css');
+assert.match(polish, /--rd-sticky-header-height:\s*73px/, 'Sticky header offset must match the 72px nav min-height plus 1px header border');
+assert.match(polish, /scroll-padding-top:\s*var\(--rd-sticky-header-height\)/, 'Homepage must pad in-page scroll targets below the sticky header');
+assert.match(polish, /#rdSamples[^]*scroll-margin-top:\s*calc\(\s*var\(--rd-sticky-header-height\)\s*\+\s*var\(--rd-work-heading-space\)/, 'Samples target must clear the heading so it is not hidden behind the sticky header');
 assert.match(polish, /\.rd-feature \.rd-player,[^]*?aspect-ratio:\s*9\s*\/\s*16;/, 'Before and after video must preserve the full vertical process frame');
 assert.match(polish, /max-width:599px/, 'Missing mobile-specific polish');
 assert.match(polish, /max-width:849px[^]*?\.premium-hero-deliverable\s*\{\s*position:\s*static;/, 'Hero status cards must not overlap workflow labels on mobile and tablet');

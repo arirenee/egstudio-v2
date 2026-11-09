@@ -62,14 +62,39 @@ pintrk('page');
 <link rel="manifest" href="/site.webmanifest?v=20261105-brand">
 <meta name="apple-mobile-web-app-title" content="EG Studio">
 <link rel="stylesheet" href="/assets/css/eg-wordmark.css?v=20261105-brand">
+<style id="legal-layout">
+/* Shared legal layout (Nov 9 2026): consistent headings, readable measure, even rhythm. Presentation only. */
+body.premium-legal article.card>*{max-width:68ch}
+body.premium-legal article.card>.kicker{margin:0 0 .75rem}
+body.premium-legal article.card>h1{margin:0 0 1rem}
+body.premium-legal .legal-updated{margin:0 0 1.75rem;font-size:.875rem;letter-spacing:.02em;color:#5A6B80}
+body.premium-legal article.card h2{margin:2.75rem 0 .75rem;font-size:clamp(1.2rem,2.3vw,1.5rem);line-height:1.25;letter-spacing:-.02em}
+body.premium-legal article.card h3{margin:1.75rem 0 .5rem;font-size:1.0625rem;line-height:1.35;letter-spacing:-.01em;color:#14273C}
+body.premium-legal article.card p,body.premium-legal article.card li{font-size:1rem;line-height:1.75}
+body.premium-legal article.card p{margin:0 0 1rem}
+body.premium-legal article.card ul{margin:0 0 1rem;padding-left:1.25rem}
+body.premium-legal article.card li+li{margin-top:.5rem}
+body.premium-legal article.card .assurance{margin:1rem 0;padding:1.25rem 1.35rem;border:0;border-radius:14px;background:#F3F5F8}
+body.premium-legal article.card .assurance p{margin:.5rem 0 0}
+@media (max-width:599px){
+  body.premium-legal article.card h2{margin-top:2.25rem}
+  body.premium-legal article.card p,body.premium-legal article.card li{font-size:.98rem;line-height:1.7}
+}
+@media (prefers-color-scheme:dark){
+  body.premium-legal .legal-updated{color:#BFCDDD}
+  body.premium-legal article.card h3{color:#F5F8FC}
+  body.premium-legal article.card .assurance{background:#16263D}
+}
+</style>
 </head><body class="premium-legal"><header class="nav"><div class="wrap"><a class="eg-wordmark" href="index.html">EG<span>STUDIO</span></a><a class="back" href="index.html">Back to site</a></div></header><main class="wrap"><article class="card">
 <p class="kicker">Legal</p><h1>Refund Policy</h1>
-<p>Last updated: October 23, 2026. This policy covers the EG Studio Agency Clip Pack.</p>
+<p class="legal-updated">Last updated: November 9, 2026.</p>
+<p>This policy covers the EG Studio Agency Clip Pack.</p>
 
 <h2>Agency Clip Pack. $199 one time.</h2>
 
-<h3>Cancellation before production</h3>
-<p>Email EG Studio as soon as possible if you need to cancel before production begins.</p>
+<h3>Before production begins</h3>
+<p>Before production begins, you may request cancellation by emailing <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a>. If we have not started reviewing your recording for editing, we will refund your payment in full.</p>
 
 <h3>If the recording cannot support the pack</h3>
 <p>We tell you before production and refund in full.</p>
