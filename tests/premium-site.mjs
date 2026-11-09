@@ -222,7 +222,13 @@ assert.match(read('terms.html'), /The standard pack is for one English language 
 assert.match(read('terms.html'), /Eligible footage includes podcasts, interviews, webinars, and expert or talking head recordings\./);
 assert.match(read('terms.html'), /Last updated: November 2, 2026\./);
 assert.match(read('privacy.html'), /Last updated: October 23, 2026\./);
-assert.match(read('refund.html'), /Last updated: October 23, 2026\./);
+assert.match(read('refund.html'), /Last updated: November 9, 2026\./);
+assert(read('refund.html').replace(/<[^>]+>/g, '').includes('Before production begins, you may request cancellation by emailing ops@egstudio.tech. If we have not started reviewing your recording for editing, we will refund your payment in full.'), 'Refund policy must state the owner-approved pre-production cancellation wording');
+assert.match(read('refund.html'), /<h3>Before production begins<\/h3>[\s\S]*<h3>After production has started<\/h3>/, 'Refund policy must separate before and after production');
+assert.match(read('refund.html'), /non refundable once recording review for production has started, except for an agreed refund of unfinished scope/, 'After-production provision must remain');
+assert.match(read('refund.html'), /We tell you before production and refund in full\./, 'Cannot-support provision must remain');
+assert.match(read('refund.html'), /refund the unfinished portion of the order/, 'EG Studio delay provision must remain');
+assert.doesNotMatch(read('white-label-podcast-clips/index.html'), /identities are withheld|withheld at the agencies/i, 'Landing page withheld-identity note must be removed');
 assert.doesNotMatch(read('terms.html') + read('privacy.html') + read('refund.html'), /substantively updated|reworded for readability|without changing (?:those terms|that policy)/);
 assert.doesNotMatch(home, /Public recuts are editing demonstrations only/);
 const sampleBlock = main.match(/id="work"[\s\S]*?<\/section>/)?.[0] || '';
