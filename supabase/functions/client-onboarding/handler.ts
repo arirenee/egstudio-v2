@@ -137,15 +137,26 @@ function makeDrive(env: Env, f: Fetch) {
      * or if the buyer's grant did not land.
      */
     async shareWorkspace(workspaceId: string, clientEmail: string) {
+      const buyer = clientEmail.toLowerCase();
+      type Perm = { type: string; role: string; emailAddress?: string };
+      const readPerms = async () => ((await api(`/files/${workspaceId}/permissions?supportsAllDrives=true&fields=permissions(type,role,emailAddress)`)).permissions || []) as Perm[];
+      // Only the Drive owner (EG) and this buyer may ever have access. Anything else (inherited from the parent
+      // folder or added by hand) could expose one customer's project to someone else, so no link is sent.
+      const strangers = (list: Perm[]) => list.filter((p) => p.role !== "owner" && !(p.type === "user" && (p.emailAddress || "").toLowerCase() === buyer));
+      const check = (list: Perm[], stage: string) => {
+        if (list.some((p) => p.type === "anyone" || p.type === "domain")) {
+          throw new AccessError("Project workspace is link- or domain-shared through an inherited permission; not sending a link.");
+        }
+        const other = strangers(list);
+        if (other.length) throw new AccessError(`Project workspace has other access ${stage} (${other.map((p) => p.type + ":" + (p.emailAddress || "?") + ":" + p.role).join(", ")}); not sending a link.`);
+      };
+      check(await readPerms(), "before sharing");
       await api(`/files/${workspaceId}/permissions?supportsAllDrives=true&sendNotificationEmail=false`, {
         method: "POST", body: JSON.stringify({ type: "user", role: "writer", emailAddress: clientEmail }),
       });
-      const perms = await api(`/files/${workspaceId}/permissions?supportsAllDrives=true&fields=permissions(type,role,emailAddress)`);
-      const list = (perms.permissions || []) as Array<{ type: string; role: string; emailAddress?: string }>;
-      if (list.some((p) => p.type === "anyone" || p.type === "domain")) {
-        throw new AccessError("Project workspace is link- or domain-shared through an inherited permission; not sending a link.");
-      }
-      if (!list.some((p) => p.type === "user" && p.role === "writer" && (p.emailAddress || "").toLowerCase() === clientEmail.toLowerCase())) {
+      const list = await readPerms();
+      check(list, "after sharing");
+      if (!list.some((p) => p.type === "user" && p.role === "writer" && (p.emailAddress || "").toLowerCase() === buyer)) {
         throw new AccessError("Buyer grant missing on project workspace after share.");
       }
     },

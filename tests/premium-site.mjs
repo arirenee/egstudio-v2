@@ -202,10 +202,10 @@ assert.doesNotMatch(finalCta, /follows checkout|rd-final-support/, 'Final CTA mu
 const faqText = (h) => h.replace(/<ul>([\s\S]*?)<\/ul>/g, (_, l) => [...l.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]).join(', ') + '. ').replace(/<\/p>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const approvedFaq = [
   ['What footage can I send?', 'Podcasts, interviews, webinars, educational content, and talking-head videos work best. If you’re unsure about a recording, send us an email before ordering and we’ll let you know if it’s a good fit.'],
-  ['What happens after payment?', 'We’ll send you a private project link where you can upload your recording and branding. From there, we review the footage, create the clips, and return everything to your agency for review. Most agencies spend just a few minutes getting started.'],
-  ['When does the 1–3 day turnaround start?', 'Once we have: your recording, branding assets, project details. We’ll confirm everything is ready before editing begins. From there, most first batches are delivered within 1–3 calendar days.'],
+  ['What happens after payment?', 'We’ll send you a private project link where you can upload your recording and branding. From there, we review the footage, create the clips, and return everything to your agency for review. Get started by sharing your recording, branding, and a quick project brief.'],
+  ['When does the 1–3 day turnaround start?', 'Once we have: your recording, branding assets, project details. We’ll confirm everything is ready before editing begins. Your first batch is delivered within 1–3 calendar days once payment clears and all required materials are ready.'],
   ['Can I review the clips before sending them to my client?', 'Yes. Your agency receives the finished clips first. If caption, branding, or timing adjustments are needed, one revision round is included before final delivery.'],
-  ['Will my client know EG Studio is involved?', 'No. Your agency remains the point of contact throughout the project. We do not communicate with your clients, and finished clips are delivered directly to your agency for review and delivery.'],
+  ['Will my client know EG Studio is involved?', 'No. Your agency remains the point of contact throughout the project. We do not communicate with your clients, and finished clips are delivered directly to your agency for review and delivery. Share the finished files with your client, not the private project folder, because the folder can show who uploaded the files.'],
 ];
 const gallery = main.match(/<div class="rd-samples" id="rdSamples"[\s\S]*?<\/div>\s*<\/div>\s*<\/section>/)?.[0] || '';
 assert.deepEqual([...gallery.matchAll(/<article class="rd-sample ([^"]+)" aria-label="([^"]+)"/g)].map(m => `${m[1]}|${m[2]}`),
@@ -264,7 +264,7 @@ assert.match(refund, /<h2>Before production begins<\/h2>\s*<p>You may request ca
 assert.match(refund, /<h2>Need help\?<\/h2>[\s\S]*<h2>Policy details<\/h2>/, 'Required refund disclosures sit after the approved sections');
 assert.match(read('privacy.html'), /<h2>Service providers and storage<\/h2>/, 'Privacy must disclose processors');
 const privacyPage = read('privacy.html');
-assert.match(privacyPage, /<h2>Your client relationship stays yours<\/h2>\s*<p>Client recordings are used only to complete your project\.<\/p>\s*<p>We do not contact your clients, share recordings publicly, or use project materials outside your order without permission\.<\/p>\s*<p>The content stays between your agency and EG Studio\.<\/p>/, 'Privacy must use the owner-approved client relationship section');
+assert.match(privacyPage, /<h2>Your client relationship stays yours<\/h2>\s*<p>Client recordings are used only to complete your project\.<\/p>\s*<p>We do not contact your clients, share recordings publicly, or use project materials outside your order without permission\.<\/p>\s*<p>The content stays between your agency and EG Studio, except for the service providers listed below that we use to store, process, and deliver your project\.<\/p>/, 'Privacy must use the owner-approved client relationship section');
 assert.doesNotMatch(privacyPage, /Client recordings and white label work|class="assurance"/, 'Old nested privacy callout must be gone');
 for (const page of ['white-label-podcast-clips/index.html', 'content-graveyard/index.html']) {
   assert.doesNotMatch(read(page), /folder your agency owns|agency-owned|production folder|uploader metadata/i, `${page}: folder mechanics remain in marketing copy`);

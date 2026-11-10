@@ -11,7 +11,7 @@ for (const path of ['client-onboarding/handler.ts','client-onboarding/lib.ts','i
 const values={STRIPE_ONBOARDING_WEBHOOK_SECRET:'mock_secret',SUPABASE_URL:'https://mock.supabase.co',SUPABASE_SERVICE_ROLE_KEY:'mock',GOOGLE_CLIENT_ID:'mock',GOOGLE_CLIENT_SECRET:'mock',GOOGLE_REFRESH_TOKEN:'mock',GOOGLE_DRIVE_PARENT_FOLDER_ID:'parent_root',NOTION_TOKEN:'mock',NOTION_JOBS_DATABASE_ID:'mock',RESEND_API_KEY:'mock'};
 
 // In-memory Google Drive: folders/docs with appProperties tags, permissions per file, inheritance flags.
-function mockDrive({ shareRejects = false, inheritedAnyone = false } = {}) {
+function mockDrive({ shareRejects = false, inheritedAnyone = false, inheritedUser = null } = {}) {
   const files = new Map(); let n = 0;
   const perms = new Map(); // fileId -> [{type,role,emailAddress}]
   const calls = [];
@@ -27,7 +27,7 @@ function mockDrive({ shareRejects = false, inheritedAnyone = false } = {}) {
     if (u.pathname === '/drive/v3/files' && method === 'POST') {
       const body = JSON.parse(init.body); const id = 'f' + (++n);
       const f = { id, ...body, webViewLink: 'https://drive.google.com/drive/folders/' + id }; files.set(id, f);
-      perms.set(id, [{ type: 'user', role: 'owner', emailAddress: 'ops@egstudio.tech' }, ...(inheritedAnyone ? [{ type: 'anyone', role: 'reader' }] : [])]);
+      perms.set(id, [{ type: 'user', role: 'owner', emailAddress: 'ops@egstudio.tech' }, ...(inheritedAnyone ? [{ type: 'anyone', role: 'reader' }] : []), ...(inheritedUser ? [{ type: 'user', role: 'writer', emailAddress: inheritedUser }] : [])]);
       return ok({ id, webViewLink: f.webViewLink });
     }
     if (u.pathname === '/upload/drive/v3/files' && method === 'POST') {
@@ -154,6 +154,15 @@ for (const live of [true, false]) {
   assert.ok(!h.emails.some(e => e.to[0] === 'agency@example.com'), 'no buyer link when the workspace is public');
 }
 
+// Another person inherited from the parent folder (e.g. a previous customer shared on the parent): refuse, never share
+{
+  const drive = mockDrive({ inheritedUser: 'other-customer@agency.example' }); const h = harness(drive);
+  const r = await handle(signed(true)(), k => values[k], h.f);
+  assert.equal((await r.json()).access_failed, true);
+  assert.ok(!h.emails.some(e => e.to[0] === 'agency@example.com'), 'no buyer link when someone else can open the workspace');
+  assert.ok(![...drive.perms.values()].some(p => p.some(x => x.emailAddress === 'agency@example.com')), 'buyer is not added to a workspace someone else can see');
+  assert.match(h.row().last_error, /other access before sharing/);
+}
 let fetched = false;
 const invalid = await handle(new Request('https://mock', { method: 'POST', body: '{}' }), k => values[k], async () => { fetched = true; throw Error('must not fetch'); });
 assert.equal(invalid.status, 400); assert.equal(fetched, false);
