@@ -19,8 +19,8 @@ for (const page of pages) {
   assert.match(html, /premium(?:-pages)?\.css\?v=2026110[345]-(?:redesign|polish|copy|handoff)/, `${page}: premium styles missing`);
   assert.match(html, /<main\b/i, `${page}: main landmark missing`);
   assert.match(html, /<h1\b/i, `${page}: h1 missing`);
-  // Legal pages must name the storage processor (private Google Drive workspace); marketing pages must not.
-  assert.doesNotMatch(['terms.html', 'privacy.html'].includes(page) ? html.replace(/private project workspace \(a Google Drive folder\)|Google Drive for project files|private Google Drive workspace|EG Studio’s Google Drive account/g, '') : html, /Google Drive|Unbranded Drive/i, `${page}: obsolete public file-service wording`);
+  // The buying journey must describe the EG-owned workspace accurately instead of implying an agency-owned folder.
+  assert.doesNotMatch(html, /Unbranded Drive/i, `${page}: obsolete delivery wording`);
   assert.doesNotMatch(html, /written intake acceptance|intake acceptance|accept(?:ed)? (?:your|the) intake in writing|after accepted intake/i, `${page}: outdated delivery trigger wording`);
   for (const match of html.matchAll(/(?:src|href|poster)="([^"]+)"/g)) {
     const url = match[1].split(/[?#]/)[0];
@@ -39,45 +39,37 @@ for (const page of pages) {
 const home = read('index.html');
 const schema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || '{}');
 const faqSchema = schema['@graph']?.find(node => node['@type'] === 'FAQPage');
-assert.equal(faqSchema?.mainEntity?.length, 5, 'Structured FAQ must match the five visible questions');
+assert.equal(faqSchema?.mainEntity?.length, 8, 'Structured FAQ must match the eight visible questions');
 for (const s of [
-  'Turn one client recording into five branded clips.',
-  'We review the footage, choose the strongest moments, add captions, and return five finished clips your agency can review and deliver.',
-  'No timestamps. No hiring. No client contact.',
+  'Keep client content moving without hiring another editor.',
+  'White label short form editing for agencies.',
+  'No timestamps. No subscription. No client contact.',
   '$199 one time.',
   'Get 5 Clips for $199',
   'See Editing Samples',
-  'See the editing quality.',
+  'See what your agency can deliver.',
   'Before &amp; After',
   'Podcast / Panel',
   'Talking Head',
-  'What we need from you',
-  'Just three things:',
-  '<li>The recording</li>',
-  '<li>Your branding</li>',
-  '<li>A quick project brief</li>',
-  'We’ll handle the review, editing, captions, and clip selection.',
-  'From recording to finished clips',
-  '<h3>Send the recording</h3><p>Upload the recording, your logo or brand assets, and a few project details.</p><p>No timestamps required.</p>',
-  '<h3>We create the clips</h3><p>We review the footage, choose the strongest moments, add captions, and apply your branding.</p>',
-  '<h3>Review and deliver</h3><p>Your agency receives five finished clips privately. Make any included corrections, then deliver them when you’re ready.</p>',
-  'How delivery works',
-  'After checkout, you’ll receive a private project link.',
-  'Upload your recording and branding there.',
-  'When the clips are finished, your agency receives everything in the same workspace for review and delivery.',
-  'Your client never interacts with EG Studio.',
-  'What your agency gets back',
-  '<h3>Five delivery-ready clips</h3><p>Enough content from a single recording to create multiple posts instead of just one.</p>',
-  '<h3>No timestamps required</h3><p>Send the full recording. We’ll identify the strongest moments for you.</p>',
-  '<h3>Captions already included</h3><p>Your team reviews finished clips instead of starting from raw footage.</p>',
-  '<h3>Your branding applied</h3><p>The clips look consistent with the agency or client brand you provide.</p>',
-  '<h3>Suggested hooks included</h3><p>Give your team a starting point instead of a blank page.</p>',
-  '<h3>One revision round</h3><p>Make final corrections before delivering the clips.</p>',
+  'Hand off the editing. Keep control of the client relationship.',
+  'Your team handles the client. We handle the footage.',
+  '<h3>Send the recording</h3><p>Upload one eligible recording, your branding, and a short brief.',
+  '<h3>We find and edit the moments</h3>',
+  '<h3>Review and deliver</h3>',
+  'Private handoff, with your agency in control.',
+  'The workspace is held in EG Studio’s Google Drive.',
+  'Do not forward the project folder, which can reveal uploader details.',
+  'More content. Less editing on your team’s plate.',
+  '<h3>Five finished vertical clips</h3>',
+  '<h3>Human selected moments</h3>',
+  '<h3>Captions included</h3>',
+  '<h3>Your branding applied</h3>',
+  '<h3>Five hook suggestions</h3>',
+  '<h3>One consolidated revision round</h3>',
   'Agency Clip Pack',
-  'Turn one client recording into five branded short-form clips without adding editing work to your team’s week.',
-  'We review the footage, choose the strongest moments, add captions, and prepare everything for your agency’s review.',
+  'One recording handled. Five clips ready for your team’s review.',
   'No contract. No subscription. No sales call.',
-  'Have a recording ready?',
+  'Have a client recording waiting to be edited?',
 ]) assert(home.includes(s), `Missing required homepage copy: ${s}`);
 for (const q of [
   'We scaled content delivery without expanding our internal team.',
@@ -88,7 +80,7 @@ for (const q of [
   '<strong>Owner</strong><span>Local Advertising Agency</span>',
 ]) assert(home.includes(q), `Missing approved testimonial text: ${q}`);
 assert.doesNotMatch(home, /identities are withheld|withheld at the agencies/i, 'Testimonial withheld-identity note must be removed');
-for (const gone of [/agency-owned folder/i, /edit\/upload/i, /production folder/i, /We’ll confirm what’s needed to begin/, /Turn one recording into five short clips/, /Five finished vertical clips/, /Send your recording<\/h3>/, /We edit the clips/, /Review and share/, /What you send/i]) {
+for (const gone of [/agency-owned folder/i, /edit\/upload/i, /production folder/i, /We’ll confirm what’s needed to begin/, /Turn one recording into five short clips/, /Send your recording<\/h3>/, /We edit the clips/, /Review and share/, /What you send/i]) {
   assert.doesNotMatch(home, gone, `Superseded homepage copy remains: ${gone}`);
 }
 assert.doesNotMatch(home, /anonymous/i, 'Testimonials must never be labelled anonymous');
@@ -166,46 +158,55 @@ assert.doesNotMatch(home, /A person reviews the finished batch before delivery\.
 assert.doesNotMatch(read('assets/css/premium-polish.css'), /rd-final-founder/, 'Removed founder block CSS must not remain');
 assert.match(read('assets/css/redesign.css'), /rd-footer-email\{[^}]*min-height:44px/, 'Email tap target must remain accessible');
 
-for (const s of ['id="work"','id="what-we-need"','id="how-it-works"','id="delivery"','id="what-you-get"','id="testimonials"','id="pricing"','id="faq"']) {
+for (const s of ['id="work"','id="how-it-works"','id="what-you-get"','id="testimonials"','id="pricing"','id="faq"']) {
   assert(home.includes(s), `Missing homepage section: ${s}`);
 }
+assert.doesNotMatch(home, /id="what-we-need"|id="delivery"/, 'Repeated needs and delivery sections must be consolidated into the process');
 assert.doesNotMatch(home, /id="included"|id="why-eg"|id="benefits"/, 'Removed inclusion and agency-workflow sections must stay gone');
 const main = home.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] || '';
 const mainSections = [...main.matchAll(/^\s*<section\b[^>]*class="([^"]+)"[^>]*>/gm)];
-assert.equal(mainSections.length, 10, 'Homepage must have the ten-section buying journey');
+assert.equal(mainSections.length, 8, 'Homepage must have the consolidated eight-section buying journey');
 assert.deepEqual(
   [...main.matchAll(/^\s*<section\b[^>]*id="([^"]+)"/gm)].map(m => m[1]),
-  ['work', 'what-we-need', 'how-it-works', 'delivery', 'what-you-get', 'pricing', 'testimonials', 'faq'],
-  'Homepage should show samples, needs, steps, delivery, deliverables, offer, quotes, then FAQs',
+  ['work', 'how-it-works', 'what-you-get', 'pricing', 'testimonials', 'faq'],
+  'Homepage should show samples, consolidated workflow, benefits, offer, quotes, then FAQs',
 );
 assert.doesNotMatch(main, /<section\b[^>]*id="(?:comparison|white-label|benefits|included|why-eg|founder)"/, 'Redundant standalone sections remain');
 assert.match(main, /<section id="faq"/, 'FAQ must be its own section after testimonials');
 assert.doesNotMatch(main, /premium-included-grid|premium-benefit-card/);
-assert.equal((main.match(/class="faq-item"/g) || []).length, 5, 'FAQ should answer only unanswered buying questions');
+assert.equal((main.match(/class="faq-item"/g) || []).length, 8, 'FAQ must cover all eight buying questions');
 assert.doesNotMatch(main, /premium-deliverable-showcase/, 'Duplicate work sample thumbnails must not compete with real video proof');
 assert.doesNotMatch(main, /premium-trust-strip/, 'Repeated hero promises should not clutter the purchase action');
 const pricing = main.match(/<section id="pricing"[\s\S]*?<\/section>/)?.[0] || '';
 const inclusions = pricing.match(/<ul class="rd-includes premium-benefits premium-included-list">[\s\S]*?<\/ul>/)?.[0] || '';
 assert.deepEqual([...inclusions.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]), [
-  'Five clips', 'Moment selection', 'Captions', 'Brand styling', 'Hook suggestions', 'One revision round', 'First delivery in 1–3 calendar days',
-], 'Pricing must list the owner-approved inclusions exactly');
+  'Five 9:16 clips: more short form content from one recording',
+  'Human moment selection: no timestamps for your team to prepare',
+  'Captions and supplied brand styling: finished edits ready for your review',
+  'Five hook suggestions: a head start on preparing posts',
+  'One consolidated correction round: eligible details fixed before handoff',
+  'First delivery in 1–3 calendar days after payment and all required materials are ready; revisions take additional time',
+], 'Every pricing inclusion must pair the feature with the buyer benefit');
 assert.match(pricing, /<div class="rd-price">\$199 <span>one time<\/span><\/div>/, 'Pricing must keep $199 one time');
-assert.doesNotMatch(pricing, /premium-offer-timing|One recording up to 60 minutes\. Five 9:16 clips/, 'Unapproved product-limits line must not appear under the pricing button');
+assert.match(pricing, /One English language recording up to 60 minutes, with up to two synchronized speakers or cameras/, 'Pricing must disclose eligibility');
 assert.equal((pricing.match(/data-sku="episode"/g) || []).length, 1, 'Pricing card must have exactly one checkout action');
 assert.equal((pricing.match(/1–3 calendar days/g) || []).length, 1, 'Pricing must show one concise timing statement');
 assert.doesNotMatch(pricing, /project brief|What you’ll send|private project link/, 'Pricing card must not repeat the project brief explanation');
 assert.doesNotMatch(main, /premium-process-timing/, 'Standalone turnaround paragraph below the process cards must be removed');
 const finalCta = main.match(/<section class="rd-final">[\s\S]*?<\/section>/)?.[0] || '';
-assert.match(finalCta, /Have a recording ready\?/);
+assert.match(finalCta, /Have a client recording waiting to be edited\?/);
 assert.match(finalCta, /Get 5 Clips for \$199/);
 assert.doesNotMatch(finalCta, /follows checkout|rd-final-support/, 'Final CTA must not carry the brief fine print');
 const faqText = (h) => h.replace(/<ul>([\s\S]*?)<\/ul>/g, (_, l) => [...l.matchAll(/<li>([^<]+)<\/li>/g)].map(m => m[1]).join(', ') + '. ').replace(/<\/p>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const approvedFaq = [
-  ['What footage can I send?', 'Podcasts, interviews, webinars, educational content, and talking-head videos work best. If you’re unsure about a recording, send us an email before ordering and we’ll let you know if it’s a good fit.'],
-  ['What happens after payment?', 'We’ll send you a private project link where you can upload your recording and branding. From there, we review the footage, create the clips, and return everything to your agency for review. Get started by sharing your recording, branding, and a quick project brief.'],
-  ['When does the 1–3 day turnaround start?', 'Once we have: your recording, branding assets, project details. We’ll confirm everything is ready before editing begins. Your first batch is delivered within 1–3 calendar days once payment clears and all required materials are ready.'],
-  ['Can I review the clips before sending them to my client?', 'Yes. Your agency receives the finished clips first. If caption, branding, or timing adjustments are needed, one revision round is included before final delivery.'],
-  ['Will my client know EG Studio is involved?', 'No. Your agency remains the point of contact throughout the project. We do not communicate with your clients, and finished clips are delivered directly to your agency for review and delivery. Share the finished files with your client, not the private project folder, because the folder can show who uploaded the files.'],
+  ['What footage can I send?', 'Podcasts, interviews, webinars, educational recordings, and talking head videos work best. The standard pack covers one English language recording up to 60 minutes, with up to two synchronized speakers or cameras. Unsure whether your recording qualifies? Email us before ordering.'],
+  ['Do I need to find the clips myself?', 'No. Send the full recording. We review the footage and choose the moments, so your team does not need to prepare timestamps.'],
+  ['What happens after payment?', 'After payment verification, you receive access to a private Google Drive project workspace shared with the email used for your order. Upload your recording, brand assets, and short brief. We return the clips there for your review. The workspace is owned by EG Studio. Download the completed files and share your own copies with clients.'],
+  ['When does the 1–3 day turnaround start?', 'The first batch is delivered within 1–3 calendar days once payment clears and the usable recording, brand assets, brief, and any requested NDA are ready. We will tell you if anything is missing. Revision time is additional.'],
+  ['Can I review the clips before sending them to my client?', 'Yes. Your agency reviews the finished clips first. One consolidated round of caption, branding, and timing corrections is included. New creative directions or replacement moments are outside that round.'],
+  ['Will EG Studio contact my client?', 'No. We communicate with your agency only, and the exported clips contain no EG Studio watermark or branding. Because the project folder may expose uploader details, download the finished files and deliver your own copies rather than sharing the folder.'],
+  ['What is not included?', 'Filming, posting, full episode editing, complex custom animation, and native project files are outside this fixed package unless separately agreed.'],
+  ['What if my recording is not suitable?', 'We will let you know before editing begins and issue a full refund. Once production begins, the published refund policy applies.'],
 ];
 const gallery = main.match(/<div class="rd-samples" id="rdSamples"[\s\S]*?<\/div>\s*<\/div>\s*<\/section>/)?.[0] || '';
 assert.deepEqual([...gallery.matchAll(/<article class="rd-sample ([^"]+)" aria-label="([^"]+)"/g)].map(m => `${m[1]}|${m[2]}`),
@@ -231,11 +232,12 @@ for (const page of publicPages) {
 assert(fs.existsSync(path.join(root, 'assets/samples/sample-podcast.mp4')), 'Interview sample file must be kept because it may be used elsewhere');
 assert(fs.existsSync(path.join(root, 'assets/samples/sample-executive.mp4')), 'Explainer sample file must be kept because it may be used elsewhere');
 const hero = home.match(/<section class="rd-hero[\s\S]*?<\/section>/)?.[0] || '';
-assert.match(hero, /Turn one client recording into five branded clips\./);
+assert.match(hero, /Keep client content moving without hiring another editor\./);
 assert.match(hero, /\$199 one time\./, 'Hero should lead with the offer, not intake conditions');
 assert.doesNotMatch(hero, /payment clears and (?:the |all )?required materials/, 'Hero must not place intake timing conditions next to the main buttons');
-const deliverySection = main.match(/<section[^>]*id="delivery"[\s\S]*?<\/section>/)?.[0] || '';
-assert.match(deliverySection, /Your client never interacts with EG Studio\.<\/p>\s*<p class="premium-delivery-close">That’s all you need\.<\/p>/, 'How delivery works must close with the approved line');
+const processSection = main.match(/<section[^>]*id="how-it-works"[\s\S]*?<\/section>/)?.[0] || '';
+assert.match(processSection, /EG Studio’s Google Drive/, 'Consolidated workflow must disclose project-folder ownership');
+assert.match(processSection, /Do not forward the project folder, which can reveal uploader details/, 'Workflow must explain safe agency delivery');
 assert.doesNotMatch(home, /You review, then your client does/);
 assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
 assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');
@@ -287,7 +289,7 @@ for (const match of main.matchAll(/<a\b[^>]*data-placement="[^"]+"[^>]*>/g)) {
   assert(match[0].includes(`href="${stripe}"`), `Unexpected checkout target: ${match[0]}`);
 }
 const visibleFaqs = [...main.matchAll(/class="faq-question"[^>]*><span>([^<]+)<\/span>[\s\S]*?<div class="faq-answer"[^>]*>([\s\S]*?)<\/div><\/div>/g)];
-assert.equal(visibleFaqs.length, 5, 'Five FAQ questions must be visible to the accordion');
+assert.equal(visibleFaqs.length, 8, 'Eight FAQ questions must be visible to the accordion');
 for (let index = 0; index < visibleFaqs.length; index++) {
   assert.equal(visibleFaqs[index][1], approvedFaq[index][0], `FAQ question ${index + 1} must use the owner-approved wording`);
   assert.equal(faqText(visibleFaqs[index][2]), approvedFaq[index][1], `FAQ answer ${index + 1} must use the owner-approved wording`);
