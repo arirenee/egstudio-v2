@@ -166,8 +166,8 @@ async function sendIntakeNotification(record: any) {
     "<p><strong>Project:</strong> " + escapeHtml(record.project_name) + "</p>" +
     "<p><strong>Customer:</strong> " + escapeHtml(record.customer_email) + "</p>" +
     (record.source_url
-      ? '<p><strong>Agency-owned production folder:</strong> <a href="' + escapeHtml(record.source_url) + '">' + escapeHtml(record.source_url) + "</a></p>"
-      : "<p><strong>Source:</strong> check the verified brief and EG Client Jobs.</p>") +
+      ? '<p><strong>Additional source link:</strong> <a href="' + escapeHtml(record.source_url) + '">' + escapeHtml(record.source_url) + "</a></p>"
+      : "<p><strong>Source:</strong> '01 Recording and branding' in the private project workspace (see EG Client Jobs).</p>") +
     optionalBrand +
     '<p><strong>Style reference:</strong> <a href="' + escapeHtml(record.style_reference_url) + '">' + escapeHtml(record.style_reference_url) + "</a></p>" +
     optionalAvoid +
@@ -210,12 +210,27 @@ Deno.serve(async (req: Request) => {
       const sessionId = new URL(req.url).searchParams.get("session_id") || "";
       const paid = await verifyStripeSession(sessionId);
       await ensureOrder(supabase, paid);
+      // Agency Clip Pack: the private project link (Drive workspace shared only with the buyer's Google account).
+      // Returned only after the share is confirmed; the link itself grants nothing to other accounts.
+      let projectUrl: string | null = null;
+      if (paid.sku === "episode") {
+        const { data: job } = await supabase
+          .from("client_onboarding_jobs")
+          .select("drive_job_folder_url,share_locked_at")
+          .eq("stripe_session_id", paid.session.id)
+          .maybeSingle();
+        if (job?.share_locked_at && typeof job.drive_job_folder_url === "string" && job.drive_job_folder_url.startsWith("https://drive.google.com/")) {
+          projectUrl = job.drive_job_folder_url;
+        }
+      }
       return json(req, {
         paid: true,
         sku: paid.sku,
         order_label: paid.orderLabel,
         amount_display: paid.amountDisplay,
         amount_value: paid.amount / 100,
+        project_url: projectUrl,
+        project_email: paid.sku === "episode" ? paid.email.toLowerCase() : null,
       });
     }
 
@@ -234,14 +249,8 @@ Deno.serve(async (req: Request) => {
       Boolean(Deno.env.get("RESEND_API_KEY")) &&
       Boolean(Deno.env.get("INTAKE_FROM_EMAIL"));
 
-    if (paid.sku === "episode") {
-      const folder = new URL(String(body.source_url || ""));
-      if (folder.protocol !== "https:" || folder.username || folder.password ||
-          !folder.hostname.includes(".") || folder.hostname.endsWith(".local") ||
-          /^(?:\d+\.){3}\d+$/.test(folder.hostname) ||
-          body.private_handoff_confirmed !== true || body.rights_confirmed !== true) {
-        throw new Error("Provide a secure link to your private production folder, grant EG Studio edit/upload access, and confirm footage rights and agency-only access. We verify access before work starts.");
-      }
+    if (paid.sku === "episode" && body.rights_confirmed !== true) {
+      throw new Error("Confirm you have the rights to the recording and brand assets.");
     }
     const record = {
       order_id: order.id,
@@ -251,7 +260,7 @@ Deno.serve(async (req: Request) => {
       currency: "usd",
       customer_email: paid.email.toLowerCase(),
       project_name: cleanText(body.project_name, 120, false) || "Agency episode",
-      source_url: safeUrl(body.source_url, paid.sku === "episode"), // agency-owned production folder for new episode orders
+      source_url: safeUrl(body.source_url, false), // episode orders upload into the private project workspace; optional extra link
       brand_assets_url: safeUrl(body.brand_assets_url, false),
       style_reference_url: safeUrl(body.style_reference_url, false) || "https://egstudio.tech/#samples",
       avoid_notes: cleanText(body.avoid_notes, 1200, false),
@@ -261,7 +270,7 @@ Deno.serve(async (req: Request) => {
     };
 
     if (paid.sku === "episode") {
-      record.avoid_notes = (record.avoid_notes || "") + "\nPRIVATE AGENCY HANDOFF: agency confirms rights and owns the private production folder. Manually verify the recording and edit/upload permission for ops@egstudio.tech; complete any requested NDA before written acceptance. Zero end-client contact. Upload the five finished clips, hooks/titles and captions directly into that agency-owned private folder. No EG branding, watermark or domain inside delivered files or filenames. Keep the end client out of the production folder; file-sharing services may expose uploader account metadata, so the agency must use its own client-facing copies or links. First complete batch within 1 to 3 calendar days after written acceptance; revisions additional. Human moment selection without AI first pass.";
+      record.avoid_notes = (record.avoid_notes || "") + "\nPRIVATE PROJECT WORKSPACE: recording and branding are uploaded to '01 Recording and branding' in the per-order EG Drive workspace shared only with the buyer's Google account. Verify usable footage and branding and any requested NDA, and confirm readiness before editing. Zero end-client contact. Return the five finished clips, hook suggestions and captions to '02 Finished clips' in the same workspace with editor sharing disabled on each file. No EG branding, watermark or domain inside delivered files, filenames or metadata. First complete batch within 1 to 3 calendar days after readiness is confirmed; revisions additional. Human moment selection without AI first pass.";
     }
     if (!record.rights_confirmed) throw new Error("Rights confirmation is required.");
 

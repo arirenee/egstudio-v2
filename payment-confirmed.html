@@ -38,7 +38,9 @@ button{width:100%;border:1px solid #1F2937;background:#1F2937;color:#F4F6F8;font
 button:disabled{opacity:.38;cursor:not-allowed}
 .form-note{font-size:.76rem;color:var(--dim);margin-top:.7rem}
 .message{display:none;margin-top:1rem;padding:.9rem;border:1px solid var(--border);font-size:.84rem}.message.show{display:block}.message.error{color:var(--danger)}.message.success{color:var(--success)}
-form[hidden],.steps[hidden]{display:none}
+form[hidden],.steps[hidden],.project-link[hidden],.project-pending[hidden]{display:none}
+.project-link{margin:1.3rem 0 .4rem}.project-link-btn{display:flex;align-items:center;justify-content:center;min-height:52px;padding:.9rem 1rem;background:#1B3A5C;color:#FFFFFF;border-radius:2px;text-decoration:none;font-weight:800;font-size:.9rem;text-align:center}
+.project-pending{margin:1.2rem 0 .4rem;padding:.9rem;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:.88rem}
 .done{display:none;border:1px solid var(--border);background:var(--surface);padding:1.2rem;margin-top:1.25rem}.done.show{display:block}.done h2{font-size:1.35rem;margin-bottom:.4rem}.done p{color:var(--muted)}
 footer{border-top:1px solid var(--border);padding:1.2rem 0 2rem;color:var(--dim);font-size:.73rem}
 @media(min-width:720px){main{padding-top:3.2rem}}
@@ -70,43 +72,49 @@ pintrk('page');
 <main><div class="wrap">
 <p class="kicker" id="offer-kicker">Agency Clip Pack</p>
 <h1 id="intake-title">Checking your order.</h1>
-<p class="lead" id="intake-lead">We are verifying your payment before opening the private project brief.</p>
+<p class="lead" id="intake-lead">We are verifying your payment before showing your private project link.</p>
 <ol class="premium-intake-progress" aria-label="Your order journey">
   <li><span>1</span>Payment verified</li>
-  <li><span>2</span>Share recording and brief</li>
-  <li><span>3</span>Project materials checked</li>
-  <li><span>4</span>Five clips delivered</li>
+  <li><span>2</span>Open your private project link</li>
+  <li><span>3</span>Upload recording and branding</li>
+  <li><span>4</span>Five clips returned to the same workspace</li>
 </ol>
 
+<div class="project-link" id="project-link" hidden>
+  <a class="project-link-btn" id="project-link-btn" href="#" target="_blank" rel="noopener">Open your private project link</a>
+  <p class="helper" id="project-link-note">Open it with the Google account for your order email. It is shared only with that account.</p>
+</div>
+<p class="project-pending" id="project-pending" hidden>Your private project link is on its way to your order email. If it has not arrived, email <a href="mailto:ops@egstudio.tech">ops@egstudio.tech</a>.</p>
+
 <ol class="steps" id="next-steps" aria-label="What happens next" hidden>
-  <li>Create a private folder you own, add your recording and grant ops@egstudio.tech edit/upload access.</li>
-  <li>We check your footage, project details, and folder access, usually within one business day.</li>
-  <li>Once payment and project materials are ready, we deliver five finished clips into that folder within 1 to 3 calendar days.</li>
+  <li>Upload the recording and your logo or brand assets to the folder “01 Recording and branding”. No timestamps required.</li>
+  <li>Complete the quick project brief below.</li>
+  <li>We’ll confirm everything is ready before editing begins.</li>
+  <li>Your five finished clips are returned to “02 Finished clips” in the same workspace for review and delivery.</li>
 </ol>
 
 <p class="pay-error" id="payment-state" role="status" hidden></p>
 
 <form id="intake-form" novalidate hidden>
-  <div class="field" id="agency-folder-field"><label for="agency_folder_url">Your private production folder <span aria-hidden="true">*</span></label><input id="agency_folder_url" name="agency_folder_url" type="url" inputmode="url" placeholder="https://your-file-service.com/private-folder" autocomplete="url" required><p class="helper">Add the recording (up to 60 minutes), then share this folder with ops@egstudio.tech with <strong>edit/upload permission</strong>. Keep end clients out of this production folder. We'll verify access and deliver finished files directly here.</p></div>
   <div id="agency-optional-fields">
-    <div class="field"><label for="brand_assets_url">Brand assets link (optional)</label><input id="brand_assets_url" type="url" inputmode="url" placeholder="https://..."><p class="helper">Logos, colors or brand guidelines. Share access with us if restricted.</p></div>
+    <div class="field"><label for="brand_assets_url">Brand assets link (optional)</label><input id="brand_assets_url" type="url" inputmode="url" placeholder="https://..."><p class="helper">Only if your logo or brand guidelines live somewhere else. Otherwise upload them to your private project link.</p></div>
     <div class="field"><label for="style_reference_url">Style reference link (optional)</label><input id="style_reference_url" type="url" inputmode="url" placeholder="https://..."></div>
-    <div class="field"><label for="avoid_notes">Instructions (optional)</label><textarea id="avoid_notes" maxlength="1200" placeholder="Names, topics or moments to avoid; caption preferences..."></textarea></div>
+    <div class="field"><label for="avoid_notes">Project details (optional)</label><textarea id="avoid_notes" maxlength="1200" placeholder="Names, topics or moments to avoid; caption preferences; anything we should know..."></textarea></div>
   </div>
-  <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox" required><label for="agency_confirmed">I confirm we have the rights to the recording, own the production folder and can share it privately with EG Studio. I understand that the folder is for our agency's use, not end client access.</label></div>
+  <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox" required><label for="agency_confirmed">I confirm we have the rights to the recording and brand assets we provide for this project.</label></div>
 
   <div class="honeypot" aria-hidden="true">
     <label for="website">Website</label>
     <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
   </div>
 
-  <button id="submit-btn" type="submit" disabled>Submit private project brief</button>
+  <button id="submit-btn" type="submit" disabled>Submit project brief</button>
   <div id="form-message" class="message" role="alert"></div>
 </form>
 
 <div id="done" class="done">
   <h2>Brief submitted.</h2>
-  <p>We will check your footage, brief, and folder access, usually within one business day. We will let you know if anything is missing before editing begins.</p>
+  <p>Upload your recording and branding to your private project link if you have not yet. We’ll confirm everything is ready before editing begins.</p>
 </div>
 </div></main>
 <footer><div class="wrap">Questions or an NDA? <a href="mailto:ops@egstudio.tech?subject=NDA%20Review%20Request&body=Agency%20Name%3A%0AContact%20Name%3A%0A%0APlease%20send%20NDA%20review%20information.">Email ops@egstudio.tech</a>. <a href="/refund.html">Refund policy</a>.</div></footer>
@@ -141,15 +149,6 @@ pintrk('page');
     }
   }
 
-  function validPrivateFolder(value){
-    try {
-      const u = new URL(value);
-      return u.protocol === "https:" && !u.username && !u.password && u.hostname.includes(".") && !u.hostname.endsWith(".local") && !/^(?:\d+\.){3}\d+$/.test(u.hostname);
-    } catch {
-      return false;
-    }
-  }
-
   async function verify(){
     if (!endpoint || endpoint.includes("__INTAKE_FUNCTION_URL__")) {
       state.textContent = "Backend not deployed yet.";
@@ -178,25 +177,35 @@ pintrk('page');
       if (!["episode", "test"].includes(data.sku)) throw new Error("This payment belongs to a different EG Studio offer.");
       expectedSku = data.sku;
       verified = true;
-      document.getElementById("intake-title").textContent = "Payment verified. Send your brief.";
-      document.getElementById("intake-lead").textContent = "One private, agency owned folder for your source footage and finished clips. No call required.";
+      document.getElementById("intake-title").textContent = "Payment verified. Here is your private project link.";
+      document.getElementById("intake-lead").textContent = "Upload your recording and branding there, then complete the quick project brief below.";
       state.hidden = true;
       state.dataset.state = "ok";
       if (data.order_label) kicker.textContent = data.order_label;
-      document.getElementById("agency-folder-field").hidden = data.sku !== "episode";
+      const isEpisode = data.sku === "episode";
+      const projectUrl = typeof data.project_url === "string" && data.project_url.indexOf("https://drive.google.com/") === 0 ? data.project_url : "";
+      if (isEpisode && projectUrl) {
+        document.getElementById("project-link-btn").href = projectUrl;
+        if (data.project_email) document.getElementById("project-link-note").textContent = "Open it with the Google account for " + data.project_email + ". It is shared only with that account.";
+        document.getElementById("project-link").hidden = false;
+      } else if (isEpisode) {
+        document.getElementById("intake-title").textContent = "Payment verified. Your project link is on its way.";
+        document.getElementById("project-pending").hidden = false;
+      }
       document.getElementById("agency-confirmation-field").hidden = data.sku !== "episode";
       document.getElementById("agency-optional-fields").hidden = data.sku !== "episode";
       document.getElementById("next-steps").hidden = data.sku !== "episode";
       form.hidden = false;
       submit.disabled = false;
-      if (window.posthog) posthog.capture("intake_payment_verified", {sku:data.sku, experiment:"native_intake_v1"});
-      if (window.pintrk) pintrk('track','checkout',{
+      // Analytics must never overwrite a verified payment state.
+      try { if (window.posthog) posthog.capture("intake_payment_verified", {sku:data.sku, experiment:"native_intake_v1"}); } catch(e) {}
+      try { if (window.pintrk) pintrk('track','checkout',{
         event_id:sessionId,
         order_id:sessionId,
         value:data.amount_value || 199,
         order_quantity:1,
         currency:'USD'
-      });
+      }); } catch(e) {}
     } catch(err) {
       state.textContent = "Could not verify payment.";
       state.dataset.state = "error";
@@ -211,12 +220,11 @@ pintrk('page');
     if (!verified) return showMessage("Payment must be verified before the brief can be submitted.", "error");
 
     const website = document.getElementById("website").value.trim();
-    const agencyFolder = document.getElementById("agency_folder_url").value.trim();
     const agencyConfirmed = document.getElementById("agency_confirmed").checked;
     const brandAssets = document.getElementById("brand_assets_url").value.trim();
     const styleReference = document.getElementById("style_reference_url").value.trim();
     const avoidNotes = document.getElementById("avoid_notes").value.trim();
-    if (expectedSku === "episode" && (!validPrivateFolder(agencyFolder) || !agencyConfirmed)) return showMessage("Add a secure link to your private production folder and confirm footage rights and private access.", "error");
+    if (expectedSku === "episode" && !agencyConfirmed) return showMessage("Confirm you have the rights to the recording and brand assets.", "error");
     if (!validHttps(brandAssets, true) || !validHttps(styleReference, true)) return showMessage("Optional links must start with https://", "error");
 
     submit.disabled = true;
@@ -234,8 +242,7 @@ pintrk('page');
           session_id:sessionId,
           expected_sku:expectedSku,
           project_name:"Agency episode",
-          source_url:expectedSku === "episode" ? agencyFolder : null,
-          private_handoff_confirmed:agencyConfirmed,
+          source_url:null,
           brand_assets_url:brandAssets || null,
           style_reference_url:styleReference || null,
           avoid_notes:avoidNotes || null,
@@ -247,10 +254,10 @@ pintrk('page');
       if (!r.ok) throw new Error(data.error || "The brief could not be submitted.");
       form.style.display = "none";
       done.classList.add("show");
-      if (window.posthog) posthog.capture("intake_submitted", {sku:expectedSku, experiment:"native_intake_v1"});
+      try { if (window.posthog) posthog.capture("intake_submitted", {sku:expectedSku, experiment:"native_intake_v1"}); } catch(e) {}
     } catch(err) {
       submit.disabled = false;
-      submit.textContent = "Submit private project brief";
+      submit.textContent = "Submit project brief";
       showMessage(err.message || "The brief could not be submitted.", "error");
     }
   });
