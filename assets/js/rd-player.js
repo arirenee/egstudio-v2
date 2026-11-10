@@ -6,29 +6,59 @@
   function init() {
     var vids = Array.prototype.slice.call(document.querySelectorAll('.rd-sample video, .rd-hero-video, video.rd-player'));
     vids = vids.filter(function (v, i) { return vids.indexOf(v) === i; });
+    /* Overlay is hidden with an inline style so no page stylesheet can keep it over a playing video. */
+    function overlay(v, show) {
+      var b = v.parentElement && v.parentElement.querySelector('.rd-play');
+      if (b) b.style.display = show ? '' : 'none';
+    }
+    /* Custom start failed or stalled: hand the visitor native controls instead. */
+    function fallback(v, why) {
+      console.warn('EG sample playback fallback (' + why + '):', v.currentSrc || v.src);
+      v._rdNative = true;
+      v.controls = true;
+      overlay(v, false);
+    }
     vids.forEach(function (v) {
+      v.playsInline = true;
+      v.setAttribute('webkit-playsinline', '');
       v.addEventListener('play', function () {
         var card = v.closest('.rd-sample') || v.parentElement;
         if (card) card.classList.add('is-playing');
         v.controls = true;
+        overlay(v, false);
         vids.forEach(function (o) { if (o !== v && !o.paused) o.pause(); });
       });
+      v.addEventListener('playing', function () { clearTimeout(v._rdStall); });
       v.addEventListener('pause', function () {
+        clearTimeout(v._rdStall);
         if (v.ended) return;
         var card = v.closest('.rd-sample') || v.parentElement;
         if (card) card.classList.remove('is-playing');
+        if (!v._rdNative) overlay(v, true);
       });
       v.addEventListener('ended', function () {
-        v.controls = false;
         var card = v.closest('.rd-sample') || v.parentElement;
         if (card) card.classList.remove('is-playing');
+        if (v._rdNative) return;
+        v.controls = false;
+        overlay(v, true);
       });
+      v.addEventListener('error', function () { clearTimeout(v._rdStall); fallback(v, 'media error'); });
     });
     Array.prototype.forEach.call(document.querySelectorAll('.rd-play'), function (btn) {
       var v = btn.parentElement.querySelector('video');
       if (!v) return;
       btn.addEventListener('click', function () {
-        var p = v.play(); if (p && p.catch) p.catch(function () {});
+        /* play() must run synchronously inside the tap so iOS Safari keeps the user gesture. */
+        var p = v.play();
+        clearTimeout(v._rdStall);
+        v._rdStall = setTimeout(function () { if (v.paused || v.readyState < 3) fallback(v, 'stalled'); }, 6000);
+        if (p && p.catch) p.catch(function (err) {
+          clearTimeout(v._rdStall);
+          /* AbortError = interrupted by pause() (e.g. visitor switched samples); not a failure. */
+          if (err && err.name === 'AbortError') { console.warn('EG sample play() interrupted:', v.currentSrc || v.src); return; }
+          fallback(v, err && err.name || 'play() rejected');
+        });
       });
     });
     /* Optional mobile carousel dots for satellite pages (homepage keeps its own inline handler) */
