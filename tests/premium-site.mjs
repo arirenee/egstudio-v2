@@ -250,7 +250,7 @@ assert.match(terms, /The standard pack is for one English language recording wit
 assert.match(terms, /Eligible footage includes podcasts, interviews, webinars, and expert or talking head recordings\./);
 assert.match(terms, /<h2>Service Scope<\/h2>\s*<p>The Agency Clip Pack includes:<\/p>\s*<ul>\s*<li>One source recording \(up to 60 minutes\)<\/li>\s*<li>Five short-form clips<\/li>\s*<li>Captions<\/li>\s*<li>Brand styling using supplied assets<\/li>\s*<li>Five hook suggestions<\/li>\s*<li>One revision round<\/li>\s*<\/ul>/, 'Terms must state the owner-approved service scope');
 assert.doesNotMatch(terms, /No subscription|No call required/, 'Terms must not carry sales copy');
-for (const page of ['terms.html', 'privacy.html', 'refund.html']) assert.match(read(page), /Last updated: November 9, 2026\./, `${page}: last updated date`);
+for (const page of ['terms.html', 'privacy.html', 'refund.html']) assert.match(read(page), /Last updated: November 10, 2026\./, `${page}: last updated date`);
 for (const line of [
   'You may request cancellation before editing begins. Eligible cancellations are refunded in full.',
   'We’ll let you know before editing begins and issue a refund.',
@@ -260,7 +260,7 @@ assert.match(refund, /<h2>Before production begins<\/h2>\s*<p>You may request ca
 assert.doesNotMatch(refund, /<h2>Need help\?<\/h2>|<h2>Policy details<\/h2>|<h3>/, 'Crossed-out refund sections must be removed');
 assert.doesNotMatch(read('privacy.html'), /<h2>Service providers and storage<\/h2>/, 'Crossed-out privacy section must be removed');
 const privacyPage = read('privacy.html');
-assert.match(privacyPage, /<h2>Your client relationship stays yours<\/h2>\s*<p>Client recordings are used only to complete your project\.<\/p>\s*<p>We do not contact your clients, share recordings publicly, or use project materials outside your order without permission\.<\/p>\s*<p>The content stays between your agency and EG Studio, except for the service providers listed below that we use to store, process, and deliver your project\.<\/p>/, 'Privacy must use the owner-approved client relationship section');
+assert.match(privacyPage, /<h2>Your client relationship stays yours<\/h2>\s*<p>Client recordings are used only to complete your project\.<\/p>\s*<p>We do not contact your clients, share recordings publicly, or use project materials outside your order without permission\.<\/p>\s*<p>The content stays between your agency and EG Studio, except for the service providers that we use to store, process, and deliver your project\.<\/p>/, 'Privacy must use the approved non-dangling client relationship section');
 assert.doesNotMatch(privacyPage, /Client recordings and white label work|class="assurance"/, 'Old nested privacy callout must be gone');
 for (const page of ['white-label-podcast-clips/index.html', 'content-graveyard/index.html']) {
   assert.doesNotMatch(read(page), /folder your agency owns|agency-owned|production folder|uploader metadata/i, `${page}: folder mechanics remain in marketing copy`);
