@@ -39,7 +39,7 @@ for (const page of pages) {
 const home = read('index.html');
 const schema = JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1] || '{}');
 const faqSchema = schema['@graph']?.find(node => node['@type'] === 'FAQPage');
-assert.equal(faqSchema?.mainEntity?.length, 8, 'Structured FAQ must match the eight visible questions');
+assert.equal(faqSchema?.mainEntity?.length, 6, 'Structured FAQ must match the six remaining visible questions');
 for (const s of [
   'Keep client content moving without hiring another editor.',
   'White label short form editing for agencies.',
@@ -174,7 +174,7 @@ assert.deepEqual(
 assert.doesNotMatch(main, /<section\b[^>]*id="(?:comparison|white-label|benefits|included|why-eg|founder)"/, 'Redundant standalone sections remain');
 assert.match(main, /<section id="faq"/, 'FAQ must be its own section after testimonials');
 assert.doesNotMatch(main, /premium-included-grid|premium-benefit-card/);
-assert.equal((main.match(/class="faq-item"/g) || []).length, 8, 'FAQ must cover all eight buying questions');
+assert.equal((main.match(/class="faq-item"/g) || []).length, 6, 'FAQ must contain only the six retained questions');
 assert.doesNotMatch(main, /premium-deliverable-showcase/, 'Duplicate work sample thumbnails must not compete with real video proof');
 assert.doesNotMatch(main, /premium-trust-strip/, 'Repeated hero promises should not clutter the purchase action');
 const pricing = main.match(/<section id="pricing"[\s\S]*?<\/section>/)?.[0] || '';
@@ -201,12 +201,10 @@ const faqText = (h) => h.replace(/<ul>([\s\S]*?)<\/ul>/g, (_, l) => [...l.matchA
 const approvedFaq = [
   ['What footage can I send?', 'Podcasts, interviews, webinars, educational recordings, and talking head videos work best. The standard pack covers one English language recording up to 60 minutes, with up to two synchronized speakers or cameras. Unsure whether your recording qualifies? Email us before ordering.'],
   ['Do I need to find the clips myself?', 'No. Send the full recording. We review the footage and choose the moments, so your team does not need to prepare timestamps.'],
-  ['What happens after payment?', 'After payment verification, you receive access to a private Google Drive project workspace shared with the email used for your order. Upload your recording, brand assets, and short brief. We return the clips there for your review. The workspace is owned by EG Studio. Download the completed files and share your own copies with clients.'],
-  ['When does the 1–3 day turnaround start?', 'The first batch is delivered within 1–3 calendar days once payment clears and the usable recording, brand assets, brief, and any requested NDA are ready. We will tell you if anything is missing. Revision time is additional.'],
-  ['Can I review the clips before sending them to my client?', 'Yes. Your agency reviews the finished clips first. One consolidated round of caption, branding, and timing corrections is included. New creative directions or replacement moments are outside that round.'],
-  ['Will EG Studio contact my client?', 'No. We communicate with your agency only, and the exported clips contain no EG Studio watermark or branding. Because the project folder may expose uploader details, download the finished files and deliver your own copies rather than sharing the folder.'],
+  ['What happens after payment?', 'After payment verification, you receive access to a private Google Drive project workspace shared with the email used for your order. Upload your recording, brand assets, and short brief. We return the clips there for your review.'],
+  ['When does the 1–3 day turnaround start?', 'The first batch is delivered within 1–3 calendar days once payment clears and the usable recording, brand assets, brief, and any requested NDA are ready. We will tell you if anything is missing.'],
+  ['Will EG Studio contact my client?', 'No. We communicate with your agency only, and the exported clips contain no EG Studio watermark or branding.'],
   ['What is not included?', 'Filming, posting, full episode editing, complex custom animation, and native project files are outside this fixed package unless separately agreed.'],
-  ['What if my recording is not suitable?', 'We will let you know before editing begins and issue a full refund. Once production begins, the published refund policy applies.'],
 ];
 const gallery = main.match(/<div class="rd-samples" id="rdSamples"[\s\S]*?<\/div>\s*<\/div>\s*<\/section>/)?.[0] || '';
 assert.deepEqual([...gallery.matchAll(/<article class="rd-sample ([^"]+)" aria-label="([^"]+)"/g)].map(m => `${m[1]}|${m[2]}`),
@@ -246,7 +244,8 @@ assert.match(terms, /we share a private project workspace \(a Google Drive folde
 assert.match(terms, /deliver the finished files to the same workspace/);
 assert.match(terms, /File sharing services may reveal uploader account details if workspace items are shared directly\./);
 assert.doesNotMatch(terms, /agency owned production folder|folder your agency owns|edit\/upload access/, 'Terms must describe the EG private workspace, not an agency-owned folder');
-assert.match(terms, /Revision time is additional\./);
+assert.doesNotMatch(terms, /Revision time is additional\./);
+assert.doesNotMatch(terms, /Orders are final except as described in the/);
 assert.match(terms, /The standard pack is for one English language recording with up to two synchronized speakers or cameras\./);
 assert.match(terms, /Eligible footage includes podcasts, interviews, webinars, and expert or talking head recordings\./);
 assert.match(terms, /<h2>Service Scope<\/h2>\s*<p>The Agency Clip Pack includes:<\/p>\s*<ul>\s*<li>One source recording \(up to 60 minutes\)<\/li>\s*<li>Five short-form clips<\/li>\s*<li>Captions<\/li>\s*<li>Brand styling using supplied assets<\/li>\s*<li>Five hook suggestions<\/li>\s*<li>One revision round<\/li>\s*<\/ul>/, 'Terms must state the owner-approved service scope');
@@ -254,17 +253,12 @@ assert.doesNotMatch(terms, /No subscription|No call required/, 'Terms must not c
 for (const page of ['terms.html', 'privacy.html', 'refund.html']) assert.match(read(page), /Last updated: November 9, 2026\./, `${page}: last updated date`);
 for (const line of [
   'You may request cancellation before editing begins. Eligible cancellations are refunded in full.',
-  'A cancellation is eligible when you email ops@egstudio.tech before we start reviewing your recording for editing.',
-  'The included revision round corrects the delivered clips.',
   'We’ll let you know before editing begins and issue a refund.',
   'Orders become non-refundable once editing work has started.',
-  'If EG Studio cannot finish your order for reasons within our control, we will agree with you on a refund of the unfinished work.',
-  'refund the unfinished portion of the order',
-  'pause the delivery clock',
 ]) assert(refundText.includes(line), `Refund policy line missing: ${line}`);
-assert.match(refund, /<h2>Before production begins<\/h2>\s*<p>You may request cancellation before editing begins\. Eligible cancellations are refunded in full\.<\/p>\s*<h2>If the recording is not a fit<\/h2>\s*<p>We’ll let you know before editing begins and issue a refund\.<\/p>\s*<h2>After production begins<\/h2>\s*<p>Orders become non-refundable once editing work has started\.<\/p>\s*<h2>Need help\?<\/h2>/, 'Refund policy approved sections must be unaltered');
-assert.match(refund, /<h2>Need help\?<\/h2>[\s\S]*<h2>Policy details<\/h2>/, 'Required refund disclosures sit after the approved sections');
-assert.match(read('privacy.html'), /<h2>Service providers and storage<\/h2>/, 'Privacy must disclose processors');
+assert.match(refund, /<h2>Before production begins<\/h2>\s*<p>You may request cancellation before editing begins\. Eligible cancellations are refunded in full\.<\/p>\s*<h2>If the recording is not a fit<\/h2>\s*<p>We’ll let you know before editing begins and issue a refund\.<\/p>\s*<h2>After production begins<\/h2>\s*<p>Orders become non-refundable once editing work has started\.<\/p>/, 'Three retained refund sections must be unaltered');
+assert.doesNotMatch(refund, /<h2>Need help\?<\/h2>|<h2>Policy details<\/h2>|<h3>/, 'Crossed-out refund sections must be removed');
+assert.doesNotMatch(read('privacy.html'), /<h2>Service providers and storage<\/h2>/, 'Crossed-out privacy section must be removed');
 const privacyPage = read('privacy.html');
 assert.match(privacyPage, /<h2>Your client relationship stays yours<\/h2>\s*<p>Client recordings are used only to complete your project\.<\/p>\s*<p>We do not contact your clients, share recordings publicly, or use project materials outside your order without permission\.<\/p>\s*<p>The content stays between your agency and EG Studio, except for the service providers listed below that we use to store, process, and deliver your project\.<\/p>/, 'Privacy must use the owner-approved client relationship section');
 assert.doesNotMatch(privacyPage, /Client recordings and white label work|class="assurance"/, 'Old nested privacy callout must be gone');
@@ -289,12 +283,18 @@ for (const match of main.matchAll(/<a\b[^>]*data-placement="[^"]+"[^>]*>/g)) {
   assert(match[0].includes(`href="${stripe}"`), `Unexpected checkout target: ${match[0]}`);
 }
 const visibleFaqs = [...main.matchAll(/class="faq-question"[^>]*><span>([^<]+)<\/span>[\s\S]*?<div class="faq-answer"[^>]*>([\s\S]*?)<\/div><\/div>/g)];
-assert.equal(visibleFaqs.length, 8, 'Eight FAQ questions must be visible to the accordion');
+assert.equal(visibleFaqs.length, 6, 'Six FAQ questions must be visible to the accordion');
 for (let index = 0; index < visibleFaqs.length; index++) {
   assert.equal(visibleFaqs[index][1], approvedFaq[index][0], `FAQ question ${index + 1} must use the owner-approved wording`);
   assert.equal(faqText(visibleFaqs[index][2]), approvedFaq[index][1], `FAQ answer ${index + 1} must use the owner-approved wording`);
   assert.equal(faqSchema.mainEntity[index].name, visibleFaqs[index][1], `FAQ question ${index + 1} differs from structured data`);
   assert.equal(faqSchema.mainEntity[index].acceptedAnswer.text, faqText(visibleFaqs[index][2]), `FAQ answer ${index + 1} differs from structured data`);
+}
+for (const removed of ['Can I review the clips before sending them to my client?', 'What if my recording is not suitable?']) {
+  assert(!home.includes(removed), `Crossed-out FAQ question remains: ${removed}`);
+}
+for (const removed of ['The workspace is owned by EG Studio.', 'Revision time is additional.', 'Because the project folder may expose uploader details']) {
+  assert(!faqSchema.mainEntity.some(q => q.acceptedAnswer.text.includes(removed)), `Crossed-out structured FAQ text remains: ${removed}`);
 }
 
 for (const cssFile of ['assets/css/premium.css','assets/css/premium-polish.css','assets/css/premium-pages.css']) {
