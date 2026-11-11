@@ -56,9 +56,6 @@ for (const s of [
   '<h3>Send the recording</h3><p>Upload one eligible recording, your branding, and a short brief.',
   '<h3>We find and edit the moments</h3>',
   '<h3>Review and deliver</h3>',
-  'Private handoff, with your agency in control.',
-  'The workspace is held in EG Studio’s Google Drive.',
-  'Do not forward the project folder, which can reveal uploader details.',
   'More content. Less editing on your team’s plate.',
   '<h3>Five finished vertical clips</h3>',
   '<h3>Human selected moments</h3>',
@@ -234,8 +231,8 @@ assert.match(hero, /Keep client content moving without hiring another editor\./)
 assert.match(hero, /\$199 one time\./, 'Hero should lead with the offer, not intake conditions');
 assert.doesNotMatch(hero, /payment clears and (?:the |all )?required materials/, 'Hero must not place intake timing conditions next to the main buttons');
 const processSection = main.match(/<section[^>]*id="how-it-works"[\s\S]*?<\/section>/)?.[0] || '';
-assert.match(processSection, /EG Studio’s Google Drive/, 'Consolidated workflow must disclose project-folder ownership');
-assert.match(processSection, /Do not forward the project folder, which can reveal uploader details/, 'Workflow must explain safe agency delivery');
+assert.doesNotMatch(processSection, /premium-delivery|Private handoff, with your agency in control\./, 'Removed private handoff section must stay absent');
+assert.equal((processSection.match(/class="rd-step-num"/g) || []).length, 3, 'All three workflow steps must remain');
 assert.doesNotMatch(home, /You review, then your client does/);
 assert.doesNotMatch(home, /sample-beforeafter\.(?:jpg|mp4)/, 'Older partial comparison must not appear on the homepage');
 assert.equal(fs.statSync(path.join(root, 'assets/samples/sample-process.mp4')).size, 2083296, 'Unexpected process video asset');
