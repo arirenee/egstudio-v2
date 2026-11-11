@@ -10,7 +10,8 @@ body.premium-sat .rd-cg-hero::after{content:"";position:absolute;z-index:-1;poin
 body.premium-sat .rd-cg-hero h1{font-size:clamp(2.75rem,6.5vw,5.1rem);line-height:1.04;letter-spacing:-.05em;max-width:14ch;color:#FFFFFF!important}
 body.premium-sat .rd-cg-hero .rd-lead{font-size:clamp(1.05rem,1.45vw,1.25rem);line-height:1.7;color:#D9E6F5;max-width:55ch}
 body.premium-sat .rd-cg-hero .rd-eyebrow{color:#B3D3F1}
-body.premium-sat .rd-cg-hero .rd-cg-formats,body.premium-sat .rd-cg-hero .rd-cg-protect{color:#C2D7EA}
+body.premium-sat .rd-cg-hero .rd-cg-formats,body.premium-sat .rd-cg-hero .rd-cg-protect{color:#C2D7EA!important}
+body.premium-sat .rd-cg-hero .rd-cg-formats{border-top-color:rgba(245,249,253,.28)}
 body.premium-sat .rd-cg-hero .rd-fold-facts{border-top-color:rgba(245,249,253,.28)}
 body.premium-sat .rd-cg-hero .rd-fold-facts li{border-bottom-color:rgba(245,249,253,.16);color:#C2D7EA}
 body.premium-sat .rd-cg-hero .rd-fold-facts b{color:#F5F9FD}
