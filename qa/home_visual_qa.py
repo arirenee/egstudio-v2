@@ -5,6 +5,7 @@ import json
 import os
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
@@ -92,8 +93,13 @@ with sync_playwright() as p:
             # Direct CTA path: safe click interception prevents external checkout navigation.
             all_checkout=page.locator('a[href^="https://buy.stripe.com/"]')
             hrefs=all_checkout.evaluate_all("(els)=>els.map(el=>el.href)")
-            check(len(hrefs)>=4 and all(x==CHECKOUT for x in hrefs),
-                  f"Every checkout link uses the existing Stripe URL — {key}",hrefs)
+            # Production tracking adds client_reference_id (and may add UTMs).
+            # Verify the exact Stripe product destination, not the dynamic query string.
+            expected=urlsplit(CHECKOUT)
+            destinations=[urlsplit(x) for x in hrefs]
+            same_product=lambda x: (x.scheme,x.netloc,x.path)==(expected.scheme,expected.netloc,expected.path)
+            check(len(hrefs)>=4 and all(same_product(x) for x in destinations),
+                  f"Every checkout link targets the approved Stripe product — {key}",hrefs)
             if mode=="light":
                 selector=".eg-mobile-checkout" if width<768 else ".rd-nav-cta"
                 page.evaluate("""(selector) => {
