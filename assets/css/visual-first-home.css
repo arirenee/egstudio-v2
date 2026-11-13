@@ -391,3 +391,18 @@ body.rd.premium-home.eg-visual-approved #pricing .premium-included-list { margin
 @media (prefers-reduced-motion:reduce) {
   body.rd.premium-home.eg-visual-approved .eg-visual-hero * { scroll-behavior:auto!important; }
 }
+
+/* Mobile proof is the secondary action: remove redundant scroll CTA. */
+body.rd.premium-home.eg-visual-approved .eg-hero-mobile-note { display:none; }
+@media (max-width:767px) {
+  body.rd.premium-home.eg-visual-approved .eg-hero-copy .premium-secondary-btn { display:none!important; }
+  body.rd.premium-home.eg-visual-approved .eg-hero-copy > .premium-hero-note { display:none; }
+  body.rd.premium-home.eg-visual-approved .eg-hero-mobile-note {
+    display:block;
+    font-size:.89rem;
+    line-height:1.55;
+    text-align:center;
+    color:var(--c-muted);
+    margin:0;
+  }
+}
