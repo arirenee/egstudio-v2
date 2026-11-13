@@ -1395,8 +1395,9 @@ pintrk('page');
 <link rel="manifest" href="/site.webmanifest?v=20261105-brand">
 <meta name="apple-mobile-web-app-title" content="EG Studio">
 <link rel="stylesheet" href="/assets/css/eg-wordmark.css?v=20261105-brand">
+<link rel="stylesheet" href="/assets/css/visual-first-home.css?v=20261113-approved">
 </head>
-<body id="top" class="rd rd-home premium-home">
+<body id="top" class="rd rd-home premium-home eg-visual-approved">
 
   <a class="rd-skip" href="#main">Skip to content</a>
   <!-- 1. GLOBAL NAVIGATION BAR -->
@@ -1407,23 +1408,34 @@ pintrk('page');
         <a class="rd-link rd-nav-link" href="#work">Our work</a>
         <a class="rd-link rd-nav-link premium-desktop-nav" href="#how-it-works">How it works</a>
         <a class="btn btn-primary rd-btn rd-btn-sm rd-nav-cta" data-sku="episode" data-placement="header_primary" href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f">Get 5 Clips for $199</a>
+        <a class="eg-mobile-checkout" href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f" data-sku="episode" data-placement="header_mobile_primary">Get 5 Clips</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <section class="rd-hero rd-studio-hero premium-hero premium-hero-simple">
+    <section class="rd-hero rd-studio-hero premium-hero premium-hero-simple eg-visual-hero">
       <div class="rd-container">
-        <div class="rd-hero-copy">
-          <h1 class="rd-display">Keep client content moving without hiring another editor.</h1>
-          <p class="rd-lead">White label short form editing for agencies. Send one client recording. We select the moments, add captions and your branding, and return five finished vertical clips for your team to review and deliver.</p>
-          <p class="premium-hero-price">$199 one time.</p>
-          <div class="rd-actions">
-            <a class="btn btn-primary rd-btn" data-sku="episode" data-placement="hero_primary" href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f">Get 5 Clips for $199</a>
-            <a class="rd-btn premium-secondary-btn" href="#work">See Editing Samples</a>
+        <div class="eg-hero-grid">
+          <div class="rd-hero-copy eg-hero-copy">
+            <p class="eg-hero-kicker">White label short form editing for agencies</p>
+            <h1 class="rd-display">One client recording. <span class="eg-emphasis">Five branded vertical clips.</span></h1>
+            <p class="rd-lead">We find the moments, edit the footage, add captions and apply your branding. Your team reviews the clips before delivering them to your client.</p>
+            <p class="premium-hero-price">$199 <span>one time</span></p>
+            <div class="rd-actions"><a class="btn btn-primary rd-btn" href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f" data-sku="episode" data-placement="hero_primary">Get 5 Clips for $199</a><a class="rd-btn premium-secondary-btn" href="#work">Watch more samples</a></div>
+            <p class="premium-hero-note">No timestamps. No subscription. No client contact.</p>
           </div>
-          <p class="premium-hero-note">No timestamps. No subscription. No client contact.</p>
+          <div class="eg-hero-media">
+            <article class="rd-sample eg-hero-sample" aria-label="Before and After editing demonstration">
+              <video class="rd-player" playsinline webkit-playsinline preload="metadata" poster="/assets/samples/sample-process.jpg?v=20261108" width="720" height="1280" aria-label="Before and After editing sample"><source src="/assets/samples/sample-process.mp4?v=20261103" type="video/mp4"></video>
+              <button class="rd-play" type="button" aria-label="Play Before and After editing sample"><img src="/assets/samples/sample-process.jpg?v=20261108" width="720" height="1280" alt=""><span aria-hidden="true"></span></button>
+            </article>
+            <p class="eg-proof-caption">Before &amp; After · Editing demonstration</p>
+          </div>
         </div>
+        <ol class="eg-output-flow" aria-label="Recording to delivery in three stages">
+          <li><strong>01</strong><span>One client recording</span></li><li><strong>02</strong><span>Five edited clips</span></li><li><strong>03</strong><span>Agency review and delivery</span></li>
+        </ol>
       </div>
     </section>
 
@@ -1431,17 +1443,11 @@ pintrk('page');
       <span id="samples" class="anchor-alias" aria-hidden="true"></span>
       <div class="rd-container">
         <div class="rd-head rd-head-tight">
-          <h2 class="rd-h2 rd-display-sm">See what your agency can deliver.</h2>
-          <p>Watch how raw recordings become polished short form clips. See the pacing, captions, and framing before you order. These are editing demonstrations, not client endorsements.</p>
+          <h2 class="rd-h2 rd-display-sm">See the editing across formats.</h2>
+          <p>Watch our podcast and talking head editing demonstrations to assess pacing, captions and framing. These are editing demonstrations, not client endorsements.</p>
         </div>
         <div class="rd-samples" id="rdSamples" aria-label="Editing samples">
-          <article class="rd-sample rd-sample-featured" aria-label="Before &amp; After">
-            <video class="rd-player" playsinline webkit-playsinline preload="metadata" poster="/assets/samples/sample-process.jpg?v=20261108" width="720" height="1280" aria-label="Before and After editing sample">
-              <source src="/assets/samples/sample-process.mp4?v=20261103" type="video/mp4">
-            </video>
-            <button type="button" class="rd-play" aria-label="Play Before and After sample"><img src="/assets/samples/sample-process.jpg?v=20261108" alt="" width="720" height="1280"><span aria-hidden="true"></span></button>
-            <div class="rd-sample-info"><p class="rd-meta">Before &amp; After</p></div>
-          </article>
+          
           <article class="rd-sample rd-sample-support" aria-label="Podcast / Panel">
             <video class="rd-player" playsinline webkit-playsinline preload="metadata" poster="/assets/samples/sample-panel.jpg?v=20261108" width="1080" height="1920" aria-label="Podcast or Panel editing sample">
               <source src="/assets/samples/sample-panel.mp4?v=20261110-fs" type="video/mp4">
@@ -1460,43 +1466,28 @@ pintrk('page');
       </div>
     </section>
 
-    <section id="how-it-works" class="rd-section rd-steps-section">
+    <section id="how-it-works" class="rd-section rd-steps-section eg-process-section">
       <span id="process" class="anchor-alias" aria-hidden="true"></span>
       <div class="rd-container">
-        <div class="rd-head rd-head-tight">
-          <h2 class="rd-h2">Hand off the editing. Keep control of the client relationship.</h2>
-          <p>Your team handles the client. We handle the footage.</p>
-        </div>
-        <ol class="rd-steps premium-steps premium-steps-short">
-          <li><span class="rd-step-num">01</span><h3>Send the recording</h3><p>Upload one eligible recording, your branding, and a short brief. No need to watch the footage again or mark timestamps for us.</p></li>
-          <li><span class="rd-step-num">02</span><h3>We find and edit the moments</h3><p>We review the source, select useful segments, add captions, and apply your supplied branding. Your team can focus on client work while we produce the clips.</p></li>
-          <li><span class="rd-step-num">03</span><h3>Review and deliver</h3><p>Your agency receives five finished clips for review. Request included corrections, then download and deliver your own copies to the client.</p></li>
+        <div class="eg-process-intro"><p class="rd-eyebrow">Simple production flow</p><h2 class="rd-h2">We handle the editing. You handle the client.</h2><p>Three steps from your recording to five ready-to-review vertical clips.</p></div>
+        <ol class="eg-process-track" aria-label="Three step editing process">
+          <li class="eg-process-step"><svg class="eg-process-graphic" viewBox="0 0 180 104" role="img" aria-label="Recording file"><rect x="42" y="7" width="92" height="90" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><rect x="55" y="22" width="66" height="47" rx="5" fill="currentColor" opacity=".12"/><path d="M82 33 V60 L105 46 Z" fill="currentColor"/><path d="M58 79 H118" stroke="currentColor" stroke-width="3"/></svg><span class="eg-process-number">01 / INPUT</span><h3>Send the recording</h3><p>Upload one eligible recording, brand assets and a short brief. No timestamps required.</p></li>
+          <li class="eg-process-step"><svg class="eg-process-graphic" viewBox="0 0 180 104" role="img" aria-label="Editing timeline"><rect x="20" y="14" width="140" height="76" rx="8" stroke="currentColor" stroke-width="3" fill="none"/><rect x="34" y="28" width="112" height="20" fill="currentColor" opacity=".15"/><path d="M35 61 H143 M35 71 H123 M97 22 V84" stroke="currentColor" stroke-width="3"/></svg><span class="eg-process-number">02 / EDIT</span><h3>We make the clips</h3><p>We select the moments, cut five clips, add captions and apply the supplied branding.</p></li>
+          <li class="eg-process-step"><svg class="eg-process-graphic" viewBox="0 0 180 104" role="img" aria-label="Five finished clips"><rect x="10" y="23" width="26" height="57" rx="4" fill="currentColor" opacity=".25"/><rect x="43" y="17" width="26" height="63" rx="4" fill="currentColor" opacity=".35"/><rect x="76" y="9" width="26" height="71" rx="4" stroke="currentColor" stroke-width="3" fill="none"/><rect x="109" y="17" width="26" height="63" rx="4" fill="currentColor" opacity=".35"/><rect x="142" y="23" width="26" height="57" rx="4" fill="currentColor" opacity=".25"/><path d="M83 44 L88 49 L97 37" stroke="currentColor" stroke-width="3" fill="none"/></svg><span class="eg-process-number">03 / REVIEW</span><h3>Review and deliver</h3><p>Your agency reviews five clips, requests included corrections if needed, then delivers the exports to its client.</p></li>
         </ol>
-      </div>
-    </section>
-
-    <section id="what-you-get" class="rd-section rd-steps-section premium-gets-section">
-      <div class="rd-container">
-        <div class="rd-head rd-head-tight">
-          <h2 class="rd-h2">More content. Less editing on your team’s plate.</h2>
-        </div>
-        <ul class="premium-steps premium-steps-short premium-gets">
-          <li><h3>Five finished vertical clips</h3><p>Get multiple pieces of short form content from one recording, giving your agency more material to deliver without another filming session.</p></li>
-          <li><h3>Human selected moments</h3><p>We review the footage and choose the segments, saving your team from searching through recordings or preparing timestamps.</p></li>
-          <li><h3>Captions included</h3><p>Your clips arrive with captions, removing another production task before client review.</p></li>
-          <li><h3>Your branding applied</h3><p>We use your supplied brand assets, helping the finished clips stay visually consistent with your client’s content.</p></li>
-          <li><h3>Five hook suggestions</h3><p>Give your team a starting angle for each video instead of writing every opening from scratch.</p></li>
-          <li><h3>One consolidated revision round</h3><p>Correct caption, branding, or timing details before client delivery, keeping the final review focused.</p></li>
-        </ul>
+        <p class="eg-process-assurance">We communicate with the agency only. Finished clips contain no EG Studio watermark or branding; your agency handles end-client delivery.</p>
       </div>
     </section>
 
     <section id="pricing" class="rd-section rd-tone rd-proposal">
+      <span id="what-you-get" class="anchor-alias" aria-hidden="true"></span>
       <div class="rd-container">
         <div class="rd-offer">
           <div class="rd-offer-main">
             <h2 class="rd-h2">Agency Clip Pack</h2>
+            <div class="eg-package-facts" aria-label="Package at a glance"><div><strong>1</strong><span>Recording up to 60 minutes</span></div><div><strong>5</strong><span>Vertical clips up to 60 seconds each</span></div><div><strong>1–3</strong><span>Calendar days for first delivery*</span></div></div>
             <p class="premium-offer-intro">One recording handled. Five clips ready for your team’s review.</p>
+            <div class="rd-price">$199 <span>one time</span></div>
             <p class="premium-offer-intro">One English language recording up to 60 minutes, with up to two synchronized speakers or cameras. Each finished vertical clip is up to 60 seconds.</p>
             <p class="premium-offer-label">Included</p>
             <ul class="rd-includes premium-benefits premium-included-list">
@@ -1507,9 +1498,9 @@ pintrk('page');
               <li>One consolidated correction round: eligible details fixed before handoff</li>
               <li>First delivery in 1–3 calendar days after payment and all required materials are ready; revisions take additional time</li>
             </ul>
-            <div class="rd-price">$199 <span>one time</span></div>
             <a href="https://buy.stripe.com/00wdR27qNc6IfXJ7419EI0f" class="btn btn-primary rd-btn" data-sku="episode" data-placement="pricing_episode">Get 5 Clips for $199</a>
             <p class="rd-fine">No contract. No subscription. No sales call.</p>
+            <p class="eg-process-assurance">*First delivery within 1–3 calendar days once payment clears and the usable recording, brand assets, brief and any requested NDA are ready. Revisions take additional time.</p>
           </div>
         </div>
       </div>
