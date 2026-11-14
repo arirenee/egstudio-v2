@@ -71,7 +71,7 @@ checks = {
   "no unverified numeric star rating": "ratingValue" not in homepage and "5 out of 5" not in homepage,
   "five approved FAQ questions in order": [
       x.split("<span>",1)[1].split("</span>",1)[0]
-      for x in __import__("re").findall(r'<button class="faq-question"[^>]*>[\\s\\S]*?</button>',homepage)
+      for x in __import__("re").findall(r'<button class="faq-question"[^>]*>.*?</button>', homepage, flags=__import__("re").S)
       if "<span>" in x
   ] == [
       "Will EG Studio contact my client?",
