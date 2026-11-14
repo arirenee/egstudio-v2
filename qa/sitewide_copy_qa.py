@@ -11,7 +11,7 @@ import sys
 
 IN_SCOPE = [
     p for p in Path(".").rglob("*.html")
-    if ".git" not in p.parts and "node_modules" not in p.parts
+    if ".git" not in p.parts and "node_modules" not in p.parts and p.name != "google012d8ea661ecb758.html"
 ]
 EXCLUDE_ELEMENTS = {"script", "style", "template"}
 READABLE_ATTRS = {"alt", "aria-label", "title", "placeholder"}
@@ -70,7 +70,8 @@ checks = {
   "two floating process sentences removed": "your agency handles end-client delivery." not in homepage,
   "no unverified numeric star rating": "ratingValue" not in homepage and "5 out of 5" not in homepage,
 }
-ld_scripts = re.findall(r'<script type="application/ld\\+json">([\\s\\S]*?)</script>',homepage)
+ld_marker = '<script type="application/ld+json">'
+ld_scripts = [homepage.split(ld_marker,1)[1].split('</script>',1)[0]] if ld_marker in homepage else []
 if ld_scripts:
     obj=json.loads(ld_scripts[0])
     faq=next((x for x in obj.get("@graph",[]) if x.get("@type") == "FAQPage"),None)
