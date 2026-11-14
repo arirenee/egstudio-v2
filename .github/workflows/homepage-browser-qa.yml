@@ -3,8 +3,9 @@ name: Homepage browser QA (no deploy)
 on:
   pull_request:
     paths:
-      - index.html
+      - '**/*.html'
       - assets/css/visual-first-home.css
+      - qa/sitewide_copy_qa.py
       - qa/home_visual_qa.py
       - qa/webkit_mobile_qa.py
       - .github/workflows/homepage-browser-qa.yml
@@ -21,6 +22,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Audit sitewide visible copy and approved FAQ
+        run: python qa/sitewide_copy_qa.py
       - name: Install headless browser
         run: |
           python -m pip install playwright==1.58.0
