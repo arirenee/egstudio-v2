@@ -6,6 +6,8 @@ on:
       - '**/*.html'
       - assets/css/visual-first-home.css
       - qa/sitewide_copy_qa.py
+      - qa/final_mobile_polish_qa.py
+      - assets/samples/*-thumb.jpg
       - qa/home_visual_qa.py
       - qa/webkit_mobile_qa.py
       - .github/workflows/homepage-browser-qa.yml
@@ -37,6 +39,8 @@ jobs:
         run: python qa/home_visual_qa.py
       - name: Run WebKit mobile QA
         run: python qa/webkit_mobile_qa.py
+      - name: Verify final mobile hero, FAQ and real video thumbnails
+        run: python qa/final_mobile_polish_qa.py
       - name: Save screenshots and QA report
         if: always()
         uses: actions/upload-artifact@v4

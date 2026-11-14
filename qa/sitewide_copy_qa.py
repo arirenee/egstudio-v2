@@ -69,6 +69,25 @@ checks = {
   "approved client protection answer": client_answer in homepage,
   "two floating process sentences removed": "your agency handles end-client delivery." not in homepage,
   "no unverified numeric star rating": "ratingValue" not in homepage and "5 out of 5" not in homepage,
+  "five approved FAQ questions in order": [
+      x.split("<span>",1)[1].split("</span>",1)[0]
+      for x in __import__("re").findall(r'<button class="faq-question"[^>]*>.*?</button>', homepage, flags=__import__("re").S)
+      if "<span>" in x
+  ] == [
+      "Will EG Studio contact my client?",
+      "Do we need to select the clips ourselves?",
+      "What exactly do we receive for $199?",
+      "What happens after payment?",
+      "How quickly will our clips be ready?",
+  ],
+  "removed recordings FAQ": "What recordings qualify?" not in homepage,
+  "eligibility terms kept in pricing": all(x in homepage for x in (
+      "up to two synchronized speakers or cameras",
+      "Not included: filming, posting, full episode editing, complex custom animation, or native project files.",
+  )),
+  "real video poster references": all(f"{name}-thumb.jpg" in homepage for name in
+      ("sample-process","sample-panel","sample-saas-founder")),
+  "no overlay sample labels": "data-preview-label=" not in homepage,
 }
 ld_marker = '<script type="application/ld+json">'
 ld_scripts = [homepage.split(ld_marker,1)[1].split('</script>',1)[0]] if ld_marker in homepage else []
@@ -78,6 +97,13 @@ if ld_scripts:
     question_map = {x["name"]:x["acceptedAnswer"]["text"] for x in faq.get("mainEntity",[])} if faq else {}
     checks["structured FAQ matches exact delivery answer"]=question_map.get(expected_question)==expected_answer
     checks["structured FAQ matches client answer"]=question_map.get("Will EG Studio contact my client?")==client_answer
+    checks["structured FAQ exactly five approved questions"]=list(question_map)==[
+        "Will EG Studio contact my client?",
+        "Do we need to select the clips ourselves?",
+        "What exactly do we receive for $199?",
+        "What happens after payment?",
+        "How quickly will our clips be ready?",
+    ]
 else:
     checks["structured FAQ present"]=False
 report={"htmlPages":len(IN_SCOPE),"totalVisibleHyphens":len(all_issues),"issues":all_issues,"copyAssertions":checks}
