@@ -75,12 +75,13 @@ with sync_playwright() as p:
                       pseudoDisplay:pseudo.display,pseudoContent:pseudo.content,
                       questions:[...document.querySelectorAll('.eg-buyers-faq .faq-question span:first-child')].map(x=>x.textContent.trim()),
                       posterScores:scores,labels:[...document.querySelectorAll('[data-preview-label]')].length,
-                      excludes:document.querySelector('#pricing')?.innerText.includes('Not included: filming, posting, full episode editing')
+                      markedCopyAbsent:!document.querySelector('#pricing')?.innerText.includes('Not included: filming, posting, full episode editing') &&
+                        !document.querySelector('#pricing')?.innerText.includes('One eligible English language recording, with up to two synchronized speakers or cameras.')
                     };
                 }""")
                 record(audit["scrollWidth"]<=width+2,f"No horizontal overflow: {key}",audit["scrollWidth"])
                 record(audit["questions"]==QUESTIONS,f"Five FAQ questions in approved order: {key}",audit["questions"])
-                record(audit["excludes"],f"Eligibility and exclusions remain in pricing: {key}")
+                record(audit["markedCopyAbsent"],f"Marked pricing paragraphs absent: {key}")
                 record(audit["labels"]==0,f"No duplicate overlaid video labels: {key}")
                 # WebKit may return a zero-filled canvas for an offscreen image even after
                 # the image loads; its screenshot verifies the actual rendering instead.
