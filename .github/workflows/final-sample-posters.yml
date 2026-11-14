@@ -6,6 +6,7 @@ on:
       - design/final-mobile-polish-20261113
     paths:
       - .github/workflows/final-sample-posters.yml
+      - qa/build_sample_posters.py
 
 permissions:
   contents: write
