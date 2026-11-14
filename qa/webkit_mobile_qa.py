@@ -58,6 +58,15 @@ with sync_playwright() as p:
             record(len(dest)>=4 and all((x.scheme,x.netloc,x.path)==(base.scheme,base.netloc,base.path) for x in dest),
                    f"Stripe product URL preserved: {label}",metrics["allLinks"])
             if width==390 and scheme=="light":
+                # Buyer objection FAQ opens with client-protection answer.
+                first = page.locator("#faq-q1")
+                second = page.locator("#faq-q2")
+                record(first.get_attribute("aria-expanded") == "true" and page.locator("#faq-a1").is_visible(),
+                       "Client protection FAQ is open initially")
+                second.click()
+                record(second.get_attribute("aria-expanded") == "true" and page.locator("#faq-a2").is_visible()
+                       and first.get_attribute("aria-expanded") == "false" and not page.locator("#faq-a1").is_visible(),
+                       "FAQ accordion switches answers correctly")
                 page.evaluate("""() => {
                     window.__played=[];
                     document.querySelectorAll("video.rd-player").forEach((v,i)=>
