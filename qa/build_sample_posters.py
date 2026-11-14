@@ -17,7 +17,7 @@ ROOT = Path("assets/samples")
 REVIEW = Path("qa-artifacts/poster-candidates")
 REVIEW.mkdir(parents=True, exist_ok=True)
 FRACS = (0.08, 0.14, 0.22, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.88)
-RESULTS = []
+results = []
 
 
 def run(command: list[str]) -> str:
