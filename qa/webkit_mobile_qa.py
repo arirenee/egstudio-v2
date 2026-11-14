@@ -36,6 +36,7 @@ with sync_playwright() as p:
             page.goto(BASE,wait_until="domcontentloaded",timeout=30000)
             page.wait_for_selector(".eg-visual-hero .eg-hero-sample",timeout=15000)
             page.evaluate("() => document.fonts.ready")
+            page.wait_for_function("() => [...document.querySelectorAll('.rd-play img')].every(i => i.complete && i.naturalWidth > 0)",timeout=15000)
             page.screenshot(path=str(OUT/f"webkit-iphone-{width}-{scheme}.png"),full_page=True,animations="disabled")
             metrics=page.evaluate("""() => {
               const rect=s=>{const e=document.querySelector(s);if(!e)return null;const r=e.getBoundingClientRect();
