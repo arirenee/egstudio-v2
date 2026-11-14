@@ -36,6 +36,7 @@ with sync_playwright() as p:
             page.goto(BASE,wait_until="domcontentloaded",timeout=30000)
             page.wait_for_selector(".eg-visual-hero .eg-hero-sample",timeout=15000)
             page.evaluate("() => document.fonts.ready")
+            page.wait_for_function("() => [...document.querySelectorAll('.rd-play img')].every(i => i.complete && i.naturalWidth > 0)",timeout=15000)
             page.screenshot(path=str(OUT/f"webkit-iphone-{width}-{scheme}.png"),full_page=True,animations="disabled")
             metrics=page.evaluate("""() => {
               const rect=s=>{const e=document.querySelector(s);if(!e)return null;const r=e.getBoundingClientRect();
@@ -57,6 +58,15 @@ with sync_playwright() as p:
             record(len(dest)>=4 and all((x.scheme,x.netloc,x.path)==(base.scheme,base.netloc,base.path) for x in dest),
                    f"Stripe product URL preserved: {label}",metrics["allLinks"])
             if width==390 and scheme=="light":
+                # Buyer objection FAQ opens with client-protection answer.
+                first = page.locator("#faq-q1")
+                second = page.locator("#faq-q2")
+                record(first.get_attribute("aria-expanded") == "true" and page.locator("#faq-a1").is_visible(),
+                       "Client protection FAQ is open initially")
+                second.click()
+                record(second.get_attribute("aria-expanded") == "true" and page.locator("#faq-a2").is_visible()
+                       and first.get_attribute("aria-expanded") == "false" and not page.locator("#faq-a1").is_visible(),
+                       "FAQ accordion switches answers correctly")
                 page.evaluate("""() => {
                     window.__played=[];
                     document.querySelectorAll("video.rd-player").forEach((v,i)=>
