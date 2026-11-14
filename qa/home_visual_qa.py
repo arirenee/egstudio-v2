@@ -54,6 +54,7 @@ with sync_playwright() as p:
                 page.evaluate("() => document.fonts.ready")
             except Exception:
                 pass
+            page.wait_for_function("() => [...document.querySelectorAll('.rd-play img')].every(i => i.complete && i.naturalWidth > 0)", timeout=15000)
             page.screenshot(path=str(OUT / f"homepage-{width}-{mode}.png"), full_page=True, animations="disabled")
             page.locator(".eg-visual-hero").screenshot(path=str(OUT / f"hero-{width}-{mode}.png"), animations="disabled")
 
