@@ -81,10 +81,9 @@ checks = {
       "How quickly will our clips be ready?",
   ],
   "removed recordings FAQ": "What recordings qualify?" not in homepage,
-  "eligibility terms kept in pricing": all(x in homepage for x in (
-      "up to two synchronized speakers or cameras",
-      "Not included: filming, posting, full episode editing, complex custom animation, or native project files.",
-  )),
+  "marked pricing intro removed": "One eligible English language recording, with up to two synchronized speakers or cameras. Five finished clips for your agency to review and deliver." not in homepage,
+  "marked exclusions removed": "Not included: filming, posting, full episode editing, complex custom animation, or native project files." not in homepage,
+  "approved received wording": "brief and any requested NDA are received. Revisions take an additional day." in homepage,
   "real video poster references": all(f"{name}-thumb.jpg" in homepage for name in
       ("sample-process","sample-panel","sample-saas-founder")),
   "no overlay sample labels": "data-preview-label=" not in homepage,
