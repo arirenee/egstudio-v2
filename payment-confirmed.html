@@ -89,7 +89,7 @@ pintrk('page');
 <ol class="steps" id="next-steps" aria-label="What happens next" hidden>
   <li>Upload the recording and your logo or brand assets to the folder “01 Recording and branding”. No timestamps required.</li>
   <li>Complete the quick project brief below.</li>
-  <li>We’ll confirm everything is ready before editing begins.</li>
+  <li>Your 1–3 calendar days start once payment clears and we have your usable recording, brand assets, brief and any requested NDA. Download the finished folder and share your agency’s own copy.</li>
   <li>Your five finished clips are returned to “02 Finished clips” in the same workspace for review and delivery.</li>
 </ol>
 
@@ -97,9 +97,25 @@ pintrk('page');
 
 <form id="intake-form" novalidate hidden>
   <div id="agency-optional-fields">
+    <p id="order-contact"></p>
+    <div class="field"><label for="agency">Agency name</label><input id="agency" data-brief="Agency name" maxlength="60" required></div>
+    <div class="field"><label for="contact">Primary contact</label><input id="contact" data-brief="Primary contact" maxlength="60" required></div>
+    <div class="field"><label for="project">Client or project identifier</label><input id="project" data-brief="Client or project identifier" maxlength="100" required></div>
+    <div class="field"><label for="folder">Desired delivery-folder name (optional)</label><input id="folder" data-brief="Desired delivery-folder name" maxlength="65"></div>
+    <div class="field"><label for="audience">Intended audience</label><input id="audience" data-brief="Intended audience" maxlength="80" required></div>
+    <div class="field"><label for="topic">Main topic</label><input id="topic" data-brief="Main topic" maxlength="100" required></div>
+    <div class="field"><label for="colors">Brand colors (if specified)</label><input id="colors" data-brief="Brand colors" maxlength="60"></div>
+    <div class="field"><label for="font">Preferred font (if available)</label><input id="font" data-brief="Preferred font" maxlength="40"></div>
+    <div class="field"><label for="logo">Logo placement (if relevant)</label><input id="logo" data-brief="Logo placement" maxlength="50"></div>
+    <div class="field"><label for="avoid">Subjects or sections to avoid (optional)</label><input id="avoid" data-brief="Subjects or sections to avoid" maxlength="100"></div>
+    <div class="field"><label for="spell">Names, companies and terms to spell exactly (optional)</label><input id="spell" data-brief="Names, companies and terms to spell exactly" maxlength="120"></div>
+    <div class="field"><label for="recording">Private recording link (optional if uploading)</label><input id="recording" type="url"><p class="helper">Upload into “01 Recording and branding” or give ops@egstudio.tech direct access to your recording. Keep general access restricted. Upload your logo there if it should appear.</p></div>
     <div class="field"><label for="brand_assets_url">Brand assets link (optional)</label><input id="brand_assets_url" type="url" inputmode="url" placeholder="https://..."><p class="helper">Only if your logo or brand guidelines live somewhere else. Otherwise upload them to your private project link.</p></div>
     <div class="field"><label for="style_reference_url">Style reference link (optional)</label><input id="style_reference_url" type="url" inputmode="url" placeholder="https://..."></div>
-    <div class="field"><label for="avoid_notes">Project details (optional)</label><textarea id="avoid_notes" maxlength="1200" placeholder="Names, topics or moments to avoid; caption preferences; anything we should know..."></textarea></div>
+    <div class="field"><label for="avoid_notes">Additional notes (optional; no timestamps needed)</label><textarea id="avoid_notes" maxlength="180" placeholder="Anything else we should know?"></textarea></div>
+    <div class="check"><input id="eligibility" type="checkbox" required><label for="eligibility">One English recording, up to 60 minutes and up to two synchronized speakers or cameras. I have uploaded it or granted direct access without another request.</label></div>
+    <div class="check"><input id="scope" type="checkbox" required><label for="scope">I understand the pack includes one consolidated correction round. Custom animation and advanced graphics are outside the standard scope.</label></div>
+    <p><a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy Policy</a></p>
   </div>
   <div class="check" id="agency-confirmation-field"><input id="agency_confirmed" type="checkbox" required><label for="agency_confirmed">I confirm we have the rights to the recording and brand assets we provide for this project.</label></div>
 
@@ -114,7 +130,7 @@ pintrk('page');
 
 <div id="done" class="done">
   <h2>Brief submitted.</h2>
-  <p>Upload your recording and branding to your private project link if you have not yet. We’ll confirm everything is ready before editing begins.</p>
+  <p>Upload your recording and branding to your private project link if you have not yet. Your 1–3 calendar days start once payment clears and we have your usable recording, brand assets, brief and any requested NDA. Download the finished folder and share your agency’s own copy.</p>
 </div>
 </div></main>
 <footer><div class="wrap">Questions or an NDA? <a href="mailto:ops@egstudio.tech?subject=NDA%20Review%20Request&body=Agency%20Name%3A%0AContact%20Name%3A%0A%0APlease%20send%20NDA%20review%20information.">Email ops@egstudio.tech</a>. <a href="/refund.html">Refund policy</a>.</div></footer>
@@ -182,6 +198,7 @@ pintrk('page');
       state.hidden = true;
       state.dataset.state = "ok";
       if (data.order_label) kicker.textContent = data.order_label;
+      document.getElementById("order-contact").textContent = "Order contact email: " + (data.project_email || "the email used at checkout");
       const isEpisode = data.sku === "episode";
       const projectUrl = typeof data.project_url === "string" && data.project_url.indexOf("https://drive.google.com/") === 0 ? data.project_url : "";
       if (isEpisode && projectUrl) {
@@ -224,6 +241,15 @@ pintrk('page');
     const brandAssets = document.getElementById("brand_assets_url").value.trim();
     const styleReference = document.getElementById("style_reference_url").value.trim();
     const avoidNotes = document.getElementById("avoid_notes").value.trim();
+    const episode = expectedSku === "episode";
+    const recording = document.getElementById("recording").value.trim();
+    if (episode && !form.reportValidity()) return;
+    if (episode && !validHttps(recording, true)) return showMessage("Use a secure recording link.", "error");
+    const details = Array.from(form.querySelectorAll("[data-brief]")).filter(el => el.value.trim()).map(el => el.dataset.brief + ": " + el.value.trim());
+    if (episode) details.push("Eligibility, access and standard scope confirmed.");
+    if (avoidNotes) details.push(avoidNotes);
+    const brief = details.join("\n");
+    if (brief.length > 1200) return showMessage("Shorten the brief by " + (brief.length - 1200) + " characters.", "error");
     if (expectedSku === "episode" && !agencyConfirmed) return showMessage("Confirm you have the rights to the recording and brand assets.", "error");
     if (!validHttps(brandAssets, true) || !validHttps(styleReference, true)) return showMessage("Optional links must start with https://", "error");
 
@@ -241,11 +267,11 @@ pintrk('page');
         body:JSON.stringify({
           session_id:sessionId,
           expected_sku:expectedSku,
-          project_name:"Agency episode",
-          source_url:null,
+          project_name:episode ? document.getElementById("project").value.trim() : "Agency episode",
+          source_url:recording || null,
           brand_assets_url:brandAssets || null,
           style_reference_url:styleReference || null,
-          avoid_notes:avoidNotes || null,
+          avoid_notes:brief || null,
           rights_confirmed:true,
           website:website
         })
